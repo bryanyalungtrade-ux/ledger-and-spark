@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Rate My Feed 📱 | Ledger & Spark</title>
+<meta name="description" content="Rate your Instagram or TikTok feed and get a brutally honest Report Card with a grade, roast, and tips. Free, no catch.">
+<meta property="og:title" content="Rate My Feed — Get Your Feed Report Card">
+<meta property="og:description" content="Rate your feed in 30 seconds. Get roasted. Get tips. Free tool from Ledger & Spark.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #FAFBFE;
+  --bg-alt: #F1F5F9;
+  --blue: #3B82F6;
+  --blue-light: #60A5FA;
+  --blue-pale: #DBEAFE;
+  --blue-glow: rgba(59, 130, 246, 0.15);
+  --green: #22C55E;
+  --green-bg: #DCFCE7;
+  --yellow: #EAB308;
+  --yellow-bg: #FEF9C3;
+  --orange: #F97316;
+  --orange-bg: #FED7AA;
+  --red: #EF4444;
+  --red-bg: #FEE2E2;
+  --text: #1E293B;
+  --text-mid: #475569;
+  --text-light: #94A3B8;
+  --white: #FFFFFF;
+  --radius: 16px;
+  --radius-sm: 12px;
+}
+
+html { font-size: 16px; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Layout ── */
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* ── Header ── */
+.header {
+  text-align: center;
+  padding: 20px 20px 0;
+}
+.header a {
+  text-decoration: none;
+}
+.header .brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.header .tagline {
+  font-size: 0.7rem;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+/* ── Free Badge ── */
+.free-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--green-bg);
+  color: #15803D;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-top: 12px;
+  letter-spacing: 0.3px;
+}
+
+/* ── Progress Bar ── */
+.progress-wrap {
+  padding: 16px 20px 0;
+  display: none;
+}
+.progress-wrap.visible { display: block; }
+.progress-bar {
+  height: 6px;
+  background: var(--bg-alt);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--blue-light));
+  border-radius: 100px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+.progress-label {
+  font-size: 0.72rem;
+  color: var(--text-light);
+  font-weight: 600;
+  text-align: right;
+  margin-top: 4px;
+}
+
+/* ── Screens ── */
+.screen {
+  flex: 1;
+  display: none;
+  flex-direction: column;
+  padding: 20px;
+  animation: fadeUp 0.35s ease;
+}
+.screen.active { display: flex; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Start Screen ── */
+.start-icon {
+  font-size: 3.5rem;
+  text-align: center;
+  margin: 24px 0 8px;
+}
+.start-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  line-height: 1.1;
+  color: var(--text);
+}
+.start-title span {
+  background: linear-gradient(135deg, var(--blue), var(--blue-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.start-sub {
+  text-align: center;
+  color: var(--text-mid);
+  font-size: 0.95rem;
+  margin: 12px 0 24px;
+  line-height: 1.5;
+}
+.start-pills {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.start-pill {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  background: var(--blue-pale);
+  color: var(--blue);
+  border-radius: 100px;
+}
+
+/* ── Platform Pick ── */
+.platform-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  text-align: center;
+  margin: 20px 0 6px;
+}
+.platform-sub {
+  text-align: center;
+  color: var(--text-mid);
+  font-size: 0.85rem;
+  margin-bottom: 24px;
+}
+.platform-options {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+.platform-btn {
+  flex: 1;
+  max-width: 180px;
+  background: var(--white);
+  border: 2px solid var(--bg-alt);
+  border-radius: var(--radius);
+  padding: 24px 16px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+.platform-btn:hover {
+  border-color: var(--blue);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(59,130,246,0.12);
+}
+.platform-btn .icon {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+.platform-btn .name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+/* ── Question Screen ── */
+.q-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  margin-top: 12px;
+}
+.q-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.answer-btn {
+  background: var(--white);
+  border: 2px solid var(--bg-alt);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  transition: all 0.2s ease;
+  line-height: 1.35;
+}
+.answer-btn:hover {
+  border-color: var(--blue-light);
+  background: var(--blue-pale);
+}
+.answer-btn:active {
+  transform: scale(0.98);
+}
+.answer-btn.selected {
+  border-color: var(--blue);
+  background: var(--blue-pale);
+  color: var(--blue);
+  font-weight: 600;
+}
+
+/* ── Results ── */
+.result-screen { align-items: center; }
+
+.report-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 28px 24px;
+  width: 100%;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  border: 1px solid var(--bg-alt);
+  margin: 12px 0 0;
+}
+.report-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.report-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+.report-platform {
+  font-size: 0.8rem;
+  color: var(--text-mid);
+  margin-bottom: 12px;
+}
+
+.grade-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 8px;
+  border: 4px solid;
+}
+.grade-letter {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.grade-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 4px;
+}
+.grade-emoji {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* Grade colors */
+.grade-a-plus .grade-circle,
+.grade-a .grade-circle { border-color: var(--green); background: var(--green-bg); }
+.grade-a-plus .grade-letter,
+.grade-a .grade-letter,
+.grade-a-plus .grade-label,
+.grade-a .grade-label { color: #15803D; }
+
+.grade-b .grade-circle { border-color: var(--blue); background: var(--blue-pale); }
+.grade-b .grade-letter,
+.grade-b .grade-label { color: var(--blue); }
+
+.grade-c .grade-circle { border-color: var(--yellow); background: var(--yellow-bg); }
+.grade-c .grade-letter,
+.grade-c .grade-label { color: #A16207; }
+
+.grade-d .grade-circle { border-color: var(--orange); background: var(--orange-bg); }
+.grade-d .grade-letter,
+.grade-d .grade-label { color: #C2410C; }
+
+.grade-f .grade-circle { border-color: var(--red); background: var(--red-bg); }
+.grade-f .grade-letter,
+.grade-f .grade-label { color: var(--red); }
+
+/* Roast section */
+.roast-section {
+  background: var(--bg-alt);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin: 20px 0;
+  text-align: center;
+}
+.roast-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+.roast-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+/* Fixes section */
+.fixes-section { margin: 4px 0 0; }
+.fixes-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--blue);
+  margin-bottom: 12px;
+}
+.fix-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.fix-num {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  background: var(--blue-pale);
+  color: var(--blue);
+  font-size: 0.72rem;
+  font-weight: 800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fix-text {
+  font-size: 0.88rem;
+  color: var(--text-mid);
+  line-height: 1.4;
+}
+
+/* ── Buttons ── */
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--blue), var(--blue-light));
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(59,130,246,0.3);
+}
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-secondary {
+  width: 100%;
+  padding: 14px;
+  background: var(--white);
+  color: var(--blue);
+  border: 2px solid var(--blue-pale);
+  border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+.btn-secondary:hover {
+  background: var(--blue-pale);
+}
+
+.btn-group {
+  width: 100%;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Share toast */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--text);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 100;
+  white-space: nowrap;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: auto;
+}
+.footer-trust {
+  font-size: 0.72rem;
+  color: var(--text-light);
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+.footer-link {
+  font-size: 0.7rem;
+  color: var(--blue);
+  text-decoration: none;
+}
+.footer-back {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.72rem;
+  color: var(--text-light);
+  text-decoration: none;
+}
+.footer-back:hover { color: var(--blue); }
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Header -->
+  <header class="header">
+    <a href="../../index.html">
+      <div class="brand">Ledger & Spark</div>
+    </a>
+    <div class="tagline">Free tools. No catch. Built because you asked.</div>
+    <div class="free-badge">&#10003; 100% Free</div>
+  </header>
+
+  <!-- Progress bar -->
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel"></div>
+  </div>
+
+  <!-- Screen: Start -->
+  <div class="screen active" id="screenStart">
+    <div class="start-icon">&#128241;</div>
+    <h1 class="start-title">Rate My <span>Feed</span></h1>
+    <p class="start-sub">Get a brutally honest report card for your feed. Grade, roast, and tips in 30 seconds. ngl it might hurt.</p>
+    <div class="start-pills">
+      <span class="start-pill">&#9201; 30 seconds</span>
+      <span class="start-pill">&#128293; Free roast</span>
+      <span class="start-pill">&#127891; Get your grade</span>
+    </div>
+    <button class="btn-primary" onclick="showPlatform()">Rate My Feed &#8594;</button>
+  </div>
+
+  <!-- Screen: Platform Pick -->
+  <div class="screen" id="screenPlatform">
+    <div class="platform-title">Pick your platform</div>
+    <div class="platform-sub">Which feed are we judging rn?</div>
+    <div class="platform-options">
+      <div class="platform-btn" onclick="pickPlatform('Instagram')">
+        <div class="icon">&#128247;</div>
+        <div class="name">Instagram</div>
+      </div>
+      <div class="platform-btn" onclick="pickPlatform('TikTok')">
+        <div class="icon">&#127909;</div>
+        <div class="name">TikTok</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen: Question (reused) -->
+  <div class="screen" id="screenQuestion">
+    <div class="q-label" id="qLabel"></div>
+    <div class="q-text" id="qText"></div>
+    <div class="answers" id="answersWrap"></div>
+  </div>
+
+  <!-- Screen: Results -->
+  <div class="screen result-screen" id="screenResult">
+    <div class="report-card" id="reportCard">
+      <div class="report-header">
+        <div class="report-label">Your Feed Report Card</div>
+        <div class="report-platform" id="resultPlatform"></div>
+      </div>
+      <div id="gradeBlock">
+        <div class="grade-circle">
+          <span class="grade-letter" id="gradeLetter"></span>
+        </div>
+        <div class="grade-label" id="gradeLabel"></div>
+        <div class="grade-emoji" id="gradeEmoji"></div>
+      </div>
+      <div class="roast-section">
+        <div class="roast-label">&#128293; The Roast</div>
+        <div class="roast-text" id="roastText"></div>
+      </div>
+      <div class="fixes-section">
+        <div class="fixes-label">&#9889; 3 Quick Fixes</div>
+        <div id="fixesList"></div>
+      </div>
+    </div>
+    <div class="btn-group">
+      <button class="btn-primary" onclick="shareResult()">Share My Grade &#128279;</button>
+      <button class="btn-secondary" onclick="restart()">Try Again</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-trust">We make money from sponsors, not from you.<br>That's why everything is free.</div>
+    <a class="footer-link" href="mailto:ledgerandspark@gmail.com">ledgerandspark@gmail.com</a>
+    <br>
+    <a class="footer-back" href="../../index.html">&larr; Back to all tools</a>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">Copied to clipboard!</div>
+
+<script>
+/* ── Quiz Data ── */
+const questions = [
+  {
+    key: 'posting',
+    text: 'How often do you post?',
+    answers: [
+      { text: 'Every day', grade: 5 },
+      { text: 'Few times a week', grade: 4 },
+      { text: 'Once a week', grade: 3 },
+      { text: 'My last post was... a while ago', grade: 1 }
+    ]
+  },
+  {
+    key: 'look',
+    text: 'Do your photos/videos have a consistent look?',
+    answers: [
+      { text: 'Everything matches perfectly', grade: 5 },
+      { text: 'Mostly consistent', grade: 4 },
+      { text: "I try but it's random", grade: 3 },
+      { text: 'My feed is a crime scene', grade: 1 }
+    ]
+  },
+  {
+    key: 'captions',
+    text: 'How are your captions?',
+    answers: [
+      { text: 'Storytelling with a hook', grade: 5 },
+      { text: 'Short and fun', grade: 4 },
+      { text: 'Just emojis', grade: 3 },
+      { text: '"."', grade: 1 }
+    ]
+  },
+  {
+    key: 'trends',
+    text: 'Do you use trending sounds/audio?',
+    answers: [
+      { text: 'Always on top of trends', grade: 5 },
+      { text: 'Usually', grade: 4 },
+      { text: 'Sometimes', grade: 3 },
+      { text: 'I post in silence', grade: 1 }
+    ]
+  },
+  {
+    key: 'engage',
+    text: 'How do you engage with your audience?',
+    answers: [
+      { text: 'Reply to every comment + DMs', grade: 5 },
+      { text: 'Reply to most comments', grade: 4 },
+      { text: "Like comments but don't reply", grade: 3 },
+      { text: 'Comments? What comments?', grade: 1 }
+    ]
+  }
+];
+
+const roasts = {
+  posting: "You post less often than my grandma and she doesn't have wifi",
+  look: "Your feed looks like 14 different people run your account",
+  captions: "Your captions have the personality of a math textbook",
+  trends: "You're posting like it's 2019. The algorithm doesn't know you exist",
+  engage: "You ghost your own followers harder than a bad Hinge date"
+};
+
+const fixes = {
+  posting: "Post at least 4x a week \u2014 the algorithm rewards consistency",
+  look: "Pick 3 colors and stick to them. That's literally it.",
+  captions: "Start every caption with a hook. 'The reason I...' works every time",
+  trends: "Use trending sounds on at least half your posts",
+  engage: "Spend 15 min/day replying to comments. The algorithm LOVES this"
+};
+
+const gradeInfo = {
+  'A+': { css: 'grade-a-plus', label: "Your feed is giving main character energy", emoji: "\u2728" },
+  'A':  { css: 'grade-a',      label: "Your feed is giving main character energy", emoji: "\u2728" },
+  'B':  { css: 'grade-b',      label: "Decent. You're not embarrassing yourself", emoji: "\uD83D\uDC4D" },
+  'C':  { css: 'grade-c',      label: "Mid feed energy. We can fix this", emoji: "\uD83D\uDEE0\uFE0F" },
+  'D':  { css: 'grade-d',      label: "Your feed needs CPR", emoji: "\uD83C\uDFE5" },
+  'F':  { css: 'grade-f',      label: "Delete the app and start over", emoji: "\uD83D\uDC80" }
+};
+
+/* ── State ── */
+let platform = '';
+let currentQ = 0;
+let scores = {};
+
+/* ── Navigation ── */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById(id);
+  // Re-trigger animation
+  el.style.animation = 'none';
+  el.offsetHeight; // reflow
+  el.style.animation = '';
+  el.classList.add('active');
+}
+
+function showPlatform() {
+  showScreen('screenPlatform');
+}
+
+function pickPlatform(p) {
+  platform = p;
+  currentQ = 0;
+  scores = {};
+  document.getElementById('progressWrap').classList.add('visible');
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = questions[currentQ];
+  const total = questions.length;
+  document.getElementById('progressFill').style.width = ((currentQ) / total * 100) + '%';
+  document.getElementById('progressLabel').textContent = (currentQ + 1) + '/' + total;
+  document.getElementById('qLabel').textContent = 'Question ' + (currentQ + 1) + ' of ' + total;
+  document.getElementById('qText').textContent = q.text;
+
+  const wrap = document.getElementById('answersWrap');
+  wrap.innerHTML = '';
+  q.answers.forEach((a, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'answer-btn';
+    btn.textContent = a.text;
+    btn.onclick = () => pickAnswer(q.key, a.grade, btn);
+    wrap.appendChild(btn);
+  });
+
+  showScreen('screenQuestion');
+}
+
+function pickAnswer(key, grade, btn) {
+  scores[key] = grade;
+  // Brief visual feedback
+  btn.classList.add('selected');
+  setTimeout(() => {
+    currentQ++;
+    if (currentQ < questions.length) {
+      showQuestion();
+    } else {
+      document.getElementById('progressFill').style.width = '100%';
+      setTimeout(() => {
+        document.getElementById('progressWrap').classList.remove('visible');
+        showResults();
+      }, 300);
+    }
+  }, 250);
+}
+
+/* ── Results ── */
+function showResults() {
+  const total = Object.values(scores).reduce((a, b) => a + b, 0);
+  const avg = total / questions.length;
+
+  let gradeLetter;
+  if (avg >= 4.8) gradeLetter = 'A+';
+  else if (avg >= 3.8) gradeLetter = 'A';
+  else if (avg >= 2.8) gradeLetter = 'B';
+  else if (avg >= 2.0) gradeLetter = 'C';
+  else if (avg >= 1.4) gradeLetter = 'D';
+  else gradeLetter = 'F';
+
+  const info = gradeInfo[gradeLetter];
+
+  // Set grade
+  const gradeBlock = document.getElementById('gradeBlock');
+  gradeBlock.className = info.css;
+  document.getElementById('gradeLetter').textContent = gradeLetter;
+  document.getElementById('gradeLabel').textContent = info.label;
+  document.getElementById('gradeEmoji').textContent = info.emoji;
+  document.getElementById('resultPlatform').textContent = platform + ' Feed';
+
+  // Find weakest areas (sorted lowest first)
+  const sorted = Object.entries(scores).sort((a, b) => a[1] - b[1]);
+  const weakest = sorted[0][0];
+
+  // Roast based on weakest area
+  document.getElementById('roastText').textContent = roasts[weakest];
+
+  // 3 fixes from 3 weakest areas
+  const fixesList = document.getElementById('fixesList');
+  fixesList.innerHTML = '';
+  const topFixes = sorted.slice(0, 3);
+  topFixes.forEach((entry, i) => {
+    const div = document.createElement('div');
+    div.className = 'fix-item';
+    div.innerHTML = '<div class="fix-num">' + (i + 1) + '</div><div class="fix-text">' + fixes[entry[0]] + '</div>';
+    fixesList.appendChild(div);
+  });
+
+  showScreen('screenResult');
+}
+
+/* ── Share ── */
+function shareResult() {
+  const grade = document.getElementById('gradeLetter').textContent;
+  const label = document.getElementById('gradeLabel').textContent;
+  const roast = document.getElementById('roastText').textContent;
+
+  const text = [
+    '\uD83D\uDCF1 My ' + platform + ' Feed Report Card',
+    '',
+    '\uD83C\uDF93 Grade: ' + grade,
+    '\uD83D\uDCAC ' + label,
+    '',
+    '\uD83D\uDD25 Roast: "' + roast + '"',
+    '',
+    'Get yours free \u2014 Ledger & Spark',
+    'ledgerandspark.com'
+  ].join('\n');
+
+  if (navigator.share) {
+    navigator.share({ text: text }).catch(() => copyToClip(text));
+  } else {
+    copyToClip(text);
+  }
+}
+
+function copyToClip(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('Copied! Now paste it in your story');
+  }).catch(() => {
+    showToast('Copied!');
+  });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function restart() {
+  platform = '';
+  currentQ = 0;
+  scores = {};
+  document.getElementById('progressWrap').classList.remove('visible');
+  showScreen('screenStart');
+}
+</script>
+
+</body>
+</html>

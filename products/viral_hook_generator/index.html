@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viral Hook Generator — Free TikTok & Reels Hooks | Ledger & Spark</title>
+<meta name="description" content="Generate scroll-stopping hooks for TikTok, Reels & Shorts in one tap. 200+ viral hooks across 12 niches. 100% free, no login.">
+<meta property="og:title" content="Viral Hook Generator — Ledger & Spark">
+<meta property="og:description" content="The first 2 seconds decide if your video blows up or dies. Get 5 viral hooks instantly. Free.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FAFBFE;
+  --bg-alt: #F1F5F9;
+  --blue: #3B82F6;
+  --blue-light: #60A5FA;
+  --blue-pale: #DBEAFE;
+  --blue-ghost: #EFF6FF;
+  --text: #1E293B;
+  --text-mid: #475569;
+  --text-light: #94A3B8;
+  --white: #FFFFFF;
+  --green: #10B981;
+  --green-light: #D1FAE5;
+  --orange: #F59E0B;
+  --orange-light: #FEF3C7;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 50px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.header {
+  background: var(--white);
+  border-bottom: 1px solid #E2E8F0;
+  padding: 16px 20px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-brand { font-size: 18px; font-weight: 800; color: var(--text); letter-spacing: -0.3px; }
+.header-brand span { color: var(--blue); }
+.header-tagline { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+
+.hero {
+  text-align: center;
+  padding: 32px 20px 24px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.hero-badge {
+  display: inline-block;
+  background: var(--blue-ghost);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 12px;
+}
+.hero h1 {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.hero p {
+  font-size: 15px;
+  color: var(--text-mid);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #E2E8F0;
+}
+
+.card-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pill-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid #E2E8F0;
+  background: var(--white);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.pill:hover { border-color: var(--blue-light); color: var(--blue); }
+.pill.active {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--blue);
+}
+
+.generate-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  margin-top: 8px;
+}
+.generate-btn:hover { background: #2563EB; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.generate-btn:disabled { background: #CBD5E1; cursor: not-allowed; transform: none; }
+
+.shuffle-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--white);
+  color: var(--blue);
+  border: 2px solid var(--blue);
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  margin-top: 8px;
+  display: none;
+}
+.shuffle-btn:hover { background: var(--blue-ghost); }
+
+.results { display: none; margin-top: 20px; }
+
+.hook-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #E2E8F0;
+  position: relative;
+}
+.hook-number {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue);
+  background: var(--blue-ghost);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.hook-text {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+.hook-why {
+  font-size: 13px;
+  color: var(--text-mid);
+  background: var(--bg-alt);
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.hook-why strong { color: var(--blue); font-weight: 600; }
+.copy-btn {
+  padding: 8px 20px;
+  background: var(--blue-ghost);
+  color: var(--blue);
+  border: none;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.copy-btn:hover { background: var(--blue-pale); }
+.copy-btn.copied { background: var(--green-light); color: var(--green); }
+
+.trust-line {
+  text-align: center;
+  padding: 24px 20px;
+  font-size: 13px;
+  color: var(--text-light);
+}
+.trust-line a { color: var(--blue); text-decoration: none; }
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid #E2E8F0;
+  font-size: 12px;
+  color: var(--text-light);
+}
+.footer a { color: var(--blue); text-decoration: none; }
+
+@media (min-width: 640px) {
+  .hero h1 { font-size: 36px; }
+  .container { max-width: 560px; }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-brand">Ledger & <span>Spark</span></div>
+  <div class="header-tagline">Free tools. No catch. Built because you asked.</div>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">100% Free</div>
+  <h1>Viral Hook Generator</h1>
+  <p>The first 2 seconds decide everything. Get scroll-stopping hooks that actually work.</p>
+</section>
+
+<div class="container">
+  <div class="card">
+    <div class="card-label">Pick your niche</div>
+    <div class="pill-grid" id="nicheGrid">
+      <button class="pill" data-value="lifestyle">Lifestyle</button>
+      <button class="pill" data-value="beauty">Beauty</button>
+      <button class="pill" data-value="food">Food</button>
+      <button class="pill" data-value="comedy">Comedy</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Content type</div>
+    <div class="pill-grid" id="typeGrid">
+      <button class="pill" data-value="storytime">Storytime</button>
+      <button class="pill" data-value="hot_take">Hot Take</button>
+      <button class="pill" data-value="trend">Trend</button>
+    </div>
+  </div>
+
+  <button class="generate-btn" id="generateBtn" disabled>Generate Hooks</button>
+  <button class="shuffle-btn" id="shuffleBtn">Shuffle &mdash; Give Me 5 More</button>
+
+  <div class="results" id="results"></div>
+
+  <div class="trust-line">
+    Free. No catch. Built because you asked.<br>
+    <a href="mailto:ledgerandspark@gmail.com">ledgerandspark@gmail.com</a>
+  </div>
+</div>
+
+<footer class="footer">
+  &copy; 2026 Ledger & Spark. All tools are free.<br>
+  We make money from sponsors, not from you. That's why everything is free.
+</footer>
+
+<script>
+// ── HOOK DATABASE (200+ hooks) ──
+const HOOKS = {
+  beauty: {
+    storytime: [
+      { text: "POV: you finally found a skincare routine that actually works", why: "\"Finally\" creates relief. Viewers who've struggled with skin immediately relate." },
+      { text: "The $8 product that replaced my entire skincare shelf", why: "Specific price + bold claim = instant curiosity. People love saving money." },
+      { text: "My dermatologist said I was doing THIS wrong my whole life", why: "Authority figure + personal mistake = \"what am I doing wrong too?\"" },
+      { text: "I stopped washing my face for a week and here's what happened", why: "Contrarian behavior triggers \"no way\" curiosity. They HAVE to see the result." },
+      { text: "Nobody talks about this side effect of retinol", why: "\"Nobody talks about\" = secret knowledge. Viewers feel they're getting insider info." },
+      { text: "The makeup trick that changed my entire face in 10 seconds", why: "Transformation + specific time frame = irresistible before/after curiosity." },
+      { text: "I asked my followers to rate my skincare routine and they destroyed me", why: "Self-deprecation + audience interaction = relatable entertainment." },
+      { text: "Every beauty creator is lying to you about this one thing", why: "Calling out the industry creates an us-vs-them bond with your audience." }
+    ],
+    tutorial: [
+      { text: "This 3-step routine cleared my skin in 2 weeks", why: "Specific steps + specific timeline = believable and actionable." },
+      { text: "Stop doing your concealer like that. Try this instead.", why: "Direct command + correction creates \"wait, am I doing it wrong?\" anxiety." },
+      { text: "The only 4 products you actually need. Everything else is marketing.", why: "Minimalism + calling out marketing = trust-building authority." },
+      { text: "I spent $2,000 on skincare so you don't have to", why: "Someone else did the expensive research. Viewers get free knowledge." },
+      { text: "Your foundation looks cakey because of this one mistake", why: "Calling out a specific flaw makes viewers self-conscious enough to watch." },
+      { text: "Dermatologists don't want you to know this $5 hack", why: "Gatekeeping narrative + cheap solution = maximum curiosity." }
+    ],
+    hot_take: [
+      { text: "Expensive skincare is a scam and I can prove it", why: "Bold claim + \"I can prove it\" demands they watch for evidence." },
+      { text: "unpopular opinion: your skin doesn't need a 10-step routine", why: "\"Unpopular opinion\" = controversy magnet. People pick sides." },
+      { text: "I'm sorry but if you're still using this product in 2026...", why: "Year-specific + judgment = fear of being behind the trend." },
+      { text: "The beauty industry doesn't want you to have good skin", why: "Conspiracy framing = instant reactions from believers AND debaters." }
+    ],
+    trend: [
+      { text: "This trend actually works and I'm shook", why: "Surprise + validation = viewers want to see what surprised a beauty person." },
+      { text: "I tried the viral [trend] and I wasn't prepared for the results", why: "\"Wasn't prepared\" = unexpected outcome. Must watch to find out." },
+      { text: "Everyone's doing this wrong. Here's the right way.", why: "Correction + exclusivity = \"am I one of the people doing it wrong?\"" }
+    ],
+    ditl: [
+      { text: "A day in my life as someone with actually good skin", why: "Confident claim invites both admiration and skepticism. Both watch." },
+      { text: "My morning routine is embarrassingly simple", why: "\"Embarrassingly\" creates vulnerability. Simplicity appeals to overwhelmed viewers." },
+      { text: "What I actually use vs. what brands pay me to say I use", why: "Radical transparency = instant trust. Viewers love behind-the-curtain content." }
+    ],
+    grwm: [
+      { text: "Get ready with me while I spill what happened yesterday", why: "GRWM + gossip = two hooks in one. Double the reason to stay." },
+      { text: "Doing my makeup for a date with someone who ghosted me once", why: "Messy personal detail = relatable chaos. Viewers want the full story." },
+      { text: "My no-makeup makeup that actually looks like no makeup", why: "Solving a universal frustration = instant value promise." }
+    ],
+    pov: [
+      { text: "POV: your best friend does your makeup and it actually slaps", why: "Wish fulfillment + positive surprise = feel-good shareable content." },
+      { text: "POV: you finally understand what undertones are", why: "Relatable confusion → clarity moment. Educational + funny." },
+      { text: "POV: the Sephora employee sees your cart", why: "Shared embarrassment = instant connection with beauty buyers." }
+    ],
+    review: [
+      { text: "I bought every viral product from TikTok Shop. Most were trash.", why: "\"Most were trash\" = honest filter. Viewers trust you to find the gems." },
+      { text: "This product has 50,000 5-star reviews. Is it actually good?", why: "Questioning popular consensus = contrarian curiosity." },
+      { text: "The worst product I've ever put on my face. Don't buy this.", why: "Negative reviews get MORE comments and shares than positive ones." }
+    ]
+  },
+  fitness: {
+    storytime: [
+      { text: "I worked out every day for a year and this is what nobody tells you", why: "Long commitment + hidden truth = compelling narrative promise." },
+      { text: "My trainer said something that completely changed how I exercise", why: "Authority figure + transformation moment = \"what did they say?\"" },
+      { text: "I was doing squats wrong for 3 years. Here's how I found out.", why: "Long-term mistake = \"am I making this same mistake?\"" },
+      { text: "The gym bro who changed my entire perspective on fitness", why: "Unexpected source of wisdom = curiosity about the lesson." },
+      { text: "I quit the gym for 6 months and here's what I learned", why: "Quitting = controversial in fitness. Viewers expect regret but might get wisdom." }
+    ],
+    tutorial: [
+      { text: "The only 3 exercises you need for visible abs", why: "Minimalism + desired outcome = maximum appeal with minimum effort promise." },
+      { text: "You're doing push-ups wrong. Here's proof.", why: "Direct correction + evidence promise = self-conscious immediate watch." },
+      { text: "This 10-minute workout burns more than an hour of running", why: "Efficiency comparison = time-poor viewers immediately interested." },
+      { text: "Stop stretching before your workout. Here's why.", why: "Contrarian to common advice = \"wait, what? I do that.\"" }
+    ],
+    hot_take: [
+      { text: "Cardio is the worst way to lose weight and I'll die on this hill", why: "Extreme stance + humor = people from all sides jumping in." },
+      { text: "You don't need a gym membership. You need a reality check.", why: "Direct confrontation + tough love = polarizing but magnetic." },
+      { text: "Personal trainers are lying to you to keep you coming back", why: "Industry callout = instant trust with frustrated gym-goers." }
+    ],
+    trend: [
+      { text: "I tried the 75 Hard challenge and almost quit on day 3", why: "Popular challenge + early struggle = relatable vulnerability." },
+      { text: "This viral workout actually destroyed my knees. Be careful.", why: "Warning content = protective instinct keeps viewers watching." }
+    ],
+    ditl: [
+      { text: "What I eat in a day to stay lean without counting calories", why: "Desired result + no tracking = the dream for most fitness viewers." },
+      { text: "My gym routine as someone who hates the gym", why: "Paradox = relatable for the majority who exercise out of obligation." }
+    ],
+    grwm: [
+      { text: "Get ready for the gym with me (the honest version)", why: "\"Honest version\" implies others fake it. Authenticity hook." },
+      { text: "Pre-workout routine that nobody asked for but you need", why: "Self-aware humor + value promise = likeable and useful." }
+    ],
+    pov: [
+      { text: "POV: it's your first day at the gym and everyone's watching", why: "Universal fear = instant emotional connection." },
+      { text: "POV: you finally see progress after 3 months of consistency", why: "Delayed gratification payoff = motivational and shareable." }
+    ],
+    review: [
+      { text: "I tried every protein powder on Amazon. Here's the only one worth buying.", why: "Exhaustive testing + single recommendation = trust and efficiency." },
+      { text: "This $20 piece of equipment replaced my entire gym", why: "Bold replacement claim + budget price = irresistible curiosity." }
+    ]
+  },
+  food: {
+    storytime: [
+      { text: "I need to talk about what happened at this restaurant last night", why: "Mystery + recency = \"what happened?\" curiosity." },
+      { text: "The $3 street food that was better than a $200 dinner", why: "Price comparison + underdog win = satisfying narrative promise." },
+      { text: "My grandma saw me cooking and said something I'll never forget", why: "Grandma authority + emotional weight = heartwarming or brutal honesty curiosity." },
+      { text: "The food that made me cry in public and I'm not embarrassed", why: "Extreme emotional reaction to food = \"it must be THAT good.\"" },
+      { text: "This restaurant has a secret menu and they almost didn't let me order it", why: "Secret + exclusivity + almost denied = triple curiosity stack." }
+    ],
+    tutorial: [
+      { text: "The 2-ingredient meal that tastes like it took 3 hours", why: "Minimal effort + maximum result = the ultimate cooking promise." },
+      { text: "You've been cooking pasta wrong your entire life", why: "Universal food + lifetime mistake = everyone feels called out." },
+      { text: "Restaurant chefs use this trick and never tell you", why: "Professional secrets = instant value perception." },
+      { text: "This one seasoning will change everything you cook", why: "Single solution + universal improvement = must-know information." }
+    ],
+    hot_take: [
+      { text: "Air fryers are overrated and I'm tired of pretending they're not", why: "Attacking a beloved appliance = guaranteed debate in comments." },
+      { text: "Your homemade food is mid because you're afraid of butter", why: "Direct callout + simple fix = entertaining and educational." },
+      { text: "Fancy restaurants are just charging you for the plate", why: "Populist take = massive agreement + fierce pushback. Comment section goldmine." }
+    ],
+    trend: [
+      { text: "I tried the viral [food] recipe and it's actually insane", why: "Trend validation + extreme positive reaction = must-try energy." },
+      { text: "Everyone's making this wrong. Here's the actual recipe.", why: "Correction authority = viewers check if they're doing it wrong too." }
+    ],
+    ditl: [
+      { text: "What I eat in a day for under $10 and it's not ramen", why: "Budget constraint + surprise = practical and shareable." },
+      { text: "Everything I ate in Tokyo for $25 a day", why: "Travel + budget + food = three interests in one hook." }
+    ],
+    grwm: [
+      { text: "Come cook dinner with me (I'm making it up as I go)", why: "Improvisation = unpredictable and relatable. Viewers stay for the outcome." },
+      { text: "Meal prep with me but make it not boring", why: "Acknowledging meal prep is boring = self-aware and different." }
+    ],
+    pov: [
+      { text: "POV: you find a restaurant with zero tourists and a line of locals", why: "Travel dream scenario = aspirational and shareable." },
+      { text: "POV: you open the fridge and actually have ingredients that go together", why: "Relatable struggle reversed = funny and satisfying." }
+    ],
+    review: [
+      { text: "I ate at the highest-rated restaurant in my city. Was it worth it?", why: "Question format + local relevance = curiosity about the verdict." },
+      { text: "Stop sleeping on this $4 gas station food. I'm serious.", why: "Unexpected source + genuine enthusiasm = \"no way, really?\"" }
+    ]
+  },
+  finance: {
+    storytime: [
+      { text: "I was broke 2 years ago. Here's exactly what I changed.", why: "Transformation story + specific timeframe = believable and aspirational." },
+      { text: "The money mistake that cost me $10,000. Don't do this.", why: "Specific loss amount + warning = learn from someone else's pain." },
+      { text: "My bank called me and what they said was actually wild", why: "Authority institution + unexpected info = must-hear conversation." },
+      { text: "Nobody in my family taught me about money. So I taught myself.", why: "Relatable struggle + self-made narrative = inspiring and engaging." }
+    ],
+    tutorial: [
+      { text: "The 50/30/20 rule is wrong. Here's what actually works.", why: "Correcting popular advice = contrarian authority." },
+      { text: "How I save $500 a month without feeling broke", why: "Specific amount + no sacrifice = the dream financial hack." },
+      { text: "3 apps that literally make you money while you sleep", why: "Passive income + specific number = actionable curiosity." },
+      { text: "Your credit score explained in 60 seconds. It's simpler than you think.", why: "Complex topic + time promise + simplification = instant value." }
+    ],
+    hot_take: [
+      { text: "Saving money won't make you rich and here's the math", why: "Attacking conventional wisdom + evidence = people from all sides jumping in." },
+      { text: "College is the worst financial decision most people make", why: "Huge topic + bold claim = massive debate potential." },
+      { text: "If you're not investing in your 20s you're literally burning money", why: "Age-specific urgency = FOMO for the target audience." }
+    ],
+    trend: [
+      { text: "I tried cash stuffing for a month and the results surprised me", why: "Trending method + unexpected results = must-see outcome." },
+      { text: "This money trend is actually dangerous and nobody's talking about it", why: "Warning about popular trend = protective curiosity." }
+    ],
+    ditl: [
+      { text: "How I spend money as a 25-year-old who actually saves", why: "Age-specific + proof of results = relatable aspiration." },
+      { text: "A day in my life but I track every dollar I spend", why: "Radical transparency with money = voyeuristic interest." }
+    ],
+    grwm: [
+      { text: "Get ready with me while I explain how taxes actually work", why: "Casual format + intimidating topic = approachable education." },
+      { text: "Doing my makeup while I tell you the money mistakes I made this month", why: "Vulnerability + current events = real and relatable." }
+    ],
+    pov: [
+      { text: "POV: you check your bank account after actually budgeting for a month", why: "Delayed gratification payoff = motivational satisfaction." },
+      { text: "POV: you finally understand what compound interest means", why: "Aha moment = educational and shareable." }
+    ],
+    review: [
+      { text: "I tried every budgeting app so you don't have to", why: "Exhaustive research + saved effort = instant value." },
+      { text: "The investment app everyone's using is actually terrible. Here's why.", why: "Contrarian review of popular product = protective curiosity." }
+    ]
+  },
+  comedy: {
+    storytime: [
+      { text: "The most unhinged thing that happened to me this week", why: "\"Unhinged\" = promise of chaos. Recency makes it feel fresh." },
+      { text: "I can't believe I have to tell this story but here we go", why: "Reluctant storytelling = must be embarrassing/wild enough to share anyway." },
+      { text: "So my roommate did something that should be illegal", why: "Roommate drama + hyperbole = relatable chaos content." },
+      { text: "This is the story I've been too embarrassed to tell", why: "Shame = vulnerability. Viewers feel privileged to hear it." },
+      { text: "I got caught doing the most embarrassing thing at work today", why: "Workplace cringe = universal fear and schadenfreude." }
+    ],
+    tutorial: [
+      { text: "How to survive a conversation with someone you forgot the name of", why: "Universal embarrassment + practical humor = instant relate." },
+      { text: "A step-by-step guide to pretending you're fine", why: "Dark humor + shared experience = deeply relatable." },
+      { text: "How to look busy at work when you've done absolutely nothing", why: "Universal office experience = guilty laughter." }
+    ],
+    hot_take: [
+      { text: "We need to talk about the weird thing everyone does but nobody admits", why: "Universal secret behavior = \"is it the thing I do?\"" },
+      { text: "I'm sorry but adulting is a scam and nobody warned us", why: "Generational frustration + humor = massive agreement." },
+      { text: "Society peaked in 2014 and I have evidence", why: "Nostalgia + bold claim + humor = engaging debate." }
+    ],
+    trend: [
+      { text: "I tried the trend but made it worse (you're welcome)", why: "Intentional failure = funnier than success. Self-aware humor." },
+      { text: "This trend but make it painfully accurate", why: "\"Painfully accurate\" = relatable humor promise." }
+    ],
+    ditl: [
+      { text: "A day in my life but I narrate it like a nature documentary", why: "Format twist = fresh take on oversaturated content type." },
+      { text: "A brutally honest day in my life (it's not aesthetic)", why: "Anti-aesthetic = refreshing authenticity in a too-perfect world." }
+    ],
+    grwm: [
+      { text: "Get ready with me for absolutely nothing because I'm not leaving the house", why: "Relatable laziness = instant connection with homebodies." },
+      { text: "GRWM while I rant about something that doesn't matter", why: "Self-aware pointlessness = endearing and entertaining." }
+    ],
+    pov: [
+      { text: "POV: you said \"you too\" when the waiter said enjoy your meal", why: "Micro-embarrassment = universally experienced cringe." },
+      { text: "POV: the group chat is planning something and you just want to stay home", why: "Introvert experience = massive relatability." }
+    ],
+    review: [
+      { text: "Rating every excuse I've used to cancel plans", why: "Self-callout humor + universal behavior = guilt-laugh content." },
+      { text: "Reviewing my own life decisions like a disappointed parent", why: "Self-deprecation from authority angle = fresh and funny." }
+    ]
+  },
+  lifestyle: {
+    storytime: [
+      { text: "The habit that changed my life wasn't what I expected", why: "Subverted expectations + personal transformation = curiosity gap." },
+      { text: "I did a social media detox and what I realized was kinda scary", why: "Relatable action + alarming discovery = must-hear insight." },
+      { text: "Moving out at [age] taught me one thing nobody prepares you for", why: "Age milestone + gap in preparation = \"what is it?\" curiosity." },
+      { text: "I said yes to everything for a month. Here's what I'd never do again.", why: "Extreme experiment + regret = entertaining lessons learned." }
+    ],
+    tutorial: [
+      { text: "The morning routine that actually sticks (not the 5 AM nonsense)", why: "Rejecting toxic productivity = refreshing and practical." },
+      { text: "How to make your space look expensive for literally $0", why: "Free + premium result = irresistible value proposition." },
+      { text: "3 things I stopped buying that saved me thousands", why: "Specific number + big savings = actionable curiosity." }
+    ],
+    hot_take: [
+      { text: "Toxic positivity is ruining your life and nobody wants to say it", why: "Attacking feel-good culture = controversial but validating for many." },
+      { text: "You don't need to be productive every second. That's the lie.", why: "Permission to rest = counter-cultural relief." },
+      { text: "Your comfort zone is actually where the magic happens fight me", why: "Contrarian to ALL self-help advice = guaranteed debate." }
+    ],
+    trend: [
+      { text: "I tried the trend everyone's doing and I need to be honest", why: "\"Need to be honest\" = probably negative = must-hear opinion." },
+      { text: "This aesthetic trend is actually healthier than people think", why: "Defense of trend = validates viewers who already do it." }
+    ],
+    ditl: [
+      { text: "A realistic day in my life (no, I don't wake up at 5 AM)", why: "Anti-hustle culture = relatable and refreshing." },
+      { text: "Spend a slow Sunday with me (no plans, no guilt)", why: "Permission + peace = aspirational for stressed viewers." }
+    ],
+    grwm: [
+      { text: "Get ready with me while I process something I realized this week", why: "Emotional processing + routine = intimate and real." },
+      { text: "GRWM for a day that could go really well or really badly", why: "Uncertainty = viewers invest to find out the outcome." }
+    ],
+    pov: [
+      { text: "POV: you finally stopped comparing yourself to people online", why: "Aspirational emotional state = motivational and shareable." },
+      { text: "POV: your screen time report comes in and it's personal", why: "Shared guilt = universally relatable attack." }
+    ],
+    review: [
+      { text: "Rating every life advice I got from TikTok (some was dangerous)", why: "Platform self-awareness + danger warning = meta and protective." },
+      { text: "I tried 10 viral life hacks. Only 2 actually worked.", why: "Honest filter + specific ratio = trust and curiosity about which 2." }
+    ]
+  },
+  gaming: {
+    storytime: [
+      { text: "The most insane thing that just happened in my game", why: "Extreme event + recency = \"what happened?\" urgency." },
+      { text: "I've been gaming for 15 years and this is the moment that broke me", why: "Long experience + breaking point = must-see moment." },
+      { text: "A random player said something that made me quit the match", why: "Social interaction + extreme reaction = \"what did they say?\"" },
+      { text: "I accidentally discovered a glitch that changes everything", why: "Accidental discovery + game-changing = excitement and FOMO." }
+    ],
+    tutorial: [
+      { text: "The setting nobody changes that makes you 2x better", why: "Hidden setting + specific improvement = instant actionable value." },
+      { text: "Stop making this mistake. 90% of players do it.", why: "Majority mistake = \"am I in the 90%?\" self-check." },
+      { text: "The trick pros use that they never talk about", why: "Pro secrets = competitive advantage promise." }
+    ],
+    hot_take: [
+      { text: "This game is overrated and the fanbase knows it", why: "Attacking popular game + implicating fans = nuclear comment section." },
+      { text: "Single player games are better than multiplayer and it's not close", why: "Definitive stance on eternal debate = comment war guaranteed." },
+      { text: "Mobile gaming is real gaming. Stay mad.", why: "Gatekeeping challenge = massive reaction from both sides." }
+    ],
+    trend: [
+      { text: "Everyone's playing this game and I finally understand why", why: "Late adoption + understanding = validates early adopters." },
+      { text: "This viral gaming moment is even crazier than you think", why: "\"Even crazier\" = exceeding already high expectations." }
+    ],
+    ditl: [
+      { text: "A day in my life as a full-time gamer (it's not what you think)", why: "Behind-the-curtain of aspirational career = reality check curiosity." },
+      { text: "My gaming setup tour but I'm honest about what I regret buying", why: "Honesty about purchases = trust and saves viewers money." }
+    ],
+    grwm: [
+      { text: "Get ready for a gaming session with me (snack setup is elite)", why: "Ritual content + flex = aspirational and cozy." },
+      { text: "Setting up for a 12-hour stream while I question my life choices", why: "Self-aware humor about dedication = relatable for gamers." }
+    ],
+    pov: [
+      { text: "POV: you hear your teammate's mom yelling in the background", why: "Universal gaming experience = instant nostalgia and laughter." },
+      { text: "POV: the server crashes right when you're about to win", why: "Shared frustration = rage-relatable content." }
+    ],
+    review: [
+      { text: "I played every free game on Steam. These 5 are actually good.", why: "Exhaustive testing + hand-picked list = massive value for free gamers." },
+      { text: "This $70 game isn't worth $7 and I'll explain why", why: "Price criticism + strong opinion = debate magnet." }
+    ]
+  },
+  fashion: {
+    storytime: [
+      { text: "I wore the same outfit for a week and nobody noticed", why: "Social experiment + surprising result = \"would that work for me?\"" },
+      { text: "The $15 outfit that got me more compliments than my $200 one", why: "Budget win = satisfying underdog story." },
+      { text: "A stranger complimented my outfit and what they said was so specific", why: "Unexpected compliment + specificity = wholesome curiosity." },
+      { text: "I cleaned out my closet and found something I forgot I owned", why: "Discovery + nostalgia = relatable for anyone with a closet." }
+    ],
+    tutorial: [
+      { text: "The color rule that makes every outfit look expensive", why: "Single rule + premium result = simple and high-value." },
+      { text: "Stop wearing this. It's making you look 10 years older.", why: "Age fear + easy fix = immediate attention from fashion-conscious viewers." },
+      { text: "3 pieces every closet needs. That's it. That's the video.", why: "Minimalism + confidence = refreshing in an overconsumption space." }
+    ],
+    hot_take: [
+      { text: "Fast fashion isn't the problem. The real problem is worse.", why: "Deeper issue reveal = intellectual curiosity + controversy." },
+      { text: "Matching your outfit is actually boring. Clash on purpose.", why: "Rule-breaking permission = exciting for experimental dressers." },
+      { text: "Designer clothes are just paying for a logo and everyone knows it", why: "Anti-luxury take = everyone has an opinion on this." }
+    ],
+    trend: [
+      { text: "This fashion trend is coming back and I'm not ready", why: "Trend return + personal reaction = shared anticipation/dread." },
+      { text: "I tried the viral outfit formula and it actually goes hard", why: "Validation of trend = permission for viewers to try it too." }
+    ],
+    ditl: [
+      { text: "A day of outfits from my closet (no new clothes challenge)", why: "Constraint creativity = practical and sustainable." },
+      { text: "What I actually wear vs. what I post on Instagram", why: "Reality vs. perfect feed = authentic and refreshing." }
+    ],
+    grwm: [
+      { text: "Get dressed with me but I only have 5 minutes", why: "Time constraint = practical and relatable for busy people." },
+      { text: "Styling one basic tee 5 different ways while I overthink everything", why: "Practical value + relatable anxiety = useful and funny." }
+    ],
+    pov: [
+      { text: "POV: you finally find jeans that fit on the first try", why: "Universal struggle resolved = satisfying wish fulfillment." },
+      { text: "POV: your outfit matches your energy for once", why: "Alignment feeling = aspirational and shareable." }
+    ],
+    review: [
+      { text: "I ordered from 5 viral brands. Only 1 was worth it.", why: "Honest curation + specific ratio = trust and \"which one?\" curiosity." },
+      { text: "Rating every pair of shoes I own from trash to treasure", why: "Personal collection + ranking = entertaining and opinionated." }
+    ]
+  },
+  tech: {
+    storytime: [
+      { text: "I switched to this app and it saved me 3 hours a day", why: "Specific time savings = measurable value promise." },
+      { text: "The tech mistake that almost cost me everything on my phone", why: "Near-disaster + personal device = protective curiosity." },
+      { text: "I found a hidden feature on my phone and I've had it for 2 years", why: "Hidden feature + existing device = instant applicable value." },
+      { text: "Apple doesn't want you to know about this setting", why: "Big company secrecy narrative = rebellious curiosity." }
+    ],
+    tutorial: [
+      { text: "The iPhone setting you need to turn off right now", why: "Urgency + specific action = people immediately checking their phone." },
+      { text: "3 free apps that replaced $200 worth of subscriptions", why: "Cost savings + specific amount = irresistible for budget-conscious users." },
+      { text: "Stop paying for this. There's a free version that's better.", why: "Money-saving + quality upgrade = double value." },
+      { text: "The keyboard shortcut that will change how you use your computer", why: "Single trick + bold productivity claim = must-learn." }
+    ],
+    hot_take: [
+      { text: "Your phone is listening to you and this is the proof", why: "Conspiracy + evidence promise = everyone freaking out in the comments." },
+      { text: "AI isn't going to take your job. Something worse will.", why: "Redirected fear + \"something worse\" = terrifying curiosity." },
+      { text: "Android is better than iPhone and I switched to prove it", why: "Platform war + personal commitment = iPhone vs Android war in the comments." }
+    ],
+    trend: [
+      { text: "This AI tool is replacing entire teams and it's free", why: "Job threat + free access = urgency and FOMO." },
+      { text: "Everyone's using this app and I finally tried it", why: "Social proof + late adoption = relatable entry point." }
+    ],
+    ditl: [
+      { text: "My entire workflow runs on free tools. Here's my setup.", why: "Free stack + complete system = maximum practical value." },
+      { text: "A day in my life as someone who automates everything", why: "Aspirational efficiency = \"teach me how\" energy." }
+    ],
+    grwm: [
+      { text: "Setting up my new phone while I tell you what apps to delete", why: "Fresh start + purge advice = practical and opinionated." },
+      { text: "Organize my digital life with me (it was chaos)", why: "Before/after organization = satisfying transformation." }
+    ],
+    pov: [
+      { text: "POV: you realize you've been paying for an app that's free now", why: "Wasted money realization = everyone checks their subscriptions." },
+      { text: "POV: your phone storage is full and it's all screenshots", why: "Universal phone problem = instant relatability." }
+    ],
+    review: [
+      { text: "I tested every AI tool so you don't waste your time", why: "Exhaustive testing + time-saving curation = massive value." },
+      { text: "The most overhyped tech product of 2026. Save your money.", why: "Contrarian review + money-saving = protective and engaging." }
+    ]
+  },
+  education: {
+    storytime: [
+      { text: "The study hack that took me from failing to top of my class", why: "Dramatic transformation + academic context = aspirational for students." },
+      { text: "My professor said something on day one that I still think about", why: "Authority wisdom + lasting impact = \"what was it?\" curiosity." },
+      { text: "I learned more from YouTube than 4 years of college", why: "Anti-institution take + personal evidence = relatable for Gen Z." },
+      { text: "The thing I wish someone told me before starting school", why: "Hindsight wisdom = protective advice viewers crave." }
+    ],
+    tutorial: [
+      { text: "Stop highlighting your textbook. Do this instead.", why: "Correcting common behavior + alternative = self-check moment." },
+      { text: "The note-taking method that actually works (not Cornell)", why: "Rejecting famous method + better alternative = contrarian value." },
+      { text: "How to learn anything in half the time (backed by science)", why: "Efficiency + science backing = credible and irresistible." },
+      { text: "3 websites that are better than any college course", why: "Free alternatives to expensive education = massive value." }
+    ],
+    hot_take: [
+      { text: "College degrees are becoming useless and the data proves it", why: "Generational anxiety + evidence promise = comment section goldmine." },
+      { text: "Straight A students aren't the smartest. They're just the most obedient.", why: "Reframing success = validates non-traditional learners." },
+      { text: "The education system is designed to create employees not thinkers", why: "Systemic criticism = deep debate in the comments." }
+    ],
+    trend: [
+      { text: "This study method is going viral and it actually works", why: "Trend validation + effectiveness = worth trying." },
+      { text: "Everyone's using AI to study now and professors are panicking", why: "Conflict between students and authority = drama in the comments." }
+    ],
+    ditl: [
+      { text: "A realistic day as a student (it's not aesthetic study sessions)", why: "Anti-perfect-feed content = refreshing honesty." },
+      { text: "How I balance school, work, and actually having a life", why: "Universal student struggle = relatable and aspirational." }
+    ],
+    grwm: [
+      { text: "Get ready for an exam with me (yes I'm panicking)", why: "Shared exam anxiety = deeply relatable for students." },
+      { text: "Study with me but I'm being honest about my attention span", why: "ADHD-relatable + honest = refreshing study content." }
+    ],
+    pov: [
+      { text: "POV: you understand something in class for the first time all semester", why: "Rare win = celebratory and relatable." },
+      { text: "POV: the group project member finally does their part", why: "Universal frustration resolved = satisfying fantasy." }
+    ],
+    review: [
+      { text: "I tried every study app. Most are useless. These 3 aren't.", why: "Honest curation + harsh filter = trusted recommendations." },
+      { text: "Rating every piece of school advice I got from TikTok", why: "Meta platform review = self-aware and practical." }
+    ]
+  },
+  travel: {
+    storytime: [
+      { text: "The country that completely changed how I see the world", why: "Transformative travel = aspirational and philosophical." },
+      { text: "I got lost in a foreign city and what happened next was unreal", why: "Vulnerability + unexpected outcome = adventure narrative." },
+      { text: "The travel mistake that ruined my entire trip. Learn from me.", why: "Warning from experience = protective and practical." },
+      { text: "I found a flight for $47 and ended up in the most beautiful place", why: "Cheap deal + beautiful destination = \"where?\" curiosity." }
+    ],
+    tutorial: [
+      { text: "How I travel for almost free (not credit card hacking)", why: "Rejecting known method + alternative = fresh strategy." },
+      { text: "The packing hack that changed everything for carry-on only travel", why: "Specific constraint solution = practical for frequent travelers." },
+      { text: "3 apps that save me hundreds on every trip", why: "Specific tools + specific savings = actionable value." },
+      { text: "Stop booking hotels. Here's what smart travelers do instead.", why: "Alternative to default = curiosity about the better option." }
+    ],
+    hot_take: [
+      { text: "The most overrated city in Europe and I'll never go back", why: "Negative review of popular destination = massive debate." },
+      { text: "Solo travel isn't brave. It's just traveling alone. Stop romanticizing it.", why: "Deflating popular narrative = guaranteed controversy." },
+      { text: "Tourist traps that are actually worth visiting (I was wrong about them)", why: "Self-correction + defense of popular spots = refreshing take." }
+    ],
+    trend: [
+      { text: "This destination is about to blow up. Go before everyone else.", why: "Insider tip + urgency = FOMO and exclusivity." },
+      { text: "The viral travel hack that actually saved me $500", why: "Verified viral tip + specific savings = must-know." }
+    ],
+    ditl: [
+      { text: "A day in [city] for under $30 including food", why: "Budget challenge + specific city = practical travel guide." },
+      { text: "What 24 hours in this country actually looks like (raw footage)", why: "Raw/unedited promise = authentic travel content." }
+    ],
+    grwm: [
+      { text: "Pack with me for a week in one carry-on (yes it's possible)", why: "Challenge format + proof = practical and satisfying." },
+      { text: "Get ready for the airport with me at 4 AM", why: "Shared misery of early flights = relatable ritual." }
+    ],
+    pov: [
+      { text: "POV: you step outside your hotel in a new country for the first time", why: "First-moment magic = aspirational wanderlust." },
+      { text: "POV: you realize the tourist version of this place is a lie", why: "Reality check = authentic and eye-opening." }
+    ],
+    review: [
+      { text: "I've been to 30 countries. These are the only 5 I'd go back to.", why: "Extensive experience + selective list = trusted curation." },
+      { text: "Rating every airline I've flown from best to never again", why: "Personal ranking + strong opinions = entertaining and useful." }
+    ]
+  },
+  pets: {
+    storytime: [
+      { text: "My pet did the most dramatic thing today and I caught it on camera", why: "Pet drama + video evidence = guaranteed cute/funny content." },
+      { text: "The vet told me something about my dog that I had no idea about", why: "Authority revelation + pet concern = emotional curiosity." },
+      { text: "I adopted a pet that nobody wanted and look at them now", why: "Rescue transformation = heartwarming narrative." },
+      { text: "My cat woke me up at 3 AM for the most unhinged reason", why: "Cat chaos + specific time = relatable pet parent content." }
+    ],
+    tutorial: [
+      { text: "The trick that made my dog listen in literally 2 days", why: "Quick result + specific timeline = believable and actionable." },
+      { text: "Stop buying this for your pet. The vet says it's actually bad.", why: "Warning + authority backing = protective pet parent attention." },
+      { text: "The $3 toy my cat likes more than the $30 one", why: "Budget win + pet approval = relatable and money-saving." }
+    ],
+    hot_take: [
+      { text: "Your dog doesn't love you. They love food. I'm sorry.", why: "Provocative take on beloved bond = outraged comments." },
+      { text: "Cats are better than dogs and I have a scientific argument", why: "Eternal pet debate + science claim = guaranteed war." },
+      { text: "People who dress up their pets need to hear this", why: "Calling out behavior = defensive reactions = blowing up." }
+    ],
+    trend: [
+      { text: "I tried the viral pet trend and my dog's reaction is everything", why: "Trend + pet reaction = cute content promise." },
+      { text: "This pet product went viral and my cat is obsessed", why: "Product validation through pet behavior = trustworthy review." }
+    ],
+    ditl: [
+      { text: "A day in my life as a pet parent (they run the house)", why: "Relatable power dynamic = funny for all pet owners." },
+      { text: "My morning routine but it's really my pet's morning routine", why: "Twist reveal = funny realization that pets control our schedules." }
+    ],
+    grwm: [
+      { text: "Get ready with me and my pet (they won't leave me alone)", why: "Pet interruption = guaranteed cute moments." },
+      { text: "Trying to film a GRWM but my cat has other plans", why: "Cat chaos during filming = relatable for pet creator community." }
+    ],
+    pov: [
+      { text: "POV: you come home and your pet acts like you've been gone for years", why: "Universal pet greeting = instant serotonin." },
+      { text: "POV: you're trying to work from home but your pet says no", why: "WFH + pet interruption = relatable for remote workers." }
+    ],
+    review: [
+      { text: "I tried every viral pet product. My pet rated them for me.", why: "Pet as reviewer = unique angle + cute content." },
+      { text: "The pet food brands vets actually recommend (not the ones with ads)", why: "Insider knowledge + ad skepticism = trusted information." }
+    ]
+  }
+};
+
+// ── STATE ──
+let selectedNiche = null;
+let selectedType = null;
+let usedCombos = {};
+
+// ── PILL SELECTION ──
+function setupPills(gridId, callback) {
+  const grid = document.getElementById(gridId);
+  grid.addEventListener('click', (e) => {
+    if (!e.target.classList.contains('pill')) return;
+    grid.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    e.target.classList.add('active');
+    callback(e.target.dataset.value);
+    checkReady();
+  });
+}
+
+setupPills('nicheGrid', (v) => { selectedNiche = v; });
+setupPills('typeGrid', (v) => { selectedType = v; });
+
+function checkReady() {
+  document.getElementById('generateBtn').disabled = !(selectedNiche && selectedType);
+}
+
+// ── GENERATE ──
+function getHooks() {
+  const pool = HOOKS[selectedNiche]?.[selectedType];
+  if (!pool || pool.length === 0) return [];
+
+  const key = selectedNiche + '_' + selectedType;
+  if (!usedCombos[key]) usedCombos[key] = [];
+
+  // Get unused hooks
+  let available = pool.filter((_, i) => !usedCombos[key].includes(i));
+
+  // If we've used them all, reset
+  if (available.length < 5) {
+    usedCombos[key] = [];
+    available = [...pool];
+  }
+
+  // Shuffle and pick 5
+  const shuffled = available.sort(() => Math.random() - 0.5);
+  const picked = shuffled.slice(0, 5);
+
+  // Track used indices
+  picked.forEach(hook => {
+    const idx = pool.indexOf(hook);
+    if (idx !== -1) usedCombos[key].push(idx);
+  });
+
+  return picked;
+}
+
+function renderHooks(hooks) {
+  const results = document.getElementById('results');
+  results.innerHTML = '';
+
+  hooks.forEach((hook, i) => {
+    const card = document.createElement('div');
+    card.className = 'hook-card';
+    card.innerHTML = `
+      <div class="hook-number">Hook ${i + 1}</div>
+      <div class="hook-text">"${hook.text}"</div>
+      <div class="hook-why"><strong>Why it works:</strong> ${hook.why}</div>
+      <button class="copy-btn" onclick="copyHook(this, '${hook.text.replace(/'/g, "\\'")}')">Copy Hook</button>
+    `;
+    results.appendChild(card);
+  });
+
+  results.style.display = 'block';
+  document.getElementById('shuffleBtn').style.display = 'block';
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+document.getElementById('generateBtn').addEventListener('click', () => {
+  const hooks = getHooks();
+  if (hooks.length > 0) renderHooks(hooks);
+});
+
+document.getElementById('shuffleBtn').addEventListener('click', () => {
+  const hooks = getHooks();
+  if (hooks.length > 0) renderHooks(hooks);
+});
+
+function copyHook(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy Hook';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

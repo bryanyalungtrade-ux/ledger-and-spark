@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ledger & Spark — Free Tools That Actually Help</title>
+<meta name="description" content="Free quizzes, generators, and creator tools from Ledger & Spark. Everything is free. No catch. Built because you asked.">
+<meta property="og:title" content="Ledger & Spark — Free Tools That Actually Help">
+<meta property="og:description" content="Free quizzes, generators, and creator tools. Everything is free. No catch. Built because you asked.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ledgerandspark.com/">
+<meta property="og:image" content="/images/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ledger & Spark — Free Tools That Actually Help">
+<meta name="twitter:description" content="Free quizzes, generators, and creator tools. Everything is free. No catch. Built because you asked.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── INDEX-SPECIFIC STYLES ── */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content { max-width: 620px; }
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  padding: 0.45rem 1.2rem;
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  border-radius: 100px;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.hero h1 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.05em;
+  margin-bottom: 1.5rem;
+}
+
+.hero p {
+  font-size: 1.12rem;
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  line-height: 1.8;
+  max-width: 500px;
+}
+
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-visual .terminal { width: 100%; max-width: 480px; }
+
+/* ── STATS ── */
+.stats-bar {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 3.5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.02), transparent);
+  pointer-events: none;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.stat-number {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 800;
+  background: var(--gradient-neon);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.3rem;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ── PRODUCTS SECTION ── */
+.products-section { background: var(--bg-primary); }
+
+.products-header { text-align: center; margin-bottom: 3.5rem; }
+.products-header .section-subtitle { margin: 0 auto; }
+
+.products-preview-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+
+.product-preview-card {
+  background: var(--bg-card);
+  
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-preview-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(59,130,246,0.3), rgba(96,165,250,0.3));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.product-preview-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 0 30px rgba(59, 130, 246, 0.06);
+}
+
+.product-preview-card:hover::before { opacity: 1; }
+
+.product-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.product-preview-card h3 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.product-preview-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.product-price {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  background: var(--gradient-neon);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.product-price span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  -webkit-text-fill-color: var(--text-muted);
+}
+
+.products-cta { text-align: center; }
+
+/* ── SERVICES SECTION ── */
+.services-section {
+  background: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+}
+
+.services-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: var(--gradient-neon);
+  opacity: 0.2;
+}
+
+.services-header { text-align: center; margin-bottom: 3.5rem; }
+.services-header .section-subtitle { margin: 0 auto; }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+
+.service-card {
+  background: var(--bg-card);
+  
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  transition: all 0.4s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(99,102,241,0.3), rgba(139,92,246,0.3));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.service-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 0 30px rgba(99, 102, 241, 0.08);
+}
+
+.service-card:hover::before { opacity: 1; }
+
+.service-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin: 0 auto 1.2rem;
+}
+
+.service-card h3 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.service-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.service-price {
+  font-size: 0.88rem;
+  background: linear-gradient(135deg, #6366F1, #8B5CF6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.services-cta { text-align: center; }
+
+/* ── ABOUT SECTION ── */
+.about-section { background: var(--bg-primary); }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.about-visual {
+  background: var(--bg-card);
+  
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-visual::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.about-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.about-stat {
+  text-align: center;
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.about-stat h4 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  background: var(--gradient-neon);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.3rem;
+}
+
+.about-stat p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.about-text h2 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+
+.about-text p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.2rem;
+  line-height: 1.8;
+}
+
+.about-text .btn-secondary { margin-top: 0.5rem; }
+
+/* ── TESTIMONIALS ── */
+.testimonials-section {
+  background: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonials-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: var(--gradient-neon);
+  opacity: 0.15;
+}
+
+.testimonials-header { text-align: center; margin-bottom: 3.5rem; }
+.testimonials-header .section-subtitle { margin: 0 auto; }
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+}
+
+.testimonial-card {
+  background: var(--bg-card);
+  
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(59, 130, 246, 0.15);
+}
+
+.testimonial-card::before {
+  content: '\201C';
+  font-size: 4rem;
+  background: var(--gradient-neon);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.3;
+  position: absolute;
+  top: 0.5rem;
+  left: 1.2rem;
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+.testimonial-quote {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+  padding-top: 1rem;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--gradient-neon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.testimonial-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.testimonial-role {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ── CONTACT ── */
+.contact-section {
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-info h2 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.contact-info > p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.contact-methods { display: flex; flex-direction: column; gap: 1rem; }
+
+.contact-method {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  background: var(--bg-card);
+  
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: all 0.3s;
+}
+
+.contact-method:hover {
+  border-color: var(--border-accent);
+  transform: translateX(4px);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.04);
+}
+
+.contact-method-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.contact-method-text h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+
+.contact-method-text p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.contact-method-text a {
+  color: var(--accent);
+  transition: opacity 0.2s;
+}
+
+.contact-method-text a:hover { opacity: 0.8; }
+
+.contact-form {
+  background: var(--bg-card);
+  
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-neon);
+  opacity: 0.6;
+}
+
+.contact-form h3 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+}
+
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-group select { cursor: pointer; }
+
+.contact-form .btn-primary {
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+/* ── RESPONSIVE — DESKTOP UP ── */
+@media (min-width: 769px) {
+  .hero-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .stats-grid { grid-template-columns: repeat(4, 1fr); }
+  .products-preview-grid { grid-template-columns: repeat(3, 1fr); }
+  .services-grid { grid-template-columns: repeat(3, 1fr); }
+  .about-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+  .contact-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+}
+
+@media (max-width: 1024px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .hero-visual { order: -1; }
+  .hero-visual .terminal { max-width: 420px; }
+  .services-grid { max-width: 480px; margin-left: auto; margin-right: auto; margin-bottom: 2.5rem; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-visual { order: -1; }
+  .testimonials-grid { max-width: 520px; margin: 0 auto; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-secondary { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 2rem; }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Ledger <span class="logo-ampersand">&</span> Spark</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" class="active">Home</a>
+      <a href="products.html">Products</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Blog</a>
+      <a href="products.html" class="nav-cta">Try Free Tools</a>
+    </div>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <div class="grid-bg"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge">Everything is free. Seriously.</div>
+        <h1>Free Tools<br>That Actually <span class="gradient-text">Help.</span></h1>
+        <p>Quizzes, generators, and creator tools you can use right now. No login. No payment. No catch. We make money from sponsors, not from you.</p>
+        <div class="hero-actions">
+          <a href="products.html" class="btn-primary">
+            Try a Tool
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#products" class="btn-secondary">It's All Free →</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="terminal" style="background: var(--bg-card, #fff); border: 1px solid var(--border, #E2E8F0); border-radius: 16px; padding: 0; overflow: hidden;">
+          <div class="terminal-bar" style="background: var(--bg-secondary, #F1F5F9); padding: 12px 16px; border-bottom: 1px solid var(--border, #E2E8F0);">
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <span class="terminal-title" style="font-size: 0.8rem;">all free. no cap.</span>
+          </div>
+          <div class="terminal-body" style="padding: 20px; display: flex; flex-direction: column; gap: 12px;">
+            <a href="products/viral_hook_generator/" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--accent-glow, #EFF6FF); border: 1px solid var(--border-accent, #BFDBFE); border-radius: 10px; text-decoration: none; color: inherit; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='none'">
+              <span style="font-size: 1.4rem;">&#x1F3A3;</span>
+              <div><strong style="font-size: 0.9rem;">Viral Hook Generator</strong><br><span style="font-size: 0.78rem; color: var(--text-secondary, #64748B);">200+ scroll-stopping hooks</span></div>
+            </a>
+            <a href="products/whats_my_bag/" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--accent-glow, #EFF6FF); border: 1px solid var(--border-accent, #BFDBFE); border-radius: 10px; text-decoration: none; color: inherit; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='none'">
+              <span style="font-size: 1.4rem;">&#x1F4B0;</span>
+              <div><strong style="font-size: 0.9rem;">What's My Bag?</strong><br><span style="font-size: 0.78rem; color: var(--text-secondary, #64748B);">Find out what brands should pay you</span></div>
+            </a>
+            <a href="products/vibe_check_quiz/" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--accent-glow, #EFF6FF); border: 1px solid var(--border-accent, #BFDBFE); border-radius: 10px; text-decoration: none; color: inherit; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='none'">
+              <span style="font-size: 1.4rem;">&#x2728;</span>
+              <div><strong style="font-size: 0.9rem;">Vibe Check Quiz</strong><br><span style="font-size: 0.78rem; color: var(--text-secondary, #64748B);">Find your aesthetic in 30 sec</span></div>
+            </a>
+            <a href="products/clout_check/" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--accent-glow, #EFF6FF); border: 1px solid var(--border-accent, #BFDBFE); border-radius: 10px; text-decoration: none; color: inherit; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='none'">
+              <span style="font-size: 1.4rem;">&#x1F4CA;</span>
+              <div><strong style="font-size: 0.9rem;">Clout Check</strong><br><span style="font-size: 0.78rem; color: var(--text-secondary, #64748B);">Are you blowing up or flopping?</span></div>
+            </a>
+            <a href="products/highlight_reel/" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--accent-glow, #EFF6FF); border: 1px solid var(--border-accent, #BFDBFE); border-radius: 10px; text-decoration: none; color: inherit; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='none'">
+              <span style="font-size: 1.4rem;">&#x1F3AC;</span>
+              <div><strong style="font-size: 0.9rem;">Highlight Reel</strong><br><span style="font-size: 0.78rem; color: var(--text-secondary, #64748B);">Get the point in 20 seconds</span></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="reveal">
+        <div class="stat-number">19</div>
+        <div class="stat-label">Free Tools Live</div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="stat-number">$0</div>
+        <div class="stat-label">Always Free</div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="stat-number">30s</div>
+        <div class="stat-label">Or Less to Use</div>
+      </div>
+      <div class="reveal reveal-delay-3">
+        <div class="stat-number">0</div>
+        <div class="stat-label">Logins Required</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PRODUCTS PREVIEW ── -->
+<section class="products-section" id="products">
+  <div class="container">
+    <div class="products-header reveal">
+      <span class="section-label">Try Them Now</span>
+      <h2 class="section-title">Tools You'll Actually Use. All Free.</h2>
+      <p class="section-subtitle">Quizzes, generators, and content tools that take 30 seconds. No sign-up. No download. Just open and go.</p>
+    </div>
+
+    <div class="products-preview-grid">
+      <div class="product-preview-card reveal" onclick="window.location='products/viral_hook_generator/'" style="cursor:pointer;">
+        <div class="product-icon">&#x1F3A3;</div>
+        <h3>Viral Hook Generator</h3>
+        <p>The first 2 seconds decide everything. Get 5 scroll-stopping hooks for TikTok, Reels & Shorts. 200+ hooks across 12 niches.</p>
+        <div class="product-price">FREE <span>no login needed</span></div>
+      </div>
+      <div class="product-preview-card reveal reveal-delay-1" onclick="window.location='products/whats_my_bag/'" style="cursor:pointer;">
+        <div class="product-icon">&#x1F4B0;</div>
+        <h3>What's My Bag?</h3>
+        <p>You're making content for free. Find out what brands should actually be paying you. Beats those $29 rate sheets.</p>
+        <div class="product-price">FREE <span>no login needed</span></div>
+      </div>
+      <div class="product-preview-card reveal reveal-delay-2" onclick="window.location='products/clout_check/'" style="cursor:pointer;">
+        <div class="product-icon">&#x1F4CA;</div>
+        <h3>Clout Check</h3>
+        <p>Are you blowing up or flopping? Find out in 10 seconds. Fun labels, real math, screenshot-worthy results.</p>
+        <div class="product-price">FREE <span>no login needed</span></div>
+      </div>
+    </div>
+
+    <div class="products-cta reveal">
+      <a href="products.html" class="btn-primary">
+        See All 22 Free Tools
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section class="services-section" id="services">
+  <div class="container">
+    <div class="services-header reveal">
+      <span class="section-label">What Do You Need?</span>
+      <h2 class="section-title">Want Something We Haven't Built Yet?</h2>
+      <p class="section-subtitle">Tell us what tool you need and we'll build it. Seriously. We make what you ask for.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">&#x1F3B2;</div>
+        <h3>Quiz or Generator</h3>
+        <p>Want a quiz about your vibe? A generator for something specific? Tell us and we'll make it. For real.</p>
+        <div class="service-price">Request It Free</div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">&#x1F4F1;</div>
+        <h3>Content Tool</h3>
+        <p>Need help with captions, bios, hashtags, or content ideas? We'll build you something you can use every day.</p>
+        <div class="service-price">Request It Free</div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">&#x2728;</div>
+        <h3>Something Else</h3>
+        <p>Got an idea we haven't thought of? Tell us. If it helps people, we'll build it and give it away free.</p>
+        <div class="service-price">Request It Free</div>
+      </div>
+    </div>
+
+    <div class="services-cta reveal">
+      <a href="mailto:ledgerandspark@gmail.com?subject=Tool%20Request" class="btn-secondary">
+        Tell Us What You Need
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT PREVIEW ── -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-stat-grid">
+          <div class="about-stat">
+            <h4>100%</h4>
+            <p>Free</p>
+          </div>
+          <div class="about-stat">
+            <h4>You</h4>
+            <p>Request It</p>
+          </div>
+          <div class="about-stat">
+            <h4>We</h4>
+            <p>Build It</p>
+          </div>
+          <div class="about-stat">
+            <h4>19</h4>
+            <p>Tools Live</p>
+          </div>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <span class="section-label">About</span>
+        <h2>You Ask.<br>We Build. Free.</h2>
+        <p>Ledger & Spark makes free tools because we think the best stuff shouldn't cost anything. We make money from sponsors who want to reach our audience — not from you.</p>
+        <p>Every tool here exists because someone asked for it. That's the whole idea. You tell us what you need, we build it, you use it. No login, no paywall, no catch.</p>
+        <a href="about.html" class="btn-secondary">Learn More About Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section class="testimonials-section" id="testimonials">
+  <div class="container">
+    <div class="testimonials-header reveal">
+      <span class="section-label">Why Ledger & Spark</span>
+      <h2 class="section-title">Here's the Deal</h2>
+      <p class="section-subtitle">No gimmicks. No paywalls. Here's why people trust us.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <p class="testimonial-quote">No downloads. No sign-ups. No email gates. Just open it on your phone and use it. That's it. We don't even track you.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">&#x1F4F1;</div>
+          <div>
+            <div class="testimonial-name">Works Instantly</div>
+            <div class="testimonial-role">Open and go</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-1">
+        <p class="testimonial-quote">We make money from sponsors who want to reach our audience. That's why everything is free. You're not the product — you're the reason we exist.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">&#x1F4A1;</div>
+          <div>
+            <div class="testimonial-name">Sponsor-Funded</div>
+            <div class="testimonial-role">Transparent business model</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <p class="testimonial-quote">Tell us what you want and we'll build it. Seriously. DM us, email us, comment on our TikTok. If it helps people, we'll make it.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">&#x2728;</div>
+          <div>
+            <div class="testimonial-name">You Decide What's Next</div>
+            <div class="testimonial-role">Community-driven</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <span class="section-label">Say Hi</span>
+        <h2>What Do You Want Us to Build?</h2>
+        <p>Got a tool idea? A question? Just want to say what's up? We read every message. Tell us what you need.</p>
+
+        <div class="contact-methods">
+          <a href="mailto:ledgerandspark@gmail.com" class="contact-method">
+            <div class="contact-method-icon">&#x2709;</div>
+            <div class="contact-method-text">
+              <h4>Email</h4>
+              <p>ledgerandspark@gmail.com</p>
+            </div>
+          </a>
+          <a href="https://tiktok.com/@ledgerandspark" target="_blank" class="contact-method">
+            <div class="contact-method-icon">&#x1F3AC;</div>
+            <div class="contact-method-text">
+              <h4>TikTok</h4>
+              <p>@ledgerandspark</p>
+            </div>
+          </a>
+          <a href="https://instagram.com/ledgerandspark" target="_blank" class="contact-method">
+            <div class="contact-method-icon">&#x1F4F7;</div>
+            <div class="contact-method-text">
+              <h4>Instagram</h4>
+              <p>@ledgerandspark</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-form reveal">
+        <h3>Send a Message</h3>
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject">
+              <option value="general">General Inquiry</option>
+              <option value="product">Product Question</option>
+              <option value="custom">Tool Request</option>
+              <option value="support">Support</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="What tool do you want us to build? What would make your life easier?" required></textarea>
+          </div>
+          <button type="submit" class="btn-primary">
+            Send Message
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.25rem;">Ledger <span class="logo-ampersand">&</span> Spark</div>
+        <p>Free tools for everyone. Built because you asked.</p>
+        <div class="footer-social">
+          <a href="mailto:ledgerandspark@gmail.com" aria-label="Email" title="Email">&#x2709;</a>
+          <a href="https://tiktok.com/@ledgerandspark" target="_blank" aria-label="TikTok" title="TikTok">T</a>
+          <a href="https://instagram.com/ledgerandspark" target="_blank" aria-label="Instagram" title="Instagram">I</a>
+          <a href="https://youtube.com/@ledgerandspark" target="_blank" aria-label="YouTube" title="YouTube">Y</a>
+          <a href="https://twitter.com/ledgerandspark" target="_blank" aria-label="Twitter/X" title="Twitter/X">X</a>
+          <a href="https://pinterest.com/ledgerandspark" target="_blank" aria-label="Pinterest" title="Pinterest">P</a>
+          <a href="https://linkedin.com/company/ledgerandspark" target="_blank" aria-label="LinkedIn" title="LinkedIn">L</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="free-tools.html">Free Tools</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Popular Tools</h4>
+        <ul>
+          <li><a href="products/viral_hook_generator/">Viral Hook Generator</a></li>
+          <li><a href="products/whats_my_bag/">What's My Bag?</a></li>
+          <li><a href="products/clout_check/">Clout Check</a></li>
+          <li><a href="products/vibe_check_quiz/">Vibe Check Quiz</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:ledgerandspark@gmail.com">Email Us</a></li>
+          <li><a href="mailto:ledgerandspark@gmail.com?subject=Tool%20Request">Request a Tool</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Ledger & Spark. All rights reserved.</p>
+      <p>Free tools. No catch. Built because you asked.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── NAV SCROLL ──
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── MOBILE NAV ──
+const mobileToggle = document.getElementById('mobileToggle');
+const navLinks = document.getElementById('navLinks');
+mobileToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  mobileToggle.classList.toggle('active');
+});
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    mobileToggle.classList.remove('active');
+  });
+});
+
+// ── SCROLL REVEAL ──
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => revealObserver.observe(el));
+
+// ── CONTACT FORM (mailto) ──
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const subject = document.getElementById('subject').value;
+  const message = document.getElementById('message').value;
+  const subjectMap = {
+    general: 'General Inquiry',
+    product: 'Product Question',
+    custom: 'Tool Request',
+    support: 'Support Request'
+  };
+  const mailtoLink = `mailto:ledgerandspark@gmail.com?subject=${encodeURIComponent(subjectMap[subject] + ' from ' + name)}&body=${encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message)}`;
+  window.location.href = mailtoLink;
+});
+
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      const offset = navbar.offsetHeight + 20;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+</body>
+</html>

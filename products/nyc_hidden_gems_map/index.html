@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Hidden Gems Map | Ledger & Spark</title>
+    <meta name="description" content="11 underrated NYC food spots that locals love but tourists miss. Free guide by Ledger & Spark.">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+            background: #FAFBFE;
+            color: #1e293b;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, #FAFBFE 0%, #EFF6FF 50%, #DBEAFE 100%);
+            padding: 2rem 1rem 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid #E2E8F0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #3B82F6;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.2;
+            margin-bottom: 0.25rem;
+        }
+
+        .header h1 span {
+            background: linear-gradient(135deg, #3B82F6, #60A5FA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 0.8rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: #475569;
+            margin-top: 0.5rem;
+            font-weight: 400;
+        }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 0.75rem 1rem;
+            background: #fff;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #3B82F6;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        /* ===== FILTER SECTION ===== */
+        .filter-section {
+            padding: 1rem;
+            background: #fff;
+            border-bottom: 1px solid #E2E8F0;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+        }
+
+        .filter-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.25rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .filter-row::-webkit-scrollbar { display: none; }
+
+        .filter-btn {
+            flex-shrink: 0;
+            padding: 0.45rem 0.9rem;
+            border-radius: 100px;
+            border: 1.5px solid #E2E8F0;
+            background: #fff;
+            color: #475569;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover {
+            border-color: #3B82F6;
+            color: #3B82F6;
+        }
+
+        .filter-btn.active {
+            background: #3B82F6;
+            color: #fff;
+            border-color: #3B82F6;
+        }
+
+        .filter-group { margin-bottom: 0.75rem; }
+        .filter-group:last-child { margin-bottom: 0; }
+
+        /* ===== RESULTS COUNT ===== */
+        .results-count {
+            padding: 0.75rem 1rem;
+            font-size: 0.8rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .results-count span {
+            color: #3B82F6;
+            font-weight: 800;
+        }
+
+        /* ===== CARDS ===== */
+        .cards-container {
+            padding: 0 1rem 2rem;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid #E2E8F0;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3B82F6, #60A5FA);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .card:hover::before { opacity: 1; }
+        .card:hover { box-shadow: 0 4px 20px rgba(59, 130, 246, 0.08); }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-number {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: #3B82F6;
+            background: #EFF6FF;
+            padding: 0.15rem 0.5rem;
+            border-radius: 100px;
+            letter-spacing: 0.5px;
+        }
+
+        .card-price {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #10b981;
+        }
+
+        .card-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.15rem;
+        }
+
+        .card-neighborhood {
+            font-size: 0.75rem;
+            color: #3B82F6;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.6rem;
+        }
+
+        .card-review {
+            font-size: 0.95rem;
+            color: #334155;
+            font-style: italic;
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 100px;
+            font-weight: 600;
+        }
+
+        .tag-vibe {
+            background: #FFF7ED;
+            color: #EA580C;
+        }
+
+        .tag-cuisine {
+            background: #F0FDF4;
+            color: #16a34a;
+        }
+
+        .card-order {
+            font-size: 0.8rem;
+            color: #475569;
+            background: #F8FAFC;
+            padding: 0.6rem 0.75rem;
+            border-radius: 10px;
+            border-left: 3px solid #60A5FA;
+        }
+
+        .card-order strong {
+            color: #3B82F6;
+        }
+
+        .card.hidden {
+            display: none;
+        }
+
+        /* ===== NEIGHBORHOOD DIVIDER ===== */
+        .neighborhood-divider {
+            padding: 1.25rem 0 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .neighborhood-divider h2 {
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #3B82F6;
+            white-space: nowrap;
+        }
+
+        .neighborhood-divider .line {
+            flex: 1;
+            height: 1px;
+            background: #E2E8F0;
+        }
+
+        /* ===== TRUST BANNER ===== */
+        .trust-banner {
+            background: #EFF6FF;
+            padding: 0.75rem 1rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #3B82F6;
+            font-weight: 600;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #fff;
+            border-top: 1px solid #E2E8F0;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #3B82F6;
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-tagline {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+
+        .footer-disclaimer {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            max-width: 400px;
+            margin: 0 auto 0.75rem;
+        }
+
+        .footer-contact {
+            font-size: 0.7rem;
+            color: #94a3b8;
+        }
+
+        .footer-contact a {
+            color: #3B82F6;
+            text-decoration: none;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            padding: 2rem 1rem;
+            text-align: center;
+            margin: 0 1rem 1rem;
+            border-radius: 16px;
+        }
+
+        .cta-section h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-section p {
+            font-size: 0.85rem;
+            color: #475569;
+            margin-bottom: 1rem;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 0.7rem 2rem;
+            background: #3B82F6;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .cta-btn:hover {
+            background: #2563EB;
+            transform: translateY(-1px);
+        }
+
+        /* ===== SCROLL TO TOP ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 44px;
+            height: 44px;
+            background: #3B82F6;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 50;
+        }
+
+        .scroll-top.visible { opacity: 1; }
+
+        /* ===== DESKTOP ===== */
+        @media (min-width: 640px) {
+            .header { padding: 2.5rem 2rem 2rem; }
+            .header h1 { font-size: 2.25rem; }
+            .cards-container { padding: 0 2rem 2rem; }
+            .filter-section { padding: 1rem 2rem; }
+        }
+
+        @media (min-width: 768px) {
+            .cards-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .cards-grid .neighborhood-divider {
+                grid-column: 1 / -1;
+            }
+            .cards-container { max-width: 900px; }
+        }
+    </style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="brand">Ledger & Spark</div>
+        <h1>NYC <span>Hidden Gems</span> Map</h1>
+        <p class="tagline">Free tools. No catch. Built because you asked.</p>
+        <p class="subtitle">11 spots locals gatekeep. Now you know too.</p>
+    </header>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stat">
+            <div class="stat-num">11</div>
+            <div class="stat-label">Spots</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Hoods</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">$</div>
+            <div class="stat-label">Mostly Cheap</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">0</div>
+            <div class="stat-label">Tourist Traps</div>
+        </div>
+    </div>
+
+    <!-- TRUST BANNER -->
+    <div class="trust-banner">
+        We make money from sponsors, not from you. That's why everything is free.
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filter-section">
+        <div class="filter-group">
+            <div class="filter-label">Neighborhood</div>
+            <div class="filter-row" id="hoodFilters">
+                <button class="filter-btn active" data-filter="all" data-type="hood">All</button>
+                <button class="filter-btn" data-filter="east-village" data-type="hood">East Village</button>
+                <button class="filter-btn" data-filter="bushwick" data-type="hood">Bushwick</button>
+                <button class="filter-btn" data-filter="harlem" data-type="hood">Harlem</button>
+            </div>
+        </div>
+        <div class="filter-group">
+            <div class="filter-label">Vibe</div>
+            <div class="filter-row" id="vibeFilters">
+                <button class="filter-btn active" data-filter="all" data-type="vibe">All</button>
+                <button class="filter-btn" data-filter="date-night" data-type="vibe">Date Night</button>
+                <button class="filter-btn" data-filter="late-night" data-type="vibe">Late Night</button>
+                <button class="filter-btn" data-filter="quick-bite" data-type="vibe">Quick Bite</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULTS COUNT -->
+    <div class="results-count">
+        Showing <span id="count">11</span> spots
+    </div>
+
+    <!-- CARDS -->
+    <div class="cards-container">
+        <div class="cards-grid" id="cardsGrid">
+
+            <!-- ===== EAST VILLAGE ===== -->
+            <div class="neighborhood-divider" data-hood="east-village"><h2>East Village</h2><div class="line"></div></div>
+
+            <div class="card" data-hood="east-village" data-vibe="solo date-night">
+                <div class="card-header">
+                    <span class="card-number">#01</span>
+                    <span class="card-price">$$</span>
+                </div>
+                <div class="card-name">Ho Foods</div>
+                <div class="card-neighborhood">East Village</div>
+                <div class="card-review">"This beef noodle soup has no business being this good. At night it transforms into a whole different vibe. Absolute sleeper hit."</div>
+                <div class="card-meta">
+                    <span class="tag tag-cuisine">Taiwanese</span>
+                    <span class="tag tag-vibe">Solo</span>
+                    <span class="tag tag-vibe">Date Night</span>
+                </div>
+                <div class="card-order"><strong>Order this:</strong> Taiwanese Beef Noodle Soup + a side of scallion pancake</div>
+            </div>
+
+            <div class="card" data-hood="east-village" data-vibe="date-night group">
+                <div class="card-header">
+                    <span class="card-number">#02</span>
+                    <span class="card-price">$$</span>
+                </div>
+                <div class="card-name">Upstate Craft Beer & Oyster Bar</div>
+                <div class="card-neighborhood">East Village</div>
+                <div class="card-review">"Tiny spot, massive flavor. The oysters are pristine and the local craft beers hit different when you're off the beaten path."</div>
+                <div class="card-meta">
+                    <span class="tag tag-cuisine">Seafood / Bar</span>
+                    <span class="tag tag-vibe">Date Night</span>
+                    <span class="tag tag-vibe">Group</span>
+                </div>
+                <div class="card-order"><strong>Order this:</strong> Half dozen oysters + a seasonal local IPA</div>
+            </div>
+
+            <div class="card" data-hood="east-village" data-vibe="solo date-night">
+                <div class="card-header">
+                    <span class="card-number">#03</span>
+                    <span class="card-price">$$</span>
+                </div>
+                <div class="card-name">Fiaschetteria Pistoia</div>
+                <div class="card-neighborhood">East Village</div>
+                <div class="card-review">"Literally the definition of a hidden gem. Doesn't chase clout, doesn't need to. The pasta is perfect and the vibe is pure old-school Italy."</div>
+                <div class="card-meta">
+                    <span class="tag tag-cuisine">Italian</span>
+                    <span class="tag tag-vibe">Date Night</span>
+                    <span class="tag tag-vibe">Solo</span>
+                </div>
+                <div class="card-order"><strong>Order this:</strong> Handmade pappardelle + a glass of house red</div>
+            </div>
+
+            <!-- ===== BUSHWICK ===== -->
+            <div class="neighborhood-divider" data-hood="bushwick"><h2>Bushwick</h2><div class="line"></div></div>
+
+            <div class="card" data-hood="bushwick" data-vibe="group date-night">
+                <div class="card-header">
+                    <span class="card-number">#08</span>
+                    <span class="card-price">$</span>
+                </div>
+                <div class="card-name">Bunna Cafe</div>
+                <div class="card-neighborhood">Bushwick</div>
+                <div class="card-review">"All plant-based Ethiopian and it slaps harder than most meat spots. The injera is spongy perfection. You can try half the menu for less than a movie ticket."</div>
+                <div class="card-meta">
+                    <span class="tag tag-cuisine">Ethiopian (Vegan)</span>
+                    <span class="tag tag-vibe">Group</span>
+                    <span class="tag tag-vibe">Date Night</span>
+                </div>
+                <div class="card-order"><strong>Order this:</strong> Shiro + Misir Wot + extra injera to scoop it all</div>
+            </div>
+
+            <div class="card" data-hood="bushwick" data-vibe="quick-bite solo late-night">
+                <div class="card-header">
+                    <span class="card-number">#09</span>
+                    <span class="card-price">$</span>
+                </div>
+                <div class="card-name">Tortilleria Mexicana Los Hermanos</div>
+                <div class="card-neighborhood">Bushwick</div>
+                <div class="card-review">"A literal tortilla factory with a taqueria inside. BYOB. 3 tacos for $9. This is the NYC cheat code nobody tells tourists about."</div>
+                <div class="card-meta">
+                    <span class="tag tag-cuisine">Mexican</span>
+                    <span class="tag tag-vibe">Quick Bite</span>
+                    <span class="tag tag-vibe">Solo</span>
+                    <span class="tag tag-vibe">Late Night</span>
+                </div>
+                <div class="card-order"><strong>Order this:</strong> 3 tacos al pastor + bring your own six-pack</div>
+            </div>
+
+            <div class="card" data-hood="bushwick" data-vibe="date-night group">
+                <div class="card-header">
+                    <span class="card-number">#10</span>
+                    <span class="card-price">$$</span>
+                </div>
+                <div class="card-name">Sofreh</div>
+                <div class="card-neighborhood">Bushwick</div>
+                <div class="card-review">"Persian food that's startlingly good and not even a little bit fussy. The tahdig alone is worth the trip to Bushwick. Trust."</div>
+                <div class="card-meta">
+                    <span class="tag tag-cuisine">Persian</span>
+                    <span class="tag tag-vibe">Date Night</span>
+                    <span class="tag tag-vibe">Group</span>
+                </div>
+                <div class="card-order"><strong>Order this:</strong> Tahdig + Fesenjoon with pomegranate sauce</div>
+            </div>
+
+            <div class="card" data-hood="bushwick" data-vibe="quick-bite solo">
+                <div class="card-header">
+                    <span class="card-number">#11</span>
+                    <span class="card-price">$</span>
+                </div>
+                <div class="card-name">Santa Ana Tacos</div>
+                <div class="card-neighborhood">Bushwick (Irving & Stanhope)</div>
+                <div class="card-review">"$3 al pastor tacos on a corner in Bushwick. No sign, no hype, just elite street food. The kind of spot you only know if you know."</div>
+                <div class="card-meta">
+                    <span class="tag tag-cuisine">Mexican Street Food</span>
+                    <span class="tag tag-vibe">Quick Bite</span>
+                    <span class="tag tag-vibe">Solo</span>
+                </div>
+                <div class="card-order"><strong>Order this:</strong> 3 al pastor tacos + whatever salsa looks freshest</div>
+            </div>
+
+            <!-- ===== HARLEM ===== -->
+            <div class="neighborhood-divider" data-hood="harlem"><h2>Harlem</h2><div class="line"></div></div>
+
+            <div class="card" data-hood="harlem" data-vibe="solo group">
+                <div class="card-header">
+                    <span class="card-number">#14</span>
+                    <span class="card-price">$</span>
+                </div>
+                <div class="card-name">Charles Gabriel's</div>
+                <div class="card-neighborhood">Harlem</div>
+                <div class="card-review">"30+ years of pan-fried chicken in Harlem. The golden crust is legendary. This is the real deal soul food your grandma would approve of."</div>
+                <div class="card-meta">
+                    <span class="tag tag-cuisine">Soul Food</span>
+                    <span class="tag tag-vibe">Solo</span>
+                    <span class="tag tag-vibe">Group</span>
+                </div>
+                <div class="card-order"><strong>Order this:</strong> 2-piece fried chicken + cornbread + mac & cheese side</div>
+            </div>
+
+            <div class="card" data-hood="harlem" data-vibe="date-night group">
+                <div class="card-header">
+                    <span class="card-number">#15</span>
+                    <span class="card-price">$</span>
+                </div>
+                <div class="card-name">Taste of Ethiopia</div>
+                <div class="card-neighborhood">Harlem</div>
+                <div class="card-review">"Hidden on the 2nd floor. You literally ring a doorbell to get in. Fresh injera made daily with imported teff flour. Feels like a secret dinner party."</div>
+                <div class="card-meta">
+                    <span class="tag tag-cuisine">Ethiopian</span>
+                    <span class="tag tag-vibe">Date Night</span>
+                    <span class="tag tag-vibe">Group</span>
+                </div>
+                <div class="card-order"><strong>Order this:</strong> Doro Wat + Misir Wot combo platter to share</div>
+            </div>
+
+            <div class="card" data-hood="harlem" data-vibe="quick-bite solo">
+                <div class="card-header">
+                    <span class="card-number">#16</span>
+                    <span class="card-price">$</span>
+                </div>
+                <div class="card-name">Blue Sky Deli (Hajji's)</div>
+                <div class="card-neighborhood">East Harlem</div>
+                <div class="card-review">"THE birthplace of the chopped cheese. If you haven't had a chopped cheese from Hajji's, you haven't really been to NYC. That's just facts."</div>
+                <div class="card-meta">
+                    <span class="tag tag-cuisine">Deli</span>
+                    <span class="tag tag-vibe">Quick Bite</span>
+                    <span class="tag tag-vibe">Solo</span>
+                </div>
+                <div class="card-order"><strong>Order this:</strong> The Chopped Cheese. The only correct answer.</div>
+            </div>
+
+            <div class="card" data-hood="harlem" data-vibe="quick-bite solo group">
+                <div class="card-header">
+                    <span class="card-number">#17</span>
+                    <span class="card-price">$</span>
+                </div>
+                <div class="card-name">Lechonera La Isla</div>
+                <div class="card-neighborhood">East Harlem</div>
+                <div class="card-review">"Family-owned Puerto Rican lunch counter with the neon sign everyone walks past. The pernil plate with sweet plantains is stupid good for the price."</div>
+                <div class="card-meta">
+                    <span class="tag tag-cuisine">Puerto Rican</span>
+                    <span class="tag tag-vibe">Quick Bite</span>
+                    <span class="tag tag-vibe">Solo</span>
+                    <span class="tag tag-vibe">Group</span>
+                </div>
+                <div class="card-order"><strong>Order this:</strong> Pernil plate + sweet plantains + morcilla if you're brave</div>
+            </div>
+
+        </div><!-- /cards-grid -->
+    </div><!-- /cards-container -->
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <h3>Want us to build a guide for YOUR city?</h3>
+        <p>Tell us where you live. We'll make it happen. For free.</p>
+        <a href="mailto:ledgerandspark@gmail.com?subject=Build a guide for my city!" class="cta-btn">Request Your City</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-brand">Ledger & Spark</div>
+        <div class="footer-tagline">Free tools. No catch. Built because you asked.</div>
+        <div class="footer-disclaimer">
+            Found via verified diners, not creators getting paid. Prices and hours can change &mdash; always double-check before you go. We don't get paid by any of these spots.
+        </div>
+        <div class="footer-disclaimer">
+            We make money from sponsors, not from you. That's why everything is free.
+        </div>
+        <div class="footer-contact">
+            Questions? <a href="mailto:ledgerandspark@gmail.com">ledgerandspark@gmail.com</a>
+        </div>
+    </footer>
+
+    <!-- SCROLL TO TOP -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">&uarr;</button>
+
+    <script>
+        // ===== FILTER LOGIC =====
+        let activeHood = 'all';
+        let activeVibe = 'all';
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const type = btn.dataset.type;
+                const filter = btn.dataset.filter;
+
+                // Update active state
+                document.querySelectorAll(`.filter-btn[data-type="${type}"]`).forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                if (type === 'hood') activeHood = filter;
+                if (type === 'vibe') activeVibe = filter;
+
+                applyFilters();
+            });
+        });
+
+        function applyFilters() {
+            const cards = document.querySelectorAll('.card');
+            const dividers = document.querySelectorAll('.neighborhood-divider');
+            let visibleCount = 0;
+            const visibleHoods = new Set();
+
+            cards.forEach(card => {
+                const cardHood = card.dataset.hood;
+                const cardVibes = card.dataset.vibe;
+
+                const hoodMatch = activeHood === 'all' || cardHood === activeHood;
+                const vibeMatch = activeVibe === 'all' || cardVibes.includes(activeVibe);
+
+                if (hoodMatch && vibeMatch) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                    visibleHoods.add(cardHood);
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            // Show/hide neighborhood dividers
+            dividers.forEach(div => {
+                const hood = div.dataset.hood;
+                if (visibleHoods.has(hood)) {
+                    div.classList.remove('hidden');
+                } else {
+                    div.classList.add('hidden');
+                }
+            });
+
+            document.getElementById('count').textContent = visibleCount;
+        }
+
+        // ===== SCROLL TO TOP =====
+        const scrollBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            scrollBtn.classList.toggle('visible', window.scrollY > 400);
+        });
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>

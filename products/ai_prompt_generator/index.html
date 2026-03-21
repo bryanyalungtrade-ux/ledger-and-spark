@@ -1,0 +1,2169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Prompt Generator — Free ChatGPT Prompts for Creators | Ledger & Spark</title>
+<meta name="description" content="Get 10 ready-to-paste AI prompts for your niche instantly. 1,500+ prompts for content ideas, captions, scripts, brand deals & growth. 100% free.">
+<meta property="og:title" content="AI Prompt Generator — Ledger & Spark">
+<meta property="og:description" content="Stop staring at ChatGPT not knowing what to type. Get 10 perfect prompts for YOUR niche. Free.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAFBFE;
+  --bg-alt: #F1F5F9;
+  --blue: #3B82F6;
+  --blue-light: #60A5FA;
+  --blue-pale: #DBEAFE;
+  --blue-ghost: #EFF6FF;
+  --text: #1E293B;
+  --text-mid: #475569;
+  --text-light: #94A3B8;
+  --white: #FFFFFF;
+  --green: #10B981;
+  --green-light: #D1FAE5;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 50px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* HEADER */
+.header {
+  background: var(--white);
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-brand { font-weight: 800; font-size: 1.1rem; color: var(--text); }
+.header-brand span { color: var(--blue); }
+.header-back { font-size: .85rem; font-weight: 500; color: var(--text-light); transition: color .2s; }
+.header-back:hover { color: var(--blue); text-decoration: none; }
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 32px 20px 8px;
+}
+.hero-badge {
+  display: inline-block;
+  background: var(--blue-ghost);
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 12px;
+}
+.hero h1 {
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.hero h1 .blue { color: var(--blue); }
+.hero p {
+  color: var(--text-mid);
+  font-size: 15px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* CONTAINER */
+.container {
+  flex: 1;
+  max-width: 520px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 16px 16px 40px;
+}
+
+/* STEPS */
+.step { margin-bottom: 20px; }
+.step-label {
+  font-weight: 700;
+  font-size: .82rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.step-num {
+  width: 24px;
+  height: 24px;
+  background: var(--blue);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* BUTTON GRID */
+.btn-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pick-btn {
+  padding: 10px 16px;
+  background: var(--white);
+  border: 2px solid #e2e8f0;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: all .2s;
+  font-family: inherit;
+}
+.pick-btn:hover { border-color: var(--blue-light); background: var(--blue-ghost); }
+.pick-btn.active { border-color: var(--blue); background: var(--blue-pale); color: var(--blue); }
+
+/* GENERATE BUTTON */
+.generate-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+  font-family: inherit;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+.generate-btn:hover:not(:disabled) { background: #2563EB; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.generate-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+/* ACTION BAR */
+.action-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.action-btn {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  background: var(--white);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: all .2s;
+  font-family: inherit;
+}
+.action-btn:hover { border-color: var(--blue-light); background: var(--blue-ghost); }
+.action-btn.copied { border-color: var(--green); background: var(--green-light); color: var(--green); }
+
+/* RESULTS */
+.results { display: none; }
+.results.visible { display: block; }
+
+.prompt-card {
+  background: var(--white);
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s;
+}
+.prompt-card:hover { box-shadow: var(--shadow-md); }
+.prompt-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.prompt-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--blue);
+  background: var(--blue-ghost);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+}
+.prompt-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-light);
+  background: var(--bg-alt);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+}
+.prompt-text {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text);
+  margin-bottom: 12px;
+  white-space: pre-wrap;
+}
+.copy-btn {
+  padding: 7px 16px;
+  background: var(--blue-ghost);
+  color: var(--blue);
+  border: none;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  font-family: inherit;
+}
+.copy-btn:hover { background: var(--blue-pale); }
+.copy-btn.copied { background: var(--green-light); color: var(--green); }
+
+/* HIDDEN STEPS */
+.step.hidden { display: none; }
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--text);
+  color: var(--white);
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 999;
+  opacity: 0;
+  transition: all .3s;
+  pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid #e2e8f0;
+  font-size: 12px;
+  color: var(--text-light);
+}
+.footer a { color: var(--blue); text-decoration: none; }
+
+/* TRUST */
+.trust-line {
+  text-align: center;
+  padding: 24px 20px;
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+/* COUNTER */
+.counter {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+
+@media (min-width: 640px) {
+  .hero h1 { font-size: 36px; }
+  .container { max-width: 560px; }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-brand">Ledger & <span>Spark</span></div>
+  <a href="../../website/index.html" class="header-back">← Back to all tools</a>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">100% Free</div>
+  <h1>AI Prompt <span class="blue">Generator</span></h1>
+  <p>Stop staring at ChatGPT not knowing what to type. Get 10 perfect prompts for your niche — ready to copy and paste.</p>
+</section>
+
+<div class="container">
+
+  <!-- STEP 1: CATEGORY -->
+  <div class="step" id="step1">
+    <div class="step-label"><span class="step-num">1</span> What do you need?</div>
+    <div class="btn-grid" id="categoryGrid">
+      <button class="pick-btn" data-value="ideas">&#128161; Content Ideas</button>
+      <button class="pick-btn" data-value="captions">&#9997;&#65039; Captions & Hooks</button>
+      <button class="pick-btn" data-value="scripts">&#127916; Video Scripts</button>
+      <button class="pick-btn" data-value="brand">&#129309; Brand Deals</button>
+      <button class="pick-btn" data-value="growth">&#128200; Growth Hacks</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: NICHE -->
+  <div class="step hidden" id="step2">
+    <div class="step-label"><span class="step-num">2</span> Pick your niche</div>
+    <div class="btn-grid" id="nicheGrid">
+      <button class="pick-btn" data-value="foodie">&#127837; Foodie</button>
+      <button class="pick-btn" data-value="fitness">&#128170; Fitness</button>
+      <button class="pick-btn" data-value="fashion">&#128087; Fashion</button>
+      <button class="pick-btn" data-value="gaming">&#127918; Gaming</button>
+      <button class="pick-btn" data-value="student">&#128218; Student Life</button>
+      <button class="pick-btn" data-value="sidehustle">&#128176; Side Hustle</button>
+      <button class="pick-btn" data-value="travel">&#9992;&#65039; Travel</button>
+      <button class="pick-btn" data-value="pets">&#128062; Pet Parent</button>
+      <button class="pick-btn" data-value="beauty">&#128132; Beauty</button>
+      <button class="pick-btn" data-value="general">&#11088; General</button>
+    </div>
+  </div>
+
+  <!-- GENERATE -->
+  <button class="generate-btn" id="generateBtn" disabled>Get My Prompts &#10024;</button>
+
+  <!-- RESULTS -->
+  <div class="results" id="results">
+    <div class="counter" id="counter"></div>
+    <div class="action-bar">
+      <button class="action-btn" id="copyAllBtn">&#128203; Copy All</button>
+      <button class="action-btn" id="shuffleBtn">&#128256; Shuffle</button>
+      <button class="action-btn" id="resetBtn">&#8617;&#65039; Start Over</button>
+    </div>
+    <div id="promptCards"></div>
+  </div>
+
+  <div class="trust-line">
+    Free. No catch. Built because you asked.<br>
+    <a href="mailto:ledgerandspark@gmail.com">ledgerandspark@gmail.com</a>
+  </div>
+</div>
+
+<footer class="footer">
+  &copy; 2026 Ledger & Spark. All tools are free.<br>
+  Free forever. We make money from sponsors, not from you. &#10024; Ledger & Spark
+</footer>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+// ═══════════════════════════════════════════
+// PROMPT DATABASE — 1,500+ PROMPTS
+// 5 categories × 10 niches × 30+ each
+// ═══════════════════════════════════════════
+
+const PROMPTS = {
+
+// ─── CONTENT IDEAS ───
+ideas: {
+foodie: [
+  "Give me 10 TikTok video ideas about cooking on a budget that a creator with 5K followers can film with just a phone. Make them trendy, under 60 seconds, and easy to film solo.",
+  "Write 5 unique 'what I eat in a day' video concepts for a foodie creator that haven't been done a million times. Include a hook for each one.",
+  "Generate 7 Instagram carousel ideas about meal prepping for college students. Each should be 5-7 slides with a hook slide and a CTA slide.",
+  "Give me 10 TikTok ideas where I compare cheap food vs expensive food in my city. Include the hook line for each video.",
+  "Write 8 video concepts about cooking hacks that save money. Each should be filmable in under 2 minutes with no special equipment.",
+  "Give me 5 'rate this food' video ideas that would start arguments in the comments. Include which foods to compare.",
+  "Generate 10 recipe video ideas that use 5 ingredients or less. For each one, give me the hook and why it would perform well on TikTok.",
+  "Write 7 street food review video concepts I can film in any city. Include the angle that makes each one unique.",
+  "Give me 8 'food challenge' video ideas that are safe, fun, and easy to film alone. Include the hook for each.",
+  "Write 10 'foods you're eating wrong' video ideas with the specific foods and the correct way to eat them.",
+  "Generate 6 'cooking for beginners' video series ideas. Each video should teach ONE skill in under 60 seconds.",
+  "Give me 10 video ideas about recreating fast food at home for cheaper. Include which items to recreate and the estimated savings.",
+  "Write 5 mukbang-style video concepts that have a unique twist to stand out from regular mukbangs.",
+  "Generate 8 seasonal food content ideas for each season. Give me the hook and format for each.",
+  "Give me 7 'grocery haul' video concepts that are actually interesting, not just showing bags. Include the storytelling angle.",
+  "Write 10 'I tried making [viral food]' video ideas with specific viral recipes to attempt.",
+  "Generate 5 food review series concepts I can turn into a weekly show on TikTok.",
+  "Give me 8 ideas for food content that would work as Instagram Reels AND TikToks. Include optimal length for each platform.",
+  "Write 6 collab video ideas I could do with another food creator. Include how to pitch each one.",
+  "Generate 10 'kitchen gadget review' video ideas with specific gadgets under $20 to test.",
+  "Give me 7 video concepts about international cuisine that don't require expensive ingredients.",
+  "Write 5 'cooking fails' content ideas that are entertaining and relatable for beginners.",
+  "Generate 8 'food science' video ideas that explain why certain cooking techniques work, in simple terms.",
+  "Give me 10 'what I order vs what I got' video concepts for different restaurants and delivery apps.",
+  "Write 6 ideas for food content that teaches a cultural lesson through the dish being made.",
+  "Generate 7 'fridge clean-out' video ideas where you make meals from random ingredients.",
+  "Give me 5 video ideas about eating healthy on a fast food budget, with specific menu hacks.",
+  "Write 10 snack review video ideas comparing store brand vs name brand products.",
+  "Generate 8 'date night cooking' video concepts for couples that are cute and funny.",
+  "Give me 6 ideas for food content that rides current TikTok trends but adds a cooking twist."
+],
+fitness: [
+  "Give me 10 TikTok video ideas about home workouts that need zero equipment. Each should be under 60 seconds and filmable in a bedroom.",
+  "Write 7 'workout with me' video concepts that have a unique twist to stand out from the thousands of workout videos already out there.",
+  "Generate 10 fitness myth-busting video ideas. For each myth, give me the hook that'll make someone stop scrolling.",
+  "Give me 8 video ideas about gym tips for beginners who feel intimidated. Make the tone friendly, not preachy.",
+  "Write 5 'what I eat in a day' video concepts from a fitness angle that don't push diet culture.",
+  "Generate 7 video ideas about stretching and mobility that would actually go viral (not boring clinical stuff).",
+  "Give me 10 before-and-after transformation content ideas that focus on strength gains, not just weight loss.",
+  "Write 6 fitness challenge video concepts that followers can do at home and post their results.",
+  "Generate 8 'gym etiquette' video ideas that are funny and educational at the same time.",
+  "Give me 5 video series ideas about building a workout routine from scratch for total beginners.",
+  "Write 10 video ideas comparing different workout styles (HIIT vs strength vs yoga etc) in a fun, non-judgmental way.",
+  "Generate 7 'fitness on a budget' content ideas — free workouts, cheap food, no gym needed.",
+  "Give me 8 video concepts about recovery and rest days that make them seem cool, not lazy.",
+  "Write 6 workout video ideas specifically designed for people who sit at a desk all day.",
+  "Generate 10 'things I wish I knew when I started working out' video ideas with specific tips for each.",
+  "Give me 5 video ideas about mental health benefits of exercise without being preachy about it.",
+  "Write 8 partner workout video concepts that are actually fun and not cringe.",
+  "Generate 7 video ideas about debunking fitness influencer advice that's actually wrong.",
+  "Give me 10 quick workout video ideas (5 minutes or less) for people who say they have no time.",
+  "Write 6 'rate my form' interactive video concepts where followers submit their videos for tips.",
+  "Generate 8 seasonal fitness content ideas (summer body, winter bulk, etc.) that aren't toxic.",
+  "Give me 5 video ideas about fitness apps and tools, reviewing which free ones actually work.",
+  "Write 10 'weird exercises that actually work' video ideas with demonstrations.",
+  "Generate 7 content ideas about nutrition basics explained super simply for people who hate reading about food science.",
+  "Give me 6 video concepts about workout music and how it affects your performance.",
+  "Write 8 'day in my life' fitness content ideas that show the realistic side, not the perfect side.",
+  "Generate 5 video ideas about sports-specific training for casual athletes who play for fun.",
+  "Give me 10 'gym fails' video ideas that are funny but also educational about what went wrong.",
+  "Write 7 video concepts about building confidence at the gym when you're new.",
+  "Generate 6 content ideas about outdoor workouts that look great on camera."
+],
+fashion: [
+  "Give me 10 TikTok video ideas about styling outfits on a budget under $50. Each should show a complete look with a hook.",
+  "Write 7 'outfit of the day' video concepts that have a creative twist beyond just showing clothes.",
+  "Generate 10 thrift shopping video ideas that are entertaining and teach people how to find good stuff.",
+  "Give me 8 'style this item 3 different ways' video concepts with specific items to feature.",
+  "Write 5 fashion video ideas about building a capsule wardrobe with 15 pieces or less.",
+  "Generate 7 seasonal fashion content ideas for each season with hooks that'll grab attention.",
+  "Give me 10 video concepts about fashion mistakes people make and how to fix them without being rude.",
+  "Write 6 'recreate the celebrity look for less' video ideas with specific celebrities and budget alternatives.",
+  "Generate 8 video ideas about fashion trends to try and which ones to skip this year.",
+  "Give me 5 fashion haul video concepts that tell a story instead of just showing bags.",
+  "Write 10 'what to wear to [event]' video ideas for different occasions people stress about.",
+  "Generate 7 video concepts about sustainable fashion that don't lecture people.",
+  "Give me 8 fashion challenge video ideas (like blind styling, $20 outfit challenge, etc.).",
+  "Write 6 video ideas about color theory in outfits explained simply for people who aren't designers.",
+  "Generate 10 'fashion hacks' video ideas — quick fixes, styling tricks, ways to make cheap look expensive.",
+  "Give me 5 video concepts about organizing your closet that are satisfying to watch.",
+  "Write 8 'rate strangers' outfits' video ideas with a respectful, positive approach.",
+  "Generate 7 video ideas about dressing for your body type without being body-shamey.",
+  "Give me 10 'outfit transition' video concepts with creative transitions between looks.",
+  "Write 6 video ideas about fashion history — how trends from past decades are coming back.",
+  "Generate 8 content ideas about accessories and how they transform an outfit.",
+  "Give me 5 video concepts about fashion for different weather conditions that are actually helpful.",
+  "Write 10 'shop with me' video ideas at different types of stores (thrift, mall, online, vintage).",
+  "Generate 7 video ideas about work-appropriate fashion that still looks cool.",
+  "Give me 6 video concepts about matching outfits with friends or partners in a fun way.",
+  "Write 8 fashion content ideas about sneaker culture and casual street style.",
+  "Generate 5 video ideas about DIY fashion — customizing, altering, or upcycling clothes.",
+  "Give me 10 'fashion do's and don'ts' video ideas that are funny and not judgmental.",
+  "Write 7 video concepts about fashion on different budgets ($20, $50, $100 outfits).",
+  "Generate 6 content ideas about fashion confidence — wearing what you want regardless of 'rules'."
+],
+gaming: [
+  "Give me 10 TikTok video ideas for a gaming creator that don't require fancy editing. Just gameplay + commentary.",
+  "Write 7 'things only gamers understand' video concepts with specific scenarios that'll get comments going.",
+  "Generate 10 gaming challenge video ideas I can do solo that are entertaining to watch.",
+  "Give me 8 game review video concepts in under 60 seconds that actually tell people if they should play it.",
+  "Write 5 'unpopular gaming opinions' video ideas with specific takes that'll start friendly debates.",
+  "Generate 7 video ideas about gaming on a budget — free games, cheap setups, budget accessories.",
+  "Give me 10 'gaming tips and tricks' video concepts for popular games with specific tips for each.",
+  "Write 6 video ideas about the history of gaming that casual gamers would find interesting.",
+  "Generate 8 'gaming setup tour' video concepts with different angles and themes.",
+  "Give me 5 video ideas about comparing old games vs new games in the same franchise.",
+  "Write 10 'I tried [challenge] in [game]' video concepts with specific challenges and games.",
+  "Generate 7 video ideas about gaming snacks, setups, and rituals that gamers can relate to.",
+  "Give me 8 couch co-op or multiplayer video ideas that show genuine reactions and fun.",
+  "Write 6 video concepts about mobile gaming that don't get clowned on.",
+  "Generate 10 'rank these games' video ideas where you tier-list popular titles.",
+  "Give me 5 video ideas about gaming accessories — which are worth it and which are a waste.",
+  "Write 8 'explain this game badly' video concepts where followers have to guess the game.",
+  "Generate 7 video ideas about gaming nostalgia — childhood games, old consoles, etc.",
+  "Give me 10 speedrun or challenge attempt video concepts that are entertaining even if you fail.",
+  "Write 6 video ideas about gaming culture and community that celebrate what makes gaming fun.",
+  "Generate 8 content ideas about hidden gems — games nobody talks about but are actually fire.",
+  "Give me 5 video concepts about learning a new game from scratch and documenting the journey.",
+  "Write 10 'gaming hot takes' video ideas that'll get people debating in the comments.",
+  "Generate 7 video ideas about game soundtracks and music that deserve more appreciation.",
+  "Give me 6 video concepts about gaming fails that are funny and relatable.",
+  "Write 8 video ideas about crossover content — gaming + food, gaming + fitness, etc.",
+  "Generate 5 video concepts about upcoming games and what to expect, keeping it hype without misleading.",
+  "Give me 10 'POV' gaming video ideas using the POV trend format.",
+  "Write 7 content ideas about building a gaming community on TikTok from scratch.",
+  "Generate 6 video ideas about game mods and customizations that look amazing."
+],
+student: [
+  "Give me 10 TikTok video ideas about student life that aren't just 'study with me' videos. Make them actually entertaining.",
+  "Write 7 video concepts about study hacks that are backed by science but explained like you're talking to a friend.",
+  "Generate 10 'college survival' video ideas covering everything from roommates to dining halls to all-nighters.",
+  "Give me 8 video concepts about free apps and websites that help students save time and money.",
+  "Write 5 'day in my life as a student' video ideas with unique angles that haven't been overdone.",
+  "Generate 7 video ideas about dorm room hacks and setups on a budget.",
+  "Give me 10 video concepts about exam prep that are actually helpful, not just 'study harder'.",
+  "Write 6 content ideas about the broke student lifestyle that are funny and relatable.",
+  "Generate 8 video ideas about note-taking methods compared — which ones actually work.",
+  "Give me 5 video concepts about balancing school, work, and a social life without burnout.",
+  "Write 10 'things nobody tells you about college' video ideas with specific, useful information.",
+  "Generate 7 video ideas about student cooking — meals you can make in a dorm with minimal equipment.",
+  "Give me 8 video concepts about choosing a major, switching majors, and figuring out what you want.",
+  "Write 6 content ideas about student discounts and free stuff that most students don't know about.",
+  "Generate 10 'professor stories' video ideas (funny, wholesome, or wild) that students can relate to.",
+  "Give me 5 video ideas about online learning tips that make virtual classes less painful.",
+  "Write 8 video concepts about group projects — the struggles, the types of people, the survival guide.",
+  "Generate 7 video ideas about student mental health that are supportive without being clinical.",
+  "Give me 10 'back to school' content ideas that work for any semester, not just fall.",
+  "Write 6 video concepts about productive morning and night routines for students that are realistic.",
+  "Generate 8 video ideas about internships — how to find them, survive them, and actually learn something.",
+  "Give me 5 video ideas about textbook hacks — how to never pay full price for a book again.",
+  "Write 10 video concepts about campus life that international and domestic students can both relate to.",
+  "Generate 7 content ideas about study spaces — finding them, setting them up, making them work for you.",
+  "Give me 6 video ideas about financial tips for students who are managing money for the first time.",
+  "Write 8 video concepts about extracurricular activities and how to pick the right ones.",
+  "Generate 5 video ideas about dealing with academic pressure and comparison on social media.",
+  "Give me 10 'things I learned this semester' video ideas structured as a reflection.",
+  "Write 7 video concepts about the transition from high school to college (or college to real life).",
+  "Generate 6 content ideas about building good habits as a student that actually stick."
+],
+sidehustle: [
+  "Give me 10 TikTok video ideas about starting a side hustle with $0 investment. Real ideas, not scammy ones.",
+  "Write 7 video concepts about side hustles that actually work in 2026, with realistic income expectations.",
+  "Generate 10 'how I made money this week' content ideas that are transparent about the numbers.",
+  "Give me 8 video ideas about free tools that replace expensive business software.",
+  "Write 5 video concepts about common side hustle mistakes and how to avoid each one.",
+  "Generate 7 video ideas about building a personal brand on social media for free.",
+  "Give me 10 'freelancing tips' video concepts for people just starting out with no portfolio.",
+  "Write 6 content ideas about passive income that are honest about how much work it actually takes upfront.",
+  "Generate 8 video ideas about selling digital products — what works, what doesn't, and how to start.",
+  "Give me 5 video concepts about pricing your services when you have no experience yet.",
+  "Write 10 video ideas about 'day in the life of someone with multiple income streams' that are realistic.",
+  "Generate 7 content ideas about client management — finding, keeping, and dealing with difficult clients.",
+  "Give me 8 video ideas about side hustle tax basics that everyone needs to know.",
+  "Write 6 video concepts about time management when you're working a job AND a side hustle.",
+  "Generate 10 'skills you can learn for free that people will pay for' video ideas with specific skills.",
+  "Give me 5 video ideas about creating a portfolio or website when you're just starting out.",
+  "Write 8 video concepts about the reality of entrepreneurship — the good, bad, and ugly.",
+  "Generate 7 content ideas about market research — how to figure out what people will pay for.",
+  "Give me 10 video ideas about networking on social media without being annoying or salesy.",
+  "Write 6 video concepts about going from side hustle to full-time — when to make the leap.",
+  "Generate 8 video ideas about productivity hacks for people running a business on the side.",
+  "Give me 5 video ideas about financial planning for side hustlers — separating business and personal money.",
+  "Write 10 'side hustle review' video concepts where you try different methods and report results.",
+  "Generate 7 content ideas about building an email list and why it matters, explained simply.",
+  "Give me 6 video ideas about content creation as a side hustle — realistic expectations and tips.",
+  "Write 8 video concepts about overcoming fear of putting yourself out there as a creator or freelancer.",
+  "Generate 5 video ideas about seasonal side hustles that pop up at different times of year.",
+  "Give me 10 'red flags in online money-making advice' video ideas to help people avoid scams.",
+  "Write 7 video concepts about automating parts of your side hustle to save time.",
+  "Generate 6 content ideas about success stories — interviewing real people about how they started."
+],
+travel: [
+  "Give me 10 TikTok video ideas about traveling on a tight budget that show real costs and real destinations.",
+  "Write 7 video concepts about travel hacks that save money on flights, hotels, and food.",
+  "Generate 10 'hidden gem' destination video ideas — places that aren't overrun with tourists yet.",
+  "Give me 8 video ideas about solo travel tips for people who've never traveled alone before.",
+  "Write 5 video concepts about travel mistakes I've made so my followers don't repeat them.",
+  "Generate 7 content ideas about packing — what to bring, what to leave, how to fit it all in a carry-on.",
+  "Give me 10 video ideas about local food in different countries that cost under $5.",
+  "Write 6 video concepts about safety tips for travelers that aren't fear-mongering.",
+  "Generate 8 video ideas about 'what $20 gets you in [country]' comparisons.",
+  "Give me 5 video ideas about travel photography tips using just a phone.",
+  "Write 10 'expectation vs reality' video concepts about popular tourist destinations.",
+  "Generate 7 video ideas about free things to do in major cities around the world.",
+  "Give me 8 content ideas about travel scams — how to spot and avoid them.",
+  "Write 6 video concepts about learning basic phrases in different languages before your trip.",
+  "Generate 10 video ideas about road trips — planning, packing, snacks, playlists, stops.",
+  "Give me 5 video ideas about airport hacks that make flying less stressful.",
+  "Write 8 video concepts about cultural differences that travelers should know about.",
+  "Generate 7 content ideas about travel apps and tools that are free and actually useful.",
+  "Give me 10 video ideas about accommodation hacks — hostels, house-sitting, cheap stays.",
+  "Write 6 video concepts about weekend trip ideas for people who can't take long vacations.",
+  "Generate 8 video ideas about travel gear reviews — what's worth buying and what's a waste.",
+  "Give me 5 video ideas about making friends while traveling and connecting with locals.",
+  "Write 10 'first time in [country]' video concepts showing genuine reactions and discoveries.",
+  "Generate 7 video ideas about sustainable travel — how to explore without trashing the planet.",
+  "Give me 6 video concepts about travel budgets — how much different trips actually cost, broken down.",
+  "Write 8 content ideas about long-term travel vs short trips — pros, cons, and how-to for each.",
+  "Generate 5 video ideas about travel with friends — planning, splitting costs, avoiding drama.",
+  "Give me 10 video ideas about unusual travel experiences that most tourists never try.",
+  "Write 7 video concepts about coming home after a trip — reverse culture shock, trip recaps, lessons.",
+  "Generate 6 content ideas about travel insurance and boring-but-important stuff explained in a fun way."
+],
+pets: [
+  "Give me 10 TikTok video ideas about pet ownership that are funny and relatable. Not educational, just entertaining.",
+  "Write 7 video concepts about 'things my pet does that would be weird if a human did them'.",
+  "Generate 10 'day in the life of my pet' video ideas with creative narration styles.",
+  "Give me 8 video ideas about pet products — reviewing toys, beds, treats, and gadgets.",
+  "Write 5 video concepts about adopting a pet — the process, the emotions, the reality.",
+  "Generate 7 content ideas about DIY pet toys and treats that are safe and cheap to make.",
+  "Give me 10 video ideas about pet training tips presented in a fun, non-lecture way.",
+  "Write 6 video concepts about the costs of pet ownership — honest breakdown of expenses.",
+  "Generate 8 video ideas about pet reactions — to new things, other animals, their owners, etc.",
+  "Give me 5 video ideas about 'pet parent confessions' — things all pet owners secretly do.",
+  "Write 10 video concepts about pet care routines — grooming, feeding, exercise, health checks.",
+  "Generate 7 content ideas about traveling with pets — tips, gear, and funny stories.",
+  "Give me 8 video ideas about the bond between pets and their owners that'll make people emotional.",
+  "Write 6 video concepts about first-time pet owner mistakes and how to avoid them.",
+  "Generate 10 video ideas about pet memes and trends — recreating popular pet content with your own spin.",
+  "Give me 5 video ideas about pet-friendly recipes and homemade treats.",
+  "Write 8 video concepts about pets meeting each other — introductions, reactions, friendship arcs.",
+  "Generate 7 content ideas about seasonal pet content — holidays, weather changes, seasonal activities.",
+  "Give me 10 video ideas about 'conversations with my pet' using voiceover or text overlay.",
+  "Write 6 video concepts about pet fashion — outfits, accessories, and costume content.",
+  "Generate 8 video ideas about different pet species and which ones make good pets for different lifestyles.",
+  "Give me 5 video ideas about pet health tips that every owner should know.",
+  "Write 10 'expectation vs reality of owning a [pet type]' video concepts.",
+  "Generate 7 video ideas about pet rescue and shelter content that promotes adoption.",
+  "Give me 6 content ideas about pet photography — how to get good shots of animals that won't stay still.",
+  "Write 8 video concepts about funny pet fails and bloopers.",
+  "Generate 5 video ideas about the emotional benefits of having a pet for mental health.",
+  "Give me 10 video ideas about 'things I've bought for my pet that were a total waste'.",
+  "Write 7 video concepts about pet-friendly home setups and spaces.",
+  "Generate 6 content ideas about pet birthdays, gotcha days, and celebrations."
+],
+beauty: [
+  "Give me 10 TikTok video ideas about skincare for beginners who are overwhelmed by all the products out there.",
+  "Write 7 video concepts about makeup dupes — expensive products vs cheap alternatives that work just as well.",
+  "Generate 10 'get ready with me' video ideas that have a unique twist or storytelling element.",
+  "Give me 8 video ideas about beauty on a budget — full routines using only drugstore products.",
+  "Write 5 video concepts about skincare ingredients explained simply without scientific jargon.",
+  "Generate 7 content ideas about beauty trends to try and ones to skip this year.",
+  "Give me 10 video ideas about 'products I regret buying' and what I use instead.",
+  "Write 6 video concepts about hair care tips for different hair types and textures.",
+  "Generate 8 video ideas about seasonal beauty routines — how to adjust for weather changes.",
+  "Give me 5 video ideas about beauty hacks using things you already have at home.",
+  "Write 10 video concepts about 'what actually works vs what's just marketing' in the beauty industry.",
+  "Generate 7 content ideas about beauty for beginners — where to start, what to buy first, what to skip.",
+  "Give me 8 video ideas about sunscreen — why it matters, which ones work, myth-busting.",
+  "Write 6 video concepts about nail care and nail art tutorials for beginners.",
+  "Generate 10 video ideas about 'my morning beauty routine vs my night routine' comparisons.",
+  "Give me 5 video ideas about beauty tools and gadgets — which are worth the money.",
+  "Write 8 video concepts about body care routines that are simple and affordable.",
+  "Generate 7 content ideas about beauty from different cultures — routines and products from around the world.",
+  "Give me 10 video ideas about 'empty products' reviews — things I used up and would I rebuy.",
+  "Write 6 video concepts about beauty content that teaches a skill in under 60 seconds.",
+  "Generate 8 video ideas about natural beauty vs full glam — celebrating both approaches.",
+  "Give me 5 video ideas about fragrance and perfume for beginners who don't know where to start.",
+  "Write 10 video concepts about self-care routines that include beauty and don't cost a lot.",
+  "Generate 7 content ideas about beauty mistakes most people make without realizing it.",
+  "Give me 6 video ideas about beauty product organization and storage that are satisfying to watch.",
+  "Write 8 video concepts about beauty reviews — testing viral products honestly.",
+  "Generate 5 video ideas about lip care, lip products, and lip art tutorials.",
+  "Give me 10 video ideas about eye makeup tutorials for different eye shapes.",
+  "Write 7 video concepts about beauty community content — polls, challenges, follower picks.",
+  "Generate 6 content ideas about minimalist beauty — doing more with less."
+],
+general: [
+  "Give me 10 TikTok video ideas that any creator in any niche can use to grow their account. Make them creative and not the same recycled advice.",
+  "Write 7 video concepts about 'things that are free but feel illegal' — relatable moments everyone experiences.",
+  "Generate 10 'unpopular opinion' video ideas on everyday topics that'll get people debating.",
+  "Give me 8 video ideas about productivity tips for people who hate productivity content.",
+  "Write 5 video concepts about social media itself — the algorithm, trends, what works and why.",
+  "Generate 7 content ideas about 'things I wish I knew at 18' from different perspectives.",
+  "Give me 10 video ideas about life hacks that actually work and aren't clickbait nonsense.",
+  "Write 6 video concepts about technology and apps that make everyday life easier.",
+  "Generate 8 video ideas about 'ranking things' — tier lists, top 5s, hot takes on everyday stuff.",
+  "Give me 5 video concepts about storytelling on TikTok — how to tell a good story in 60 seconds.",
+  "Write 10 video ideas about morning or night routines with a unique twist or honest angle.",
+  "Generate 7 content ideas about money and finances for young people, explained without jargon.",
+  "Give me 8 video ideas about 'adulting' — the funny, painful, and real parts of growing up.",
+  "Write 6 video concepts about challenges and trends you can put your own creative spin on.",
+  "Generate 10 video ideas about 'things that give me the ick' or 'things that are a green flag'.",
+  "Give me 5 video ideas about creating content itself — behind the scenes, how to start, gear tips.",
+  "Write 8 video concepts about relationships and friendships (not dating advice, just relatable stuff).",
+  "Generate 7 content ideas about mental health and self-care presented in a casual, non-clinical way.",
+  "Give me 10 video ideas about nostalgia — childhood memories, old trends, things we miss.",
+  "Write 6 video concepts about seasonal content that works for any niche.",
+  "Generate 8 video ideas about 'would you rather' and interactive content that gets comments.",
+  "Give me 5 video ideas about shopping and spending habits — hauls, reviews, regrets, wins.",
+  "Write 10 video concepts about 'a day in my life' that are actually interesting to watch.",
+  "Generate 7 content ideas about goals, planning, and getting your life together in a realistic way.",
+  "Give me 6 video ideas about testing viral trends and products to see if they actually work.",
+  "Write 8 video concepts about home organization and decoration on a budget.",
+  "Generate 5 video ideas about cooking or food for people who are NOT food creators.",
+  "Give me 10 'storytime' video ideas with structures that keep people watching until the end.",
+  "Write 7 video concepts about sustainability and eco-friendly choices that aren't preachy.",
+  "Generate 6 content ideas about cultural topics — music, movies, shows, books — that spark conversation."
+]
+},
+
+// ─── CAPTIONS & HOOKS ───
+captions: {
+foodie: [
+  "Write 10 TikTok captions for a foodie creator posting cooking videos. Make them casual, funny, and under 150 characters. Include 5 relevant hashtags each.",
+  "Give me 5 attention-grabbing hooks for Instagram Reels about cooking on a budget. The hook must make someone stop scrolling in the first 2 seconds.",
+  "Write 8 captions for food review videos that are sassy and opinionated. Keep them short enough for TikTok.",
+  "Generate 10 hooks for recipe videos that create urgency or curiosity. Each hook should be one sentence max.",
+  "Write 5 Instagram captions for carousel posts about meal prep. Include a call to action asking followers what they want to see next.",
+  "Give me 7 TikTok hooks for 'what I eat in a day' videos that aren't boring or overdone.",
+  "Write 10 funny captions for food fail videos. Make them self-deprecating and relatable.",
+  "Generate 8 hooks for street food review videos that make the viewer feel like they're right there with you.",
+  "Write 5 captions for restaurant review posts that balance honesty with entertainment.",
+  "Give me 10 'controversial food opinion' hooks that'll make people instantly comment to disagree.",
+  "Write 7 captions for cooking tutorial videos that make following a recipe feel fun, not like homework.",
+  "Generate 8 hooks for grocery haul videos that make a shopping trip sound exciting.",
+  "Write 10 short captions for quick recipe Reels — each one should be under 100 characters.",
+  "Give me 5 hooks for 'rating foods' videos that create suspense about the final verdict.",
+  "Write 8 captions for food content that encourage followers to tag a friend who needs to see this.",
+  "Generate 10 hooks for 'cheap meals' content that make budgeting feel cool, not limiting.",
+  "Write 7 captions for dessert content — make them sweet, punny, and shareable.",
+  "Give me 5 hooks for 'food hack' videos that start with a bold claim.",
+  "Write 10 captions that transition from a funny observation about food to a recipe reveal.",
+  "Generate 8 hooks specifically for fast food review content.",
+  "Write 5 captions for late-night cooking content that's relatable to anyone who gets midnight cravings.",
+  "Give me 10 hooks for 'is this food worth the hype?' review videos.",
+  "Write 7 captions for healthy eating content that doesn't sound preachy or diet-culture-y.",
+  "Generate 8 Instagram caption openings for food photography posts.",
+  "Write 5 hooks for viral recipe recreation videos.",
+  "Give me 10 captions for food comparison content (cheap vs expensive, homemade vs restaurant, etc.).",
+  "Write 8 hooks for kitchen gadget review videos.",
+  "Generate 7 captions for seasonal food content (summer BBQ, fall comfort food, etc.).",
+  "Write 10 one-liner hooks that work for any food video regardless of the specific topic.",
+  "Give me 5 captions that turn a simple cooking video into a storytelling moment."
+],
+fitness: [
+  "Write 10 TikTok captions for a fitness creator posting workout videos. Make them casual, funny, and under 150 characters. Include 5 relevant hashtags each.",
+  "Give me 5 attention-grabbing hooks for Instagram Reels about home workouts. The hook must make someone stop scrolling in the first 2 seconds.",
+  "Write 8 captions for gym videos that are motivational without being cringe or toxic.",
+  "Generate 10 hooks for workout tutorial videos that create curiosity about the results.",
+  "Write 5 Instagram captions for before-and-after fitness posts that focus on strength, not just looks.",
+  "Give me 7 TikTok hooks for 'things at the gym that annoy me' videos.",
+  "Write 10 captions for rest day content that make recovery feel productive.",
+  "Generate 8 hooks for 'workout with me' videos that promise a specific outcome.",
+  "Write 5 captions for fitness transformation content that celebrate the journey, not just the destination.",
+  "Give me 10 hooks that call out common exercise mistakes without being condescending.",
+  "Write 7 captions for quick workout videos that emphasize how little time you need.",
+  "Generate 8 hooks for stretching and mobility content that make it sound exciting.",
+  "Write 10 captions for gym humor content — relatable gym moments everyone experiences.",
+  "Give me 5 hooks for 'what I eat in a day' fitness content that set honest expectations.",
+  "Write 8 captions for partner or couple workout videos.",
+  "Generate 10 hooks for 'fitness myth-busting' content that start with the myth.",
+  "Write 7 captions for outdoor workout content that make exercising outside look fun.",
+  "Give me 5 hooks for 'beginner gym' content aimed at people who feel intimidated.",
+  "Write 10 captions for fitness gear review content.",
+  "Generate 8 hooks for 'no equipment workout' videos that make them sound just as effective.",
+  "Write 5 captions for post-workout selfie content that aren't just 'gains'.",
+  "Give me 10 hooks for workout challenge content.",
+  "Write 7 captions for fitness content that addresses mental health benefits.",
+  "Generate 8 hooks for 'day in my life' fitness content.",
+  "Write 5 captions that make fitness feel accessible to people who aren't gym regulars.",
+  "Give me 10 hooks for nutritional tip videos for fitness enthusiasts.",
+  "Write 8 captions for 'form check' educational content.",
+  "Generate 7 hooks for workout routine comparison content.",
+  "Write 10 captions for cardio content that make running/cycling/swimming sound fun.",
+  "Give me 5 hooks for recovery and self-care in fitness content."
+],
+fashion: [
+  "Write 10 TikTok captions for outfit of the day posts. Keep them under 150 characters and trendy.",
+  "Give me 5 hooks for thrift haul videos that make people excited about secondhand shopping.",
+  "Write 8 captions for 'style this item multiple ways' content that encourage saves.",
+  "Generate 10 hooks for fashion hack videos that start with a transformation tease.",
+  "Write 5 Instagram captions for outfit flat lay photos that tell a mini story.",
+  "Give me 7 hooks for 'fashion mistakes to avoid' content that are funny, not mean.",
+  "Write 10 captions for seasonal outfit content that match the vibe of each season.",
+  "Generate 8 hooks for budget fashion content that make cheap look high-end.",
+  "Write 5 captions for fashion challenge videos with friends or followers.",
+  "Give me 10 hooks for 'recreate the celebrity look for less' videos.",
+  "Write 7 captions for closet organization or declutter content.",
+  "Generate 8 hooks for sustainable fashion content that make eco-friendly sound cool.",
+  "Write 10 captions for sneaker and streetwear content.",
+  "Give me 5 hooks for 'what to wear to [event]' guide videos.",
+  "Write 8 captions for fashion trend reaction content.",
+  "Generate 10 hooks for outfit transition TikToks with creative transitions.",
+  "Write 7 captions for accessories and jewelry content.",
+  "Give me 5 hooks for 'shop with me' content at different stores.",
+  "Write 10 captions for color-coordinated or monochrome outfit content.",
+  "Generate 8 hooks for DIY fashion or upcycling content.",
+  "Write 5 captions for capsule wardrobe content.",
+  "Give me 10 hooks for 'rate my outfit' interactive content.",
+  "Write 7 captions for work or office fashion content.",
+  "Generate 8 hooks for fashion history or trend cycle content.",
+  "Write 10 captions for seasonal transition outfits (summer to fall, etc.).",
+  "Give me 5 hooks for fashion content aimed at guys who want to dress better.",
+  "Write 8 captions for shoe collection or shoe review content.",
+  "Generate 7 hooks for fashion do's and don'ts content.",
+  "Write 10 captions for matching outfit content (couples, friends, pets).",
+  "Give me 5 hooks for wardrobe essentials content."
+],
+gaming: [
+  "Write 10 TikTok captions for gameplay clips. Keep them short, funny, and relatable to gamers.",
+  "Give me 5 hooks for 'things only gamers understand' videos that immediately grab gaming audiences.",
+  "Write 8 captions for game review content that give your honest take in a fun way.",
+  "Generate 10 hooks for gaming challenge videos that create suspense about the outcome.",
+  "Write 5 captions for gaming setup tour content.",
+  "Give me 7 hooks for 'unpopular gaming opinions' content that'll start comment wars.",
+  "Write 10 captions for gaming fail compilations that are self-deprecating and funny.",
+  "Generate 8 hooks for 'best free games' content that make people want the list immediately.",
+  "Write 5 captions for gaming nostalgia content about old games and consoles.",
+  "Give me 10 hooks for game comparison content (old vs new, game A vs game B).",
+  "Write 7 captions for multiplayer gaming content with friends.",
+  "Generate 8 hooks for 'gaming tips you didn't know' content.",
+  "Write 10 captions for rage quit moments or intense gameplay clips.",
+  "Give me 5 hooks for mobile gaming content that doesn't get hate.",
+  "Write 8 captions for gaming snack and setup ritual content.",
+  "Generate 10 hooks for 'I tried [something] in [game]' experiment content.",
+  "Write 7 captions for game tier list or ranking content.",
+  "Give me 5 hooks for gaming news or announcement reaction content.",
+  "Write 10 captions for funny glitch or bug compilation content.",
+  "Generate 8 hooks for 'explaining games to non-gamers' content.",
+  "Write 5 captions for esports or competitive gaming content.",
+  "Give me 10 hooks for gaming podcast or commentary content.",
+  "Write 7 captions for gaming meme content.",
+  "Generate 8 hooks for 'hidden details in games' content.",
+  "Write 10 captions for gaming community and culture content.",
+  "Give me 5 hooks for cozy or chill gaming content.",
+  "Write 8 captions for game soundtrack appreciation content.",
+  "Generate 7 hooks for 'games you should play right now' recommendation content.",
+  "Write 10 captions for gaming achievement or milestone celebration content.",
+  "Give me 5 hooks for gaming accessory review content."
+],
+student: [
+  "Write 10 TikTok captions for study content that make studying look less miserable.",
+  "Give me 5 hooks for 'study hacks' videos that promise a specific result.",
+  "Write 8 captions for college life content — the funny, stressful, and wholesome moments.",
+  "Generate 10 hooks for exam prep content that create urgency without causing more stress.",
+  "Write 5 Instagram captions for aesthetic study setup or note photos.",
+  "Give me 7 hooks for 'things professors do that make no sense' content.",
+  "Write 10 captions for 'broke student' content that's funny and relatable.",
+  "Generate 8 hooks for dorm room tour or hack content.",
+  "Write 5 captions for 'day in my life as a student' content.",
+  "Give me 10 hooks for productivity content aimed at students who procrastinate.",
+  "Write 7 captions for group project horror story content.",
+  "Generate 8 hooks for 'apps every student needs' content.",
+  "Write 10 captions for back-to-school content.",
+  "Give me 5 hooks for 'things nobody tells you about college' content.",
+  "Write 8 captions for campus food content.",
+  "Generate 10 hooks for time management content for students.",
+  "Write 7 captions for textbook and school supply content.",
+  "Give me 5 hooks for 'choosing a major' content.",
+  "Write 10 captions for late-night study session content.",
+  "Generate 8 hooks for student budget and money tips content.",
+  "Write 5 captions for graduation or end-of-semester content.",
+  "Give me 10 hooks for student life comparison content (expectation vs reality).",
+  "Write 7 captions for study motivation content.",
+  "Generate 8 hooks for student cooking or meal prep content.",
+  "Write 10 captions for exam season survival content.",
+  "Give me 5 hooks for student mental health content.",
+  "Write 8 captions for internship and career prep content.",
+  "Generate 7 hooks for remote learning content.",
+  "Write 10 captions for campus event or activity content.",
+  "Give me 5 hooks for student roommate content."
+],
+sidehustle: [
+  "Write 10 TikTok captions for side hustle content that are transparent and not salesy.",
+  "Give me 5 hooks for 'how I make money' content that promise specific, real information.",
+  "Write 8 captions for freelancing tips content that make starting feel less scary.",
+  "Generate 10 hooks for 'side hustle mistakes' content that prevent followers from losing money.",
+  "Write 5 Instagram captions for income report or money transparency posts.",
+  "Give me 7 hooks for 'free tools for your business' content.",
+  "Write 10 captions for 'red flags in online business advice' content.",
+  "Generate 8 hooks for 'skills you can monetize' content that name the specific skills.",
+  "Write 5 captions for day-in-the-life side hustle content.",
+  "Give me 10 hooks for 'passive income truth' content that debunks myths.",
+  "Write 7 captions for client work or freelance showcase content.",
+  "Generate 8 hooks for 'how to get your first client' content.",
+  "Write 10 captions for money mindset content that's practical, not woo-woo.",
+  "Give me 5 hooks for 'pricing your services' content.",
+  "Write 8 captions for productivity and time management content for hustlers.",
+  "Generate 10 hooks for 'what I spent vs what I earned this month' content.",
+  "Write 7 captions for tool and app recommendation content.",
+  "Give me 5 hooks for digital product creation content.",
+  "Write 10 captions for milestone and win celebration content (first sale, first client, etc.).",
+  "Generate 8 hooks for 'things I learned from failing' business content.",
+  "Write 5 captions for networking and outreach tip content.",
+  "Give me 10 hooks for 'start with $0' business content.",
+  "Write 7 captions for brand building and social media growth content.",
+  "Generate 8 hooks for 'quit your job or keep it?' content.",
+  "Write 10 captions for work-life balance content for people running a side hustle.",
+  "Give me 5 hooks for e-commerce and selling online content.",
+  "Write 8 captions for tax and financial planning content for side hustlers.",
+  "Generate 7 hooks for content creation as a career content.",
+  "Write 10 captions for motivational side hustle content that's not toxic hustle culture.",
+  "Give me 5 hooks for portfolio and website building content."
+],
+travel: [
+  "Write 10 TikTok captions for travel videos that make followers want to pack their bags immediately.",
+  "Give me 5 hooks for budget travel content that start with a jaw-dropping price.",
+  "Write 8 captions for 'things I wish I knew before visiting [place]' content.",
+  "Generate 10 hooks for travel hack videos that promise to save real money.",
+  "Write 5 Instagram captions for travel photo posts that tell a story beyond 'look where I am'.",
+  "Give me 7 hooks for 'overrated tourist spots' content.",
+  "Write 10 captions for street food content filmed while traveling.",
+  "Generate 8 hooks for solo travel content that addresses fear of traveling alone.",
+  "Write 5 captions for packing content that make organization look satisfying.",
+  "Give me 10 hooks for 'what $X gets you in [country]' comparison content.",
+  "Write 7 captions for travel fail or mishap content.",
+  "Generate 8 hooks for 'hidden gem' destination content.",
+  "Write 10 captions for cultural experience content that's respectful and curious.",
+  "Give me 5 hooks for travel scam warning content.",
+  "Write 8 captions for accommodation review content (hostels, Airbnbs, hotels).",
+  "Generate 10 hooks for road trip content.",
+  "Write 7 captions for 'free things to do in [city]' content.",
+  "Give me 5 hooks for travel photography content.",
+  "Write 10 captions for airport and flying content.",
+  "Generate 8 hooks for 'first time in [country]' content.",
+  "Write 5 captions for coming-home-from-a-trip content.",
+  "Give me 10 hooks for travel gear review content.",
+  "Write 7 captions for travel with friends content.",
+  "Generate 8 hooks for travel budget breakdown content.",
+  "Write 10 captions for adventure or outdoor travel content.",
+  "Give me 5 hooks for travel safety content.",
+  "Write 8 captions for local experience content (not tourist traps).",
+  "Generate 7 hooks for travel planning and booking content.",
+  "Write 10 captions for weekend trip or day trip content.",
+  "Give me 5 hooks for language barrier stories while traveling."
+],
+pets: [
+  "Write 10 TikTok captions for pet videos that are funny and make people tag their friends.",
+  "Give me 5 hooks for 'things my pet does' content that make people say 'SAME'.",
+  "Write 8 captions for pet product review content.",
+  "Generate 10 hooks for 'day in the life of my pet' content that personify the animal.",
+  "Write 5 Instagram captions for cute pet photos that aren't just 'look at my baby'.",
+  "Give me 7 hooks for pet training content that's encouraging, not judgmental.",
+  "Write 10 captions for 'conversations with my pet' voiceover content.",
+  "Generate 8 hooks for pet adoption and rescue content.",
+  "Write 5 captions for pet fail or funny moment videos.",
+  "Give me 10 hooks for 'expectation vs reality of pet ownership' content.",
+  "Write 7 captions for pet costume or dress-up content.",
+  "Generate 8 hooks for DIY pet toy or treat content.",
+  "Write 10 captions for pet reaction videos.",
+  "Give me 5 hooks for 'things I didn't know before getting a pet' content.",
+  "Write 8 captions for pet and owner matching or bonding content.",
+  "Generate 10 hooks for pet health tip content.",
+  "Write 7 captions for multi-pet household content.",
+  "Give me 5 hooks for pet birthday or celebration content.",
+  "Write 10 captions for pet sleeping, eating, or just being cute content.",
+  "Generate 8 hooks for 'my pet is spoiled' content.",
+  "Write 5 captions for introducing a new pet content.",
+  "Give me 10 hooks for pet challenge or trend participation content.",
+  "Write 7 captions for seasonal pet content (holidays, weather, etc.).",
+  "Generate 8 hooks for pet travel content.",
+  "Write 10 captions for 'things I buy for my pet vs things they actually use' content.",
+  "Give me 5 hooks for pet grooming content.",
+  "Write 8 captions for pet breed information content.",
+  "Generate 7 hooks for 'pet vs [household object]' content.",
+  "Write 10 captions for pet milestone content (adoptiversary, birthday, etc.).",
+  "Give me 5 hooks for relatable pet owner moment content."
+],
+beauty: [
+  "Write 10 TikTok captions for makeup tutorial videos. Keep them casual and under 150 characters.",
+  "Give me 5 hooks for skincare routine videos that make people want to watch the full thing.",
+  "Write 8 captions for beauty product review content that's honest and opinionated.",
+  "Generate 10 hooks for 'beauty on a budget' content that make drugstore sound luxurious.",
+  "Write 5 Instagram captions for beauty flat lay or product photos.",
+  "Give me 7 hooks for GRWM (get ready with me) content with a storytelling element.",
+  "Write 10 captions for 'beauty mistakes I used to make' content.",
+  "Generate 8 hooks for beauty dupe content — expensive vs cheap comparisons.",
+  "Write 5 captions for skincare transformation or before/after content.",
+  "Give me 10 hooks for 'products you don't need' or anti-haul content.",
+  "Write 7 captions for hair care tips and routine content.",
+  "Generate 8 hooks for beauty trend testing content.",
+  "Write 10 captions for self-care routine content.",
+  "Give me 5 hooks for 'holy grail products' or favorites content.",
+  "Write 8 captions for beauty empowerment content — feeling good in your skin.",
+  "Generate 10 hooks for beauty myth-busting content.",
+  "Write 7 captions for nail art or nail care content.",
+  "Give me 5 hooks for seasonal beauty routine content.",
+  "Write 10 captions for fragrance or perfume content.",
+  "Generate 8 hooks for 'products I've used up and would rebuy' content.",
+  "Write 5 captions for quick beauty tip or hack content.",
+  "Give me 10 hooks for beauty haul content.",
+  "Write 7 captions for beauty challenge content.",
+  "Generate 8 hooks for 'my dermatologist said' educational content.",
+  "Write 10 captions for minimalist beauty or 'less is more' content.",
+  "Give me 5 hooks for makeup for different occasions content.",
+  "Write 8 captions for beauty community polls and interactive content.",
+  "Generate 7 hooks for body care and body confidence content.",
+  "Write 10 captions for beauty content comparing viral products to underrated ones.",
+  "Give me 5 hooks for 'I tried the TikTok beauty trend' content."
+],
+general: [
+  "Write 10 TikTok captions that work for any niche. Make them curiosity-driven and under 150 characters.",
+  "Give me 5 universal hooks that make someone stop scrolling no matter what the content is about.",
+  "Write 8 captions for 'storytime' content that tease without giving everything away.",
+  "Generate 10 hooks for 'unpopular opinion' content on everyday topics.",
+  "Write 5 Instagram captions for carousel posts that encourage saves and shares.",
+  "Give me 7 hooks for 'things nobody talks about' content that create insider energy.",
+  "Write 10 captions for relatable everyday moment content.",
+  "Generate 8 hooks for 'ranking things' or tier list content.",
+  "Write 5 captions for Q&A or 'ask me anything' content.",
+  "Give me 10 hooks for life hack content that start with a bold promise.",
+  "Write 7 captions for nostalgia or throwback content.",
+  "Generate 8 hooks for 'expectation vs reality' content.",
+  "Write 10 captions for 'things I learned this week/month/year' content.",
+  "Give me 5 hooks for rant or vent content that's funny, not angry.",
+  "Write 8 captions for challenge participation content.",
+  "Generate 10 hooks for 'controversial take' content that gets comments.",
+  "Write 7 captions for motivation or 'get your life together' content.",
+  "Give me 5 hooks for 'things that give me the ick' content.",
+  "Write 10 captions for collab or featuring-friends content.",
+  "Generate 8 hooks for 'day in my life' content.",
+  "Write 5 captions for celebrating milestones (follower counts, personal wins).",
+  "Give me 10 hooks for educational content that doesn't sound boring.",
+  "Write 7 captions for 'rate my...' interactive content.",
+  "Generate 8 hooks for product recommendation content.",
+  "Write 10 captions for seasonal or holiday content.",
+  "Give me 5 hooks for 'I tested this so you don't have to' content.",
+  "Write 8 captions for 'red flag vs green flag' content.",
+  "Generate 7 hooks for content about content creation (meta content).",
+  "Write 10 captions that encourage engagement (comments, duets, stitches).",
+  "Give me 5 hooks for 'things I changed my mind about' content."
+]
+},
+
+// ─── VIDEO SCRIPTS ───
+scripts: {
+foodie: [
+  "Write a 30-second TikTok script for a '$5 meal challenge' video. Include the hook (first 2 seconds), body showing the cooking process, and a CTA. Make it sound like a real person talking, not a brand.",
+  "Write a 45-second TikTok script for a 'rating a restaurant I found on TikTok' video. Include genuine reactions and a final verdict.",
+  "Write a 20-second TikTok script for a 'foods you're eating wrong' video featuring one food. Hook + reveal + mind-blown reaction.",
+  "Write a 60-second YouTube Short script for a 'what I eat in a day' video with a budget twist. Include voiceover style narration.",
+  "Write a 30-second TikTok script for a 'making a viral recipe' video. Include skepticism at the start and genuine reaction at the end.",
+  "Write a 15-second TikTok script for a quick recipe reveal. The entire video should be satisfying and fast-paced.",
+  "Write a 45-second script for a 'cheap vs expensive food' comparison video. Include dramatic reactions for both.",
+  "Write a 30-second TikTok script for a 'cooking for my friends and they don't know what's in it' video.",
+  "Write a 60-second script for a 'restaurant secret menu' video. Build suspense about whether they'll actually make it.",
+  "Write a 20-second TikTok script for a 'one-pan meal in 60 seconds' recipe video with voiceover instructions.",
+  "Write a 30-second TikTok script for a 'food from my culture you need to try' educational and appetizing video.",
+  "Write a 45-second script for a 'I let strangers pick my meal' challenge video. Include funny moments and genuine reactions.",
+  "Write a 30-second script for a 'kitchen hack that changed everything' reveal video.",
+  "Write a 60-second script for a 'cooking competition with my roommate' video. Include trash talk and judging.",
+  "Write a 20-second TikTok script for a 'the best thing I ate this week' quick review with one food item.",
+  "Write a 45-second script for a 'grocery store haul but I only spend $20' challenge video.",
+  "Write a 30-second script for a 'foods I thought I hated but actually love' taste test video.",
+  "Write a 15-second TikTok script for a 'satisfying cooking moment' ASMR-style video.",
+  "Write a 60-second script for a 'trying every item on a menu' video at a small restaurant.",
+  "Write a 30-second script for a 'making restaurant food at home' side-by-side comparison.",
+  "Write a 45-second script for a 'food truck tour' video visiting 3 trucks in one video.",
+  "Write a 20-second script for a 'this snack combo sounds weird but trust me' video.",
+  "Write a 30-second script for a 'cooking with only canned food' challenge video.",
+  "Write a 60-second script for a 'teaching my friend to cook' wholesome video.",
+  "Write a 30-second script for a 'midnight snack recipe' video with late-night vibes.",
+  "Write a 45-second script for a 'food from every continent' challenge video.",
+  "Write a 20-second script for a 'one ingredient upgrade that changes everything' cooking tip video.",
+  "Write a 30-second script for a 'eating my childhood favorite food as an adult' nostalgia video.",
+  "Write a 15-second script for a 'the fastest meal I can make' speed cooking video.",
+  "Write a 45-second script for a 'my most-requested recipe' tutorial video."
+],
+fitness: [
+  "Write a 30-second TikTok script for a 'no equipment workout' video. Include the hook, 3-4 exercises with form cues, and motivation at the end.",
+  "Write a 45-second TikTok script for a 'gym myth busted' video. Start with the myth, explain why it's wrong, give the correct advice.",
+  "Write a 20-second TikTok script for a 'one exercise that changed my body' video. Hook + demo + results mention.",
+  "Write a 60-second script for a 'full workout routine in 10 minutes' video with clear exercise instructions.",
+  "Write a 30-second script for a 'things I see at the gym that hurt my soul' funny observational video.",
+  "Write a 15-second TikTok script for a 'quick stretch for desk workers' video showing one stretch.",
+  "Write a 45-second script for a 'I tried this workout for 30 days' results video. Include before/after and honest thoughts.",
+  "Write a 30-second script for a 'gym etiquette 101' video that's funny but educational.",
+  "Write a 60-second script for a 'beginner's guide to the gym' video that makes newbies feel welcome.",
+  "Write a 20-second script for a 'exercise you're doing wrong' form correction video.",
+  "Write a 30-second script for a 'what I eat before and after a workout' nutrition tip video.",
+  "Write a 45-second script for a 'workout challenge with my friend' video with competitive energy.",
+  "Write a 30-second script for a 'exercises that look easy but destroy you' demonstration video.",
+  "Write a 15-second script for a 'one tip that improved my push-ups instantly' quick tip video.",
+  "Write a 60-second script for a 'my honest fitness journey' storytime video.",
+  "Write a 30-second script for a 'morning routine that keeps me consistent' lifestyle video.",
+  "Write a 45-second script for a 'rating fitness apps' review video comparing 3 popular apps.",
+  "Write a 20-second script for a 'the only ab exercise you need' bold claim video.",
+  "Write a 30-second script for a 'post-workout routine' recovery and cool-down video.",
+  "Write a 60-second script for a 'answering fitness questions from followers' Q&A video.",
+  "Write a 30-second script for a 'how I stay motivated when I don't feel like it' real talk video.",
+  "Write a 45-second script for a 'protein snacks ranked' review video.",
+  "Write a 20-second script for a 'this warm-up prevents injuries' quick demo video.",
+  "Write a 30-second script for a 'gym bag essentials' what's in my bag video.",
+  "Write a 15-second script for a 'replace this exercise with this one' quick swap tip.",
+  "Write a 60-second script for a 'full body workout using household items' creative workout video.",
+  "Write a 30-second script for a 'how much protein do you actually need' educational video.",
+  "Write a 45-second script for a 'my biggest fitness mistake' storytime video.",
+  "Write a 20-second script for a 'the best free workout app' recommendation video.",
+  "Write a 30-second script for a 'leg day but make it fun' workout video."
+],
+fashion: [
+  "Write a 30-second TikTok script for a 'style 1 item 3 ways' video. Include the hook (first 2 seconds), body, and CTA. Make it sound like a real person talking, not a brand.",
+  "Write a 45-second script for a 'thrift haul and try-on' video. Include reactions to each find and the total spent.",
+  "Write a 20-second script for a 'one style tip that levels up any outfit' quick tip video.",
+  "Write a 60-second script for a 'building a capsule wardrobe' educational video with specific items to get.",
+  "Write a 30-second script for a 'recreating a celebrity outfit on a budget' side-by-side comparison video.",
+  "Write a 15-second TikTok script for an outfit transition video with 3 looks.",
+  "Write a 45-second script for a 'fashion mistakes I used to make' cringe-but-educational video.",
+  "Write a 30-second script for a 'what I'm wearing to [event]' GRWM-style video.",
+  "Write a 60-second script for a 'closet clean-out' declutter video with real decision-making.",
+  "Write a 20-second script for a 'this $10 piece looks like $100' reveal video.",
+  "Write a 30-second script for a 'outfit check: rate my fit' street interview style video.",
+  "Write a 45-second script for a 'dressing for my body type' tips video that's inclusive.",
+  "Write a 30-second script for a 'fashion trends to try and skip this season' hot takes video.",
+  "Write a 15-second script for a 'one accessory that changes everything' transformation video.",
+  "Write a 60-second script for a 'shop with me at [store]' vlog-style video.",
+  "Write a 30-second script for a 'DIY fashion hack' customization or alteration video.",
+  "Write a 45-second script for a 'what $50 gets you at different stores' comparison shopping video.",
+  "Write a 20-second script for a 'outfit for a first date' quick styling video.",
+  "Write a 30-second script for a 'fashion pet peeves' funny rant video.",
+  "Write a 60-second script for a 'my entire week of outfits' recap video.",
+  "Write a 30-second script for a 'styling trends from TikTok' trying trends video.",
+  "Write a 45-second script for a 'wardrobe essentials everyone needs' educational video.",
+  "Write a 20-second script for a 'this color combo always works' color theory tip video.",
+  "Write a 30-second script for a 'thrift vs retail' comparing the same style from both sources.",
+  "Write a 15-second script for a 'lazy day outfit that still looks put together' quick styling video.",
+  "Write a 60-second script for a 'seasonal wardrobe switch' organizing and styling video.",
+  "Write a 30-second script for a 'affordable dupes for designer pieces' reveal video.",
+  "Write a 45-second script for a 'rate my outfit' where followers send in their fits.",
+  "Write a 20-second script for a 'one rule I follow when getting dressed' simple tip video.",
+  "Write a 30-second script for a 'fashion evolution' showing how your style has changed."
+],
+gaming: [
+  "Write a 30-second TikTok script for a 'best free games right now' recommendation video. Include the hook, show brief gameplay of each, and end with your top pick.",
+  "Write a 45-second script for a 'I tried the hardest challenge in [game]' attempt video with reactions.",
+  "Write a 20-second script for a 'one tip that made me better at [game]' quick tip video.",
+  "Write a 60-second script for a 'my gaming setup tour' walkthrough video with prices mentioned.",
+  "Write a 30-second script for a 'things gamers do that non-gamers will never understand' skit video.",
+  "Write a 15-second TikTok script for a 'satisfying gaming moment' gameplay clip with perfect timing.",
+  "Write a 45-second script for a 'game I can't stop playing' honest review video.",
+  "Write a 30-second script for a 'rating gaming snacks' tier list video.",
+  "Write a 60-second script for a 'explain this game badly' challenge video with 5 games.",
+  "Write a 20-second script for a 'this game is better than you think' underrated game spotlight.",
+  "Write a 30-second script for a 'gaming rage compilation' self-roast video.",
+  "Write a 45-second script for a 'blindfolded gaming challenge' video with a friend watching.",
+  "Write a 30-second script for a 'old game vs new game' side-by-side comparison.",
+  "Write a 15-second script for a 'the luckiest moment in my gaming career' highlight clip.",
+  "Write a 60-second script for a 'building the perfect budget gaming setup' tutorial video.",
+  "Write a 30-second script for a 'unpopular gaming opinion' hot take video.",
+  "Write a 45-second script for a 'speedrun attempt' video with timer and reactions.",
+  "Write a 20-second script for a 'game hack everyone should know' quick tip video.",
+  "Write a 30-second script for a 'teaching a non-gamer to play' wholesome video.",
+  "Write a 60-second script for a 'ranking every game I played this year' year-in-review video.",
+  "Write a 30-second script for a 'couch co-op night' vlog-style gaming video.",
+  "Write a 45-second script for a 'worst game I've ever played' roast video.",
+  "Write a 20-second script for a 'POV: your teammate does something incredible' reaction clip.",
+  "Write a 30-second script for a 'my most embarrassing gaming moment' storytime.",
+  "Write a 15-second script for a 'gaming with 0 IQ' funny fails compilation.",
+  "Write a 60-second script for a 'game theory / lore explained' educational video on one game.",
+  "Write a 30-second script for a 'if real life was a video game' comedy skit.",
+  "Write a 45-second script for a 'I only use the worst weapon/character' challenge video.",
+  "Write a 20-second script for a 'game soundtrack that goes too hard' appreciation video.",
+  "Write a 30-second script for a 'gaming New Year's resolutions' fun goal-setting video."
+],
+student: [
+  "Write a 30-second TikTok script for a 'study hack that actually works' video. Include the hook, the hack, and proof it works.",
+  "Write a 45-second script for a 'realistic day in my life as a student' video that's funny and relatable.",
+  "Write a 20-second script for a 'one app that saved my GPA' quick recommendation video.",
+  "Write a 60-second script for a 'how I organize my school life' productivity video.",
+  "Write a 30-second script for a 'things professors say that make no sense' comedy video.",
+  "Write a 15-second TikTok script for a 'cramming at 2am' relatable POV video.",
+  "Write a 45-second script for a 'dorm room tour on a budget' walkthrough video.",
+  "Write a 30-second script for a 'how to survive group projects' survival guide video.",
+  "Write a 60-second script for a 'what I eat in a day as a broke student' cooking video.",
+  "Write a 20-second script for a 'note-taking method that changed everything' quick demo.",
+  "Write a 30-second script for a 'college expectation vs reality' comparison video.",
+  "Write a 45-second script for a 'exam prep routine' step-by-step video.",
+  "Write a 30-second script for a 'things I wish someone told me before college' advice video.",
+  "Write a 15-second script for a 'that moment when the professor says the exam is open book' reaction.",
+  "Write a 60-second script for a 'campus tour but make it real' honest walkthrough video.",
+  "Write a 30-second script for a 'free student resources you're not using' tips video.",
+  "Write a 45-second script for a 'my morning routine during finals week' chaotic video.",
+  "Write a 20-second script for a 'one habit that makes me a better student' quick tip.",
+  "Write a 30-second script for a 'studying at different locations' timelapse review video.",
+  "Write a 60-second script for a 'how I balance school and a social life' real talk video.",
+  "Write a 30-second script for a 'backpack essentials for school' what's in my bag video.",
+  "Write a 45-second script for a 'professor memes but in real life' comedy video.",
+  "Write a 20-second script for a 'the best free website for students' quick recommendation.",
+  "Write a 30-second script for a 'how I make money as a full-time student' side income video.",
+  "Write a 15-second script for a 'library at 11pm during finals' documentary-style video.",
+  "Write a 60-second script for a 'study with me' real-time focus session video.",
+  "Write a 30-second script for a 'choosing your classes' advice and strategy video.",
+  "Write a 45-second script for a 'my biggest academic fail and what I learned' storytime.",
+  "Write a 20-second script for a 'hack for remembering anything' memory technique video.",
+  "Write a 30-second script for a 'end of semester celebration' montage video."
+],
+sidehustle: [
+  "Write a 30-second TikTok script for a 'how I made my first $100 online' step-by-step storytime. Make it real and specific.",
+  "Write a 45-second script for a 'side hustle that actually works' honest review video.",
+  "Write a 20-second script for a 'one free tool that runs my business' quick app recommendation.",
+  "Write a 60-second script for a 'day in the life with 2 income streams' vlog-style video.",
+  "Write a 30-second script for a 'worst side hustle advice I've ever gotten' debunking video.",
+  "Write a 15-second script for a 'that feeling when your side hustle pays more than your job' relatable moment.",
+  "Write a 45-second script for a 'income report: what I earned this month' transparency video.",
+  "Write a 30-second script for a 'how to get your first freelance client' actionable tips video.",
+  "Write a 60-second script for a 'comparing 3 side hustles' side-by-side review.",
+  "Write a 20-second script for a 'pricing mistake that cost me clients' quick lesson video.",
+  "Write a 30-second script for a 'tools I use that are 100% free' toolkit recommendation video.",
+  "Write a 45-second script for a 'from 0 to first sale' journey video.",
+  "Write a 30-second script for a 'red flags in online money-making gurus' warning video.",
+  "Write a 15-second script for a 'skill you can learn this weekend that pays' quick teaser.",
+  "Write a 60-second script for a 'building a portfolio from scratch' step-by-step tutorial.",
+  "Write a 30-second script for a 'what passive income actually looks like' myth vs reality video.",
+  "Write a 45-second script for a 'how I manage my time with a job and a side hustle' tips video.",
+  "Write a 20-second script for a 'the best side hustle for introverts' recommendation video.",
+  "Write a 30-second script for a 'money I made vs money I spent starting out' transparent breakdown.",
+  "Write a 60-second script for a 'how to price your services' educational video for beginners.",
+  "Write a 30-second script for a 'client horror story and what I learned' storytime video.",
+  "Write a 45-second script for a 'finding your niche in freelancing' advice video.",
+  "Write a 20-second script for a 'one email that landed me a client' template share video.",
+  "Write a 30-second script for a 'side hustle tax basics' simple explanation video.",
+  "Write a 15-second script for a 'things I automated in my business' quick wins video.",
+  "Write a 60-second script for a 'I tried 5 side hustles and ranked them' experiment results video.",
+  "Write a 30-second script for a 'networking without being annoying' tips video.",
+  "Write a 45-second script for a 'creating a digital product from scratch' walkthrough video.",
+  "Write a 20-second script for a 'the one habit that grew my side hustle' quick tip.",
+  "Write a 30-second script for a 'should I quit my job for this?' real talk decision video."
+],
+travel: [
+  "Write a 30-second TikTok script for a 'what $10 gets you in [country]' budget travel video. Include the hook, show 3-4 things, end with total value.",
+  "Write a 45-second script for a 'travel hack that saves hundreds' tip video with a real example.",
+  "Write a 20-second script for a 'one thing to know before visiting [place]' quick tip video.",
+  "Write a 60-second script for a 'packing in a carry-on only' tutorial video.",
+  "Write a 30-second script for a 'overrated vs underrated tourist spots' comparison video.",
+  "Write a 15-second script for a 'the most beautiful place I've ever been' reveal video.",
+  "Write a 45-second script for a 'solo travel tips for first-timers' advice video.",
+  "Write a 30-second script for a 'travel scam I almost fell for' warning storytime.",
+  "Write a 60-second script for a 'full travel budget breakdown' for a specific trip.",
+  "Write a 20-second script for a 'airport hack you need to know' quick tip.",
+  "Write a 30-second script for a 'eating street food in [country]' taste test adventure.",
+  "Write a 45-second script for a 'cheapest way to fly anywhere' booking strategy video.",
+  "Write a 30-second script for a 'things tourists do that locals hate' cultural awareness video.",
+  "Write a 15-second script for a 'hidden gem destination' quick reveal video.",
+  "Write a 60-second script for a 'road trip planning guide' step-by-step video.",
+  "Write a 30-second script for a 'hostel vs hotel' honest comparison video.",
+  "Write a 45-second script for a 'my worst travel experience and what I learned' storytime.",
+  "Write a 20-second script for a 'one app every traveler needs' recommendation.",
+  "Write a 30-second script for a 'free things to do in [city]' list video.",
+  "Write a 60-second script for a 'how I plan a trip from scratch' process video.",
+  "Write a 30-second script for a 'trying local food for the first time' reaction video.",
+  "Write a 45-second script for a 'travel safety tips' important advice video.",
+  "Write a 20-second script for a 'packing mistake I'll never make again' quick lesson.",
+  "Write a 30-second script for a 'what's in my travel bag' essentials video.",
+  "Write a 15-second script for a 'sunrise/sunset in [destination]' cinematic video.",
+  "Write a 60-second script for a 'first time in [country] reaction' genuine discovery video.",
+  "Write a 30-second script for a 'how to travel with friends without fighting' tips video.",
+  "Write a 45-second script for a 'day trip you can take from [city]' weekend adventure video.",
+  "Write a 20-second script for a 'basic phrases you need in [language]' quick lesson.",
+  "Write a 30-second script for a 'coming home after a long trip' reflection video."
+],
+pets: [
+  "Write a 30-second TikTok script for a 'things my pet does that are NOT normal' funny video. Include the hook, 3-4 behaviors, and a punchline.",
+  "Write a 45-second script for a 'day in the life of my pet' narrated like a nature documentary.",
+  "Write a 20-second script for a 'the face my pet makes when...' reaction compilation video.",
+  "Write a 60-second script for a 'testing if my pet is actually smart' experiment video.",
+  "Write a 30-second script for a 'pet product review' — testing a viral pet product honestly.",
+  "Write a 15-second TikTok script for a 'my pet being dramatic for no reason' quick clip.",
+  "Write a 45-second script for a 'adopting my pet: the full story' emotional storytime.",
+  "Write a 30-second script for a 'DIY pet treat recipe' quick tutorial video.",
+  "Write a 60-second script for a 'everything I spend on my pet in a month' transparent breakdown.",
+  "Write a 20-second script for a 'my pet's reaction to [something]' genuine reaction video.",
+  "Write a 30-second script for a 'things first-time pet owners need to hear' advice video.",
+  "Write a 45-second script for a 'training my pet to do [trick]' progress video.",
+  "Write a 30-second script for a 'my pet vs the vacuum' comedy video.",
+  "Write a 15-second script for a 'the way my pet looks at me when I eat' funny clip.",
+  "Write a 60-second script for a 'pet supply haul and review' shopping video.",
+  "Write a 30-second script for a 'conversations with my pet' voiceover comedy video.",
+  "Write a 45-second script for a 'pet grooming routine' satisfying tutorial video.",
+  "Write a 20-second script for a 'hiding from my pet to see their reaction' experiment video.",
+  "Write a 30-second script for a 'things I've bought for my pet vs what they actually play with' reveal.",
+  "Write a 60-second script for a 'taking my pet on an adventure' vlog-style video.",
+  "Write a 30-second script for a 'pet introductions: meeting a new animal' reaction video.",
+  "Write a 45-second script for a 'signs your pet is spoiled' self-aware comedy video.",
+  "Write a 20-second script for a 'my pet's favorite spot in the house' cute showcase video.",
+  "Write a 30-second script for a 'pet birthday celebration' wholesome content video.",
+  "Write a 15-second script for a 'my pet copying me' mirroring behavior video.",
+  "Write a 60-second script for a 'rescue pet before and after' emotional transformation video.",
+  "Write a 30-second script for a 'what my pet hears vs what I said' comedy video.",
+  "Write a 45-second script for a 'pet travel tips' practical advice video.",
+  "Write a 20-second script for a 'my pet's morning alarm' funny wake-up routine video.",
+  "Write a 30-second script for a 'ranking my pet's toys' tier list video."
+],
+beauty: [
+  "Write a 30-second TikTok script for a 'full face using only drugstore products' tutorial. Include the hook, products used, and the final look reveal.",
+  "Write a 45-second script for a 'testing a viral beauty product' honest review video.",
+  "Write a 20-second script for a 'one skincare tip that cleared my skin' quick tip video.",
+  "Write a 60-second script for a 'my complete morning skincare routine' step-by-step tutorial.",
+  "Write a 30-second script for a 'beauty product I regret buying' honest anti-haul video.",
+  "Write a 15-second TikTok script for a 'makeup hack in 10 seconds' quick transformation.",
+  "Write a 45-second script for a 'get ready with me for a night out' GRWM video with storytelling.",
+  "Write a 30-second script for a 'drugstore dupes for expensive products' comparison video.",
+  "Write a 60-second script for a 'beginner's guide to skincare' educational video.",
+  "Write a 20-second script for a 'the only 3 products you need' minimalist beauty video.",
+  "Write a 30-second script for a 'beauty trends I tried so you don't have to' review video.",
+  "Write a 45-second script for a 'my hair care routine' tutorial for a specific hair type.",
+  "Write a 30-second script for a 'products I've used up and would rebuy' empties review.",
+  "Write a 15-second script for a 'sunscreen you'll actually want to wear' quick recommendation.",
+  "Write a 60-second script for a 'self-care night routine' relaxing and aesthetic video.",
+  "Write a 30-second script for a 'makeup for [occasion]' styling tutorial video.",
+  "Write a 45-second script for a 'I followed a follower's beauty routine' community content.",
+  "Write a 20-second script for a 'beauty ingredient explained in 15 seconds' educational quick hit.",
+  "Write a 30-second script for a 'my beauty evolution' glow-up comparison video.",
+  "Write a 60-second script for a 'beauty on a budget' complete routine using products under $10.",
+  "Write a 30-second script for a 'rating beauty products from 1-10' honest tier list.",
+  "Write a 45-second script for a 'what I use vs what brands pay me to promote' transparency video.",
+  "Write a 20-second script for a 'this lip product changed everything' product spotlight.",
+  "Write a 30-second script for a '5 beauty mistakes you're making' educational callout video.",
+  "Write a 15-second script for a 'the most satisfying beauty moment' ASMR-style clip.",
+  "Write a 60-second script for a 'building a skincare routine from scratch' beginner's guide.",
+  "Write a 30-second script for a 'beauty hack using household items' creative tip video.",
+  "Write a 45-second script for a 'trying beauty hacks from the comments' community engagement video.",
+  "Write a 20-second script for a 'perfume that always gets compliments' fragrance recommendation.",
+  "Write a 30-second script for a 'my nighttime routine in real time' realistic beauty video."
+],
+general: [
+  "Write a 30-second TikTok script for a 'things you can ask ChatGPT to do' mind-blowing tips video. Include the hook and 3-4 use cases.",
+  "Write a 45-second script for a 'day in my life' video that uses storytelling to keep people watching.",
+  "Write a 20-second script for a 'one life hack you need right now' quick tip video.",
+  "Write a 60-second script for a 'how I use AI in my daily life' practical examples video.",
+  "Write a 30-second script for a 'unpopular opinion that'll make people mad' hot take video.",
+  "Write a 15-second TikTok script for a 'that feeling when...' ultra-relatable moment video.",
+  "Write a 45-second script for a 'ranking everyday things' tier list video.",
+  "Write a 30-second script for a 'things adults don't prepare you for' funny-but-true video.",
+  "Write a 60-second script for a 'how I stay organized' productivity video.",
+  "Write a 20-second script for a 'one app that changed my life' recommendation video.",
+  "Write a 30-second script for a 'expectation vs reality' comparison video on any topic.",
+  "Write a 45-second script for a 'I tried [trend] for a week' experiment results video.",
+  "Write a 30-second script for a 'things that give me the ick' relatable list video.",
+  "Write a 15-second script for a 'POV' video about a universally relatable situation.",
+  "Write a 60-second script for a 'free resources everyone should know about' tips video.",
+  "Write a 30-second script for a 'storytime but it gets worse' escalating narrative video.",
+  "Write a 45-second script for a 'my screen time this week' honest confession video.",
+  "Write a 20-second script for a 'one habit that changed everything' personal development video.",
+  "Write a 30-second script for a 'red flags in everyday life' funny observational video.",
+  "Write a 60-second script for a 'how to make friends as an adult' genuinely helpful video.",
+  "Write a 30-second script for a 'things I stopped buying and don't miss' money-saving video.",
+  "Write a 45-second script for a 'the algorithm explained simply' meta content creation video.",
+  "Write a 20-second script for a 'this website is free and nobody knows about it' hidden gem video.",
+  "Write a 30-second script for a 'morning routine but honest' realistic lifestyle video.",
+  "Write a 15-second script for a 'main character moment' cinematic everyday moment video.",
+  "Write a 60-second script for a 'things I learned this year' reflection video.",
+  "Write a 30-second script for a 'would you rather' interactive video that gets comments.",
+  "Write a 45-second script for a 'telling my friends my most controversial opinion' reaction video.",
+  "Write a 20-second script for a 'the laziest productivity hack' funny-but-works tip video.",
+  "Write a 30-second script for a 'if everyday life had video game sound effects' comedy skit."
+]
+},
+
+// ─── BRAND DEALS ───
+brand: {
+foodie: [
+  "Write a DM template I can send to food brands to pitch a collaboration. I have [X] followers on TikTok. Keep it casual, professional, and under 100 words.",
+  "Create an email pitch template for a food creator with 10K followers reaching out to restaurants for their first sponsorship. Include subject line.",
+  "Write a media kit description for a food content creator. Cover what I do, my audience, and what brands get when they work with me. Keep it under 200 words.",
+  "Give me 5 different ways to pitch a food brand on Instagram DMs. Each should be under 3 sentences.",
+  "Write a follow-up email template for when a food brand doesn't respond to your first pitch. Keep it friendly and not desperate.",
+  "Create a rate card template for a food creator. Include what to charge for TikTok posts, Instagram Reels, stories, and bundles. Help me fill in realistic numbers for different follower counts.",
+  "Write a collaboration proposal for a food brand that includes deliverables, timeline, and usage rights. Keep it simple and professional.",
+  "Give me 3 templates for responding to brands that want to send free product instead of paying. One accepting, one negotiating, one declining.",
+  "Write a pitch email specifically for food delivery apps. Explain why partnering with a food creator benefits them.",
+  "Create a template for pitching a long-term brand partnership instead of a one-time post. Explain the value of ongoing content.",
+  "Write 5 subject lines for cold emails to food brands that actually get opened.",
+  "Give me a template for a UGC (user-generated content) pitch to food brands. Explain what UGC is and why they need it.",
+  "Write a pitch for kitchen gadget and cookware brands. Explain how food creators can showcase their products naturally.",
+  "Create a template for negotiating brand deal rates when the brand's first offer is too low.",
+  "Write a pitch template for meal kit delivery services. Include why food creators are the perfect partners.",
+  "Give me 3 different pitch angles for grocery store brands — one focused on budget content, one on recipes, one on hauls.",
+  "Write a template for creating a case study of a previous brand deal to show future partners.",
+  "Create a sponsorship inquiry response template — what to say when a brand reaches out to YOU.",
+  "Write a pitch for beverage brands. Include content ideas that showcase their product naturally.",
+  "Give me a template for pitching a paid content series to a food brand (3-5 videos over a month).",
+  "Write a bio/description for your creator profile on brand collaboration platforms.",
+  "Create a template for sending an invoice to a brand after completing a sponsored post.",
+  "Write a pitch for food festival or food event sponsorship — getting paid to attend and create content.",
+  "Give me 5 ways to showcase your value to brands without directly asking for money.",
+  "Write a template for pitching a food brand takeover on your social media accounts.",
+  "Create a contract clause template for content creators — key terms to include in brand deal agreements.",
+  "Write a pitch email for supplement or health food brands targeting fitness-foodie crossover audience.",
+  "Give me a template for proposing an affiliate deal to a food brand if they can't do a flat fee.",
+  "Write a template for pitching to food-related apps (restaurant finders, recipe apps, etc.).",
+  "Create a 'what I bring to the table' one-pager template for food creators to send to potential sponsors."
+],
+fitness: [
+  "Write a DM template I can send to fitness brands to pitch a collaboration. I have [X] followers on TikTok. Keep it casual, professional, and under 100 words.",
+  "Create an email pitch template for a fitness creator reaching out to supplement brands. Include subject line and key value props.",
+  "Write a media kit description for a fitness content creator. Cover audience demographics, content style, and brand partner benefits.",
+  "Give me 5 different DM pitch templates for fitness apparel brands. Each under 3 sentences.",
+  "Write a follow-up message for when a fitness brand doesn't respond to your first outreach.",
+  "Create a rate card template for fitness creators at different follower levels (1K, 10K, 50K, 100K).",
+  "Write a collaboration proposal for a gym or fitness studio partnership.",
+  "Give me templates for responding to fitness brands wanting product-only deals at different scenarios.",
+  "Write a pitch email for fitness app companies. Explain the value of creator partnerships.",
+  "Create a template for pitching a 30-day challenge sponsorship to a fitness brand.",
+  "Write 5 email subject lines for cold outreach to fitness brands.",
+  "Give me a pitch template for athletic shoe brands.",
+  "Write a pitch for fitness equipment brands — home gym and commercial.",
+  "Create a template for negotiating rates with fitness supplement companies.",
+  "Write a pitch for wellness and recovery brands (massage guns, foam rollers, etc.).",
+  "Give me 3 pitch angles for fitness brands — one for workout gear, one for nutrition, one for tech.",
+  "Write a case study template showing results from a previous fitness brand collaboration.",
+  "Create a response template for when fitness brands reach out to you first.",
+  "Write a pitch for health and wellness apps targeting fitness audiences.",
+  "Give me a template for proposing a brand ambassador program to a fitness company.",
+  "Write a pitch for activewear brands that highlights your audience's purchasing power.",
+  "Create a template for pitching gym membership affiliate deals.",
+  "Write a pitch for sports drink and hydration brands.",
+  "Give me a template for pitching a workout program collab with a fitness brand.",
+  "Write a pitch for wearable tech companies (fitness trackers, smart watches).",
+  "Create a template for a fitness brand pitch deck outline.",
+  "Write a pitch for protein bar and healthy snack brands.",
+  "Give me a template for proposing content series sponsorship to fitness brands.",
+  "Write a pitch for physical therapy or recovery brand partnerships.",
+  "Create a template for a fitness creator sponsorship one-pager."
+],
+fashion: [
+  "Write a DM template I can send to fashion brands to pitch a collaboration. I have [X] followers. Keep it casual, professional, under 100 words.",
+  "Create an email pitch template for a fashion creator reaching out to clothing brands. Include subject line.",
+  "Write a media kit description for a fashion content creator.",
+  "Give me 5 DM pitch templates for different types of fashion brands (luxury, streetwear, fast fashion, sustainable, accessories).",
+  "Write a follow-up message for fashion brand outreach.",
+  "Create a rate card template for fashion creators.",
+  "Write a collaboration proposal for a fashion brand including content types and deliverables.",
+  "Give me templates for responding to fashion brands offering only gifted product.",
+  "Write a pitch for sustainable fashion brands that aligns with ethical values.",
+  "Create a template for pitching a styling series sponsorship.",
+  "Write 5 cold email subject lines for fashion brand outreach.",
+  "Give me a pitch template for jewelry and accessories brands.",
+  "Write a pitch for shoe brands targeting young audiences.",
+  "Create a template for negotiating fashion brand deal terms.",
+  "Write a pitch for thrift stores and resale platforms.",
+  "Give me 3 different pitch angles for fashion retailers.",
+  "Write a case study template for fashion brand collaborations.",
+  "Create a response template for inbound fashion brand inquiries.",
+  "Write a pitch for beauty-fashion crossover brand partnerships.",
+  "Give me a template for proposing a haul video sponsorship.",
+  "Write a pitch for fashion subscription box services.",
+  "Create a template for pitching seasonal fashion campaigns.",
+  "Write a pitch for sunglasses and eyewear brands.",
+  "Give me a template for a long-term fashion brand ambassador pitch.",
+  "Write a pitch for fashion tech companies (try-on apps, styling AI).",
+  "Create a template for a fashion creator rate negotiation email.",
+  "Write a pitch for fashion brands targeting plus-size or inclusive audiences.",
+  "Give me a template for pitching a fashion brand pop-up event collaboration.",
+  "Write a pitch for vintage and secondhand clothing platforms.",
+  "Create a one-pager template for fashion creators seeking brand deals."
+],
+gaming: [
+  "Write a DM template I can send to gaming brands to pitch a collaboration. I have [X] followers. Keep it casual and under 100 words.",
+  "Create an email pitch template for a gaming creator reaching out to game developers. Include subject line.",
+  "Write a media kit description for a gaming content creator.",
+  "Give me 5 DM pitch templates for different gaming companies (hardware, games, peripherals, chairs, energy drinks).",
+  "Write a follow-up message for gaming brand outreach.",
+  "Create a rate card template for gaming creators.",
+  "Write a collaboration proposal for a game launch promotion.",
+  "Give me templates for responding to gaming brands offering only game keys.",
+  "Write a pitch for gaming peripheral brands (keyboards, mice, headsets).",
+  "Create a template for pitching a game review or first-look sponsorship.",
+  "Write 5 cold email subject lines for gaming brand outreach.",
+  "Give me a pitch template for gaming chair companies.",
+  "Write a pitch for gaming energy drink brands.",
+  "Create a template for negotiating gaming brand deal rates.",
+  "Write a pitch for streaming platform partnerships.",
+  "Give me 3 pitch angles for gaming companies at different budget levels.",
+  "Write a case study template for gaming brand collaborations.",
+  "Create a response template for inbound gaming brand partnership offers.",
+  "Write a pitch for gaming tournament or event sponsorship.",
+  "Give me a template for proposing a long-term gaming brand ambassador deal.",
+  "Write a pitch for mobile game companies.",
+  "Create a template for pitching gaming monitor and display brands.",
+  "Write a pitch for gaming subscription services.",
+  "Give me a template for a sponsored gameplay series pitch.",
+  "Write a pitch for PC building and component brands.",
+  "Create a template for gaming creator sponsorship packages.",
+  "Write a pitch for gaming merch and clothing brands.",
+  "Give me a template for pitching a gaming brand giveaway collaboration.",
+  "Write a pitch for VR gaming companies.",
+  "Create a one-pager template for gaming creators seeking sponsors."
+],
+student: [
+  "Write a DM template I can send to brands targeting students for a paid collaboration. Keep it casual, under 100 words.",
+  "Create an email pitch template for a student creator reaching out to education tech brands.",
+  "Write a media kit description for a student content creator.",
+  "Give me 5 DM pitch templates for student-relevant brands (school supplies, apps, food delivery, banks, tech).",
+  "Write a follow-up message for student brand outreach.",
+  "Create a rate card template for student creators.",
+  "Write a collaboration proposal for a study app or productivity tool brand.",
+  "Give me templates for responding to brands offering student discount codes only.",
+  "Write a pitch for laptop and tech brands targeting college students.",
+  "Create a template for pitching a back-to-school campaign.",
+  "Write 5 cold email subject lines for student creator outreach.",
+  "Give me a pitch template for textbook and educational resource companies.",
+  "Write a pitch for food delivery apps targeting campus audiences.",
+  "Create a template for negotiating student brand deal rates.",
+  "Write a pitch for student housing and apartment companies.",
+  "Give me 3 pitch angles for student-focused brands.",
+  "Write a case study template for student brand collaborations.",
+  "Create a response template for brands reaching out to student creators.",
+  "Write a pitch for student banking and financial apps.",
+  "Give me a template for proposing a campus ambassador program.",
+  "Write a pitch for dorm room essentials brands.",
+  "Create a template for pitching exam season sponsorship campaigns.",
+  "Write a pitch for student travel and discount program brands.",
+  "Give me a template for a study tools sponsorship deal.",
+  "Write a pitch for coffee and energy drink brands targeting students.",
+  "Create a template for student creator media kit.",
+  "Write a pitch for career services and job platform brands.",
+  "Give me a template for proposing a multi-platform student campaign.",
+  "Write a pitch for student subscription box services.",
+  "Create a one-pager template for student creators seeking brand partnerships."
+],
+sidehustle: [
+  "Write a DM template I can send to business tool brands for a paid partnership. I have [X] followers. Under 100 words.",
+  "Create an email pitch template for a side hustle creator reaching out to SaaS companies. Include subject line.",
+  "Write a media kit description for a side hustle and entrepreneurship content creator.",
+  "Give me 5 DM pitch templates for different business-related brands (tools, courses, banks, apps, services).",
+  "Write a follow-up message for business brand outreach.",
+  "Create a rate card template for business and entrepreneurship creators.",
+  "Write a collaboration proposal for a freelance platform partnership.",
+  "Give me templates for responding to brands wanting affiliate-only deals.",
+  "Write a pitch for business banking and fintech brands.",
+  "Create a template for pitching a 'tools I use' sponsorship series.",
+  "Write 5 cold email subject lines for business tool brand outreach.",
+  "Give me a pitch template for website builder and hosting companies.",
+  "Write a pitch for project management and productivity app brands.",
+  "Create a template for negotiating business brand deal rates.",
+  "Write a pitch for online course platform partnerships.",
+  "Give me 3 pitch angles for business software companies.",
+  "Write a case study template for business tool brand collaborations.",
+  "Create a response template for inbound business brand partnership offers.",
+  "Write a pitch for accounting and invoicing software brands.",
+  "Give me a template for proposing a long-term business tool ambassador deal.",
+  "Write a pitch for email marketing platform brands.",
+  "Create a template for pitching to co-working space brands.",
+  "Write a pitch for stock photo and design tool companies.",
+  "Give me a template for a sponsored business tips series pitch.",
+  "Write a pitch for business insurance and legal service brands.",
+  "Create a template for business creator sponsorship packages.",
+  "Write a pitch for print-on-demand and e-commerce platform brands.",
+  "Give me a template for pitching a side hustle challenge sponsorship.",
+  "Write a pitch for AI tool and automation companies.",
+  "Create a one-pager template for business creators seeking sponsors."
+],
+travel: [
+  "Write a DM template I can send to travel brands for a collaboration. I have [X] followers. Under 100 words.",
+  "Create an email pitch template for a travel creator reaching out to airlines. Include subject line.",
+  "Write a media kit description for a travel content creator.",
+  "Give me 5 DM pitch templates for different travel brands (airlines, hotels, luggage, apps, tourism boards).",
+  "Write a follow-up message for travel brand outreach.",
+  "Create a rate card template for travel creators.",
+  "Write a collaboration proposal for a hotel or resort partnership.",
+  "Give me templates for responding to travel brands offering comped stays only.",
+  "Write a pitch for luggage and travel gear brands.",
+  "Create a template for pitching a destination campaign to a tourism board.",
+  "Write 5 cold email subject lines for travel brand outreach.",
+  "Give me a pitch template for travel insurance companies.",
+  "Write a pitch for booking platform partnerships (hotels, flights, experiences).",
+  "Create a template for negotiating travel brand deal rates.",
+  "Write a pitch for travel credit card companies.",
+  "Give me 3 pitch angles for travel brands.",
+  "Write a case study template for travel brand collaborations.",
+  "Create a response template for inbound travel brand inquiries.",
+  "Write a pitch for travel app partnerships.",
+  "Give me a template for proposing a trip series sponsorship.",
+  "Write a pitch for cruise line partnerships.",
+  "Create a template for pitching a travel brand ambassador deal.",
+  "Write a pitch for vacation rental platforms.",
+  "Give me a template for a sponsored travel vlog series pitch.",
+  "Write a pitch for adventure tour companies.",
+  "Create a template for travel creator sponsorship packages.",
+  "Write a pitch for airport lounge and travel comfort brands.",
+  "Give me a template for pitching a travel brand giveaway collaboration.",
+  "Write a pitch for travel photography gear brands.",
+  "Create a one-pager template for travel creators seeking sponsors."
+],
+pets: [
+  "Write a DM template I can send to pet brands for a collaboration. I have [X] followers. Under 100 words.",
+  "Create an email pitch template for a pet content creator reaching out to pet food brands. Include subject line.",
+  "Write a media kit description for a pet content creator.",
+  "Give me 5 DM pitch templates for different pet brands (food, toys, health, grooming, tech).",
+  "Write a follow-up message for pet brand outreach.",
+  "Create a rate card template for pet creators.",
+  "Write a collaboration proposal for a pet food brand partnership.",
+  "Give me templates for responding to pet brands offering only free product.",
+  "Write a pitch for pet toy and accessory brands.",
+  "Create a template for pitching a pet product review series.",
+  "Write 5 cold email subject lines for pet brand outreach.",
+  "Give me a pitch template for pet health and vet service brands.",
+  "Write a pitch for pet insurance companies.",
+  "Create a template for negotiating pet brand deal rates.",
+  "Write a pitch for pet grooming product brands.",
+  "Give me 3 pitch angles for pet brands.",
+  "Write a case study template for pet brand collaborations.",
+  "Create a response template for inbound pet brand partnership offers.",
+  "Write a pitch for pet tech companies (GPS collars, cameras, feeders).",
+  "Give me a template for proposing a long-term pet brand ambassador deal.",
+  "Write a pitch for pet subscription box services.",
+  "Create a template for pitching a pet adoption campaign partnership.",
+  "Write a pitch for pet clothing and costume brands.",
+  "Give me a template for a sponsored pet content series pitch.",
+  "Write a pitch for pet training service companies.",
+  "Create a template for pet creator sponsorship packages.",
+  "Write a pitch for pet-friendly hotel and travel brands.",
+  "Give me a template for pitching a pet brand giveaway collaboration.",
+  "Write a pitch for pet photography and portrait brands.",
+  "Create a one-pager template for pet creators seeking sponsors."
+],
+beauty: [
+  "Write a DM template I can send to beauty brands for a collaboration. I have [X] followers. Under 100 words.",
+  "Create an email pitch template for a beauty creator reaching out to skincare brands. Include subject line.",
+  "Write a media kit description for a beauty content creator.",
+  "Give me 5 DM pitch templates for different beauty brands (skincare, makeup, hair, fragrance, tools).",
+  "Write a follow-up message for beauty brand outreach.",
+  "Create a rate card template for beauty creators.",
+  "Write a collaboration proposal for a skincare brand partnership.",
+  "Give me templates for responding to beauty brands offering only PR packages.",
+  "Write a pitch for makeup brands targeting Gen Z audiences.",
+  "Create a template for pitching a beauty tutorial series sponsorship.",
+  "Write 5 cold email subject lines for beauty brand outreach.",
+  "Give me a pitch template for hair care product brands.",
+  "Write a pitch for clean/natural beauty brands.",
+  "Create a template for negotiating beauty brand deal rates.",
+  "Write a pitch for beauty tool and gadget brands.",
+  "Give me 3 pitch angles for beauty brands (review, tutorial, transformation).",
+  "Write a case study template for beauty brand collaborations.",
+  "Create a response template for inbound beauty brand inquiries.",
+  "Write a pitch for fragrance and perfume brands.",
+  "Give me a template for proposing a beauty brand ambassador program.",
+  "Write a pitch for beauty subscription box services.",
+  "Create a template for pitching a beauty brand takeover.",
+  "Write a pitch for body care and personal hygiene brands.",
+  "Give me a template for a sponsored GRWM series pitch.",
+  "Write a pitch for beauty retail stores and chains.",
+  "Create a template for beauty creator sponsorship packages.",
+  "Write a pitch for men's grooming brands.",
+  "Give me a template for pitching a beauty brand product launch collaboration.",
+  "Write a pitch for beauty education and course platforms.",
+  "Create a one-pager template for beauty creators seeking sponsors."
+],
+general: [
+  "Write a DM template I can send to any brand to pitch a collaboration. I have [X] followers on TikTok. Keep it casual, professional, and under 100 words.",
+  "Create an email pitch template for a creator with 10K followers reaching out to brands for their first sponsorship. Include subject line.",
+  "Write a media kit template that works for any content creator niche. Cover audience, content style, and partnership options.",
+  "Give me 5 universal DM pitch templates that work for any type of brand.",
+  "Write a follow-up email template for when a brand doesn't respond to your first pitch. Keep it friendly and not desperate.",
+  "Create a universal rate card template for content creators at 1K, 5K, 10K, 25K, 50K, and 100K+ follower levels.",
+  "Write a collaboration proposal template that can be customized for any brand.",
+  "Give me 3 templates for responding to brands that offer free product instead of paying — one accepting, one negotiating, one declining.",
+  "Write 5 cold email subject lines that make brands want to open your pitch.",
+  "Create a template for a creator sponsorship one-pager.",
+  "Write a template for pitching a multi-platform content deal (TikTok + Instagram + YouTube).",
+  "Give me 3 different templates for negotiating brand deal rates upward.",
+  "Write a UGC pitch template explaining what user-generated content is and why brands need it.",
+  "Create a template for proposing a brand ambassador relationship instead of one-off posts.",
+  "Write a pitch template for local business partnerships.",
+  "Give me a template for creating a case study from a past brand deal.",
+  "Write a template for pitching an affiliate deal to brands that can't do flat fees.",
+  "Create a template for responding when a brand reaches out to YOU first.",
+  "Write a contract terms checklist for content creators — what to include and what to watch out for.",
+  "Give me a template for sending an invoice to a brand after completing a sponsored post.",
+  "Write a pitch template for SaaS and app companies.",
+  "Create a template for proposing a paid content series (3-5 posts over a month).",
+  "Write a pitch for brands in the sustainability and eco-friendly space.",
+  "Give me a template for pitching a giveaway collaboration to any brand.",
+  "Write a pitch for tech and gadget brands.",
+  "Create a template for a creator press kit that goes beyond a basic media kit.",
+  "Write a pitch template for lifestyle brands that cross multiple niches.",
+  "Give me a template for proposing a brand event coverage partnership.",
+  "Write a pitch for brand content licensing — selling your content for their ads.",
+  "Create a one-pager template showing a creator's value proposition for any potential sponsor."
+]
+},
+
+// ─── GROWTH HACKS ───
+growth: {
+foodie: [
+  "Give me a 7-day growth strategy for a new food TikTok account starting from 0 followers. Include what to post each day, best times, and hashtag strategy.",
+  "Write a 30-day content calendar for a foodie creator who wants to post daily. Include content types, hooks, and themes for each day.",
+  "Give me 10 ways to get more comments on food content. Be specific about what to do in the video and caption.",
+  "Write a strategy for growing from 1K to 10K followers as a food creator. Include content pillars, posting schedule, and collab strategy.",
+  "Give me 5 ways to make food content more shareable. Explain what makes someone send a food video to their friends.",
+  "Write a hashtag strategy for a food creator — which hashtags to use, how many, and how to rotate them.",
+  "Give me a strategy for getting on the 'For You' page with cooking content. Include what the algorithm looks for.",
+  "Write a plan for turning food content followers into an email list or community. Step by step.",
+  "Give me 10 ways to cross-promote food content across TikTok, Instagram, YouTube, and Pinterest.",
+  "Write a strategy for using trending sounds and formats with food content to ride algorithm waves.",
+  "Give me a plan for launching a food content brand from scratch in 90 days.",
+  "Write 5 ways to increase watch time on cooking videos specifically.",
+  "Give me a strategy for growing on Instagram Reels as a food creator — what's different from TikTok.",
+  "Write a collaboration strategy for food creators — who to collab with and how to pitch them.",
+  "Give me 10 content hooks that perform well for food creators based on what goes viral.",
+  "Write a strategy for repurposing one food video into 5+ pieces of content across platforms.",
+  "Give me a plan for starting a food blog alongside social media to capture Google traffic.",
+  "Write a strategy for using Instagram Stories to grow as a food creator.",
+  "Give me 5 ways to stand out in the food content space when it feels oversaturated.",
+  "Write a plan for monetizing a food creator account with under 10K followers.",
+  "Give me a strategy for using Pinterest to drive traffic to food content.",
+  "Write a plan for growing a YouTube channel with food content — how it's different from short-form.",
+  "Give me 10 engagement-boosting techniques for food creators (polls, questions, CTAs, etc.).",
+  "Write a strategy for seasonal food content — how to plan around holidays and trends.",
+  "Give me a plan for building a food creator community on Discord or a similar platform.",
+  "Write a strategy for using SEO in food content captions and descriptions.",
+  "Give me 5 ways to use analytics to improve food content performance.",
+  "Write a plan for launching a cookbook or recipe collection based on social content.",
+  "Give me a strategy for going viral with food content — what patterns do viral food videos share.",
+  "Write a 14-day engagement challenge for food creators to boost their accounts."
+],
+fitness: [
+  "Give me a 7-day growth strategy for a new fitness TikTok account starting from 0 followers. Include what to post each day, best times, and hashtag strategy.",
+  "Write a 30-day content calendar for a fitness creator who wants to post daily.",
+  "Give me 10 ways to get more comments on fitness content.",
+  "Write a strategy for growing from 1K to 10K followers as a fitness creator.",
+  "Give me 5 ways to make workout content more shareable.",
+  "Write a hashtag strategy for fitness content across platforms.",
+  "Give me a strategy for getting fitness content on the 'For You' page.",
+  "Write a plan for turning fitness followers into a coaching or community business.",
+  "Give me 10 ways to cross-promote fitness content across platforms.",
+  "Write a strategy for using trending formats with fitness content.",
+  "Give me a plan for launching a fitness brand from scratch in 90 days.",
+  "Write 5 ways to increase watch time on workout videos.",
+  "Give me a strategy for growing on YouTube Shorts with fitness content.",
+  "Write a collaboration strategy for fitness creators.",
+  "Give me 10 proven hooks for fitness content that drive views.",
+  "Write a strategy for repurposing one workout video into multiple pieces of content.",
+  "Give me a plan for building an email list as a fitness creator.",
+  "Write a strategy for using Instagram Stories for fitness audience growth.",
+  "Give me 5 ways to stand out as a fitness creator in a crowded space.",
+  "Write a plan for monetizing a fitness account under 10K followers.",
+  "Give me a strategy for creating fitness challenge content that goes viral.",
+  "Write a plan for growing a fitness YouTube channel alongside TikTok.",
+  "Give me 10 engagement techniques for fitness creators.",
+  "Write a strategy for niche-specific fitness content (home workouts, yoga, running, etc.).",
+  "Give me a plan for building a fitness community on social media.",
+  "Write a strategy for using SEO in fitness content descriptions.",
+  "Give me 5 ways to use analytics to improve fitness content.",
+  "Write a plan for launching a fitness program or guide based on social content.",
+  "Give me a strategy for going viral with fitness content.",
+  "Write a 14-day engagement challenge for fitness creators."
+],
+fashion: [
+  "Give me a 7-day growth strategy for a new fashion TikTok account starting from 0 followers.",
+  "Write a 30-day content calendar for a fashion creator.",
+  "Give me 10 ways to get more saves and shares on fashion content.",
+  "Write a strategy for growing from 1K to 10K followers as a fashion creator.",
+  "Give me 5 ways to make outfit content more engaging.",
+  "Write a hashtag strategy for fashion content.",
+  "Give me a strategy for fashion content on the 'For You' page.",
+  "Write a plan for turning fashion followers into revenue.",
+  "Give me 10 ways to cross-promote fashion content across platforms.",
+  "Write a strategy for using trends in fashion content.",
+  "Give me a plan for launching a fashion content brand in 90 days.",
+  "Write 5 ways to increase watch time on outfit videos.",
+  "Give me a strategy for growing on Pinterest with fashion content.",
+  "Write a collaboration strategy for fashion creators.",
+  "Give me 10 hooks for fashion content that drive views.",
+  "Write a strategy for repurposing fashion content across platforms.",
+  "Give me a plan for building an email list as a fashion creator.",
+  "Write a strategy for using Instagram Stories for fashion growth.",
+  "Give me 5 ways to stand out as a fashion creator.",
+  "Write a plan for monetizing a fashion account with affiliate links.",
+  "Give me a strategy for seasonal fashion content planning.",
+  "Write a plan for growing a fashion YouTube channel.",
+  "Give me 10 engagement techniques for fashion creators.",
+  "Write a strategy for niche fashion content (streetwear, vintage, plus-size, etc.).",
+  "Give me a plan for building a fashion creator community.",
+  "Write a strategy for fashion content SEO.",
+  "Give me 5 ways to use analytics for fashion content improvement.",
+  "Write a plan for launching a fashion collection based on social following.",
+  "Give me a strategy for going viral with fashion content.",
+  "Write a 14-day engagement challenge for fashion creators."
+],
+gaming: [
+  "Give me a 7-day growth strategy for a new gaming TikTok account starting from 0 followers. Include what to post each day, best times, and hashtag strategy.",
+  "Write a 30-day content calendar for a gaming creator.",
+  "Give me 10 ways to get more comments on gaming content.",
+  "Write a strategy for growing from 1K to 10K followers as a gaming creator.",
+  "Give me 5 ways to make gaming clips more shareable.",
+  "Write a hashtag strategy for gaming content across platforms.",
+  "Give me a strategy for gaming content on the 'For You' page.",
+  "Write a plan for turning gaming followers into a community or Twitch stream audience.",
+  "Give me 10 ways to cross-promote gaming content across platforms.",
+  "Write a strategy for using trending formats with gaming content.",
+  "Give me a plan for launching a gaming content brand in 90 days.",
+  "Write 5 ways to increase watch time on gaming videos.",
+  "Give me a strategy for growing on YouTube with gaming content.",
+  "Write a collaboration strategy for gaming creators.",
+  "Give me 10 hooks for gaming content that drive views.",
+  "Write a strategy for repurposing gameplay into multiple content pieces.",
+  "Give me a plan for building a Discord community as a gaming creator.",
+  "Write a strategy for using Twitch alongside TikTok for gaming growth.",
+  "Give me 5 ways to stand out as a gaming creator.",
+  "Write a plan for monetizing a gaming account under 10K followers.",
+  "Give me a strategy for creating gaming challenge content.",
+  "Write a plan for growing a gaming YouTube channel from zero.",
+  "Give me 10 engagement techniques for gaming creators.",
+  "Write a strategy for niche gaming content (speedruns, lore, reviews, etc.).",
+  "Give me a plan for building a gaming creator brand identity.",
+  "Write a strategy for gaming content SEO and discoverability.",
+  "Give me 5 ways to use analytics to improve gaming content.",
+  "Write a plan for launching gaming merch based on social following.",
+  "Give me a strategy for going viral with gaming content.",
+  "Write a 14-day engagement challenge for gaming creators."
+],
+student: [
+  "Give me a 7-day growth strategy for a new student life TikTok account starting from 0.",
+  "Write a 30-day content calendar for a student creator.",
+  "Give me 10 ways to get more comments on student content.",
+  "Write a strategy for growing from 1K to 10K as a student creator.",
+  "Give me 5 ways to make study content more shareable.",
+  "Write a hashtag strategy for student life content.",
+  "Give me a strategy for student content on the 'For You' page.",
+  "Write a plan for turning student followers into a tutoring or study resource business.",
+  "Give me 10 ways to cross-promote student content across platforms.",
+  "Write a strategy for using trending formats with student content.",
+  "Give me a plan for launching a student content brand in 90 days.",
+  "Write 5 ways to increase watch time on study and campus content.",
+  "Give me a strategy for growing on YouTube with student content.",
+  "Write a collaboration strategy for student creators.",
+  "Give me 10 hooks for student content that drive views.",
+  "Write a strategy for repurposing student content across platforms.",
+  "Give me a plan for building a study community.",
+  "Write a strategy for using Instagram for student creator growth.",
+  "Give me 5 ways to stand out as a student creator.",
+  "Write a plan for monetizing student content under 10K followers.",
+  "Give me a strategy for back-to-school content surges.",
+  "Write a plan for transitioning content after graduation.",
+  "Give me 10 engagement techniques for student creators.",
+  "Write a strategy for exam season content.",
+  "Give me a plan for building a student creator community.",
+  "Write a strategy for student content SEO.",
+  "Give me 5 ways to use analytics to improve student content.",
+  "Write a plan for creating study resources based on social content.",
+  "Give me a strategy for going viral with student content.",
+  "Write a 14-day engagement challenge for student creators."
+],
+sidehustle: [
+  "Give me a 7-day growth strategy for a new side hustle TikTok account starting from 0.",
+  "Write a 30-day content calendar for a business and side hustle creator.",
+  "Give me 10 ways to get more comments on business content.",
+  "Write a strategy for growing from 1K to 10K as a business creator.",
+  "Give me 5 ways to make money-related content more shareable.",
+  "Write a hashtag strategy for business and entrepreneur content.",
+  "Give me a strategy for business content on the 'For You' page.",
+  "Write a plan for turning followers into paying clients or customers.",
+  "Give me 10 ways to cross-promote business content across platforms.",
+  "Write a strategy for using trending formats with business content.",
+  "Give me a plan for launching a business content brand in 90 days.",
+  "Write 5 ways to increase watch time on business and tips content.",
+  "Give me a strategy for growing a LinkedIn alongside TikTok as a business creator.",
+  "Write a collaboration strategy for business creators.",
+  "Give me 10 hooks for business content that drive views.",
+  "Write a strategy for repurposing business content across platforms.",
+  "Give me a plan for building an email list as a business creator.",
+  "Write a strategy for using Twitter/X for business creator growth.",
+  "Give me 5 ways to stand out as a side hustle creator.",
+  "Write a plan for monetizing a business account under 10K followers.",
+  "Give me a strategy for creating income report content that goes viral.",
+  "Write a plan for growing a business YouTube channel.",
+  "Give me 10 engagement techniques for business creators.",
+  "Write a strategy for niche business content (freelance, e-commerce, content creation, etc.).",
+  "Give me a plan for building a business creator community.",
+  "Write a strategy for business content SEO.",
+  "Give me 5 ways to use analytics to improve business content.",
+  "Write a plan for launching a course or digital product based on social following.",
+  "Give me a strategy for going viral with business content.",
+  "Write a 14-day engagement challenge for business creators."
+],
+travel: [
+  "Give me a 7-day growth strategy for a new travel TikTok account starting from 0.",
+  "Write a 30-day content calendar for a travel creator.",
+  "Give me 10 ways to get more saves and shares on travel content.",
+  "Write a strategy for growing from 1K to 10K as a travel creator.",
+  "Give me 5 ways to make travel content more engaging when you're at home.",
+  "Write a hashtag strategy for travel content.",
+  "Give me a strategy for travel content on the 'For You' page.",
+  "Write a plan for turning travel followers into a travel planning service or guide.",
+  "Give me 10 ways to cross-promote travel content across platforms.",
+  "Write a strategy for using trending formats with travel content.",
+  "Give me a plan for launching a travel content brand in 90 days.",
+  "Write 5 ways to increase watch time on travel videos.",
+  "Give me a strategy for growing on YouTube with travel content.",
+  "Write a collaboration strategy for travel creators.",
+  "Give me 10 hooks for travel content that drive views.",
+  "Write a strategy for repurposing travel content across platforms.",
+  "Give me a plan for building a travel email newsletter.",
+  "Write a strategy for using Pinterest to grow as a travel creator.",
+  "Give me 5 ways to stand out as a travel creator.",
+  "Write a plan for monetizing a travel account under 10K followers.",
+  "Give me a strategy for creating 'at home' travel content between trips.",
+  "Write a plan for growing a travel blog alongside social media.",
+  "Give me 10 engagement techniques for travel creators.",
+  "Write a strategy for niche travel content (budget, luxury, solo, family, etc.).",
+  "Give me a plan for building a travel creator community.",
+  "Write a strategy for travel content SEO and discoverability.",
+  "Give me 5 ways to use analytics to improve travel content.",
+  "Write a plan for launching a travel guide or itinerary product.",
+  "Give me a strategy for going viral with travel content.",
+  "Write a 14-day engagement challenge for travel creators."
+],
+pets: [
+  "Give me a 7-day growth strategy for a new pet TikTok account starting from 0.",
+  "Write a 30-day content calendar for a pet content creator.",
+  "Give me 10 ways to get more comments and shares on pet content.",
+  "Write a strategy for growing from 1K to 10K as a pet creator.",
+  "Give me 5 ways to make pet content stand out in a crowded space.",
+  "Write a hashtag strategy for pet content.",
+  "Give me a strategy for pet content on the 'For You' page.",
+  "Write a plan for turning pet followers into a pet brand or business.",
+  "Give me 10 ways to cross-promote pet content across platforms.",
+  "Write a strategy for using trending sounds and formats with pet content.",
+  "Give me a plan for launching a pet content brand in 90 days.",
+  "Write 5 ways to increase watch time on pet videos.",
+  "Give me a strategy for growing on YouTube with pet content.",
+  "Write a collaboration strategy for pet creators.",
+  "Give me 10 hooks for pet content that drive views.",
+  "Write a strategy for repurposing pet content across platforms.",
+  "Give me a plan for building a pet-themed email newsletter.",
+  "Write a strategy for using Instagram for pet creator growth.",
+  "Give me 5 ways to capture better content of pets that won't cooperate.",
+  "Write a plan for monetizing a pet account under 10K followers.",
+  "Give me a strategy for seasonal pet content.",
+  "Write a plan for growing a pet YouTube channel.",
+  "Give me 10 engagement techniques for pet creators.",
+  "Write a strategy for niche pet content (specific breeds, rescue, training, etc.).",
+  "Give me a plan for building a pet creator community.",
+  "Write a strategy for pet content SEO.",
+  "Give me 5 ways to use analytics to improve pet content.",
+  "Write a plan for launching pet products based on social following.",
+  "Give me a strategy for going viral with pet content.",
+  "Write a 14-day engagement challenge for pet creators."
+],
+beauty: [
+  "Give me a 7-day growth strategy for a new beauty TikTok account starting from 0.",
+  "Write a 30-day content calendar for a beauty creator.",
+  "Give me 10 ways to get more saves and shares on beauty content.",
+  "Write a strategy for growing from 1K to 10K as a beauty creator.",
+  "Give me 5 ways to make beauty tutorials more engaging.",
+  "Write a hashtag strategy for beauty content.",
+  "Give me a strategy for beauty content on the 'For You' page.",
+  "Write a plan for turning beauty followers into revenue (affiliate, brand deals, products).",
+  "Give me 10 ways to cross-promote beauty content across platforms.",
+  "Write a strategy for using trending formats with beauty content.",
+  "Give me a plan for launching a beauty content brand in 90 days.",
+  "Write 5 ways to increase watch time on beauty videos.",
+  "Give me a strategy for growing on YouTube with beauty content.",
+  "Write a collaboration strategy for beauty creators.",
+  "Give me 10 hooks for beauty content that drive views.",
+  "Write a strategy for repurposing beauty content across platforms.",
+  "Give me a plan for building a beauty email newsletter.",
+  "Write a strategy for using Pinterest to grow as a beauty creator.",
+  "Give me 5 ways to stand out as a beauty creator.",
+  "Write a plan for monetizing a beauty account under 10K followers.",
+  "Give me a strategy for product review content that builds trust.",
+  "Write a plan for growing a beauty YouTube channel alongside TikTok.",
+  "Give me 10 engagement techniques for beauty creators.",
+  "Write a strategy for niche beauty content (skincare, hair, nails, fragrance, etc.).",
+  "Give me a plan for building a beauty creator community.",
+  "Write a strategy for beauty content SEO.",
+  "Give me 5 ways to use analytics to improve beauty content.",
+  "Write a plan for launching a beauty product line based on social following.",
+  "Give me a strategy for going viral with beauty content.",
+  "Write a 14-day engagement challenge for beauty creators."
+],
+general: [
+  "Give me a 7-day growth strategy for a new TikTok account starting from 0 followers. Include what to post each day, best times, and hashtag strategy.",
+  "Write a 30-day content calendar for a general content creator who wants to post daily.",
+  "Give me 10 ways to get more comments on any type of content.",
+  "Write a strategy for growing from 1K to 10K followers on TikTok in any niche.",
+  "Give me 5 ways to make any content more shareable — the psychology behind shares.",
+  "Write a universal hashtag strategy that works for any niche.",
+  "Give me a strategy for getting on the 'For You' page — what the algorithm actually rewards.",
+  "Write a plan for turning followers into an email list or community. Step by step for beginners.",
+  "Give me 10 ways to cross-promote content across TikTok, Instagram, YouTube, Twitter, and Pinterest.",
+  "Write a strategy for using trending sounds and formats to grow faster.",
+  "Give me a 90-day plan for going from 0 to monetizable as a content creator.",
+  "Write 5 ways to increase average watch time on any video.",
+  "Give me a strategy for growing on Instagram Reels as a creator in 2026.",
+  "Write a collaboration strategy — how to find, pitch, and execute collabs that grow both accounts.",
+  "Give me 10 types of hooks that consistently perform well across all niches.",
+  "Write a strategy for repurposing one video into 5+ pieces of content across platforms.",
+  "Give me a plan for building an engaged community, not just a follower count.",
+  "Write a strategy for using Instagram Stories and Close Friends to deepen audience connection.",
+  "Give me 5 ways to stand out on TikTok when your niche feels overcrowded.",
+  "Write a plan for your first brand deal — how to get one, what to charge, how to deliver.",
+  "Give me a strategy for using YouTube Shorts alongside TikTok.",
+  "Write a plan for building a content creation workflow that prevents burnout.",
+  "Give me 10 engagement techniques that work across all platforms.",
+  "Write a strategy for picking and owning a specific content niche.",
+  "Give me a plan for building a personal brand that attracts opportunities.",
+  "Write a strategy for social media SEO — making your content discoverable through search.",
+  "Give me 5 ways to read your analytics and actually make better content from the data.",
+  "Write a plan for creating evergreen content that keeps getting views months later.",
+  "Give me a strategy for going viral — common patterns in content that blows up.",
+  "Write a 14-day engagement challenge that works for any creator in any niche."
+]
+}
+
+};
+
+// ═══════════════════════════════════════════
+// APP LOGIC
+// ═══════════════════════════════════════════
+
+let selectedCategory = null;
+let selectedNiche = null;
+let currentPrompts = [];
+
+const CATEGORY_LABELS = {
+  ideas: 'Content Ideas',
+  captions: 'Captions & Hooks',
+  scripts: 'Video Scripts',
+  brand: 'Brand Deals',
+  growth: 'Growth Hacks'
+};
+
+const NICHE_LABELS = {
+  foodie: 'Foodie',
+  fitness: 'Fitness',
+  fashion: 'Fashion',
+  gaming: 'Gaming',
+  student: 'Student Life',
+  sidehustle: 'Side Hustle',
+  travel: 'Travel',
+  pets: 'Pet Parent',
+  beauty: 'Beauty',
+  general: 'General'
+};
+
+// Step 1: Category selection
+document.getElementById('categoryGrid').addEventListener('click', e => {
+  const btn = e.target.closest('.pick-btn');
+  if (!btn) return;
+  document.querySelectorAll('#categoryGrid .pick-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedCategory = btn.dataset.value;
+  document.getElementById('step2').classList.remove('hidden');
+  document.getElementById('results').classList.remove('visible');
+  selectedNiche = null;
+  document.querySelectorAll('#nicheGrid .pick-btn').forEach(b => b.classList.remove('active'));
+  updateGenerateBtn();
+  document.getElementById('step2').scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+
+// Step 2: Niche selection
+document.getElementById('nicheGrid').addEventListener('click', e => {
+  const btn = e.target.closest('.pick-btn');
+  if (!btn) return;
+  document.querySelectorAll('#nicheGrid .pick-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedNiche = btn.dataset.value;
+  updateGenerateBtn();
+});
+
+function updateGenerateBtn() {
+  document.getElementById('generateBtn').disabled = !(selectedCategory && selectedNiche);
+}
+
+// Generate
+document.getElementById('generateBtn').addEventListener('click', generate);
+document.getElementById('shuffleBtn').addEventListener('click', generate);
+
+function generate() {
+  if (!selectedCategory || !selectedNiche) return;
+  const pool = PROMPTS[selectedCategory][selectedNiche];
+  if (!pool || pool.length === 0) return;
+
+  // Pick 10 random prompts without repeating
+  const shuffled = [...pool].sort(() => Math.random() - 0.5);
+  currentPrompts = shuffled.slice(0, 10);
+
+  renderPrompts();
+  document.getElementById('results').classList.add('visible');
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderPrompts() {
+  const container = document.getElementById('promptCards');
+  const catLabel = CATEGORY_LABELS[selectedCategory] || selectedCategory;
+  const nicheLabel = NICHE_LABELS[selectedNiche] || selectedNiche;
+
+  document.getElementById('counter').textContent =
+    `Showing 10 of ${PROMPTS[selectedCategory][selectedNiche].length} prompts for ${catLabel} × ${nicheLabel}`;
+
+  container.innerHTML = currentPrompts.map((p, i) => `
+    <div class="prompt-card">
+      <div class="prompt-top">
+        <span class="prompt-num">#${i + 1}</span>
+        <span class="prompt-tag">${catLabel}</span>
+      </div>
+      <div class="prompt-text">${escapeHtml(p)}</div>
+      <button class="copy-btn" onclick="copyOne(this, ${i})">&#128203; Copy</button>
+    </div>
+  `).join('');
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// Copy single prompt
+function copyOne(btn, index) {
+  const text = currentPrompts[index];
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btn.textContent = '✓ Copied!';
+    showToast('Prompt copied!');
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = '&#128203; Copy';
+    }, 2000);
+  });
+}
+
+// Copy all
+document.getElementById('copyAllBtn').addEventListener('click', () => {
+  const text = currentPrompts.map((p, i) => `${i + 1}. ${p}`).join('\n\n');
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyAllBtn');
+    btn.classList.add('copied');
+    btn.textContent = '✓ All Copied!';
+    showToast('All 10 prompts copied!');
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = '&#128203; Copy All';
+    }, 2000);
+  });
+});
+
+// Reset
+document.getElementById('resetBtn').addEventListener('click', () => {
+  selectedCategory = null;
+  selectedNiche = null;
+  currentPrompts = [];
+  document.querySelectorAll('.pick-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('step2').classList.add('hidden');
+  document.getElementById('results').classList.remove('visible');
+  updateGenerateBtn();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Toast
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hashtag Generator — Get Hashtags That Actually Work | Ledger & Spark</title>
+<meta name="description" content="Stop guessing hashtags. Pick your platform and niche, get 30 hashtags organized by reach tier. Copy, paste, post. 100% free.">
+<meta property="og:title" content="Hashtag Generator — Get Hashtags That Actually Work | Ledger & Spark">
+<meta property="og:description" content="Pick your platform. Pick your niche. Get 30 hashtags that actually work. Free.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FAFBFE;
+  --bg-alt: #F1F5F9;
+  --blue: #3B82F6;
+  --blue-light: #60A5FA;
+  --blue-pale: #DBEAFE;
+  --blue-ghost: #EFF6FF;
+  --text: #1E293B;
+  --text-mid: #475569;
+  --text-light: #94A3B8;
+  --white: #FFFFFF;
+  --green: #10B981;
+  --green-light: #D1FAE5;
+  --orange: #F59E0B;
+  --orange-light: #FEF3C7;
+  --red: #EF4444;
+  --red-light: #FEE2E2;
+  --purple: #8B5CF6;
+  --purple-light: #EDE9FE;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 50px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.header {
+  background: var(--white);
+  border-bottom: 1px solid #E2E8F0;
+  padding: 16px 20px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-brand { font-size: 18px; font-weight: 800; color: var(--text); letter-spacing: -0.3px; }
+.header-brand span { color: var(--blue); }
+.header-tagline { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+
+.hero {
+  text-align: center;
+  padding: 32px 20px 24px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.hero-badge {
+  display: inline-block;
+  background: var(--blue-ghost);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 12px;
+}
+.hero h1 {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.hero p { font-size: 15px; color: var(--text-mid); max-width: 420px; margin: 0 auto; }
+
+.container { max-width: 500px; margin: 0 auto; padding: 0 20px 40px; }
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #E2E8F0;
+}
+.card-label { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.pill-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid #E2E8F0;
+  background: var(--white);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.pill:hover { border-color: var(--blue-light); color: var(--blue); }
+.pill.active { background: var(--blue); color: var(--white); border-color: var(--blue); }
+
+.more-btn {
+  background: none;
+  border: none;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 8px 0;
+  margin-top: 4px;
+}
+.more-btn:hover { text-decoration: underline; }
+.more-niches { display: none; margin-top: 8px; }
+.more-niches.show { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.calc-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  margin-top: 8px;
+}
+.calc-btn:hover { background: #2563EB; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+.results { display: none; margin-top: 20px; }
+
+.results-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--blue-pale);
+}
+.results-header { text-align: center; margin-bottom: 24px; }
+.results-header h2 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+.results-header p { font-size: 13px; color: var(--text-light); }
+
+.tier-section { margin-bottom: 20px; }
+.tier-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.tier-title { font-size: 15px; font-weight: 700; }
+.tier-subtitle { font-size: 12px; color: var(--text-light); margin-bottom: 12px; }
+.tier-blue .tier-title { color: var(--blue); }
+.tier-green .tier-title { color: var(--green); }
+.tier-purple .tier-title { color: var(--purple); }
+
+.hashtag-wrap { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.hashtag-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--bg-alt);
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-mid);
+  margin: 0;
+  transition: background 0.15s;
+}
+.tier-blue .hashtag-tag { background: var(--blue-ghost); color: #2563EB; }
+.tier-green .hashtag-tag { background: var(--green-light); color: #059669; }
+.tier-purple .hashtag-tag { background: var(--purple-light); color: #7C3AED; }
+
+.copy-tier-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  background: var(--bg-alt);
+  border: 1.5px solid #E2E8F0;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-mid);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.copy-tier-btn:hover { border-color: var(--blue-light); color: var(--blue); }
+.copy-tier-btn.copied { background: var(--green-light); color: var(--green); border-color: var(--green); }
+
+.copy-all-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  margin-top: 8px;
+}
+.copy-all-btn:hover { background: #2563EB; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.copy-all-btn.copied { background: var(--green); }
+
+.shuffle-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--white);
+  color: var(--blue);
+  border: 2px solid var(--blue);
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  margin-top: 10px;
+}
+.shuffle-btn:hover { background: var(--blue-ghost); }
+
+.pro-tip {
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--orange-light);
+  border-radius: var(--radius);
+  font-size: 13px;
+  color: #92400E;
+  line-height: 1.5;
+}
+.pro-tip strong { font-weight: 700; }
+
+.trust-line { text-align: center; padding: 24px 20px; font-size: 13px; color: var(--text-light); }
+.trust-line a { color: var(--blue); text-decoration: none; }
+
+.footer { text-align: center; padding: 20px; border-top: 1px solid #E2E8F0; font-size: 12px; color: var(--text-light); }
+.footer a { color: var(--blue); text-decoration: none; }
+
+@media (min-width: 640px) {
+  .hero h1 { font-size: 32px; }
+  .container { max-width: 560px; }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-brand">Ledger & <span>Spark</span></div>
+  <div class="header-tagline">Free tools. No catch. Built because you asked.</div>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">~~$15~~ FREE</div>
+  <h1>Hashtag Generator</h1>
+  <p>Stop guessing. Get hashtags that actually work for your niche.</p>
+</section>
+
+<div class="container">
+  <div class="card">
+    <div class="card-label">Pick your platform</div>
+    <div class="pill-grid" id="platformGrid">
+      <button class="pill" data-value="tiktok">TikTok</button>
+      <button class="pill" data-value="instagram">Instagram</button>
+      <button class="pill" data-value="youtube">YouTube</button>
+      <button class="pill" data-value="twitter">Twitter / X</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Pick your niche</div>
+    <div class="pill-grid" id="nicheGrid">
+      <button class="pill" data-value="beauty">Beauty</button>
+      <button class="pill" data-value="food">Food</button>
+      <button class="pill" data-value="fitness">Fitness</button>
+      <button class="pill" data-value="lifestyle">Lifestyle</button>
+    </div>
+    <button class="more-btn" id="moreBtn">More niches +</button>
+    <div class="more-niches" id="moreNiches">
+      <button class="pill" data-value="gaming">Gaming</button>
+      <button class="pill" data-value="fashion">Fashion</button>
+      <button class="pill" data-value="travel">Travel</button>
+      <button class="pill" data-value="tech">Tech</button>
+    </div>
+  </div>
+
+  <button class="calc-btn" id="calcBtn">Get My Hashtags</button>
+
+  <div class="results" id="results"></div>
+
+  <div class="trust-line">
+    Free. No catch. Built because you asked.<br>
+    <a href="mailto:ledgerandspark@gmail.com">ledgerandspark@gmail.com</a>
+  </div>
+</div>
+
+<footer class="footer">
+  &copy; 2026 Ledger & Spark. All tools are free.<br>
+  We make money from sponsors, not from you. That's why everything is free.
+</footer>
+
+<script>
+let platform = null;
+let niche = null;
+
+function setupPills(gridId, callback) {
+  const grid = document.getElementById(gridId);
+  grid.addEventListener('click', (e) => {
+    if (!e.target.classList.contains('pill')) return;
+    // For niche, also clear pills in the "more" section
+    if (gridId === 'nicheGrid') {
+      document.querySelectorAll('#nicheGrid .pill, #moreNiches .pill').forEach(p => p.classList.remove('active'));
+    } else {
+      grid.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    }
+    e.target.classList.add('active');
+    callback(e.target.dataset.value);
+  });
+}
+setupPills('platformGrid', (v) => { platform = v; });
+setupPills('nicheGrid', (v) => { niche = v; });
+
+// More niches toggle & pill clicks
+const moreBtn = document.getElementById('moreBtn');
+const moreNiches = document.getElementById('moreNiches');
+moreBtn.addEventListener('click', () => {
+  moreNiches.classList.toggle('show');
+  moreBtn.textContent = moreNiches.classList.contains('show') ? 'Less niches -' : 'More niches +';
+});
+moreNiches.addEventListener('click', (e) => {
+  if (!e.target.classList.contains('pill')) return;
+  document.querySelectorAll('#nicheGrid .pill, #moreNiches .pill').forEach(p => p.classList.remove('active'));
+  e.target.classList.add('active');
+  niche = e.target.dataset.value;
+});
+
+// ── HASHTAG DATABASE ──
+const DB = {
+  tiktok: {
+    beauty: {
+      big: ["#beauty","#makeup","#skincare","#beautytok","#grwm","#makeuptutorial","#skincareroutine","#beautyhacks","#glowup","#makeupartist","#fyp","#viral","#trending","#aesthetic","#selfcare","#beautytips","#cosmetics","#hairstyle","#nails","#lips","#foryou","#tiktokmademebuyit","#makeuplover","#ootd","#glow"],
+      mid: ["#makeuplook","#skincareproducts","#beautycommunity","#makeupinspo","#drugstoremakeup","#cleanbeauty","#skincareaddict","#beautyblogger","#makeuplover","#naturalskincare","#beautyreview","#makeupoftheday","#skincarejunkie","#beautyroutine","#glam","#concealerhack","#foundationreview","#lipcombo","#blush","#highlight","#beautyfavorites","#makeuphaul","#skincarecheck","#motd","#beautyfinds"],
+      niche: ["#textureskincare","#oilyskincare","#affordablemakeup","#makeupdupes","#kbeautyfinds","#cleangirlmakeup","#skintok","#acnejourney","#sensitiveskincare","#underratedmakeup","#dewyskintips","#nomakeuplook","#minimalmakeup","#skinbarrierrepair","#retinolbeginners","#spfeveryday","#glassskinroutine","#browlamination","#liplinertrick","#colorcorrecting","#mattelips","#blushplacement","#skincareover30","#budgetbeauty","#veganmakeup"]
+    },
+    food: {
+      big: ["#food","#foodtok","#cooking","#recipe","#foodie","#yummy","#dinner","#lunch","#homemade","#delicious","#fyp","#viral","#trending","#foryou","#easyrecipe","#whatieatinaday","#healthyfood","#baking","#chef","#mukbang","#tasty","#mealprep","#foodporn","#instafood","#asmrfood"],
+      mid: ["#quickrecipe","#foodhack","#recipeoftheday","#cookingtiktok","#30minutemeals","#onepotmeal","#budgetmeals","#comfortfood","#dinnerideas","#mealideas","#easydinner","#foodreview","#homecooking","#cookwithme","#lunchideas","#bakingrecipe","#pastarecipe","#chickenrecipe","#airfryerrecipe","#crockpotrecipe","#instantpot","#healthyeating","#foodlover","#recipeshare","#weeknightdinner"],
+      niche: ["#5ingredientrecipe","#collegecooking","#studentmeals","#datenightcooking","#glutenfreetiktok","#dairyfreerecipe","#highproteinmeal","#mealprepideas","#airfryerhacks","#pantrymeals","#tiktokrecipes","#easybreakfast","#lazydinner","#groceryhaul","#cheapmeals","#proteincooking","#macrofriendly","#cleaneating","#veganrecipe","#onepanmeal","#noovenmeal","#dormroomcooking","#slowcookerrecipe","#fridgecleanout","#leftoverrecipe"]
+    },
+    fitness: {
+      big: ["#fitness","#workout","#gym","#fitnesstok","#exercise","#fittok","#motivation","#gains","#bodybuilding","#fitnessmotivation","#fyp","#viral","#trending","#foryou","#personaltrainer","#healthylifestyle","#weightloss","#muscle","#fit","#training","#gymmotivation","#strongwoman","#lifting","#cardio","#abs"],
+      mid: ["#homeworkout","#workoutroutine","#gymtok","#legday","#upperbody","#coreworkout","#hiit","#strengthtraining","#fitnessjourney","#workoutmotivation","#gymlife","#fitfam","#noequipmentworkout","#fullbodyworkout","#morningworkout","#pullday","#pushday","#glutes","#armday","#functionalfitness","#fitover30","#naturalbodybuilding","#calisthenics","#progresscheck","#gymrat"],
+      niche: ["#apartmentfriendlyworkout","#quietworkout","#beginnerworkout","#5minuteworkout","#deskexercise","#posturecorrection","#mobilityroutine","#resistancebands","#dumbbellonly","#nojumpworkout","#lowimpactcardio","#walkingworkout","#yogaflow","#pilatesathome","#stretchroutine","#fitnessbeginner","#workoutplan","#splitroutine","#bulkingseason","#cuttingseason","#miniband","#kettlebellworkout","#bodywayonly","#preworkout","#postworkout"]
+    },
+    lifestyle: {
+      big: ["#lifestyle","#lifestyletok","#dayinmylife","#vlog","#aesthetic","#routine","#morningroutine","#nightroutine","#fyp","#viral","#trending","#foryou","#lifehacks","#motivation","#productive","#selfimprovement","#clean","#organize","#daily","#relatable","#adulting","#girlmath","#romanticize","#thatgirl","#vibes"],
+      mid: ["#productiveday","#studytok","#cleantok","#organizewithme","#sundayreset","#weekinmylife","#apartmenttour","#roomtour","#homedecor","#dailyroutine","#getreadywithme","#lifechanging","#amazonfinds","#cleaningmotivation","#aestheticlifestyle","#livingalone","#lifestyleblogger","#contentcreator","#minimalism","#intentionalliving","#slowliving","#monthlyresets","#weeklyroutine","#selfcarenight","#goalsetting"],
+      niche: ["#9to5routine","#wfhlife","#morningperson","#nightowlroutine","#microhabits","#journalingprompts","#digitalplanning","#budgetliving","#frugaltips","#firstaptlife","#solodate","#solodatenight","#maincharacterenergy","#softlife","#cozylifestyle","#hygge","#cottagecore","#downsizing","#smallspaceliving","#minimalistaesthetic","#bulletjournal","#habittracker","#weekendvibes","#unboxing","#haul"]
+    },
+    gaming: {
+      big: ["#gaming","#gamer","#gamingtok","#videogames","#twitch","#fortnite","#minecraft","#valorant","#callofduty","#playstation","#xbox","#nintendo","#pc","#fyp","#viral","#trending","#foryou","#esports","#streamer","#gamingcommunity","#gaminglife","#epicgames","#gamingclips","#clutch","#gameplay"],
+      mid: ["#gamingsetup","#pcgaming","#consolegaming","#gamereview","#indiegames","#retrogaming","#mobilegaming","#gamingmemes","#gamertok","#gamenight","#cozygaming","#gamingaesthetic","#battlepass","#seasonupdate","#newgame","#gamingfails","#ragequit","#gamingmoments","#squadup","#gamingbuddy","#letplay","#walkthrough","#gamingtips","#buildingchallenge","#speedrun"],
+      niche: ["#cozygamer","#switchgaming","#steamdeck","#indiegamedev","#horrorgaming","#survivalgame","#roguelike","#farmingsim","#gamingmom","#dadgamer","#couplegaming","#budgetgaming","#freetoplay","#gamingchallenge","#blindplaythrough","#nostalgiagaming","#emulator","#gamingchair","#desksetup","#rgblights","#mechanicalkeyboard","#gamingheadset","#gamingsnacks","#midnightgaming","#weekendgaming"]
+    },
+    fashion: {
+      big: ["#fashion","#fashiontok","#ootd","#style","#outfit","#outfitoftheday","#streetstyle","#fashiontrends","#fashioninspo","#styleinspo","#fyp","#viral","#trending","#foryou","#aesthetic","#clothing","#drip","#lookbook","#thrift","#haul","#fashionista","#whatiwore","#trendy","#fashiontiktok","#fits"],
+      mid: ["#outfitideas","#outfitinspo","#fashionhacks","#thrifthaul","#secondhand","#sustainablefashion","#capsulewardrobe","#wardrobestaples","#fashionfinds","#budgetfashion","#stylecheck","#grwmoutfit","#transitionoutfit","#layering","#fashionover30","#mensfashion","#womensfashion","#plussizefashion","#petitestyle","#tallfashion","#fashionchallenge","#blindstyling","#mixandmatch","#colorblocking","#monochromeoutfit"],
+      niche: ["#thriftflip","#depopfinds","#vintagefashion","#y2kfashion","#90sfashion","#darkacademia","#oldmoney","#quietluxury","#coastalgranddaughter","#officeoutfit","#workwear","#interviewoutfit","#datenight","#concertoutfit","#festivalfashion","#gymfits","#athleisure","#loungewear","#pajamachic","#shoecollection","#sneakerhead","#accessorize","#jewelrytok","#bagcollection","#scarfstyling"]
+    },
+    travel: {
+      big: ["#travel","#traveltok","#traveling","#vacation","#trip","#explore","#adventure","#wanderlust","#travelvlog","#tourist","#fyp","#viral","#trending","#foryou","#travelgram","#roadtrip","#beach","#nature","#hotel","#flight","#backpacking","#solotravel","#coupletravel","#traveltiktok","#bucketlist"],
+      mid: ["#traveltips","#travelhacks","#budgettravel","#luxurytravel","#hiddenspots","#travelguide","#hotelreview","#airbnb","#flightdeals","#packingtips","#travelitinerary","#eurotrip","#asiatravel","#usatravel","#caribbeantravel","#cruisetok","#beachvibes","#mountaintravel","#citytrip","#weekendgetaway","#daytripper","#travelcouple","#familytravel","#travelwithkids","#digitalnomad"],
+      niche: ["#cheapflights","#awardtravel","#pointsandmiles","#airportlife","#loungeaccess","#packingcubes","#carryononly","#overlanding","#vanlife","#hostelling","#couchsurfing","#houseswap","#workaway","#voluntravel","#solofemaletravel","#travelanxiety","#firsttimflying","#jetlag","#travelsnacks","#airportstyle","#passportstamps","#visatips","#longflighttips","#redeye","#layover"]
+    },
+    tech: {
+      big: ["#tech","#techtok","#technology","#iphone","#apple","#samsung","#gadgets","#android","#unboxing","#techreview","#fyp","#viral","#trending","#foryou","#ai","#coding","#programming","#software","#apps","#innovation","#smartwatch","#laptop","#gaming","#newtech","#setup"],
+      mid: ["#techhacks","#techtips","#iphonehacks","#androidhacks","#appletips","#productivityapps","#apprecommendation","#phonehacks","#techsetup","#desksetup","#homeoffice","#smarthome","#iot","#wearabletech","#techdeals","#bestphone","#tabletreview","#earbudsreview","#charginghack","#screentimehack","#techcomparison","#ios","#techgadgets","#futuristtech","#robotics"],
+      niche: ["#underratedapps","#freeapps","#iphoneshortcuts","#automationhacks","#notionsetup","#obsidian","#raspberrypi","#arduino","#3dprinting","#mechanicalkeyboards","#cablemanagement","#budgettech","#refurbishedtech","#techminimalism","#digitaldetox","#privacytips","#vpnreview","#linuxlife","#macosapps","#windowstips","#chromebook","#techgifts","#gadgetunder50","#edctechcarry","#oldtechnewuse"]
+    }
+  },
+  instagram: {
+    beauty: {
+      big: ["#beauty","#makeup","#skincare","#beautyblogger","#makeupartist","#beautytips","#skincareroutine","#glam","#cosmetics","#instabeauty","#instamakeup","#reels","#explore","#instagood","#beautycommunity","#makeuptutorial","#beautyaddict","#mua","#lashes","#contour","#beautylover","#makeuplooks","#flawless","#beautyguru","#trending"],
+      mid: ["#makeupoftheday","#skincareaddict","#beautyinfluencer","#naturalmakeup","#cleanbeauty","#beautyessentials","#makeupinspo","#drugstoremakeup","#highendmakeup","#makeupflatlay","#skincareobsessed","#beautyhaul","#beautyfavorites","#sephora","#ultabeauty","#makeupcollection","#lipstick","#eyeshadow","#brows","#foundation","#primerreview","#settingspray","#beautyreel","#skincaretips","#makeupideas"],
+      niche: ["#texturedmakeup","#oilyskinmakeup","#acnecoverage","#makeupdupes","#crueltyfreemakeup","#veganbeauty","#kbeautyskincare","#glassskin","#skinbarrierhealth","#retinolskincare","#niacinamide","#spfforface","#dewyfinish","#mattefoundation","#undereyecorrector","#lipliner","#blushdraping","#monolideye","#browngirlmakeup","#maturebeauty","#budgetbeautyfinds","#onebrandmakeup","#minireviews","#panporn","#empties"]
+    },
+    food: {
+      big: ["#food","#foodie","#instafood","#foodporn","#yummy","#cooking","#homemade","#recipe","#delicious","#foodphotography","#foodstagram","#reels","#explore","#instagood","#healthyfood","#dinner","#lunch","#breakfast","#baking","#chef","#tasty","#eeeeeats","#foodgasm","#foodblogger","#foodlover"],
+      mid: ["#recipeoftheday","#homecooking","#foodinspiration","#cookingathome","#dinnerideas","#quickrecipe","#mealprep","#easyrecipes","#comfortfood","#foodreview","#restaurantreview","#brunch","#dessert","#pastarecipe","#chickendinner","#vegetarianrecipe","#veganfood","#glutenfree","#airfryer","#instantpotrecipes","#onepotmeal","#weeknightdinner","#kidapproved","#feedfeed","#beautifulfood"],
+      niche: ["#budgetcooking","#5ingredientmeal","#dormfood","#collegemeals","#leftovermakeover","#pantrycooking","#zerowastecooking","#highproteinrecipe","#ketorecipes","#whole30recipes","#lowcarbdinner","#macrofriendlyrecipe","#dairyfreerecipe","#allergyfriendly","#babyledweaning","#toddlermeals","#lunchboxideas","#mealprepsunday","#freezermeals","#crockpotdinner","#sheetpandinner","#10minutemeal","#noovenmeal","#microwavemeal","#ramenupgrade"]
+    },
+    fitness: {
+      big: ["#fitness","#workout","#gym","#fit","#fitnessmotivation","#bodybuilding","#training","#health","#exercise","#muscle","#reels","#explore","#instagood","#fitfam","#gymlife","#personaltrainer","#strength","#cardio","#abs","#gains","#weightlifting","#crossfit","#yoga","#running","#fitspo"],
+      mid: ["#homeworkout","#workoutvideo","#legday","#upperbodyworkout","#coreworkout","#hiitworkout","#strengthtraining","#fitnessjourney","#gymmotivation","#fitnessgirl","#fitnessmodel","#naturalfitness","#fitnesscoach","#workoutplan","#functionaltraining","#glutes","#armworkout","#chestworkout","#deadlift","#squat","#benchpress","#olympiclifting","#powerlifting","#morningexercise","#fitover40"],
+      niche: ["#homegymsettup","#resistancebandworkout","#dumbbellworkout","#kettlebelltraining","#pilatesreformer","#yogaflow","#barreclass","#lowimpactworkout","#walkingforhealth","#postpartumfitness","#pregnancyfitness","#seniorexercise","#wheelchairfitness","#adaptivetraining","#beginnerlifting","#bodysculpt","#isometricexercise","#stretchingdaily","#recoverytools","#foamrolling","#mobilitywork","#handstand","#callisthenics","#plyometrics","#tabataworkout"]
+    },
+    lifestyle: {
+      big: ["#lifestyle","#lifestyleblogger","#daily","#instagood","#aesthetic","#mood","#vibes","#motivation","#inspiration","#explore","#reels","#photooftheday","#selfcare","#happy","#love","#morningroutine","#routine","#home","#lifeisbeautiful","#goodvibes","#instadaily","#blogger","#influencer","#goals","#mindset"],
+      mid: ["#dailyroutine","#morningmotivation","#nightroutine","#sundayreset","#cleanwithme","#organizedhome","#homedecor","#apartmentliving","#minimalistliving","#intentionalliving","#slowliving","#selfcareroutine","#journaling","#goalsetting","#visionboard","#gratitudepractice","#productiveday","#weeklyplanning","#lifestylereel","#dayinmylife","#getreadywithme","#roomdecor","#homeoffice","#cozyvibes","#shelfie"],
+      niche: ["#microhabits","#5amclub","#eveningroutine","#singlelife","#solodate","#adultingtips","#budgetliving","#frugalliving","#firsthome","#newapartment","#downsizing","#capsulewardrobe","#digitalminimalism","#nospendchallenge","#moneysavingchallenge","#bookclub","#readinglist","#podcastrecommendation","#mealplanning","#batchcooking","#weekendvibes","#mentalhealth","#anxietyrelief","#breathwork","#meditation"]
+    },
+    gaming: {
+      big: ["#gaming","#gamer","#videogames","#playstation","#xbox","#nintendo","#pcgaming","#gamingcommunity","#esports","#twitch","#reels","#explore","#instagood","#gaminglife","#gamestagram","#gamingsetup","#retrogaming","#newgame","#gamingmemes","#gamerlife","#consolegaming","#gamingworld","#videogame","#gameday","#games"],
+      mid: ["#gamingpc","#gamingroom","#setupgoals","#gamingchair","#rgbsetup","#desksetup","#mechanicalkeyboard","#gamingmonitor","#streamersetup","#cozysetup","#gamereview","#gameplay","#walkthrough","#letsplay","#cozygaming","#indiegames","#gamingcollection","#gamenight","#squadgoals","#gamingfunny","#epicmoment","#clutchplay","#gamingclip","#bestgames","#gamingnews"],
+      niche: ["#switchgaming","#steamdeck","#handlheld","#retrocollector","#gameboycollection","#vintagegaming","#gamingnostalgia","#casualgamer","#momgamer","#dadgamer","#couplegaming","#gamingdate","#boardgames","#tabletopgaming","#gamedev","#indiedev","#pixelart","#gameart","#gamingasmr","#unboxinggaming","#limitededition","#collectorsedition","#gamingmerch","#gamingfigures","#amiibo"]
+    },
+    fashion: {
+      big: ["#fashion","#style","#ootd","#fashionblogger","#streetstyle","#outfitoftheday","#fashionista","#instafashion","#lookbook","#styleinspo","#reels","#explore","#instagood","#trending","#fashionstyle","#outfitinspo","#whatiwore","#fashionable","#chic","#trendy","#clothing","#fashiondiaries","#fashiongram","#stylish","#fashionlovers"],
+      mid: ["#fashionreels","#outfitideas","#stylecheck","#fashionfinds","#affordablefashion","#thriftedoutfit","#sustainablefashion","#capsulewardrobe","#wardrobetips","#fashionover30","#mensstyle","#womenswear","#plussizefashion","#curvyfashion","#petitestyle","#tallstyle","#fashionhaul","#newinkloset","#colorfuloutfit","#neutraloutfit","#monochromeoutfit","#denimlook","#maxidress","#blazeroutfit","#knitwearlook"],
+      niche: ["#thriftflip","#secondhandfashion","#depopseller","#vintageootd","#y2kstyle","#90saesthetic","#oldmoneyaesthetic","#quietluxury","#coastalgrandmother","#dopamindressing","#colortheory","#fashionpsychology","#upcycledclothing","#diyclothing","#sewingproject","#tailoringtips","#outfitformula","#onepiecemanyways","#10x10challenge","#nomorefast","#ethicalfashion","#fashionrevolution","#slowfashion","#handmadeclothing","#shoetok"]
+    },
+    travel: {
+      big: ["#travel","#travelgram","#instatravel","#traveling","#wanderlust","#explore","#vacation","#adventure","#travelphotography","#trip","#reels","#instagood","#nature","#traveltheworld","#travelblogger","#beautifuldestinations","#traveladdict","#roadtrip","#beach","#mountains","#sunset","#hotel","#tourism","#aroundtheworld","#holiday"],
+      mid: ["#traveltips","#travelguide","#travelhacks","#budgettravel","#luxurytravel","#solotravel","#couplestravel","#familytravel","#backpacking","#travelitinerary","#traveldiaries","#travelreels","#hiddenspots","#offthebeatenpath","#localfood","#travelreviews","#airbnbfinds","#hotelview","#poolview","#beachlife","#islandlife","#eurotrip","#asiatrip","#americatravel","#africatravel"],
+      niche: ["#carryononly","#packinglist","#packingcubes","#flightdeals","#cheapflights","#pointsandmiles","#creditcardtravel","#housesitting","#voluntravel","#workaway","#vanlife","#rvlife","#overlanding","#sailinglife","#traintravel","#nighttrain","#bustraveleurope","#jetlagtips","#airportlounge","#firstclass","#solofemaletravel","#lgbtqtravel","#accessibletravel","#slowtravel","#longstay"]
+    },
+    tech: {
+      big: ["#tech","#technology","#gadgets","#iphone","#apple","#samsung","#android","#techie","#innovation","#techreview","#reels","#explore","#instagood","#smartphone","#laptop","#smartwatch","#ai","#coding","#programming","#software","#newtech","#techworld","#geek","#nerd","#digital"],
+      mid: ["#techhacks","#techtips","#iphonehacks","#appletips","#galaxytips","#bestapps","#productivityapps","#setupgoals","#desksetup","#homeofficesetup","#smarthome","#iot","#wearable","#earbuds","#wirelesscharger","#techunboxing","#gizmo","#techcomparison","#bestof2026","#techgift","#applenewsroom","#techdeals","#gadgetreview","#futuretechnology","#aigenerated"],
+      niche: ["#raspberrypi","#arduino","#3dprinting","#mechanicalkeyboard","#customkeyboard","#cablemanagement","#minimalistdesk","#budgettech","#refurbishedtech","#techrecycle","#repairability","#righttorepair","#linuxdesktop","#opensourcetools","#privacyfocused","#selfhosted","#homeserver","#plex","#pihole","#notionsetup","#obsidian","#secondbrain","#pkm","#digitalgarden","#automationtools"]
+    }
+  },
+  youtube: {
+    beauty: {
+      big: ["#beauty","#makeup","#skincare","#beautytips","#makeupartist","#skincareroutine","#grwm","#makeuptutorial","#beautyhacks","#shorts","#youtuber","#subscribe","#beautyguru","#cosmetics","#glam","#beautycommunity","#makeuplover","#haul","#unboxing","#beautyvlog","#glowup","#transformation","#beforeandafter","#aesthetic","#selfcare"],
+      mid: ["#makeuplook","#drugstoremakeup","#highendmakeup","#makeuphaul","#sephorahaul","#ultahaul","#beautyreview","#firstimpressions","#fullface","#onemakeuplook","#cleanbeauty","#naturalmakeup","#skincareproducts","#morningskincara","#nightroutine","#dupes","#makeupdupes","#declutter","#makeuporganization","#beautyfavorites","#monthlyrotation","#beautyempties","#crueltyfreetesting","#swatches","#worstmakeup"],
+      niche: ["#maturemakeup","#acnecoverage","#texturedmakeup","#monolidmakeup","#deeplipstick","#browngirlbeauty","#paleskintutorial","#frecklemakeup","#suncreenreview","#retinolguide","#niacinamidetips","#skincareingredients","#budgetbeauty","#fullcoverage","#sheerfinish","#nowashoff","#5minutemakeup","#officebeauty","#weddingmakeup","#promglam","#editoriallook","#cuttingcrease","#halobrow","#beefylips","#soapbrows"]
+    },
+    food: {
+      big: ["#food","#cooking","#recipe","#foodie","#chef","#baking","#dinner","#homemade","#shorts","#youtuber","#subscribe","#easyrecipe","#delicious","#mukbang","#asmr","#asmrcooking","#foodreview","#trying","#taste","#yummy","#mealprep","#healthyfood","#quickrecipe","#tutorial","#howto"],
+      mid: ["#cookingvlog","#recipevideo","#cookalong","#kitchenhacks","#foodhacks","#30minutemeals","#onepotrecipe","#airfryercooking","#instantpotrecipe","#crockpot","#sheetpanmeal","#dinnerideas","#lunchideas","#breakfastrecipe","#brunchathome","#dessertrecipe","#cakedecor","#breadbaking","#sourdough","#pastamadeeasy","#sushiathome","#grillrecipe","#bbqtips","#saucerecipe","#marinade"],
+      niche: ["#studentcooking","#dormcooking","#budgetmeals","#5dollardinners","#couponcooking","#foraging","#fermentation","#sourdoughstarter","#cheesemaking","#canning","#mealprepping","#macrocounting","#ketorecipe","#whole30","#carnivore","#veganfullday","#plantbased","#rawfood","#juicecleanse","#smoothiebowl","#highproteincooking","#babyfood","#toddlermeal","#allergyfreecooking","#copycatrecipe"]
+    },
+    fitness: {
+      big: ["#fitness","#workout","#gym","#exercise","#bodybuilding","#training","#fitnessmotivation","#shorts","#youtuber","#subscribe","#health","#personaltrainer","#muscle","#gains","#cardio","#weightloss","#weightlifting","#yoga","#running","#crossfit","#fitnessjourney","#transformation","#beforeandafter","#motivation","#strength"],
+      mid: ["#homeworkout","#workoutroutine","#fullbodyworkout","#legday","#armday","#chestday","#backworkout","#shoulderworkout","#absworkout","#hiitworkout","#tabata","#morningworkout","#noequipmentworkout","#gymvlog","#whatiateinaday","#fitnesslifestyle","#naturalbodybuilding","#powerlifting","#calisthenics","#streetworkout","#gymnast","#flexiblefitness","#fatloss","#musclegain","#bulking"],
+      niche: ["#garagegym","#homegym","#budgetgym","#resistancebands","#trx","#gymnrings","#bodyweightonly","#inclinewalking","#walkingpad","#standingdesk","#deskstretches","#officeexercise","#pregnancyyoga","#postpartumabs","#seniorworkout","#over50fitness","#teenworkout","#sportstraining","#swimmerfitness","#runningtips","#marathontraining","#5ktomarathon","#recoverytools","#icebath","#saunabenefits"]
+    },
+    lifestyle: {
+      big: ["#lifestyle","#vlog","#dayinmylife","#routine","#aesthetic","#morningroutine","#shorts","#youtuber","#subscribe","#productivity","#motivation","#selfimprovement","#dailyvlog","#grwm","#haul","#roomtour","#organize","#clean","#lifehacks","#tips","#howto","#adulting","#goals","#mindset","#growth"],
+      mid: ["#weeklyvlog","#weekinmylife","#monthlyresets","#sundayreset","#cleaningmotivation","#decluttering","#minimalism","#organization","#planningmyweek","#goalsetting","#bulletjournal","#studyvlog","#workvlog","#wfhvlog","#homedecor","#homemakeover","#diydecor","#amazonhaul","#tiktokfinds","#favoritethings","#whatsinmybag","#everydaycarry","#morningvibes","#nightroutine","#sleephygiene"],
+      niche: ["#5ammorning","#4amroutine","#deepcleaning","#extremedeclutter","#konmari","#nospendmonth","#cashstuffing","#envelopesystem","#savingchallenge","#debtfreejourney","#sinkingfunds","#pantryorganize","#fridgerestock","#mealplansunday","#freezercooking","#capsulewardrobe","#seasonalswitch","#bookshelforganize","#closettour","#garagesale","#thrifting","#digitalplanner","#goodnotesplanner","#notionsetup","#homelab"]
+    },
+    gaming: {
+      big: ["#gaming","#gamer","#videogames","#gameplay","#letsplay","#walkthrough","#shorts","#youtuber","#subscribe","#twitch","#streaming","#esports","#fortnite","#minecraft","#roblox","#callofduty","#gta","#valorant","#apexlegends","#leagueoflegends","#pcgaming","#ps5","#xbox","#nintendoswitch","#newgame"],
+      mid: ["#gamereview","#firstimpression","#gamingsetup","#pcbuild","#setuptour","#gamingroom","#cozygaming","#gamingaesthetic","#speedrun","#worldrecord","#challenge","#gamingfails","#funnygaming","#clutch","#epicwin","#compilation","#montage","#gamingsound","#gamingmusic","#gamingskin","#gamingupdate","#patchnotes","#gamingnews","#tier","#ranking"],
+      niche: ["#indiegame","#indiedev","#soulslike","#metroidvania","#roguelite","#farmgame","#citybuild","#strategygame","#simulatorgame","#horrorgame","#vrgaming","#steamdeckgaming","#handlheldgaming","#retrohandheld","#emulation","#modding","#gamingmod","#shadermod","#texturepack","#gamingonthelaptop","#cloudgaming","#xcloud","#geforce","#budgetgamingpc","#usedgaming"]
+    },
+    fashion: {
+      big: ["#fashion","#style","#ootd","#lookbook","#haul","#outfitideas","#fashionvlog","#shorts","#youtuber","#subscribe","#trending","#fashioninspo","#styleinspo","#whatiwore","#fashiontrends","#outfitoftheday","#streetstyle","#fashionista","#grwm","#tryonhaul","#zarahaul","#sheinhaul","#thrifthaul","#fashionhacks","#wardrobetips"],
+      mid: ["#outfitcheck","#fashionchallenge","#blindstyling","#capsulewardrobe","#10x10challenge","#shopmy","#affiliatelinks","#fashionfinds","#secondhandhaul","#depophaul","#thredup","#poshmark","#sustainablestyle","#slowfashion","#fastfashion","#fashiondebate","#splurgevssave","#dupe","#highvslow","#plussizehaul","#petitehaul","#menstylehaul","#workwear","#officestyle","#casualchic"],
+      niche: ["#thriftflip","#diyfashion","#sewingproject","#upcycle","#tailoring","#vintagestyle","#retro","#y2koutfit","#cottagecore","#darkacademia","#goth","#streetwearculture","#techwear","#gorpcore","#athleisure","#loungewearhaul","#pajamaset","#sneakerunboxing","#dressshoes","#bootseason","#winterfashion","#summerstyle","#springoutfits","#fallwardrobe","#rainydayoutfit"]
+    },
+    travel: {
+      big: ["#travel","#travelvlog","#traveling","#vacation","#trip","#adventure","#explore","#wanderlust","#shorts","#youtuber","#subscribe","#travelvideo","#travelguide","#roadtrip","#backpacking","#solotravel","#cruise","#flight","#hotel","#beach","#mountains","#nature","#citybreak","#worldtravel","#bucketlist"],
+      mid: ["#traveltips","#travelhacks","#budgettravel","#luxurytravel","#fulltimtravel","#travelcouple","#familytravel","#grouptrip","#travelitinerary","#travelplan","#packingtips","#whattopack","#flighthacks","#airlinereview","#hotelreview","#airbnbreview","#hostelreview","#restauranttour","#streetfood","#localtraveling","#daytripper","#weekendaway","#eurotrip","#asiatravel","#americatravel"],
+      niche: ["#carryononly","#minimalisttravel","#onebagtravel","#vanlifetravel","#rvtravel","#sailingchannel","#trainjourney","#biketouring","#hitchhiking","#couchsurfing","#houseswapping","#volunteerwwork","#teachingabroad","#digitalnomadlife","#remoteyearwork","#longstay","#expatlife","#movingabroad","#visaguide","#passportranking","#travelinsurance","#travelsafety","#solofemaletraveler","#lgbttravel","#wheelchairtraveler"]
+    },
+    tech: {
+      big: ["#tech","#technology","#techreview","#unboxing","#gadgets","#iphone","#apple","#samsung","#android","#shorts","#youtuber","#subscribe","#laptop","#smartphone","#ai","#coding","#programming","#software","#bestof","#toptech","#setup","#desksetup","#pcbuild","#techsetup","#howto"],
+      mid: ["#techtips","#techhacks","#iphonehacks","#appletips","#androidtips","#productivitytools","#bestapps","#appreview","#softwarereview","#techcomparison","#versus","#bestphone","#bestlaptop","#bestearbuds","#besttablet","#smarthomedemo","#homeautomation","#smarthometour","#techdeals","#primeday","#blackfriday","#techgift","#budgettech","#techunder100","#techover1000"],
+      niche: ["#raspberrypiproject","#arduinotutorial","#3dprintingproject","#custompc","#sleeperbuild","#sffpc","#homelab","#homeserver","#networksetup","#selfhosting","#dockertutorial","#linuxbeginner","#macosworkflow","#windowscustomize","#chromebookguide","#eink","#remarkabledev","#mechanicalkeyboard","#soldering","#circuitboard","#iotproject","#weatherstation","#smartmirror","#ledprojects","#retropie"]
+    }
+  },
+  twitter: {
+    beauty: {
+      big: ["#beauty","#makeup","#skincare","#beautytips","#grwm"],
+      mid: ["#makeuplook","#cleanbeauty","#drugstoremakeup","#skincareaddict","#beautyfaves"],
+      niche: ["#skinbarrierrepair","#affordablemakeup","#makeupdupes","#spftips","#glassskin"]
+    },
+    food: {
+      big: ["#food","#cooking","#recipe","#foodie","#homemade"],
+      mid: ["#easyrecipe","#mealprep","#dinnerideas","#airfryerrecipe","#budgetmeals"],
+      niche: ["#5ingredientmeal","#collegecooking","#highproteinmeal","#pantrymeals","#leftovers"]
+    },
+    fitness: {
+      big: ["#fitness","#workout","#gym","#health","#exercise"],
+      mid: ["#homeworkout","#fitnessjourney","#strengthtraining","#legday","#hiit"],
+      niche: ["#beginnerworkout","#nojumpworkout","#deskexercise","#resistancebands","#mobilityroutine"]
+    },
+    lifestyle: {
+      big: ["#lifestyle","#motivation","#selfcare","#routine","#aesthetic"],
+      mid: ["#morningroutine","#productivity","#minimalism","#organizedhome","#sundayreset"],
+      niche: ["#microhabits","#digitalminimalism","#slowliving","#budgetliving","#nospendchallenge"]
+    },
+    gaming: {
+      big: ["#gaming","#gamer","#videogames","#esports","#pcgaming"],
+      mid: ["#gamereview","#indiegames","#cozygaming","#retrogaming","#gamingsetup"],
+      niche: ["#steamdeck","#indiedev","#cozygamer","#budgetgaming","#gamedev"]
+    },
+    fashion: {
+      big: ["#fashion","#style","#ootd","#streetstyle","#fashiontrends"],
+      mid: ["#outfitinspo","#sustainablefashion","#capsulewardrobe","#thrifted","#fashionfinds"],
+      niche: ["#thriftflip","#quietluxury","#vintagestyle","#slowfashion","#y2kfashion"]
+    },
+    travel: {
+      big: ["#travel","#wanderlust","#vacation","#roadtrip","#adventure"],
+      mid: ["#budgettravel","#solotravel","#traveltips","#hiddenspots","#travelhacks"],
+      niche: ["#carryononly","#pointsandmiles","#vanlife","#solofemaletravel","#slowtravel"]
+    },
+    tech: {
+      big: ["#tech","#ai","#iphone","#coding","#innovation"],
+      mid: ["#techtips","#productivityapps","#smarthome","#bestapps","#techdeals"],
+      niche: ["#selfhosted","#mechanicalkeyboard","#raspberrypi","#privacytips","#budgettech"]
+    }
+  }
+};
+
+// Fisher-Yates shuffle
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function getHashtags(plat, nich) {
+  const data = DB[plat]?.[nich];
+  if (!data) return null;
+  const isTwitter = plat === 'twitter';
+  const count = isTwitter ? 5 : 10;
+  return {
+    big: shuffle(data.big).slice(0, count),
+    mid: shuffle(data.mid).slice(0, count),
+    niche: shuffle(data.niche).slice(0, count)
+  };
+}
+
+let currentHashtags = null;
+
+function copyText(text, btnEl) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btnEl.textContent;
+    btnEl.textContent = 'Copied!';
+    btnEl.classList.add('copied');
+    setTimeout(() => { btnEl.textContent = orig; btnEl.classList.remove('copied'); }, 1800);
+  });
+}
+
+function renderResults(tags) {
+  const isTwitter = platform === 'twitter';
+  const tierCount = isTwitter ? 5 : 10;
+  const totalCount = tierCount * 3;
+  const platformName = platform === 'twitter' ? 'Twitter / X' : platform.charAt(0).toUpperCase() + platform.slice(1);
+  const nicheName = niche.charAt(0).toUpperCase() + niche.slice(1);
+
+  const bigTags = tags.big.map(t => `<span class="hashtag-tag">${t}</span>`).join('');
+  const midTags = tags.mid.map(t => `<span class="hashtag-tag">${t}</span>`).join('');
+  const nicheTags = tags.niche.map(t => `<span class="hashtag-tag">${t}</span>`).join('');
+
+  const bigStr = tags.big.join(' ');
+  const midStr = tags.mid.join(' ');
+  const nicheStr = tags.niche.join(' ');
+  const allStr = bigStr + ' ' + midStr + ' ' + nicheStr;
+
+  const twitterNote = isTwitter ? `<div style="padding:10px 14px;background:var(--orange-light);border-radius:10px;font-size:12px;color:#92400E;margin-bottom:16px;">Twitter/X works best with 1-3 hashtags per tweet. We gave you ${tierCount} per tier so you can mix and match.</div>` : '';
+
+  const html = `
+    <div class="results-card">
+      <div class="results-header">
+        <h2>Your Hashtags</h2>
+        <p>${platformName} / ${nicheName}</p>
+      </div>
+      ${twitterNote}
+      <div class="tier-section tier-blue">
+        <div class="tier-header">
+          <span class="tier-title">Big Reach</span>
+          <button class="copy-tier-btn" onclick="copyText('${bigStr.replace(/'/g,"\\'")}', this)">Copy These</button>
+        </div>
+        <div class="tier-subtitle">${isTwitter ? 'Popular tags — broad visibility' : '1M+ posts — cast a wide net'}</div>
+        <div class="hashtag-wrap">${bigTags}</div>
+      </div>
+      <div class="tier-section tier-green">
+        <div class="tier-header">
+          <span class="tier-title">Sweet Spot</span>
+          <button class="copy-tier-btn" onclick="copyText('${midStr.replace(/'/g,"\\'")}', this)">Copy These</button>
+        </div>
+        <div class="tier-subtitle">${isTwitter ? 'Niche-popular — solid engagement' : '100K\u20131M posts — your best bet'}</div>
+        <div class="hashtag-wrap">${midTags}</div>
+      </div>
+      <div class="tier-section tier-purple">
+        <div class="tier-header">
+          <span class="tier-title">Niche Gold</span>
+          <button class="copy-tier-btn" onclick="copyText('${nicheStr.replace(/'/g,"\\'")}', this)">Copy These</button>
+        </div>
+        <div class="tier-subtitle">${isTwitter ? 'Low competition — targeted reach' : 'Under 100K — less competition, more eyeballs'}</div>
+        <div class="hashtag-wrap">${nicheTags}</div>
+      </div>
+      <button class="copy-all-btn" onclick="copyAll(this)">Copy All ${totalCount}</button>
+      <button class="shuffle-btn" onclick="doShuffle()">Shuffle</button>
+      <div class="pro-tip">
+        <strong>Pro tip:</strong> ${isTwitter ? 'Use 1-3 hashtags per tweet. Mix one big + one niche for the best reach without looking spammy.' : 'Use 3-5 big, 10-15 sweet spot, and 5-10 niche hashtags per post for the best reach.'}
+      </div>
+    </div>`;
+
+  const results = document.getElementById('results');
+  results.innerHTML = html;
+  results.style.display = 'block';
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function copyAll(btn) {
+  if (!currentHashtags) return;
+  const all = [...currentHashtags.big, ...currentHashtags.mid, ...currentHashtags.niche].join(' ');
+  navigator.clipboard.writeText(all).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'Copied All!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1800);
+  });
+}
+
+function doShuffle() {
+  if (!platform || !niche) return;
+  currentHashtags = getHashtags(platform, niche);
+  if (currentHashtags) renderResults(currentHashtags);
+}
+
+document.getElementById('calcBtn').addEventListener('click', () => {
+  if (!platform || !niche) {
+    alert('Pick your platform and niche first!');
+    return;
+  }
+  currentHashtags = getHashtags(platform, niche);
+  if (currentHashtags) renderResults(currentHashtags);
+});
+</script>
+</body>
+</html>

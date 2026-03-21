@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$15 & Under NYC Eats Guide | Ledger & Spark</title>
+    <meta name="description" content="Free guide to the best cheap eats in NYC — every spot $15 or under. Real spots, real prices, zero tourist traps.">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #FAFBFE;
+            --bg-alt: #F1F5F9;
+            --blue: #3B82F6;
+            --blue-light: #60A5FA;
+            --blue-pale: #DBEAFE;
+            --blue-faint: #EFF6FF;
+            --text: #1E293B;
+            --text-muted: #64748B;
+            --text-light: #94A3B8;
+            --white: #FFFFFF;
+            --green: #10B981;
+            --green-pale: #D1FAE5;
+            --orange: #F59E0B;
+            --orange-pale: #FEF3C7;
+            --red: #EF4444;
+            --red-pale: #FEE2E2;
+            --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.04);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.05), 0 4px 6px rgba(0,0,0,0.03);
+            --radius: 12px;
+            --radius-lg: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+            color: white;
+            padding: 2rem 1.25rem 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0; right: 0;
+            height: 24px;
+            background: var(--bg);
+            border-radius: 24px 24px 0 0;
+        }
+        .header-brand {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.85;
+            margin-bottom: 0.5rem;
+        }
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 0.5rem;
+        }
+        .header h1 span { display: block; font-size: 2.4rem; }
+        .header-sub {
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 340px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+        .header-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ===== TRUST BAR ===== */
+        .trust-bar {
+            background: var(--blue-faint);
+            border: 1px solid var(--blue-pale);
+            border-radius: var(--radius);
+            padding: 0.75rem 1rem;
+            margin: 1rem 1.25rem 0;
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== STATS ROW ===== */
+        .stats {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .stat-card {
+            flex: 0 0 auto;
+            min-width: 120px;
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 0.75rem 1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        .stat-num {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--blue);
+        }
+        .stat-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== BOROUGH TABS ===== */
+        .borough-tabs {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.5rem 1.25rem 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .borough-tabs::-webkit-scrollbar { display: none; }
+        .borough-tab {
+            flex: 0 0 auto;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid var(--blue-pale);
+            background: var(--white);
+            color: var(--text-muted);
+            transition: all 0.2s;
+            white-space: nowrap;
+            user-select: none;
+        }
+        .borough-tab:hover { border-color: var(--blue-light); color: var(--blue); }
+        .borough-tab.active {
+            background: var(--blue);
+            color: white;
+            border-color: var(--blue);
+        }
+
+        /* ===== NEIGHBORHOOD PILLS ===== */
+        .hood-pills {
+            display: flex;
+            gap: 0.4rem;
+            padding: 0.75rem 1.25rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            flex-wrap: wrap;
+        }
+        .hood-pills::-webkit-scrollbar { display: none; }
+        .hood-pill {
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            cursor: pointer;
+            background: var(--bg-alt);
+            color: var(--text-muted);
+            border: 1px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            user-select: none;
+        }
+        .hood-pill:hover { background: var(--blue-pale); color: var(--blue); }
+        .hood-pill.active {
+            background: var(--blue-pale);
+            color: var(--blue);
+            border-color: var(--blue-light);
+            font-weight: 600;
+        }
+
+        /* ===== SECTION ===== */
+        .section {
+            padding: 0.5rem 1.25rem 1rem;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .section-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        /* ===== FOOD CARDS ===== */
+        .cards { display: flex; flex-direction: column; gap: 0.75rem; }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 1rem 1.1rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .card:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.4rem;
+        }
+        .card-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            line-height: 1.3;
+            flex: 1;
+            padding-right: 0.5rem;
+        }
+        .card-emoji {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+        .price-badge {
+            flex: 0 0 auto;
+            background: var(--green-pale);
+            color: #059669;
+            font-size: 0.82rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .price-badge.mid {
+            background: var(--orange-pale);
+            color: #D97706;
+        }
+
+        .card-cuisine {
+            display: inline-block;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--blue);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .card-location {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+        .card-desc {
+            font-size: 0.88rem;
+            color: var(--text);
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+        .card-order {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: var(--blue-faint);
+            border: 1px solid var(--blue-pale);
+            border-radius: var(--radius);
+            padding: 0.35rem 0.65rem;
+            font-size: 0.78rem;
+            color: var(--blue);
+            font-weight: 600;
+        }
+        .card-vibe {
+            font-size: 0.78rem;
+            color: var(--text-light);
+            margin-top: 0.4rem;
+            font-style: italic;
+        }
+
+        /* ===== PRO TIP BOX ===== */
+        .pro-tip {
+            background: var(--orange-pale);
+            border-radius: var(--radius);
+            padding: 0.85rem 1rem;
+            margin: 0.75rem 0;
+            font-size: 0.85rem;
+        }
+        .pro-tip strong { color: #B45309; }
+
+        /* ===== NEIGHBORHOOD SECTION ===== */
+        .neighborhood-section {
+            margin-bottom: 1.5rem;
+        }
+
+        /* ===== CTA BANNER ===== */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--blue) 0%, #2563EB 100%);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1rem 1.25rem;
+            text-align: center;
+            color: white;
+        }
+        .cta-banner h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 0.4rem;
+        }
+        .cta-banner p {
+            font-size: 0.88rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        .cta-btn {
+            display: inline-block;
+            background: white;
+            color: var(--blue);
+            font-weight: 700;
+            padding: 0.65rem 1.5rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: transform 0.15s;
+        }
+        .cta-btn:hover { transform: scale(1.03); }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--bg-alt);
+            padding: 2rem 1.25rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .footer-brand {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+        .footer p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+            line-height: 1.5;
+        }
+        .footer-disclaimer {
+            font-size: 0.72rem;
+            color: var(--text-light);
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #E2E8F0;
+        }
+        .footer a { color: var(--blue); text-decoration: none; }
+
+        /* ===== HIDDEN CLASS ===== */
+        .hidden { display: none !important; }
+
+        /* ===== DESKTOP ===== */
+        @media (min-width: 640px) {
+            .header h1 { font-size: 2.5rem; }
+            .header h1 span { font-size: 3rem; }
+            .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+            .stats { justify-content: center; }
+            .borough-tabs { justify-content: center; }
+            .hood-pills { justify-content: center; }
+            .section, .trust-bar, .cta-banner { max-width: 720px; margin-left: auto; margin-right: auto; }
+        }
+        @media (min-width: 1024px) {
+            .cards { grid-template-columns: 1fr 1fr 1fr; }
+            .section, .trust-bar, .cta-banner { max-width: 960px; }
+        }
+
+        /* ===== PRINT STYLES ===== */
+        @media print {
+            .borough-tabs, .hood-pills, .cta-banner { display: none; }
+            .card { break-inside: avoid; box-shadow: none; border: 1px solid #E2E8F0; }
+            .header { background: white; color: var(--text); }
+            .header::after { display: none; }
+        }
+    </style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+    <div class="header-brand">Ledger & Spark</div>
+    <div class="header-emoji">🍕🥟🌮🍗</div>
+    <h1>$15 & Under<span>NYC Eats Guide</span></h1>
+    <p class="header-sub">60+ real spots. Every borough. Every meal $15 or less. Zero tourist traps.</p>
+</header>
+
+<!-- ===== TRUST BAR ===== -->
+<div class="trust-bar">
+    🔒 We make money from sponsors, not from you. That's why everything is free.
+</div>
+
+<!-- ===== STATS ===== -->
+<div class="stats">
+    <div class="stat-card">
+        <div class="stat-num">19</div>
+        <div class="stat-label">Spots</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Neighborhoods</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Boroughs</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-num">$15</div>
+        <div class="stat-label">Max Price</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Cuisines</div>
+    </div>
+</div>
+
+<!-- ===== BOROUGH TABS ===== -->
+<div class="borough-tabs" id="boroughTabs">
+    <button class="borough-tab active" data-borough="all">All Boroughs</button>
+    <button class="borough-tab" data-borough="manhattan">Manhattan</button>
+    <button class="borough-tab" data-borough="queens">Queens</button>
+</div>
+
+<!-- ===== NEIGHBORHOOD PILLS ===== -->
+<div class="hood-pills" id="hoodPills">
+    <button class="hood-pill active" data-hood="all">All Hoods</button>
+    <!-- Manhattan -->
+    <button class="hood-pill" data-hood="chinatown" data-borough="manhattan">Chinatown</button>
+    <!-- Queens -->
+    <button class="hood-pill" data-hood="jacksonheights" data-borough="queens">Jackson Heights</button>
+    <button class="hood-pill" data-hood="flushing" data-borough="queens">Flushing</button>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main>
+
+<!-- ==================== MANHATTAN ==================== -->
+
+<!-- CHINATOWN -->
+<div class="section neighborhood-section" data-borough="manhattan" data-hood="chinatown">
+    <h2 class="section-title">🏮 Chinatown</h2>
+    <p class="section-subtitle">NYC's OG cheap eats capital. Dumplings for pocket change. Noodles that go stupid hard.</p>
+    <div class="cards">
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🥟</span><span class="card-name">Shu Jiao Fu Zhou</span></div>
+                <span class="price-badge">$3-4</span>
+            </div>
+            <div class="card-cuisine">Chinese / Fuzhounese</div>
+            <div class="card-location">295 Grand St, Manhattan</div>
+            <div class="card-desc">Their $3.50 peanut noodles are genuinely unhinged. Creamy, nutty, and you'll be thinking about them for days. 10 pork & chive dumplings for $4. This is not a drill.</div>
+            <div class="card-order">🔥 Must order: Peanut butter noodles + pork dumplings</div>
+            <div class="card-vibe">Hole-in-the-wall, cash only, no frills, all flavor</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🫓</span><span class="card-name">Mei Lai Wah</span></div>
+                <span class="price-badge">$1.50</span>
+            </div>
+            <div class="card-cuisine">Chinese Bakery</div>
+            <div class="card-location">64 Bayard St, Manhattan</div>
+            <div class="card-desc">$1.50 pineapple pork buns that are legitimately life-changing. Flaky outside, savory inside. The line moves fast and it's worth every second.</div>
+            <div class="card-order">🔥 Must order: Pineapple pork bun</div>
+            <div class="card-vibe">Cash only, grab & go, old-school bakery energy</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🥟</span><span class="card-name">Vanessa's Dumpling House</span></div>
+                <span class="price-badge">$2-5</span>
+            </div>
+            <div class="card-cuisine">Chinese</div>
+            <div class="card-location">118A Eldridge St, Manhattan</div>
+            <div class="card-desc">4 fried dumplings for $2. TWO DOLLARS. They're crispy, juicy, and the sesame pancake sandwich is insane too. This is the NYC starter pack.</div>
+            <div class="card-order">🔥 Must order: Fried dumplings + sesame pancake</div>
+            <div class="card-vibe">Quick counter service, always packed, always worth it</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🍜</span><span class="card-name">Tasty Hand-Pulled Noodles</span></div>
+                <span class="price-badge">$8-12</span>
+            </div>
+            <div class="card-cuisine">Chinese / Hand-pulled Noodles</div>
+            <div class="card-location">1 Doyers St, Manhattan</div>
+            <div class="card-desc">You literally watch them pull your noodles fresh. The stir-fried knife-cut noodles are chewy perfection. This tiny spot on Doyers St has the most fire noodle game in Chinatown.</div>
+            <div class="card-order">🔥 Must order: Stir fried knife-cut noodles</div>
+            <div class="card-vibe">Tiny, chaotic, mesmerizing noodle-pulling action</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🥟</span><span class="card-name">Jin Mei Dumplings</span></div>
+                <span class="price-badge">$5</span>
+            </div>
+            <div class="card-cuisine">Chinese</div>
+            <div class="card-location">Chinatown, Manhattan</div>
+            <div class="card-desc">15 dumplings for $5. Do the math. That's $0.33 per dumpling. Absolutely ridiculous value and they taste like someone's grandma made them with love.</div>
+            <div class="card-order">🔥 Must order: 15-piece dumpling order</div>
+            <div class="card-vibe">No-nonsense, cash only, quantity AND quality</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🍚</span><span class="card-name">Yi Ji Shi Mo</span></div>
+                <span class="price-badge">$4-8</span>
+            </div>
+            <div class="card-cuisine">Cantonese</div>
+            <div class="card-location">Chinatown, Manhattan</div>
+            <div class="card-desc">The cheong fun (rice rolls) here are silky, delicate, and stuffed with pork, shrimp, or cilantro. It's one of those "if you know, you know" spots that locals gatekeep.</div>
+            <div class="card-order">🔥 Must order: Shrimp rice rolls</div>
+            <div class="card-vibe">Hidden gem, authentic Cantonese, cash only</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🥖</span><span class="card-name">Banh Mi Saigon</span></div>
+                <span class="price-badge">$10</span>
+            </div>
+            <div class="card-cuisine">Vietnamese</div>
+            <div class="card-location">Chinatown, Manhattan</div>
+            <div class="card-desc">$10 banh mi that's loaded with marinated pork, pickled carrots, daikon, cilantro, and chiles on the crispiest baguette. The bread-to-filling ratio is *chef's kiss*.</div>
+            <div class="card-order">🔥 Must order: Classic pork banh mi</div>
+            <div class="card-vibe">Sandwich perfection, quick grab, Vietnamese flavors</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🫕</span><span class="card-name">Spicy Village</span></div>
+                <span class="price-badge">$7-15</span>
+            </div>
+            <div class="card-cuisine">Chinese / Henan</div>
+            <div class="card-location">68 Forsyth St, Manhattan</div>
+            <div class="card-desc">The "big tray chicken" ($16 but feeds two = $8/person) is legendary. Hand-pulled noodles swimming in spicy, numbing sauce with tender chicken. Soup dumplings 9 for $6.75.</div>
+            <div class="card-order">🔥 Must order: Big tray chicken (split it!)</div>
+            <div class="card-vibe">Cozy, spicy, share-with-your-crew energy</div>
+        </div>
+
+    </div>
+
+    <div class="pro-tip">
+        <strong>💡 Pro tip:</strong> Chinatown is CASH ONLY at most spots. Hit the ATM before you go. Also — go on a weekday to skip lines.
+    </div>
+</div>
+
+
+<!-- ==================== QUEENS ==================== -->
+
+<!-- JACKSON HEIGHTS -->
+<div class="section neighborhood-section" data-borough="queens" data-hood="jacksonheights">
+    <h2 class="section-title">🌎 Jackson Heights</h2>
+    <p class="section-subtitle">Most diverse food mile in America. Colombian, Nepali, Mexican, Bangladeshi — all under $10.</p>
+    <div class="cards">
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🫓</span><span class="card-name">Arepa Lady</span></div>
+                <span class="price-badge">$5-10</span>
+            </div>
+            <div class="card-cuisine">Colombian</div>
+            <div class="card-location">Jackson Heights, Queens</div>
+            <div class="card-desc">Started as a legendary street cart, now a restaurant. The arepa de choclo (sweet corn, folded) with chicharron (pork belly) is the move. Every arepa is great but the folded ones are easier to eat on the go.</div>
+            <div class="card-order">🔥 Must order: Arepa de choclo with chicharron</div>
+            <div class="card-vibe">Cart-turned-restaurant, Colombian icon, cash preferred</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🥟</span><span class="card-name">Momo Crave</span></div>
+                <span class="price-badge">$8-12</span>
+            </div>
+            <div class="card-cuisine">Tibetan / Nepali</div>
+            <div class="card-location">Jackson Heights, Queens</div>
+            <div class="card-desc">Tibetan momos that are straight-up addictive. Steamed, fried, or in soup — all incredible. The thukpa (noodle soup) for $8 is warming, filling, and the perfect rainy-day meal.</div>
+            <div class="card-order">🔥 Must order: Fried momos + thukpa soup</div>
+            <div class="card-vibe">Cozy Himalayan, affordable, soul-warming</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🌮</span><span class="card-name">Birria-Landia</span></div>
+                <span class="price-badge">$4-12</span>
+            </div>
+            <div class="card-cuisine">Mexican / Birria</div>
+            <div class="card-location">Roosevelt Ave, Jackson Heights, Queens</div>
+            <div class="card-desc">THE birria spot of NYC. This Tijuana-style truck gave birria the main character energy it deserved. Tacos dipped in consomme, dripping with cheese, messy in the best way. Best at night.</div>
+            <div class="card-order">🔥 Must order: Birria tacos + consomme for dipping</div>
+            <div class="card-vibe">Food truck legend, late-night, messy & perfect</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🫔</span><span class="card-name">Mi Pequeno</span></div>
+                <span class="price-badge">$3-8</span>
+            </div>
+            <div class="card-cuisine">Salvadoran</div>
+            <div class="card-location">Jackson Heights, Queens</div>
+            <div class="card-desc">Best pupusas in Queens. The Revuelta (cheese + refried beans + pork rind) is the one. Thick, stuffed corn cakes that are crispy outside and gooey inside. $3 each and incredibly filling.</div>
+            <div class="card-order">🔥 Must order: Pupusa Revuelta</div>
+            <div class="card-vibe">No-frills Salvadoran, family-run, pupusa perfection</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🇧🇩</span><span class="card-name">Fuskahouse / Tong</span></div>
+                <span class="price-badge">$5-8</span>
+            </div>
+            <div class="card-cuisine">Bangladeshi</div>
+            <div class="card-location">73rd St & Roosevelt, Jackson Heights</div>
+            <div class="card-desc">Bangladeshi food truck outside Duane Reade. Their fuchka — puffed puri filled with peas and potatoes, topped with raw onions and shaved egg yolks — is unlike anything else in NYC. $5 and mind-blowing.</div>
+            <div class="card-order">🔥 Must order: Fuchka</div>
+            <div class="card-vibe">Food truck, Bangladeshi street food, totally unique</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🥐</span><span class="card-name">La Gran Uruguaya</span></div>
+                <span class="price-badge">$3-7</span>
+            </div>
+            <div class="card-cuisine">Uruguayan Bakery</div>
+            <div class="card-location">Jackson Heights, Queens</div>
+            <div class="card-desc">Uruguayan flags, soccer on TV, and fresh-baked pastries everywhere. The Milhoja (puff pastry layered with dulce de leche) is insane. Not a restaurant — it's a bakery experience. Get the empanadas too.</div>
+            <div class="card-order">🔥 Must order: Milhoja + beef empanada</div>
+            <div class="card-vibe">Soccer on TV, pastry heaven, Uruguayan pride</div>
+        </div>
+
+    </div>
+
+    <div class="pro-tip">
+        <strong>💡 Pro tip:</strong> Walk Roosevelt Ave for the full food crawl. Bring cash (many spots are cash-only). Start at Junction Blvd 7 train and eat your way east.
+    </div>
+</div>
+
+<!-- FLUSHING -->
+<div class="section neighborhood-section" data-borough="queens" data-hood="flushing">
+    <h2 class="section-title">🏯 Flushing</h2>
+    <p class="section-subtitle">NYC's real Chinatown. $4 dumplings, $10 feasts, and food courts that'll blow your mind.</p>
+    <div class="cards">
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🥟</span><span class="card-name">White Bear</span></div>
+                <span class="price-badge">$5-8</span>
+            </div>
+            <div class="card-cuisine">Chinese</div>
+            <div class="card-location">135-02 Roosevelt Ave, Flushing</div>
+            <div class="card-desc">A tiny takeout window with 34 menu options and arguably the best dumplings in all of NYC. Order #6 — wontons with hot sauce. 12 per order, soft, chewy, and drenched in chili oil. This is the one.</div>
+            <div class="card-order">🔥 Must order: #6 — Wontons with hot sauce</div>
+            <div class="card-vibe">Takeout window, cult following, cash only</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🥟</span><span class="card-name">Zhu Ji Dumpling Stall</span></div>
+                <span class="price-badge">$4</span>
+            </div>
+            <div class="card-cuisine">Chinese</div>
+            <div class="card-location">40-52 Main St, Flushing</div>
+            <div class="card-desc">8 fried dumplings for $4. Scallion pancake $1.50. Pork bun $1.50. Soybean milk $1.50. You can literally get ALL of that for $10 total. This math is unmatched.</div>
+            <div class="card-order">🔥 Must order: Fried dumplings + scallion pancake</div>
+            <div class="card-vibe">Stall vibes, insane value, the $10 challenge spot</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🏬</span><span class="card-name">New World Mall Food Court</span></div>
+                <span class="price-badge">$5-12</span>
+            </div>
+            <div class="card-cuisine">Chinese / Various Asian</div>
+            <div class="card-location">136-20 Roosevelt Ave, Flushing</div>
+            <div class="card-desc">Massive underground food court with dozens of vendors. Dumplings, scallion pancakes, noodles, skewers, bubble tea — it's like a theme park but for your stomach. Go before noon to beat crowds.</div>
+            <div class="card-order">🔥 Must order: A little of everything (food court crawl)</div>
+            <div class="card-vibe">Food court maze, overwhelming (in a good way), arrive hungry</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🍜</span><span class="card-name">Lanzhou Handmade Noodle</span></div>
+                <span class="price-badge">$8-12</span>
+            </div>
+            <div class="card-cuisine">Chinese / Lanzhou</div>
+            <div class="card-location">Flushing Food Court, Queens</div>
+            <div class="card-desc">Hand-pulled noodles made right in front of you. The beef noodle soup is the star — clear broth, chewy noodles, tender beef. Simple, perfect, and under $12. This is noodle soup therapy.</div>
+            <div class="card-order">🔥 Must order: Beef hand-pulled noodle soup</div>
+            <div class="card-vibe">Noodle-pulling show, food court gem, warming</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div style="display:flex;align-items:center"><span class="card-emoji">🥟</span><span class="card-name">Shanghai You Garden</span></div>
+                <span class="price-badge">$8-14</span>
+            </div>
+            <div class="card-cuisine">Shanghainese</div>
+            <div class="card-location">Flushing, Queens</div>
+            <div class="card-desc">Order the Peking Duck Bun and you get 6 pork soup dumplings FREE. Yes, free. The soup dumplings are bursting with hot broth. Cash only and always worth the trip to Flushing.</div>
+            <div class="card-order">🔥 Must order: Peking Duck Bun (free soup dumplings!)</div>
+            <div class="card-vibe">Cash only, soup dumpling masters, free bonus dumplings</div>
+        </div>
+
+    </div>
+
+    <div class="pro-tip">
+        <strong>💡 Pro tip:</strong> Take the 7 train to Flushing-Main St. Bring CASH — most spots are cash only. The food court in New World Mall basement is the move.
+    </div>
+</div>
+
+
+</main>
+
+<!-- ===== CTA BANNER ===== -->
+<div class="cta-banner">
+    <h3>🗽 Want more free guides?</h3>
+    <p>We're building the best free resource library on the internet. New guides drop every week.</p>
+    <a href="https://ledgerandspark.gumroad.com" class="cta-btn">Browse All Free Downloads</a>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="footer-brand">Ledger & Spark</div>
+    <p>"Free tools. No catch. Built because you asked."</p>
+    <p>Every spot verified by real diners. Prices confirmed as of 2025-2026.</p>
+    <p>Questions? <a href="mailto:ledgerandspark@gmail.com">ledgerandspark@gmail.com</a></p>
+    <div class="footer-disclaimer">
+        <p>Prices may vary. Always check current menus. Tips not included in listed prices.</p>
+        <p>We make money from sponsors, not from you. That's why everything is free.</p>
+        <p>&copy; 2026 Ledger & Spark. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- ===== FILTERING JS ===== -->
+<script>
+(function() {
+    const boroughTabs = document.querySelectorAll('.borough-tab');
+    const hoodPills = document.querySelectorAll('.hood-pill');
+    const sections = document.querySelectorAll('.neighborhood-section');
+
+    let activeBorough = 'all';
+    let activeHood = 'all';
+
+    function updateView() {
+        // Update sections visibility
+        sections.forEach(s => {
+            const sBorough = s.dataset.borough;
+            const sHood = s.dataset.hood;
+
+            let show = true;
+            if (activeBorough !== 'all' && sBorough !== activeBorough) show = false;
+            if (activeHood !== 'all' && sHood !== activeHood) show = false;
+
+            s.classList.toggle('hidden', !show);
+        });
+
+        // Update hood pills visibility based on borough
+        hoodPills.forEach(p => {
+            const pBorough = p.dataset.borough;
+            if (p.dataset.hood === 'all') {
+                p.style.display = '';
+            } else if (activeBorough !== 'all' && pBorough !== activeBorough) {
+                p.style.display = 'none';
+            } else {
+                p.style.display = '';
+            }
+        });
+    }
+
+    boroughTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            boroughTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            activeBorough = tab.dataset.borough;
+            activeHood = 'all';
+            hoodPills.forEach(p => p.classList.remove('active'));
+            document.querySelector('.hood-pill[data-hood="all"]').classList.add('active');
+            updateView();
+        });
+    });
+
+    hoodPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            hoodPills.forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            activeHood = pill.dataset.hood;
+
+            // If clicking a specific hood, also set borough
+            if (pill.dataset.borough) {
+                activeBorough = pill.dataset.borough;
+                boroughTabs.forEach(t => t.classList.remove('active'));
+                const matchTab = document.querySelector(`.borough-tab[data-borough="${activeBorough}"]`);
+                if (matchTab) matchTab.classList.add('active');
+            } else if (pill.dataset.hood === 'all') {
+                // Reset borough if "All Hoods" clicked
+                if (activeBorough !== 'all') {
+                    // Keep current borough filter
+                }
+            }
+            updateView();
+        });
+    });
+})();
+</script>
+
+</body>

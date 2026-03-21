@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Should I Post? | Ledger & Spark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#FAFBFE;color:#1e293b;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
+a{color:#3B82F6;text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* HEADER */
+.header{background:#fff;border-bottom:1px solid #e2e8f0;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.header-brand{font-weight:800;font-size:1.1rem;color:#1e293b;display:flex;align-items:center;gap:8px}
+.header-brand span{color:#3B82F6}
+.header-back{font-size:.85rem;font-weight:500;color:#64748b;transition:color .2s}
+.header-back:hover{color:#3B82F6;text-decoration:none}
+
+/* MAIN */
+.main{flex:1;max-width:480px;width:100%;margin:0 auto;padding:20px 16px 40px}
+.hero{text-align:center;margin-bottom:28px}
+.hero h1{font-size:1.75rem;font-weight:900;line-height:1.2;margin-bottom:6px}
+.hero h1 .blue{color:#3B82F6}
+.hero p{color:#64748b;font-size:.95rem;font-weight:500}
+
+/* STEP SECTIONS */
+.step{margin-bottom:20px}
+.step-label{font-weight:700;font-size:.85rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.step-label .num{background:#3B82F6;color:#fff;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700}
+
+/* NICHE GRID */
+.niche-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.niche-btn{background:#fff;border:2px solid #e2e8f0;border-radius:12px;padding:12px 10px;font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:8px;color:#334155}
+.niche-btn:hover{border-color:#93c5fd;background:#f0f7ff}
+.niche-btn.active{border-color:#3B82F6;background:#eff6ff;color:#1d4ed8;box-shadow:0 0 0 3px rgba(59,130,246,.15)}
+.niche-btn .emoji{font-size:1.3rem}
+
+/* PLATFORM GRID */
+.platform-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.platform-btn{background:#fff;border:2px solid #e2e8f0;border-radius:12px;padding:14px 6px;font-family:inherit;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;align-items:center;gap:6px;color:#334155}
+.platform-btn:hover{border-color:#93c5fd;background:#f0f7ff}
+.platform-btn.active{border-color:#3B82F6;background:#eff6ff;color:#1d4ed8;box-shadow:0 0 0 3px rgba(59,130,246,.15)}
+.platform-btn .p-icon{font-size:1.4rem}
+
+/* SPIN BUTTON */
+.spin-wrap{text-align:center;margin:28px 0 10px}
+.spin-btn{width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,#3B82F6,#2563eb);border:none;color:#fff;font-family:inherit;font-size:1.5rem;font-weight:900;cursor:pointer;position:relative;box-shadow:0 8px 30px rgba(59,130,246,.35);transition:transform .15s,box-shadow .15s;text-transform:uppercase;letter-spacing:.05em;display:inline-flex;align-items:center;justify-content:center}
+.spin-btn::before{content:'';position:absolute;inset:6px;border-radius:50%;border:3px dashed rgba(255,255,255,.3)}
+.spin-btn:hover:not(:disabled){transform:scale(1.06);box-shadow:0 12px 40px rgba(59,130,246,.45)}
+.spin-btn:active:not(:disabled){transform:scale(.97)}
+.spin-btn:disabled{opacity:.5;cursor:not-allowed}
+.spin-btn.spinning{animation:spinPulse .4s ease-in-out infinite alternate}
+@keyframes spinPulse{0%{transform:scale(1);box-shadow:0 8px 30px rgba(59,130,246,.35)}100%{transform:scale(1.05);box-shadow:0 12px 40px rgba(59,130,246,.5)}}
+.spin-hint{color:#94a3b8;font-size:.8rem;margin-top:10px;font-weight:500}
+
+/* SLOT MACHINE */
+.slot-machine{margin:24px 0;border-radius:16px;background:#fff;border:2px solid #e2e8f0;overflow:hidden;display:none}
+.slot-machine.visible{display:block;animation:slideUp .4s ease-out}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.slot-window{height:60px;overflow:hidden;position:relative;border-bottom:1px solid #f1f5f9}
+.slot-strip{display:flex;flex-direction:column;transition:transform .1s linear}
+.slot-strip .slot-item{height:60px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:#3B82F6;white-space:nowrap;padding:0 16px}
+.slot-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;background:#f8fafc}
+.slot-bar span{font-size:.75rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.03em}
+
+/* RESULT CARD */
+.result-card{display:none;background:#fff;border:2px solid #e2e8f0;border-radius:16px;overflow:hidden;margin-top:20px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.result-card.visible{display:block;animation:slideUp .5s ease-out}
+.result-header{background:linear-gradient(135deg,#3B82F6,#60A5FA);padding:16px 18px;color:#fff}
+.result-header .format-badge{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.result-header h2{font-size:1.15rem;font-weight:800;line-height:1.3}
+.result-body{padding:18px}
+.result-row{margin-bottom:16px}
+.result-row:last-child{margin-bottom:0}
+.result-row-label{font-size:.72rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.result-row-value{font-size:.95rem;font-weight:500;color:#1e293b;line-height:1.4}
+.result-row-value.hook{font-style:italic;color:#3B82F6;font-weight:600}
+.difficulty{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:.8rem;font-weight:700}
+.difficulty.easy{background:#dcfce7;color:#16a34a}
+.difficulty.medium{background:#fef3c7;color:#d97706}
+.difficulty.hard{background:#fee2e2;color:#dc2626}
+
+/* ACTION BUTTONS */
+.actions{display:flex;gap:10px;margin-top:18px}
+.action-btn{flex:1;padding:14px;border-radius:12px;font-family:inherit;font-weight:700;font-size:.9rem;cursor:pointer;transition:all .15s;border:none;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-spin-again{background:#3B82F6;color:#fff}
+.btn-spin-again:hover{background:#2563eb}
+.btn-save{background:#f0f7ff;color:#3B82F6;border:2px solid #bfdbfe}
+.btn-save:hover{background:#dbeafe}
+
+/* TOAST */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(80px);background:#1e293b;color:#fff;padding:12px 24px;border-radius:12px;font-size:.85rem;font-weight:600;opacity:0;transition:all .3s ease;z-index:999;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* FOOTER */
+.footer{text-align:center;padding:20px 16px;border-top:1px solid #e2e8f0;background:#fff}
+.footer p{color:#94a3b8;font-size:.8rem;font-weight:500}
+.footer p strong{color:#3B82F6}
+
+/* SMALL SCREENS */
+@media(max-width:360px){
+  .niche-grid{grid-template-columns:repeat(2,1fr);gap:6px}
+  .niche-btn{padding:10px 8px;font-size:.82rem}
+  .spin-btn{width:140px;height:140px;font-size:1.3rem}
+  .hero h1{font-size:1.5rem}
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-brand">Ledger <span>&</span> Spark</div>
+  <a href="../../index.html" class="header-back">Back to tools</a>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="hero">
+    <h1>What Should I <span class="blue">Post?</span></h1>
+    <p>Spin for your next viral idea. Takes 10 seconds.</p>
+  </div>
+
+  <!-- STEP 1: NICHE -->
+  <div class="step">
+    <div class="step-label"><span class="num">1</span> Pick your niche</div>
+    <div class="niche-grid" id="nicheGrid">
+      <button class="niche-btn" data-niche="foodie"><span class="emoji">🍕</span> Foodie</button>
+      <button class="niche-btn" data-niche="fitness"><span class="emoji">💪</span> Fitness</button>
+      <button class="niche-btn" data-niche="fashion"><span class="emoji">👗</span> Fashion</button>
+      <button class="niche-btn" data-niche="beauty"><span class="emoji">💄</span> Beauty</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: PLATFORM -->
+  <div class="step">
+    <div class="step-label"><span class="num">2</span> Pick your platform</div>
+    <div class="platform-grid" id="platformGrid">
+      <button class="platform-btn" data-platform="tiktok"><span class="p-icon">🎵</span> TikTok</button>
+      <button class="platform-btn" data-platform="instagram"><span class="p-icon">📸</span> Instagram</button>
+      <button class="platform-btn" data-platform="youtube"><span class="p-icon">▶️</span> YouTube</button>
+      <button class="platform-btn" data-platform="twitter"><span class="p-icon">🐦</span> Twitter/X</button>
+    </div>
+  </div>
+
+  <!-- SPIN -->
+  <div class="spin-wrap">
+    <button class="spin-btn" id="spinBtn" disabled>SPIN</button>
+    <div class="spin-hint" id="spinHint">Pick a niche + platform first</div>
+  </div>
+
+  <!-- SLOT MACHINE -->
+  <div class="slot-machine" id="slotMachine">
+    <div class="slot-bar"><span>Finding your idea...</span></div>
+    <div class="slot-window">
+      <div class="slot-strip" id="slotStrip"></div>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result-card" id="resultCard">
+    <div class="result-header">
+      <div class="format-badge" id="resFormat">Reel</div>
+      <h2 id="resIdea">Your content idea here</h2>
+    </div>
+    <div class="result-body">
+      <div class="result-row">
+        <div class="result-row-label">Hook Line</div>
+        <div class="result-row-value hook" id="resHook">"..."</div>
+      </div>
+      <div class="result-row">
+        <div class="result-row-label">Audio / Caption Starter</div>
+        <div class="result-row-value" id="resAudio">...</div>
+      </div>
+      <div class="result-row">
+        <div class="result-row-label">Difficulty</div>
+        <div id="resDifficulty"><span class="difficulty easy">Easy</span></div>
+      </div>
+      <div class="actions">
+        <button class="action-btn btn-spin-again" id="spinAgainBtn">🎰 Spin Again</button>
+        <button class="action-btn btn-save" id="saveBtn">📋 Save Idea</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>Free tools. No catch. Built because you asked.</p>
+  <p style="margin-top:4px"><strong>Ledger & Spark</strong></p>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">Copied to clipboard!</div>
+
+<script>
+/* ========================================
+   CONTENT IDEAS DATABASE — 150+ IDEAS
+   ======================================== */
+const IDEAS = {
+foodie: [
+  {idea:"Rate a gas station meal like a Michelin restaurant",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"I just ate a $2 taquito and I need to talk about it.\"",audio:"Use 'Oh No' or dramatic cooking show music",difficulty:"easy"},
+  {idea:"What $10 gets you at different restaurants in your city",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"$10 at McDonald's vs $10 at the spot your friend won't stop talking about.\"",audio:"Trending 'money' sound or cash register SFX",difficulty:"easy"},
+  {idea:"Cook a meal using only things from the dollar store",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Video",twitter:"Thread"},hook:"\"Everything in this meal cost $1. Let's see if it slaps.\"",audio:"Cooking lo-fi beat",difficulty:"medium"},
+  {idea:"Recreate a viral TikTok recipe and rate it honestly",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"This recipe has 40 million views. Is it actually good?\"",audio:"Original trending sound from the recipe video",difficulty:"easy"},
+  {idea:"Blindfold taste test: name brand vs store brand",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"I bet you can't tell the difference either.\"",audio:"Suspense/reveal sound",difficulty:"easy"},
+  {idea:"What I eat in a day as a broke college student",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"My bank account says $14 so here's today's menu.\"",audio:"Chill lo-fi or 'broke but eating good' trend",difficulty:"easy"},
+  {idea:"Ask a stranger to pick your entire meal",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Tweet"},hook:"\"I let a random person at the mall order my dinner.\"",audio:"Funny reveal trending sound",difficulty:"medium"},
+  {idea:"The most underrated dish at every fast food chain",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Video",twitter:"Thread"},hook:"\"Stop ordering the same thing every time. Try these instead.\"",audio:"Upbeat pop instrumental",difficulty:"medium"},
+  {idea:"Make a 3-course meal using only a microwave",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"My stove broke so we're going full microwave chef tonight.\"",audio:"Dramatic cooking competition music",difficulty:"medium"},
+  {idea:"Foods from your childhood that still hit different",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"If you didn't eat these growing up, I don't trust you.\"",audio:"Nostalgic throwback audio",difficulty:"easy"},
+  {idea:"Find the best tacos in your city under $3",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"I tried 8 taco spots so you don't have to.\"",audio:"Mexican music trending sound",difficulty:"medium"},
+  {idea:"Eat only foods that start with one letter for 24 hours",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Video",twitter:"Thread"},hook:"\"Today I can only eat foods that start with 'S'. This is gonna be interesting.\"",audio:"Challenge trend sound",difficulty:"medium"},
+  {idea:"Turn a cheap ramen packet into restaurant-quality food",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"$0.25 ramen but make it bougie.\"",audio:"Glow-up transformation sound",difficulty:"easy"},
+  {idea:"Foods you're eating wrong (and how to fix them)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"You've been eating oranges wrong your entire life.\"",audio:"Mind-blown SFX / 'Wait what' sound",difficulty:"easy"},
+  {idea:"Rate every item on a fast food secret menu",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Video",twitter:"Thread"},hook:"\"I ordered the entire secret menu and most of it was... surprising.\"",audio:"Ranking/tier list background music",difficulty:"hard"},
+  {idea:"Cook a meal from a country you've never tried before",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Video",twitter:"Thread"},hook:"\"I've never cooked Ethiopian food. Today that changes.\"",audio:"World music trending sound",difficulty:"hard"},
+],
+fitness: [
+  {idea:"Try the workout routine of a random celebrity",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"I did The Rock's workout for a day. I can't feel my legs.\"",audio:"Intense gym motivation sound",difficulty:"medium"},
+  {idea:"5 exercises you can do while watching Netflix",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"No gym? No problem. Here's how to work out from your couch.\"",audio:"Chill lo-fi beat",difficulty:"easy"},
+  {idea:"Rate gym equipment from most to least overrated",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"That ab machine you bought? Yeah, it's useless. Here's why.\"",audio:"Tier list ranking sound",difficulty:"easy"},
+  {idea:"Show what 100 calories looks like for different foods",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"100 calories of peanut butter is... depressing.\"",audio:"Shocking reveal sound",difficulty:"easy"},
+  {idea:"My realistic morning routine (not the fake aesthetic one)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"Every morning routine on here is fake. Here's what mine actually looks like.\"",audio:"'Keeping it real' trending sound",difficulty:"easy"},
+  {idea:"Exercises that look easy but absolutely destroy you",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"Wall sits look easy until second 30 hits.\"",audio:"Intense workout drop beat",difficulty:"easy"},
+  {idea:"I tried the most popular gym app for 30 days — here's what happened",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Video",twitter:"Thread"},hook:"\"I used this app every single day for a month. Worth it?\"",audio:"Transformation reveal sound",difficulty:"hard"},
+  {idea:"What personal trainers actually eat (vs what they post)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"They post chicken and broccoli but I know they ate pizza last night.\"",audio:"Funny expose sound",difficulty:"easy"},
+  {idea:"Full body workout using only a backpack filled with books",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"Can't afford weights? Grab your backpack.\"",audio:"Workout motivation beat",difficulty:"easy"},
+  {idea:"Gym red flags vs green flags",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"If your gym has these, run. Literally.\"",audio:"Red flag / green flag trending sound",difficulty:"easy"},
+  {idea:"How to start going to the gym when you have zero motivation",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Video",twitter:"Thread"},hook:"\"I hated the gym until I tried this one trick.\"",audio:"Motivational cinematic sound",difficulty:"easy"},
+  {idea:"Partner workout that's actually fun (not cringe)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"Grab your friend. This workout is actually fun, I promise.\"",audio:"Upbeat duo trend sound",difficulty:"medium"},
+  {idea:"Foods that look healthy but are secretly terrible for you",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"That granola bar? Might as well eat a candy bar.\"",audio:"Shocking reveal / 'the more you know' sound",difficulty:"easy"},
+  {idea:"Stretches you should do if you sit all day",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Your back hurts because you're not doing these 5 stretches.\"",audio:"Calm wellness music",difficulty:"easy"},
+  {idea:"My gym transformation but keeping it 100% honest",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Video",twitter:"Thread"},hook:"\"No filters. No pump. No good lighting. Just the real progress.\"",audio:"Emotional glow-up sound",difficulty:"medium"},
+],
+fashion: [
+  {idea:"Outfit check: style a full look for under $50",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"This entire outfit costs less than your lunch.\"",audio:"Fashion runway beat",difficulty:"easy"},
+  {idea:"Thrift flip: turn a $3 thrift find into something fire",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Video",twitter:"Thread"},hook:"\"I found this for $3. Watch what I do with it.\"",audio:"Glow-up transformation sound",difficulty:"hard"},
+  {idea:"What your go-to color says about your personality",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"If you always wear black, this is scarily accurate.\"",audio:"Personality quiz trending sound",difficulty:"easy"},
+  {idea:"Rate strangers' outfits on the street (with permission)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"I asked people on the street to rate their own outfit 1-10.\"",audio:"Street interview trending sound",difficulty:"medium"},
+  {idea:"How to dress better without buying anything new",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"You don't need new clothes. You need new combinations.\"",audio:"Minimalist aesthetic sound",difficulty:"easy"},
+  {idea:"Recreate a celebrity outfit using only thrift store finds",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Video",twitter:"Thread"},hook:"\"Zendaya's outfit costs $12,000. Mine costs $18.\"",audio:"Fashion comparison trending sound",difficulty:"medium"},
+  {idea:"5 basics every wardrobe needs (that actually last)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Stop buying trendy stuff that falls apart. Get these instead.\"",audio:"Clean aesthetic lo-fi",difficulty:"easy"},
+  {idea:"Dress for your body type: quick tips that actually work",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Dress codes are fake. Here's how to dress for YOUR body.\"",audio:"Empowerment trending sound",difficulty:"easy"},
+  {idea:"My most worn vs least worn items (closet audit)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"I spent $200 on this jacket and wore it once. Let's talk about it.\"",audio:"Confessional/storytime sound",difficulty:"easy"},
+  {idea:"Outfit ideas for when you feel like you have nothing to wear",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"'I have nothing to wear' — let me fix that in 60 seconds.\"",audio:"Quick-change montage sound",difficulty:"easy"},
+  {idea:"Fashion trends that need to die in 2026",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"I'm sorry but we need to talk about these trends.\"",audio:"Controversial opinion trending sound",difficulty:"easy"},
+  {idea:"Build a capsule wardrobe with 15 pieces",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Video",twitter:"Thread"},hook:"\"15 pieces. 30+ outfits. Here's how.\"",audio:"Minimalist aesthetic music",difficulty:"medium"},
+  {idea:"Style the same white tee 5 completely different ways",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"One $8 t-shirt. Five totally different vibes.\"",audio:"Transformation/outfit change sound",difficulty:"easy"},
+  {idea:"Affordable dupes for expensive designer pieces",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"This $30 bag looks exactly like the $3,000 one.\"",audio:"Side-by-side comparison sound",difficulty:"easy"},
+  {idea:"What NOT to wear on a first date (from real people)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"I asked 50 people their biggest first date fashion ick.\"",audio:"Dating/ick trending sound",difficulty:"easy"},
+],
+gaming: [
+  {idea:"Things only gamers understand (compilation)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"If you've ever rage quit, this video is for you.\"",audio:"Gaming montage beat",difficulty:"easy"},
+  {idea:"Rate the top 5 free games right now",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"These games cost $0 and they're better than most $60 ones.\"",audio:"Gaming review background music",difficulty:"easy"},
+  {idea:"My gaming setup tour (budget edition)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Video",twitter:"Thread"},hook:"\"My whole setup costs less than one PS5 game.\"",audio:"Setup tour trending sound",difficulty:"easy"},
+  {idea:"Play a game blindfolded and see how far you get",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"I can totally do this blindfolded. Right? ...Right?\"",audio:"Funny challenge sound",difficulty:"easy"},
+  {idea:"Unpopular gaming opinions that will start a war",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Minecraft is overrated. Come at me.\"",audio:"Hot take / controversial opinion sound",difficulty:"easy"},
+  {idea:"Explain a game badly and let followers guess",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Tweet"},hook:"\"You run around collecting coins and stomping on turtles. What game?\"",audio:"Quiz show sound effect",difficulty:"easy"},
+  {idea:"Speedrun a game you've never played before",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Video",twitter:"Thread"},hook:"\"I've never played this game. Let's speedrun it anyway.\"",audio:"Speedrun timer / intense music",difficulty:"medium"},
+  {idea:"Gaming snacks tier list",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Doritos are S tier. I will not be taking questions.\"",audio:"Tier list ranking sound",difficulty:"easy"},
+  {idea:"Show your screen time then show your game hours",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Tweet"},hook:"\"My screen time says 8 hours but honestly? Those are rookie numbers.\"",audio:"Guilty confession sound",difficulty:"easy"},
+  {idea:"If real life had video game logic",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"Imagine if you had to pay $4.99 to unlock your fridge.\"",audio:"Video game SFX / 8-bit sounds",difficulty:"medium"},
+  {idea:"Try to beat a game using the worst possible strategy",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Video",twitter:"Thread"},hook:"\"What if I only used the worst weapon in the game?\"",audio:"Chaos/funny moment sound",difficulty:"medium"},
+  {idea:"Games that were way ahead of their time",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"This game came out in 2004 and it's still better than most new ones.\"",audio:"Nostalgic / 'respect' sound",difficulty:"easy"},
+  {idea:"POV: you're explaining your game to someone who doesn't play",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Tweet"},hook:"\"So basically you're a block person and you mine stuff and—why are you looking at me like that?\"",audio:"Awkward explanation trending sound",difficulty:"easy"},
+  {idea:"Best couch co-op games for a chill night",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Bored with your friends? These games will fix that.\"",audio:"Chill hangout vibe sound",difficulty:"easy"},
+  {idea:"My most embarrassing gaming moment (storytime)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"I died to the tutorial boss. In front of my friends. On stream.\"",audio:"Storytime / embarrassing moment sound",difficulty:"easy"},
+],
+student: [
+  {idea:"Study with me: real-time focus session",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Video",twitter:"Tweet"},hook:"\"Let's lock in together. No phones. 25 minutes. Go.\"",audio:"Lo-fi study beats",difficulty:"easy"},
+  {idea:"Things professors say that make zero sense",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"'This should be review.' Sir, I have never seen this in my life.\"",audio:"Funny relatable sound",difficulty:"easy"},
+  {idea:"My entire note-taking system explained in 60 seconds",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"This system got me from C's to A's. It takes 5 minutes to set up.\"",audio:"Productivity hack sound",difficulty:"easy"},
+  {idea:"What's in my backpack: student essentials edition",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"Everything in this bag keeps me alive through a 12-hour school day.\"",audio:"ASMR / unboxing style sound",difficulty:"easy"},
+  {idea:"How to survive an 8am class (honest tips)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"8ams are evil. But if you HAVE to take one, do this.\"",audio:"Tired/sleepy trending sound",difficulty:"easy"},
+  {idea:"Free apps every student needs (that actually help)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"These apps are free and they saved my GPA. No cap.\"",audio:"Life hack / productivity sound",difficulty:"easy"},
+  {idea:"POV: you're cramming the night before an exam",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Tweet"},hook:"\"It's 2am. The exam is at 8am. I've read page 1 four times.\"",audio:"Chaotic stress sound",difficulty:"easy"},
+  {idea:"The cheapest meals you can make in a dorm room",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"You have a microwave and $5. Let's eat.\"",audio:"Cooking in dorm vibes sound",difficulty:"easy"},
+  {idea:"Group project survival guide (the honest version)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"You're gonna do 90% of the work. Here's how to make it less painful.\"",audio:"Frustrated but funny sound",difficulty:"easy"},
+  {idea:"Rate my professor's slides: the good, the bad, the unreadable",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"This slide has 400 words in size 8 font. In yellow.\"",audio:"Dramatic rating sound",difficulty:"easy"},
+  {idea:"Study hacks that actually work (backed by science)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Highlighting doesn't work. Here's what does.\"",audio:"Mind-blown / 'wait what' sound",difficulty:"easy"},
+  {idea:"My realistic college morning vs the aesthetic ones on TikTok",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"Aesthetic TikTok: wakes up at 5am, journals, yoga. Me: alarm at 7:58, class at 8.\"",audio:"Expectation vs reality sound",difficulty:"easy"},
+  {idea:"How I organize my digital life as a student (for free)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Notion, Google Calendar, and one simple rule. That's it.\"",audio:"Clean aesthetic / productivity beat",difficulty:"easy"},
+  {idea:"Things I wish I knew before starting college",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Nobody tells you these things. So I will.\"",audio:"Advice / wisdom trending sound",difficulty:"easy"},
+  {idea:"Best study spots that aren't the library",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"The library is always packed. Go here instead.\"",audio:"Hidden gem / secret spot sound",difficulty:"easy"},
+  {idea:"My exam day routine that keeps me calm",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"I used to panic before every test. Not anymore. Here's why.\"",audio:"Calm confidence sound",difficulty:"easy"},
+],
+sidehustle: [
+  {idea:"Side hustles that actually pay (not the fake ones)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"If someone says 'passive income with no work,' they're lying. Here's what actually works.\"",audio:"Money / hustle motivation sound",difficulty:"easy"},
+  {idea:"How I made my first $100 online (step by step)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Video",twitter:"Thread"},hook:"\"My first $100 online took me 3 weeks. Here's exactly what I did.\"",audio:"Success story / cash register sound",difficulty:"medium"},
+  {idea:"Free tools that replaced expensive ones for my business",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"I was paying $200/month for tools. Now I pay $0. Here's how.\"",audio:"Life hack / money saved sound",difficulty:"easy"},
+  {idea:"Day in the life of someone with 3 income streams",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Video",twitter:"Thread"},hook:"\"One job pays the bills. The other two are building the future.\"",audio:"Day-in-the-life trending sound",difficulty:"medium"},
+  {idea:"The worst side hustle advice on the internet",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"'Just start dropshipping.' Cool, let me lose money real quick.\"",audio:"Bad advice / cringe compilation sound",difficulty:"easy"},
+  {idea:"Things that cost $0 but make you look professional",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"You don't need money to look like you have money.\"",audio:"Professional glow-up sound",difficulty:"easy"},
+  {idea:"I tried 5 'make money online' methods for a week each",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Video",twitter:"Thread"},hook:"\"5 methods. 5 weeks. Here's what actually made money.\"",audio:"Experiment results sound",difficulty:"hard"},
+  {idea:"How to price your work when you're just starting out",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Charging $5/hour? We need to talk.\"",audio:"Serious advice / wake-up call sound",difficulty:"easy"},
+  {idea:"Red flags in 'work from home' job listings",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"If the listing says 'be your own boss' and wants $99 upfront, run.\"",audio:"Red flag trending sound",difficulty:"easy"},
+  {idea:"Build a portfolio website in 30 minutes for free",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Video",twitter:"Thread"},hook:"\"No coding. No money. Just 30 minutes and a free tool.\"",audio:"Speed build / tutorial sound",difficulty:"medium"},
+  {idea:"What $1,000/month actually looks like from a side hustle",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"$1K/month sounds cool until you see the hours.\"",audio:"Reality check sound",difficulty:"easy"},
+  {idea:"Skills you can learn for free that people will pay for",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"These skills are free to learn and people pay $50-$200/hour for them.\"",audio:"Money opportunity sound",difficulty:"easy"},
+  {idea:"My monthly income breakdown (transparent)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Here's exactly where my money comes from. No secrets.\"",audio:"Transparent / honest moment sound",difficulty:"easy"},
+  {idea:"How to get your first client with zero experience",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"No portfolio? No followers? No problem. Do this.\"",audio:"Starter guide / level-up sound",difficulty:"easy"},
+  {idea:"Passive income myths vs reality",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"'Make money while you sleep' — let me tell you what they don't say.\"",audio:"Myth busting sound",difficulty:"easy"},
+],
+travel: [
+  {idea:"How to travel on a budget (actual tips, not 'just be rich')",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"I traveled for 2 weeks on $500. Here's exactly how.\"",audio:"Adventure / wanderlust sound",difficulty:"easy"},
+  {idea:"Things you should NEVER do in [country] (from locals)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Tourists do this all the time and locals hate it.\"",audio:"Warning / 'don't do this' sound",difficulty:"easy"},
+  {idea:"Packing hack: everything fits in a carry-on",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"2 weeks of clothes in a carry-on. No checked bags. No stress.\"",audio:"Satisfying packing ASMR sound",difficulty:"easy"},
+  {idea:"The most overrated tourist spots (and where to go instead)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Times Square is a waste of time. Go here instead.\"",audio:"Hot take / unpopular opinion sound",difficulty:"easy"},
+  {idea:"Cheapest countries to visit right now",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"You can eat 3 meals a day in this country for $5. Total.\"",audio:"Travel discovery sound",difficulty:"easy"},
+  {idea:"What I wish I packed vs what I actually needed",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"I packed 47 items. I used 12. Here's the truth.\"",audio:"Packing fails / honest travel sound",difficulty:"easy"},
+  {idea:"Airport hacks most people don't know about",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"The airport doesn't want you to know these.\"",audio:"Secret hack / insider tip sound",difficulty:"easy"},
+  {idea:"My favorite free things to do in [city]",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Everything on this list is completely free and totally worth it.\"",audio:"City vibes / exploration sound",difficulty:"easy"},
+  {idea:"Travel scams I almost fell for (and how to avoid them)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"This guy tried to charge me $80 for a $2 taxi ride.\"",audio:"Scam alert / warning sound",difficulty:"easy"},
+  {idea:"How to find cheap flights every single time",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"I've never paid full price for a flight. Here's my method.\"",audio:"Money saving hack sound",difficulty:"easy"},
+  {idea:"Solo travel tips that keep you safe and happy",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Traveling alone isn't scary. Being unprepared is. Here's the difference.\"",audio:"Solo adventure empowerment sound",difficulty:"easy"},
+  {idea:"Rate my hotel room: expectation vs reality",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"The website said 'ocean view.' This is what I got.\"",audio:"Expectation vs reality sound",difficulty:"easy"},
+  {idea:"Learn 10 useful phrases in [language] in 60 seconds",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"You don't need to be fluent. Just learn these 10 phrases.\"",audio:"Language learning trending sound",difficulty:"easy"},
+  {idea:"The best street food I've ever had",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"$1. On a random street corner. Best thing I've ever eaten.\"",audio:"Food adventure sound",difficulty:"easy"},
+  {idea:"Travel mistakes I keep making (so you don't have to)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"I've traveled to 15 countries and I STILL make these mistakes.\"",audio:"Self-deprecating funny sound",difficulty:"easy"},
+],
+pets: [
+  {idea:"Things my pet does that would be weird if a human did them",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"Imagine if your roommate just stared at you while you eat. That's my dog.\"",audio:"Funny pet compilation sound",difficulty:"easy"},
+  {idea:"My pet's daily routine (narrated dramatically)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"6:00am. The beast awakens. Its first mission: breakfast.\"",audio:"Nature documentary narration style sound",difficulty:"easy"},
+  {idea:"Things I've bought for my pet that were a total waste",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"I spent $40 on a toy. She plays with the box.\"",audio:"Money wasted / regret sound",difficulty:"easy"},
+  {idea:"Pet vs the thing they're scared of (compilation)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"She can fight a dog twice her size but a cucumber? Absolutely not.\"",audio:"Dramatic / scared sound effect",difficulty:"easy"},
+  {idea:"What owning a [pet type] is actually like (honest version)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Instagram: cute puppy sleeping. Reality: 3am zoomies.\"",audio:"Expectation vs reality sound",difficulty:"easy"},
+  {idea:"Test if your pet actually knows their name",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"I called my cat 5 different names. She responded to 'food.'\"",audio:"Pet experiment trending sound",difficulty:"easy"},
+  {idea:"DIY pet toys from things you already have",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"Don't spend $20 on a toy. Use a sock and a tennis ball.\"",audio:"DIY craft trending sound",difficulty:"easy"},
+  {idea:"Pet food taste test (you try their treats)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"If my dog eats this every day, it can't be THAT bad. Right?\"",audio:"Taste test / regret sound",difficulty:"easy"},
+  {idea:"Signs your pet is spoiled (and you don't care)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"She has her own blanket, her own pillow, and her own side of the bed.\"",audio:"Spoiled pet trending sound",difficulty:"easy"},
+  {idea:"Adopt don't shop: my rescue pet's before and after",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Day 1 vs Day 365. The glow-up is real.\"",audio:"Emotional transformation sound",difficulty:"easy"},
+  {idea:"Things first-time pet owners need to know",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Nobody warns you about the vet bills. Let me prepare you.\"",audio:"Helpful advice / real talk sound",difficulty:"easy"},
+  {idea:"My pet's reaction to [trending challenge]",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Tweet"},hook:"\"I tried the latest TikTok challenge with my cat. She was not amused.\"",audio:"Whatever is currently trending",difficulty:"easy"},
+  {idea:"Pet owner hacks that save time and money",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"These 5 hacks save me $50 a month on pet stuff.\"",audio:"Life hack sound",difficulty:"easy"},
+  {idea:"Conversations with my pet (voiceover edition)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Tweet"},hook:"\"What do you mean you already ate? I literally just fed you.\"",audio:"Pet voiceover trending sound",difficulty:"easy"},
+  {idea:"The most dramatic thing my pet has ever done",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"She knocked over her water bowl, looked me dead in the eye, and walked away.\"",audio:"Dramatic overreaction sound",difficulty:"easy"},
+],
+beauty: [
+  {idea:"Get ready with me using only drugstore products",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Video",twitter:"Thread"},hook:"\"Everything on my face costs under $10. Let's go.\"",audio:"GRWM trending sound",difficulty:"easy"},
+  {idea:"Makeup dupes that work just as well as the expensive ones",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"This $4 lipstick is identical to the $34 one. I tested both.\"",audio:"Dupe reveal / comparison sound",difficulty:"easy"},
+  {idea:"My skincare routine that actually cleared my skin",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"3 products. $15 total. My skin has never been better.\"",audio:"Skincare transformation sound",difficulty:"easy"},
+  {idea:"Beauty products that are overhyped (honest review)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"This product has 10 million views. It's mid. Here's why.\"",audio:"Hot take / unpopular opinion sound",difficulty:"easy"},
+  {idea:"5-minute makeup for when you're running late",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"You have 5 minutes. Here's how to look put-together, fast.\"",audio:"Speed timer / rush sound",difficulty:"easy"},
+  {idea:"Skincare ingredients explained like you're 5",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Hyaluronic acid sounds scary but it's basically a water magnet for your face.\"",audio:"Educational / 'the more you know' sound",difficulty:"easy"},
+  {idea:"Beauty hacks from grandma that actually work",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"My grandma uses Vaseline for everything. Turns out she was right.\"",audio:"Old school wisdom trending sound",difficulty:"easy"},
+  {idea:"I followed a random follower's makeup routine",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"A follower sent me their routine. Let's see if it works on me.\"",audio:"Community challenge / follower pick sound",difficulty:"easy"},
+  {idea:"Products I've used up completely (and would I rebuy?)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"If I finished the whole thing, it's either really good or really cheap.\"",audio:"Empties review sound",difficulty:"easy"},
+  {idea:"How to look expensive on a budget (beauty edition)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Looking rich is a skill, not a bank account. Here's how.\"",audio:"Luxury aesthetic sound",difficulty:"easy"},
+  {idea:"Trying the weirdest beauty trends so you don't have to",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"Snail mucin on my face. This is my life now.\"",audio:"Weird trend testing sound",difficulty:"easy"},
+  {idea:"My nighttime skincare routine (under 5 minutes)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"Keep it simple. Your skin doesn't need 12 steps.\"",audio:"Calm / wind down sound",difficulty:"easy"},
+  {idea:"Makeup looks using only one brand",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"Full face of e.l.f. only. Total cost: $28.\"",audio:"Brand challenge trending sound",difficulty:"easy"},
+  {idea:"Sunscreen myths that are ruining your skin",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"'I don't need sunscreen when it's cloudy.' Wrong. Here's why.\"",audio:"Myth busting sound",difficulty:"easy"},
+  {idea:"Clean beauty vs regular beauty: does it matter?",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Is 'clean beauty' actually better or just more expensive?\"",audio:"Debate / honest take sound",difficulty:"medium"},
+],
+general: [
+  {idea:"Things that are free but feel illegal",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Walking out of a store without buying anything feels like shoplifting.\"",audio:"Relatable / 'so true' trending sound",difficulty:"easy"},
+  {idea:"Rate my screen time (and roast me)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"My screen time is embarrassing. Let's look at it together.\"",audio:"Confession / roast me sound",difficulty:"easy"},
+  {idea:"Unwritten rules everyone should follow",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"If someone shows you a photo, don't swipe. Ever.\"",audio:"Facts / 'say it louder' sound",difficulty:"easy"},
+  {idea:"Things that are a 10/10 but nobody talks about",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Cold water after brushing your teeth. 10/10. Life changing.\"",audio:"Appreciation / underrated sound",difficulty:"easy"},
+  {idea:"My most controversial opinions (let's fight in the comments)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"Breakfast food is overrated. Come at me.\"",audio:"Hot take / unpopular opinion sound",difficulty:"easy"},
+  {idea:"Signs you're becoming an adult (and you hate it)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"I got excited about a new sponge today. It's over for me.\"",audio:"Adulting is hard trending sound",difficulty:"easy"},
+  {idea:"Make your phone homescreen aesthetic in 5 minutes",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"Your homescreen is a mess. Let me fix it.\"",audio:"Aesthetic customization sound",difficulty:"easy"},
+  {idea:"Ask your followers an absurd 'would you rather' question",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Tweet"},hook:"\"Would you rather always be 10 minutes late or always 2 hours early?\"",audio:"Debate / this or that sound",difficulty:"easy"},
+  {idea:"Day in my life but I say yes to everything",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Video",twitter:"Thread"},hook:"\"For 24 hours, I can't say no. This is going to be a disaster.\"",audio:"Yes day challenge sound",difficulty:"medium"},
+  {idea:"The best free stuff on the internet nobody knows about",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"These websites are free. Why does nobody talk about them?\"",audio:"Hidden gem / secret find sound",difficulty:"easy"},
+  {idea:"Red flags vs green flags in friendships",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"If your friend only texts you when they need something... red flag.\"",audio:"Red flag / green flag sound",difficulty:"easy"},
+  {idea:"Tell me your birth month and I'll give you a challenge",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Tweet"},hook:"\"January babies, you have to post a selfie with no filter. Ready?\"",audio:"Birthday month trend sound",difficulty:"easy"},
+  {idea:"Things I Googled this week (no judgment)",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Thread"},hook:"\"'Can you microwave aluminum foil?' Don't judge me. I panicked.\"",audio:"Guilty search history sound",difficulty:"easy"},
+  {idea:"What $20 gets you in different countries",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"$20 in NYC: one sandwich. $20 in Thailand: a full day of eating.\"",audio:"Travel comparison / money sound",difficulty:"easy"},
+  {idea:"Habits that changed my life (that cost $0)",format:{tiktok:"TikTok",instagram:"Carousel",youtube:"Short",twitter:"Thread"},hook:"\"No apps. No courses. Just free habits that actually work.\"",audio:"Self-improvement / glow-up sound",difficulty:"easy"},
+  {idea:"POV: your WiFi goes out and you don't know what to do with your life",format:{tiktok:"TikTok",instagram:"Reel",youtube:"Short",twitter:"Tweet"},hook:"\"The WiFi went out for 20 minutes and I reorganized my entire room.\"",audio:"Dramatic / bored sound",difficulty:"easy"},
+]
+};
+
+/* ========================================
+   APP STATE & ELEMENTS
+   ======================================== */
+let selectedNiche = null;
+let selectedPlatform = null;
+let isSpinning = false;
+
+const spinBtn = document.getElementById('spinBtn');
+const spinHint = document.getElementById('spinHint');
+const slotMachine = document.getElementById('slotMachine');
+const slotStrip = document.getElementById('slotStrip');
+const resultCard = document.getElementById('resultCard');
+const spinAgainBtn = document.getElementById('spinAgainBtn');
+const saveBtn = document.getElementById('saveBtn');
+const toast = document.getElementById('toast');
+
+let currentResult = null;
+
+/* ========================================
+   NICHE SELECTION
+   ======================================== */
+document.getElementById('nicheGrid').addEventListener('click', e => {
+  const btn = e.target.closest('.niche-btn');
+  if (!btn) return;
+  document.querySelectorAll('.niche-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedNiche = btn.dataset.niche;
+  checkReady();
+});
+
+/* ========================================
+   PLATFORM SELECTION
+   ======================================== */
+document.getElementById('platformGrid').addEventListener('click', e => {
+  const btn = e.target.closest('.platform-btn');
+  if (!btn) return;
+  document.querySelectorAll('.platform-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedPlatform = btn.dataset.platform;
+  checkReady();
+});
+
+function checkReady() {
+  if (selectedNiche && selectedPlatform) {
+    spinBtn.disabled = false;
+    spinHint.textContent = 'Tap to spin!';
+  }
+}
+
+/* ========================================
+   SPIN LOGIC
+   ======================================== */
+spinBtn.addEventListener('click', doSpin);
+spinAgainBtn.addEventListener('click', doSpin);
+
+function doSpin() {
+  if (isSpinning || !selectedNiche || !selectedPlatform) return;
+  isSpinning = true;
+  spinBtn.disabled = true;
+  spinBtn.classList.add('spinning');
+  resultCard.classList.remove('visible');
+
+  // Pick final result
+  const pool = IDEAS[selectedNiche];
+  const chosen = pool[Math.floor(Math.random() * pool.length)];
+  currentResult = chosen;
+
+  // Build slot strip with random ideas scrolling then landing on the chosen one
+  const slotCount = 18; // how many items scroll by
+  let items = [];
+  for (let i = 0; i < slotCount; i++) {
+    const r = pool[Math.floor(Math.random() * pool.length)];
+    items.push(r.idea);
+  }
+  items.push(chosen.idea); // final landing
+
+  slotStrip.innerHTML = items.map(t => `<div class="slot-item">${t}</div>`).join('');
+  slotMachine.classList.add('visible');
+
+  // Animate
+  const itemH = 60;
+  let currentIndex = 0;
+  const totalSteps = items.length - 1;
+  let stepDelay = 60;
+
+  function animateStep() {
+    currentIndex++;
+    slotStrip.style.transform = `translateY(-${currentIndex * itemH}px)`;
+
+    if (currentIndex < totalSteps) {
+      // Gradually slow down in last 6 steps
+      if (currentIndex > totalSteps - 6) {
+        stepDelay += 40;
+      } else if (currentIndex > totalSteps - 10) {
+        stepDelay += 15;
+      }
+      setTimeout(animateStep, stepDelay);
+    } else {
+      // Done
+      setTimeout(showResult, 350);
+    }
+  }
+
+  // Reset position
+  slotStrip.style.transition = 'transform 0.12s cubic-bezier(.2,.6,.3,1)';
+  slotStrip.style.transform = 'translateY(0)';
+  setTimeout(() => animateStep(), 150);
+}
+
+function showResult() {
+  isSpinning = false;
+  spinBtn.disabled = false;
+  spinBtn.classList.remove('spinning');
+
+  const c = currentResult;
+  const fmt = c.format[selectedPlatform] || 'Post';
+
+  document.getElementById('resFormat').textContent = fmt;
+  document.getElementById('resIdea').textContent = c.idea;
+  document.getElementById('resHook').textContent = c.hook;
+  document.getElementById('resAudio').textContent = c.audio;
+
+  const diffEl = document.getElementById('resDifficulty');
+  const dClass = c.difficulty;
+  const dLabel = dClass.charAt(0).toUpperCase() + dClass.slice(1);
+  const dEmoji = dClass === 'easy' ? '🟢' : dClass === 'medium' ? '🟡' : '🔴';
+  diffEl.innerHTML = `<span class="difficulty ${dClass}">${dEmoji} ${dLabel}</span>`;
+
+  resultCard.classList.add('visible');
+  resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  // Hide slot machine after showing result
+  setTimeout(() => { slotMachine.classList.remove('visible'); }, 400);
+}
+
+/* ========================================
+   SAVE / COPY TO CLIPBOARD
+   ======================================== */
+saveBtn.addEventListener('click', () => {
+  if (!currentResult) return;
+  const c = currentResult;
+  const fmt = c.format[selectedPlatform] || 'Post';
+  const niche = selectedNiche.charAt(0).toUpperCase() + selectedNiche.slice(1);
+  const plat = selectedPlatform.charAt(0).toUpperCase() + selectedPlatform.slice(1);
+
+  const text = `What Should I Post? — Content Idea
+
+Niche: ${niche}
+Platform: ${plat}
+Format: ${fmt}
+
+IDEA: ${c.idea}
+
+HOOK LINE: ${c.hook}
+
+AUDIO / CAPTION: ${c.audio}
+
+DIFFICULTY: ${c.difficulty.toUpperCase()}
+
+---
+Generated by Ledger & Spark (free tools, no catch)`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('Copied to clipboard!');
+  }).catch(() => {
+    showToast('Couldn\'t copy — try again');
+  });
+});
+
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2200);
+}
+</script>
+</body>
+</html>

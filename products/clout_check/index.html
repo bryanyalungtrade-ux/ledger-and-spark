@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clout Check — Am I Blowing Up? | Ledger & Spark</title>
+<meta name="description" content="Find out if you're blowing up or flopping. Check your clout on TikTok, Instagram, YouTube & Twitter. Fun results, real math. 100% free.">
+<meta property="og:title" content="Clout Check — Am I Blowing Up? | Ledger & Spark">
+<meta property="og:description" content="Are you blowing up or flopping? Find out in 10 seconds. Free.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FAFBFE;
+  --bg-alt: #F1F5F9;
+  --blue: #3B82F6;
+  --blue-light: #60A5FA;
+  --blue-pale: #DBEAFE;
+  --blue-ghost: #EFF6FF;
+  --text: #1E293B;
+  --text-mid: #475569;
+  --text-light: #94A3B8;
+  --white: #FFFFFF;
+  --green: #10B981;
+  --green-light: #D1FAE5;
+  --orange: #F59E0B;
+  --orange-light: #FEF3C7;
+  --red: #EF4444;
+  --red-light: #FEE2E2;
+  --purple: #8B5CF6;
+  --purple-light: #EDE9FE;
+  --pink: #EC4899;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 50px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.header {
+  background: var(--white);
+  border-bottom: 1px solid #E2E8F0;
+  padding: 16px 20px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-brand { font-size: 18px; font-weight: 800; color: var(--text); letter-spacing: -0.3px; }
+.header-brand span { color: var(--blue); }
+.header-tagline { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+
+.hero {
+  text-align: center;
+  padding: 32px 20px 24px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.hero-badge {
+  display: inline-block;
+  background: var(--blue-ghost);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 12px;
+}
+.hero h1 {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.hero p {
+  font-size: 15px;
+  color: var(--text-mid);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #E2E8F0;
+}
+
+.card-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pill-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid #E2E8F0;
+  background: var(--white);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.pill:hover { border-color: var(--blue-light); color: var(--blue); }
+.pill.active {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--blue);
+}
+
+.input-group { margin-bottom: 16px; }
+.input-group:last-child { margin-bottom: 0; }
+.input-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-mid);
+  margin-bottom: 6px;
+  display: block;
+}
+.input-field {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid #E2E8F0;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--white);
+  transition: border-color 0.2s;
+}
+.input-field:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+}
+.input-hint { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+.input-optional { font-size: 11px; color: var(--text-light); font-weight: 400; }
+
+.check-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  margin-top: 8px;
+}
+.check-btn:hover { background: #2563EB; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+.results { display: none; margin-top: 20px; }
+
+.results-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--blue-pale);
+}
+
+.results-hero {
+  text-align: center;
+  padding: 32px 24px 24px;
+  position: relative;
+}
+.vibe-label {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.vibe-emoji {
+  font-size: 56px;
+  margin-bottom: 8px;
+  display: block;
+}
+.rate-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 12px;
+  letter-spacing: 0.3px;
+}
+
+.results-body { padding: 24px; }
+
+.benchmark-section { margin-bottom: 24px; }
+.benchmark-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+
+.benchmark-bar {
+  position: relative;
+  height: 40px;
+  background: linear-gradient(90deg, var(--red-light) 0%, var(--orange-light) 30%, var(--green-light) 60%, var(--purple-light) 100%);
+  border-radius: 20px;
+  overflow: visible;
+  margin-bottom: 8px;
+}
+.benchmark-labels {
+  display: flex;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 100%;
+}
+.bench-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-mid);
+  opacity: 0.7;
+}
+.bench-marker {
+  position: absolute;
+  top: -6px;
+  width: 6px;
+  height: 52px;
+  background: var(--text);
+  border-radius: 3px;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+.bench-marker-label {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+.bench-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-light);
+}
+
+.tier-section {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: var(--bg-alt);
+  border-radius: var(--radius);
+}
+.tier-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.tier-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.tier-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 6px 10px;
+  background: var(--white);
+  border-radius: 8px;
+}
+.tier-label { color: var(--text-mid); }
+.tier-value { font-weight: 600; color: var(--text); }
+.tier-item.current { background: var(--blue-ghost); border: 1px solid var(--blue-pale); }
+.tier-item.current .tier-value { color: var(--blue); font-weight: 700; }
+
+.tips-section { margin-bottom: 16px; }
+.tips-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+.tip-card { padding: 14px; background: var(--blue-ghost); border-radius: var(--radius); margin-bottom: 8px; }
+.tip-card-title { font-size: 13px; font-weight: 700; color: var(--blue); margin-bottom: 4px; }
+.tip-card-text { font-size: 13px; color: var(--text-mid); line-height: 1.5; }
+
+.share-card {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, var(--blue-ghost), var(--blue-pale));
+  border-radius: var(--radius);
+  margin-top: 16px;
+}
+.share-card p { font-size: 13px; color: var(--text-mid); margin-bottom: 12px; }
+.share-btn {
+  padding: 12px 28px;
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.share-btn:hover { background: #2563EB; transform: translateY(-1px); }
+
+.watermark { text-align: center; padding: 16px; font-size: 11px; color: var(--text-light); }
+.watermark a { color: var(--blue); text-decoration: none; font-weight: 600; }
+
+.disclaimer { font-size: 11px; color: var(--text-light); text-align: center; margin-top: 12px; padding: 0 24px 24px; }
+
+.trust-line { text-align: center; padding: 24px 20px; font-size: 13px; color: var(--text-light); }
+.trust-line a { color: var(--blue); text-decoration: none; }
+
+.footer { text-align: center; padding: 20px; border-top: 1px solid #E2E8F0; font-size: 12px; color: var(--text-light); }
+.footer a { color: var(--blue); text-decoration: none; }
+
+@media (min-width: 640px) {
+  .hero h1 { font-size: 36px; }
+  .container { max-width: 560px; }
+  .vibe-label { font-size: 52px; }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-brand">Ledger & <span>Spark</span></div>
+  <div class="header-tagline">Free tools. No catch. Built because you asked.</div>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">100% Free</div>
+  <h1>Clout Check</h1>
+  <p>Let's see if you're blowing up or flopping. Takes 10 seconds.</p>
+</section>
+
+<div class="container">
+  <div class="card">
+    <div class="card-label">What platform are you on?</div>
+    <div class="pill-grid" id="platformGrid">
+      <button class="pill" data-value="tiktok">TikTok</button>
+      <button class="pill" data-value="instagram">Instagram</button>
+      <button class="pill" data-value="youtube">YouTube</button>
+      <button class="pill" data-value="twitter">Twitter / X</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Drop your numbers</div>
+    <div class="input-group">
+      <label class="input-label">How many followers you got?</label>
+      <input type="number" class="input-field" id="followers" placeholder="e.g. 10000" min="1">
+    </div>
+    <div class="input-group">
+      <label class="input-label">How many likes do your posts usually get?</label>
+      <input type="number" class="input-field" id="likes" placeholder="e.g. 500" min="0">
+    </div>
+    <div class="input-group">
+      <label class="input-label">How many comments?</label>
+      <input type="number" class="input-field" id="comments" placeholder="e.g. 25" min="0">
+    </div>
+    <div class="input-group">
+      <label class="input-label">How many shares? <span class="input-optional">(optional)</span></label>
+      <input type="number" class="input-field" id="shares" placeholder="e.g. 10" min="0">
+    </div>
+    <div class="input-group" id="viewsGroup">
+      <label class="input-label">How many views? <span class="input-optional">(best for TikTok/YouTube)</span></label>
+      <input type="number" class="input-field" id="views" placeholder="e.g. 5000" min="0">
+      <div class="input-hint">If you add views, we'll use those instead (way more accurate for video)</div>
+    </div>
+  </div>
+
+  <button class="check-btn" id="checkBtn">Check My Clout</button>
+
+  <div class="results" id="results"></div>
+
+  <div class="trust-line">
+    Free. No catch. Built because you asked.<br>
+    <a href="mailto:ledgerandspark@gmail.com">ledgerandspark@gmail.com</a>
+  </div>
+</div>
+
+<footer class="footer">
+  &copy; 2026 Ledger & Spark. All tools are free.<br>
+  We make money from sponsors, not from you. That's why everything is free.
+</footer>
+
+<script>
+let platform = null;
+
+document.getElementById('platformGrid').addEventListener('click', (e) => {
+  if (!e.target.classList.contains('pill')) return;
+  document.querySelectorAll('#platformGrid .pill').forEach(p => p.classList.remove('active'));
+  e.target.classList.add('active');
+  platform = e.target.dataset.value;
+});
+
+const BENCHMARKS = {
+  tiktok: {
+    name: 'TikTok',
+    tiers: {
+      'Nano (1K-10K)': { avg: 9.4, good: 12, great: 18 },
+      'Micro (10K-50K)': { avg: 7.2, good: 10, great: 15 },
+      'Mid (50K-500K)': { avg: 5.3, good: 8, great: 12 },
+      'Macro (500K-1M)': { avg: 4.1, good: 6, great: 10 },
+      'Mega (1M+)': { avg: 3.2, good: 5, great: 8 }
+    },
+    zones: { ghost: 1.5, needs_work: 3, solid: 5, fire: 8, viral: 15 }
+  },
+  instagram: {
+    name: 'Instagram',
+    tiers: {
+      'Nano (1K-10K)': { avg: 4.2, good: 6, great: 8 },
+      'Micro (10K-50K)': { avg: 2.4, good: 4, great: 6 },
+      'Mid (50K-500K)': { avg: 1.5, good: 2.5, great: 4 },
+      'Macro (500K-1M)': { avg: 1.1, good: 2, great: 3 },
+      'Mega (1M+)': { avg: 0.8, good: 1.5, great: 2.5 }
+    },
+    zones: { ghost: 0.5, needs_work: 1, solid: 2, fire: 4, viral: 7 }
+  },
+  youtube: {
+    name: 'YouTube',
+    tiers: {
+      'Nano (1K-10K)': { avg: 5.5, good: 8, great: 12 },
+      'Micro (10K-50K)': { avg: 3.8, good: 6, great: 9 },
+      'Mid (50K-500K)': { avg: 2.8, good: 4.5, great: 7 },
+      'Macro (500K-1M)': { avg: 2.0, good: 3.5, great: 5.5 },
+      'Mega (1M+)': { avg: 1.5, good: 2.5, great: 4 }
+    },
+    zones: { ghost: 1, needs_work: 2, solid: 3.5, fire: 6, viral: 10 }
+  },
+  twitter: {
+    name: 'Twitter / X',
+    tiers: {
+      'Nano (1K-10K)': { avg: 1.8, good: 3, great: 5 },
+      'Micro (10K-50K)': { avg: 0.8, good: 1.5, great: 3 },
+      'Mid (50K-500K)': { avg: 0.4, good: 0.8, great: 1.5 },
+      'Macro (500K-1M)': { avg: 0.25, good: 0.5, great: 1 },
+      'Mega (1M+)': { avg: 0.15, good: 0.3, great: 0.7 }
+    },
+    zones: { ghost: 0.1, needs_work: 0.3, solid: 0.6, fire: 1.5, viral: 3 }
+  }
+};
+
+function getCloutLabel(er, zones) {
+  if (er >= zones.viral) return { label: 'literally famous', emoji: '\u{1F680}', subtitle: "you're going viral rn", color: 'var(--purple)', bg: 'var(--purple-light)' };
+  if (er >= zones.fire) return { label: 'main character energy', emoji: '\u{1F525}', subtitle: "you're on fire fr fr", color: 'var(--orange)', bg: 'var(--orange-light)' };
+  if (er >= zones.solid) return { label: 'lowkey blowing up', emoji: '\u{1F4AA}', subtitle: "doing better than most people tbh", color: 'var(--green)', bg: 'var(--green-light)' };
+  if (er >= zones.needs_work) return { label: 'mid', emoji: '\u{1F62C}', subtitle: "not bad but you can do better", color: 'var(--orange)', bg: 'var(--orange-light)' };
+  return { label: 'ghost town', emoji: '\u{1F47B}', subtitle: "nobody's home rn... let's fix that", color: 'var(--red)', bg: 'var(--red-light)' };
+}
+
+document.getElementById('checkBtn').addEventListener('click', () => {
+  if (!platform) { alert('Pick your platform first!'); return; }
+
+  const followers = parseInt(document.getElementById('followers').value);
+  const likes = parseInt(document.getElementById('likes').value) || 0;
+  const comments = parseInt(document.getElementById('comments').value) || 0;
+  const shares = parseInt(document.getElementById('shares').value) || 0;
+  const views = parseInt(document.getElementById('views').value) || 0;
+
+  if (!followers || followers < 1) { alert('Drop your follower count!'); return; }
+  if (likes === 0 && comments === 0) { alert('We need at least your likes or comments!'); return; }
+
+  const totalEngagement = likes + comments + shares;
+  let engagementRate, rateMethod;
+  if (views > 0 && (platform === 'tiktok' || platform === 'youtube')) {
+    engagementRate = (totalEngagement / views) * 100;
+    rateMethod = 'views-based';
+  } else {
+    engagementRate = (totalEngagement / followers) * 100;
+    rateMethod = 'follower-based';
+  }
+
+  const bench = BENCHMARKS[platform];
+  const zones = bench.zones;
+  const clout = getCloutLabel(engagementRate, zones);
+
+  let userTier;
+  if (followers >= 1000000) userTier = 'Mega (1M+)';
+  else if (followers >= 500000) userTier = 'Macro (500K-1M)';
+  else if (followers >= 50000) userTier = 'Mid (50K-500K)';
+  else if (followers >= 10000) userTier = 'Micro (10K-50K)';
+  else userTier = 'Nano (1K-10K)';
+
+  const tierData = bench.tiers[userTier];
+  const maxRate = zones.viral * 1.5;
+  const markerPos = Math.min((engagementRate / maxRate) * 100, 98);
+  const tips = generateTips(engagementRate, followers, platform, likes, comments, shares, views, zones, tierData);
+
+  const tierHTML = Object.entries(bench.tiers).map(([name, data]) => {
+    const isCurrent = name === userTier;
+    return `<div class="tier-item ${isCurrent ? 'current' : ''}">
+      <span class="tier-label">${name.split(' ')[0]}</span>
+      <span class="tier-value">${data.avg}% avg</span>
+    </div>`;
+  }).join('');
+
+  const resultsHTML = `
+    <div class="results-card" id="resultsCard">
+      <div class="results-hero" style="background: linear-gradient(135deg, ${clout.bg}, var(--white));">
+        <span class="vibe-emoji">${clout.emoji}</span>
+        <div class="vibe-label" style="color:${clout.color};">${clout.label}</div>
+        <div style="font-size:14px;color:var(--text-mid);margin-bottom:4px;">${clout.subtitle}</div>
+        <div class="rate-badge" style="background:${clout.bg};color:${clout.color};">
+          ${engagementRate.toFixed(1)}% ${rateMethod}
+        </div>
+        <div style="margin-top:12px;font-size:13px;color:var(--text-light);">
+          ${bench.name} | ${userTier} | ${followers.toLocaleString()} followers
+        </div>
+      </div>
+      <div class="results-body">
+        <div class="benchmark-section">
+          <div class="benchmark-title">Where you land</div>
+          <div class="benchmark-bar">
+            <div class="benchmark-labels">
+              <div class="bench-zone" style="width:20%">\u{1F47B}</div>
+              <div class="bench-zone" style="width:20%">\u{1F62C}</div>
+              <div class="bench-zone" style="width:20%">\u{1F4AA}</div>
+              <div class="bench-zone" style="width:20%">\u{1F525}</div>
+              <div class="bench-zone" style="width:20%">\u{1F680}</div>
+            </div>
+            <div class="bench-marker" style="left:${markerPos}%">
+              <div class="bench-marker-label">You</div>
+            </div>
+          </div>
+          <div class="bench-row">
+            <span>Ghost Town</span>
+            <span>Mid</span>
+            <span>Blowing Up</span>
+            <span>Main Character</span>
+            <span>Famous</span>
+          </div>
+        </div>
+        <div class="tier-section">
+          <div class="tier-title">${bench.name} averages by size</div>
+          <div class="tier-grid">${tierHTML}</div>
+          <div style="font-size:11px;color:var(--text-light);margin-top:8px;text-align:center;">
+            Average for your size: ${tierData.avg}% | You: ${engagementRate.toFixed(1)}%
+            ${engagementRate > tierData.avg
+              ? ` — <span style="color:var(--green);font-weight:600;">you're beating the average!</span>`
+              : ` — <span style="color:var(--orange);font-weight:600;">room to glow up</span>`}
+          </div>
+        </div>
+        <div class="tips-section">
+          <div class="tips-title">3 ways to blow up faster</div>
+          ${tips.map(t => `<div class="tip-card">
+            <div class="tip-card-title">${t.title}</div>
+            <div class="tip-card-text">${t.text}</div>
+          </div>`).join('')}
+        </div>
+        <div class="share-card">
+          <p>Screenshot this and flex on your stories</p>
+          <button class="share-btn" onclick="shareResults()">Share My Clout Check</button>
+        </div>
+      </div>
+      <div class="watermark">Made with <a href="#">Ledger & Spark</a> — free creator tools</div>
+      <div class="disclaimer">Based on real industry data (2024-2026). Results vary by content type, how often you post, and who's following you.</div>
+    </div>`;
+
+  const results = document.getElementById('results');
+  results.innerHTML = resultsHTML;
+  results.style.display = 'block';
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+function generateTips(er, followers, plat, likes, comments, shares, views, zones, tierData) {
+  const tips = [];
+  const commentRatio = likes > 0 ? comments / likes : 0;
+  if (commentRatio < 0.05) {
+    tips.push({ title: 'Get people talking in your comments', text: "Your likes are way higher than your comments. End every post with a question or a hot take that makes people wanna reply. Comments count way more than likes for the algorithm." });
+  }
+  if (shares === 0 || (views > 0 && shares / views < 0.01)) {
+    tips.push({ title: 'Make stuff people send to their friends', text: "Shares are the #1 thing that makes you blow up. Make content people wanna DM to their group chat — relatable memes, \"tag someone who\" posts, or tips they'll save for later." });
+  }
+  if (plat === 'tiktok') {
+    tips.push({ title: 'Hook them in the first second', text: "TikTok only cares about watch time. If people scroll past in the first second, it's over. Start with something wild — a bold statement, a question, or something that makes people go \"wait what?\"" });
+  } else if (plat === 'instagram') {
+    tips.push({ title: 'Post more Reels and carousels', text: "Instagram pushes Reels and carousels way harder than regular photos. Carousels get like 3x more interaction because people swipe through them multiple times." });
+  } else if (plat === 'youtube') {
+    tips.push({ title: 'Your thumbnail is everything', text: "80% of YouTube is the thumbnail and title. Use bright colors, show emotion on your face, and keep text to 3-5 words max. Try making 3 different thumbnails and see which one pops." });
+  } else if (plat === 'twitter') {
+    tips.push({ title: 'Threads go way harder than single tweets', text: "Twitter loves threads because they keep people on the app longer. Start with a hook tweet, then break your point into 5-10 short tweets. Way more reach than a single post." });
+  }
+  if (er < zones.solid) {
+    tips.push({ title: 'Post when your people are actually online', text: "Check your stats for when your followers are most active. Posting at the right time can boost your numbers by 20-40%. Most creators see the best results between 6-9 PM." });
+  }
+  if (er >= zones.fire) {
+    tips.push({ title: "You're doing amazing — time to get paid", text: "Your numbers are better than most creators your size. Brands care more about how your posts are doing than follower count. Start reaching out to brands you already use — you're in a great spot to land deals." });
+  }
+  tips.push({ title: 'Be consistent, not just frequent', text: "Posting every day with mid content kills your numbers. Find your sweet spot — for most people that's 3-5x per week on TikTok/IG, 1-2x per week on YouTube. Quality > quantity every time." });
+  if (followers < 10000) {
+    tips.push({ title: 'Engage with people in your niche', text: "At your size, community matters more than content. Spend 15 min a day leaving real comments on similar creators' posts. It builds relationships and puts your name in front of their audience." });
+  }
+  return tips.slice(0, 3);
+}
+
+function shareResults() {
+  if (navigator.share) {
+    navigator.share({ title: 'My Clout Check — Ledger & Spark', text: 'Just checked my clout! See if you\u2019re blowing up or flopping:', url: window.location.href }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      const btn = document.querySelector('.share-btn');
+      btn.textContent = 'Link Copied!';
+      setTimeout(() => { btn.textContent = 'Share My Clout Check'; }, 2500);
+    });
+  }
+}
+</script>
+</body>
+</html>

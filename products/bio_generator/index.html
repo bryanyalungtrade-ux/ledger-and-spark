@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bio Generator — Free Social Media Bio Creator | Ledger & Spark</title>
+<meta name="description" content="Pick a platform, pick a vibe, get 5 perfect bios instantly. TikTok, Instagram, Twitter, LinkedIn. Copy with one tap. 100% free.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FAFBFE;
+  --bg-alt: #F1F5F9;
+  --blue: #3B82F6;
+  --blue-light: #60A5FA;
+  --blue-pale: #DBEAFE;
+  --blue-ghost: #EFF6FF;
+  --text: #1E293B;
+  --text-mid: #475569;
+  --text-light: #94A3B8;
+  --white: #FFFFFF;
+  --green: #10B981;
+  --green-light: #D1FAE5;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 50px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--white);
+  border-bottom: 1px solid #E2E8F0;
+  padding: 16px 20px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header a {
+  text-decoration: none;
+  color: var(--text);
+}
+.header .brand {
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.3px;
+}
+.header .brand span {
+  color: var(--blue);
+}
+.header .back {
+  display: block;
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+/* ── MAIN ── */
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.hero-emoji {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+.hero h1 {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+.hero p {
+  font-size: 15px;
+  color: var(--text-mid);
+}
+
+/* ── SECTION ── */
+.section {
+  margin-bottom: 24px;
+}
+.section-label {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-light);
+  margin-bottom: 10px;
+}
+
+/* ── PILL GRID ── */
+.pill-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: var(--white);
+  border: 2px solid #E2E8F0;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.pill:hover {
+  border-color: var(--blue-light);
+  background: var(--blue-ghost);
+}
+.pill.active {
+  border-color: var(--blue);
+  background: var(--blue-pale);
+  color: var(--blue);
+}
+.pill .icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* ── INPUT FIELDS ── */
+.input-group {
+  margin-bottom: 14px;
+}
+.input-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-mid);
+  margin-bottom: 5px;
+}
+.input-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #E2E8F0;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--white);
+  transition: border-color 0.15s ease;
+  outline: none;
+}
+.input-group input:focus {
+  border-color: var(--blue);
+}
+.input-group input::placeholder {
+  color: var(--text-light);
+}
+.input-hint {
+  font-size: 11px;
+  color: var(--text-light);
+  margin-top: 3px;
+}
+
+/* ── BUTTONS ── */
+.btn-generate {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--blue), var(--blue-light));
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-generate:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(59,130,246,0.35);
+}
+.btn-generate:active {
+  transform: translateY(0);
+}
+.btn-generate:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-shuffle {
+  width: 100%;
+  padding: 14px;
+  background: var(--white);
+  color: var(--blue);
+  border: 2px solid var(--blue);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: all 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-shuffle:hover {
+  background: var(--blue-ghost);
+}
+
+/* ── RESULTS ── */
+.results {
+  display: none;
+  margin-top: 28px;
+}
+.results.show {
+  display: block;
+}
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.results-title {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.bio-card {
+  background: var(--white);
+  border: 2px solid #E2E8F0;
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  transition: border-color 0.15s ease;
+}
+.bio-card:hover {
+  border-color: var(--blue-pale);
+}
+.bio-text {
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  word-break: break-word;
+}
+.bio-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.char-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-light);
+}
+.char-count.warn {
+  color: #F59E0B;
+}
+.char-count.over {
+  color: #EF4444;
+}
+.btn-copy {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 16px;
+  background: var(--blue-ghost);
+  color: var(--blue);
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-copy:hover {
+  background: var(--blue-pale);
+}
+.btn-copy.copied {
+  background: var(--green-light);
+  color: var(--green);
+}
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  padding: 32px 16px 24px;
+  border-top: 1px solid #E2E8F0;
+  margin-top: 20px;
+}
+.footer .tagline {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-mid);
+  margin-bottom: 8px;
+}
+.footer .disclaimer {
+  font-size: 11px;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.bio-card {
+  animation: fadeInUp 0.3s ease forwards;
+  opacity: 0;
+}
+.bio-card:nth-child(1) { animation-delay: 0s; }
+.bio-card:nth-child(2) { animation-delay: 0.06s; }
+.bio-card:nth-child(3) { animation-delay: 0.12s; }
+.bio-card:nth-child(4) { animation-delay: 0.18s; }
+.bio-card:nth-child(5) { animation-delay: 0.24s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 380px) {
+  .hero h1 { font-size: 22px; }
+  .pill { padding: 8px 12px; font-size: 13px; }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <a href="../../index.html">
+    <div class="brand">Ledger <span>&</span> Spark</div>
+    <span class="back">&larr; back to all tools</span>
+  </a>
+</header>
+
+<main class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-emoji">&#x1F4AC;</div>
+    <h1>Bio Generator</h1>
+    <p>Pick a platform. Pick a vibe. Get 5 bios instantly.</p>
+  </div>
+
+  <!-- Step 1: Platform -->
+  <div class="section">
+    <div class="section-label">1 &mdash; Pick your platform</div>
+    <div class="pill-grid" id="platformGrid">
+      <button class="pill" data-platform="tiktok" onclick="selectPlatform(this)">
+        <span class="icon">&#x1F3B5;</span> TikTok
+      </button>
+      <button class="pill" data-platform="instagram" onclick="selectPlatform(this)">
+        <span class="icon">&#x1F4F7;</span> Instagram
+      </button>
+      <button class="pill" data-platform="twitter" onclick="selectPlatform(this)">
+        <span class="icon">&#x1F426;</span> Twitter / X
+      </button>
+      <button class="pill" data-platform="linkedin" onclick="selectPlatform(this)">
+        <span class="icon">&#x1F4BC;</span> LinkedIn
+      </button>
+    </div>
+  </div>
+
+  <!-- Step 2: Vibe -->
+  <div class="section">
+    <div class="section-label">2 &mdash; Pick your vibe</div>
+    <div class="pill-grid" id="vibeGrid">
+      <button class="pill" data-vibe="funny" onclick="selectVibe(this)">
+        <span class="icon">&#x1F602;</span> Funny
+      </button>
+      <button class="pill" data-vibe="chaotic" onclick="selectVibe(this)">
+        <span class="icon">&#x1F525;</span> Chaotic
+      </button>
+      <button class="pill" data-vibe="main-character" onclick="selectVibe(this)">
+        <span class="icon">&#x2728;</span> Main Character
+      </button>
+      <button class="pill" data-vibe="chill" onclick="selectVibe(this)">
+        <span class="icon">&#x1F33F;</span> Chill
+      </button>
+    </div>
+  </div>
+
+  <!-- Step 3: Quick Inputs -->
+  <div class="section">
+    <div class="section-label">3 &mdash; Tell us about you</div>
+    <div class="input-group">
+      <label for="nameInput">Your name or handle</label>
+      <input type="text" id="nameInput" placeholder="e.g. @coolcreator or Jamie" maxlength="40">
+    </div>
+    <div class="input-group">
+      <label for="whatInput">What you do (3 words max)</label>
+      <input type="text" id="whatInput" placeholder="e.g. make dog memes" maxlength="40">
+      <div class="input-hint">Keep it short &mdash; 3 words is the sweet spot</div>
+    </div>
+    <div class="input-group">
+      <label for="factInput">A fun fact about you</label>
+      <input type="text" id="factInput" placeholder="e.g. I've eaten 200 tacos this year" maxlength="80">
+    </div>
+  </div>
+
+  <!-- Generate -->
+  <button class="btn-generate" id="generateBtn" onclick="generate()">
+    &#x26A1; Generate 5 Bios
+  </button>
+
+  <!-- Results -->
+  <div class="results" id="results">
+    <div class="results-header">
+      <div class="results-title">Your bios &#x1F447;</div>
+    </div>
+    <div id="bioCards"></div>
+    <button class="btn-shuffle" onclick="generate()">
+      &#x1F504; Shuffle &mdash; new bios, same you
+    </button>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="tagline">Free tools. No catch. Built because you asked.</div>
+  <div class="disclaimer">
+    Ledger &amp; Spark &mdash; We make money from sponsors, not from you. That's why everything is free.<br>
+    Not financial or investment advice. Educational tools only.
+  </div>
+</footer>
+
+<script>
+/* ── STATE ── */
+let state = { platform: null, vibe: null };
+
+const CHAR_LIMITS = {
+  tiktok: 80,
+  instagram: 150,
+  twitter: 160,
+  linkedin: 220
+};
+
+const PLATFORM_NAMES = {
+  tiktok: 'TikTok',
+  instagram: 'Instagram',
+  twitter: 'Twitter/X',
+  linkedin: 'LinkedIn'
+};
+
+/* ── SELECTORS ── */
+function selectPlatform(el) {
+  document.querySelectorAll('#platformGrid .pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  state.platform = el.dataset.platform;
+}
+
+function selectVibe(el) {
+  document.querySelectorAll('#vibeGrid .pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  state.vibe = el.dataset.vibe;
+}
+
+/* ── BIO TEMPLATES ── */
+const TEMPLATES = {
+  professional: {
+    tiktok: [
+      (n,w,f) => `${n} | ${w} | ${f}`,
+      (n,w,f) => `${w}. DMs open for collabs. ${f} &#x1F4E9;`,
+      (n,w,f) => `${n} &#x2014; here to ${w}. ${f}.`,
+      (n,w,f) => `Building something cool. ${w}. ${f}`,
+      (n,w,f) => `${w} by day. ${f} by existence. &#x1F3AF;`,
+      (n,w,f) => `Just a person who decided to ${w}. ${f}.`,
+      (n,w,f) => `${n}. ${w}. Let's connect. &#x1F91D;`,
+      (n,w,f) => `${w} &#x2022; ${f} &#x2022; DMs open`,
+    ],
+    instagram: [
+      (n,w,f) => `${n} &#x2022; ${w}\n${f}\n&#x1F4E7; DMs always open`,
+      (n,w,f) => `${w} &#x1F4AB;\n${f}\nLet's create something &#x2B07;&#xFE0F;`,
+      (n,w,f) => `&#x1F3AF; ${w}\n&#x1F4A1; ${f}\n&#x1F4AC; Collabs welcome`,
+      (n,w,f) => `${n}\n${w} | ${f}\nLink below &#x2B07;&#xFE0F;`,
+      (n,w,f) => `I ${w}. Also, ${f.toLowerCase()}.\nNew content weekly &#x1F4F2;`,
+      (n,w,f) => `${w} &#x2714;&#xFE0F;\n${f} &#x2714;&#xFE0F;\nAlways learning &#x2714;&#xFE0F;`,
+      (n,w,f) => `Hey, I'm ${n}. I ${w}.\nFun fact: ${f.toLowerCase()}.`,
+      (n,w,f) => `${w}.\n${f}.\nThat's pretty much it. &#x1F91B;`,
+    ],
+    twitter: [
+      (n,w,f) => `${w}. ${f}. Opinions are mine.`,
+      (n,w,f) => `${n} | ${w} | Probably tweeting about it`,
+      (n,w,f) => `I ${w}. ${f}. Here for the conversations.`,
+      (n,w,f) => `${w}. ${f}. Let's talk.`,
+      (n,w,f) => `${n}. ${w}. ${f}. That's the tweet.`,
+      (n,w,f) => `Building in public. ${w}. ${f}.`,
+      (n,w,f) => `${w} &#x1F4AA; | ${f} | Threads + takes`,
+      (n,w,f) => `${n} &#x2014; ${w}. Also, ${f.toLowerCase()}.`,
+    ],
+    linkedin: [
+      (n,w,f) => `I ${w}. ${f}. Always open to connecting with like-minded people.`,
+      (n,w,f) => `${n} | ${w}\n\nFun fact: ${f}.\n\nLet's connect and build something great.`,
+      (n,w,f) => `Passionate about helping others ${w}. ${f}. Open to new opportunities.`,
+      (n,w,f) => `${w} &#x2022; ${f}\n\nI believe in learning out loud. Let's chat.`,
+      (n,w,f) => `${n} here. I ${w}, and I'm proud that ${f.toLowerCase()}. Let's connect!`,
+      (n,w,f) => `My mission? ${w}. My fun fact? ${f}. My DMs? Open.`,
+      (n,w,f) => `${w}. ${f}. Always happy to chat over coffee (virtual counts).`,
+      (n,w,f) => `Hi! I'm ${n}. I spend my days trying to ${w}. ${f}.`,
+    ],
+  },
+  funny: {
+    tiktok: [
+      (n,w,f) => `I ${w} and somehow people watch &#x1F602;`,
+      (n,w,f) => `${f}. That's my whole personality.`,
+      (n,w,f) => `just here to ${w} and avoid responsibilities`,
+      (n,w,f) => `${n} | professional overthinker | also I ${w}`,
+      (n,w,f) => `my therapist says I should ${w} less. no.`,
+      (n,w,f) => `${f}... and that's the most interesting thing about me &#x1F480;`,
+      (n,w,f) => `CEO of ${w.toLowerCase()} (self-appointed)`,
+      (n,w,f) => `idk what I'm doing but I ${w} &#x1F937;`,
+    ],
+    instagram: [
+      (n,w,f) => `I ${w}. It's not a phase, mom.\n${f} &#x1F602;\nFollow for chaos`,
+      (n,w,f) => `${n} &#x2022; ${w}\n${f}\nI peaked in middle school &#x1F3C6;`,
+      (n,w,f) => `Professional at ${w.toLowerCase()}\nAmateur at everything else\n${f}`,
+      (n,w,f) => `&#x1F3AD; ${w}\n&#x1F3C6; ${f}\n&#x1F4A0; Still figuring it out`,
+      (n,w,f) => `just a person who ${w.toLowerCase()} and thinks that counts as a personality\n${f}`,
+      (n,w,f) => `me: I ${w}\nalso me: ${f.toLowerCase()}\nfollow for questionable content &#x2B07;`,
+      (n,w,f) => `${n}\nFull-time: ${w}\nPart-time: existing\n${f}`,
+      (n,w,f) => `If you need someone who ${w.toLowerCase()}, I'm your person.\n${f} btw.`,
+    ],
+    twitter: [
+      (n,w,f) => `I ${w} and tweet about it like anyone asked`,
+      (n,w,f) => `${f}. Also I ${w}. Mostly the first thing tho.`,
+      (n,w,f) => `${n} | ${w} | ${f} | send help`,
+      (n,w,f) => `my resume says I ${w}. ${f}. hire me?`,
+      (n,w,f) => `I ${w}. ${f}. I'm basically a catch.`,
+      (n,w,f) => `here to ${w} and subtweet. not necessarily in that order.`,
+      (n,w,f) => `${n}. ${w}. ${f}. That's my whole pitch.`,
+      (n,w,f) => `professional ${w.toLowerCase()}-er. ${f}. no I will not elaborate.`,
+    ],
+    linkedin: [
+      (n,w,f) => `I ${w}. ${f}. Yes, I'm fun at parties (sometimes).`,
+      (n,w,f) => `${n} | ${w}\n\nFun fact: ${f}.\n\nI promise my work is more professional than this bio.`,
+      (n,w,f) => `They told me to ${w}. So I did. Also, ${f.toLowerCase()}. Still waiting on that raise.`,
+      (n,w,f) => `${w}. ${f}. My LinkedIn is more professional than my actual life.`,
+      (n,w,f) => `I ${w} and get paid for it. Also, ${f.toLowerCase()}. Life's weird.`,
+      (n,w,f) => `Career highlights: I ${w}. Personal highlights: ${f.toLowerCase()}. Both equally valid.`,
+      (n,w,f) => `${n}. I ${w}. ${f}. Looking for people who don't take LinkedIn too seriously.`,
+      (n,w,f) => `Plot twist: I ${w} AND ${f.toLowerCase()}. Range.`,
+    ],
+  },
+  mysterious: {
+    tiktok: [
+      (n,w,f) => `${w}. That's all you need to know. &#x1F576;&#xFE0F;`,
+      (n,w,f) => `${n}. ${f}. The rest is classified.`,
+      (n,w,f) => `you'll figure it out. &#x1F5A4;`,
+      (n,w,f) => `I ${w}... but that's not the interesting part.`,
+      (n,w,f) => `&#x1F30C; ${w} &#x2022; ${f} &#x2022; ...`,
+      (n,w,f) => `[REDACTED] | ${w} | ${f}`,
+      (n,w,f) => `if I told you, it wouldn't be a mystery. I ${w}.`,
+      (n,w,f) => `${f}. Everything else? You'll have to stay to find out.`,
+    ],
+    instagram: [
+      (n,w,f) => `&#x1F576;&#xFE0F; ${w}\n${f}\nThat's all for now.`,
+      (n,w,f) => `${n}\n&#x1F5A4; ${w}\n&#x1F30C; ${f}\nStay curious.`,
+      (n,w,f) => `I ${w}.\nI don't explain the rest.\n${f}.`,
+      (n,w,f) => `&#x2022; ${w}\n&#x2022; ${f}\n&#x2022; ...\n&#x2022; follow to unlock the next chapter`,
+      (n,w,f) => `Less is more. I ${w}. ${f}.`,
+      (n,w,f) => `${n} &#x2014; ${w}\nThe rest writes itself.\n&#x1F576;&#xFE0F;`,
+      (n,w,f) => `Not everything needs an explanation.\n${w}. ${f}.\n&#x1F5A4;`,
+      (n,w,f) => `You're curious. Good.\n${w} &#x2022; ${f}`,
+    ],
+    twitter: [
+      (n,w,f) => `I ${w}. ${f}. That's all you're getting.`,
+      (n,w,f) => `${n}. &#x1F576;&#xFE0F;`,
+      (n,w,f) => `${w}. The rest is between me and the algorithm.`,
+      (n,w,f) => `${f}. Follow if you dare.`,
+      (n,w,f) => `[${w}] &#x2022; [${f}] &#x2022; [CLASSIFIED]`,
+      (n,w,f) => `I know things. I ${w}. ${f}.`,
+      (n,w,f) => `...${w}...`,
+      (n,w,f) => `they don't know I ${w}. but you do now. ${f}.`,
+    ],
+    linkedin: [
+      (n,w,f) => `I ${w}. ${f}. The rest of the story? Let's connect and find out.`,
+      (n,w,f) => `${n} | ${w}\n\nSome things are better discussed over coffee. ${f}.`,
+      (n,w,f) => `What I do: ${w}.\nWhat makes me interesting: ${f}.\nWhat I'm building next: You'll see.`,
+      (n,w,f) => `${w}. ${f}. I prefer to let the work speak for itself.`,
+      (n,w,f) => `I ${w}. Not everyone understands it. That's fine. ${f}.`,
+      (n,w,f) => `Building quietly. ${w}. ${f}. Stay tuned.`,
+      (n,w,f) => `${n}. I ${w} and keep the rest offline. Also, ${f.toLowerCase()}.`,
+      (n,w,f) => `You won't find the full story here. I ${w}. ${f}. Let's talk.`,
+    ],
+  },
+  chaotic: {
+    tiktok: [
+      (n,w,f) => `LISTEN I ${w} and ${f.toLowerCase()} DEAL WITH IT &#x1F525;&#x1F525;&#x1F525;`,
+      (n,w,f) => `${n} | unhinged | I ${w} | ${f}`,
+      (n,w,f) => `no thoughts just ${w.toLowerCase()} &#x1F480;&#x1F4A5;`,
+      (n,w,f) => `${f}!!! also I ${w}!!! WE'RE DOING THIS!!!`,
+      (n,w,f) => `&#x26A0;&#xFE0F; WARNING: I ${w} at dangerous levels. ${f}.`,
+      (n,w,f) => `if you can't handle me at my ${w.toLowerCase()}, you don't deserve me at my ${f.toLowerCase()} &#x1F608;`,
+      (n,w,f) => `born to ${w}. forced to exist. ${f}. &#x1F525;`,
+      (n,w,f) => `${n}. CHAOTICLY ${w.toUpperCase()}. ${f}. NO REGRETS.`,
+    ],
+    instagram: [
+      (n,w,f) => `&#x1F525; ${w.toUpperCase()}\n&#x1F4A5; ${f}\n&#x26A0;&#xFE0F; No filter, no rules`,
+      (n,w,f) => `${n}\nI ${w} like it's a competitive sport\n${f}\nFollow at your own risk &#x1F608;`,
+      (n,w,f) => `Plot twist: I ${w} AND ${f.toLowerCase()}\nYour fave could never &#x1F480;`,
+      (n,w,f) => `welcome to the chaos &#x1F3AA;\n&#x1F525; ${w}\n&#x1F4A3; ${f}\nBuckle up`,
+      (n,w,f) => `I ${w}.\n${f}.\nI will NOT be normal about this. &#x1F608;`,
+      (n,w,f) => `${n} = ${w} + ${f.toLowerCase()} + zero chill\nFOLLOW ME COWARD`,
+      (n,w,f) => `TW: I ${w} aggressively.\n${f}.\nYou've been warned. &#x26A0;&#xFE0F;`,
+      (n,w,f) => `&#x1F680;&#x1F525;&#x1F4A5; I ${w}!!! ${f}!!! LET'S GOOOOO`,
+    ],
+    twitter: [
+      (n,w,f) => `I ${w} VIOLENTLY. ${f}. NO I WILL NOT CALM DOWN.`,
+      (n,w,f) => `${n} | feral | ${w} | ${f} | unhinged takes only`,
+      (n,w,f) => `here to ${w} and cause problems &#x1F608;&#x1F525;`,
+      (n,w,f) => `${f}. Also I ${w}. ALSO I HAVE OPINIONS.`,
+      (n,w,f) => `BREAKING: local person ${w.toLowerCase()} with ZERO regard for sanity. ${f}.`,
+      (n,w,f) => `${w}!!! ${f}!!! everything is exciting!!! &#x1F525;&#x1F525;`,
+      (n,w,f) => `my brand is ${w.toLowerCase()} + chaos. ${f}. RT if valid.`,
+      (n,w,f) => `I ${w} and I have THOUGHTS. ${f}. Mute button is right there.`,
+    ],
+    linkedin: [
+      (n,w,f) => `I ${w} with MAXIMUM intensity. ${f}. Let's build something UNHINGED together.`,
+      (n,w,f) => `${n} | ${w}\n\n${f}.\n\nYes, I bring this energy to meetings too.`,
+      (n,w,f) => `Professional goal: ${w}.\nPersonal brand: absolute chaos.\n${f}.\nHire me, I dare you.`,
+      (n,w,f) => `BREAKING: ${n} has been spotted trying to ${w}. ${f}. Investors, take note.`,
+      (n,w,f) => `I ${w} at 110%. ${f}. Sleep is for people without goals. &#x1F525;`,
+      (n,w,f) => `Hot take: I ${w} and I'm not sorry. ${f}. Let's disrupt something.`,
+      (n,w,f) => `${w}! ${f}! Exclamation points! I'm passionate and I refuse to tone it down!`,
+      (n,w,f) => `They said "${w}" wasn't a real job. Then I made it one. ${f}. Stay mad.`,
+    ],
+  },
+  'main-character': {
+    tiktok: [
+      (n,w,f) => `&#x2728; main character who ${w.toLowerCase()} &#x2728;`,
+      (n,w,f) => `the universe literally put me here to ${w}. ${f}. &#x1F451;`,
+      (n,w,f) => `${n}'s era &#x2728; ${w} &#x2022; ${f}`,
+      (n,w,f) => `POV: you found someone who ${w.toLowerCase()} and ${f.toLowerCase()} &#x2728;`,
+      (n,w,f) => `in my ${w.toLowerCase()} era &#x1F451; ${f}`,
+      (n,w,f) => `plot armor is CRAZY. I ${w}. ${f}. &#x2728;`,
+      (n,w,f) => `this is ${n}'s world, you're just scrolling through it &#x1F451;`,
+      (n,w,f) => `the main character ${w.toLowerCase()} AND ${f.toLowerCase()}. obviously. &#x2728;`,
+    ],
+    instagram: [
+      (n,w,f) => `&#x2728; In my ${w.toLowerCase()} era\n&#x1F451; ${f}\nThe main character has arrived`,
+      (n,w,f) => `${n}\n&#x2728; ${w}\n&#x1F31F; ${f}\nNot a phase. It's a lifestyle.`,
+      (n,w,f) => `POV: you found THE account &#x2728;\n${w} &#x2022; ${f}\nYou're welcome &#x1F451;`,
+      (n,w,f) => `Living my best chapter &#x1F4D6;\n${w}. ${f}.\nThe plot only gets better &#x2728;`,
+      (n,w,f) => `${n}'s origin story:\n&#x2022; ${w}\n&#x2022; ${f}\n&#x2022; Being iconic\nFollow for the sequel &#x1F451;`,
+      (n,w,f) => `the girl/guy/person who ${w.toLowerCase()}\nthe one who ${f.toLowerCase()}\nthe main character &#x2728;`,
+      (n,w,f) => `I ${w} because the universe said so.\n${f}.\nThis is my era. &#x1F451;`,
+      (n,w,f) => `You already know who I am &#x2728;\n${w} &#x2022; ${f}\n&#x1F451;&#x1F451;&#x1F451;`,
+    ],
+    twitter: [
+      (n,w,f) => `in my ${w.toLowerCase()} era. ${f}. the vibes are immaculate &#x2728;`,
+      (n,w,f) => `POV: ${n} ${w.toLowerCase()} and ${f.toLowerCase()}. main character behavior.`,
+      (n,w,f) => `the plot armor is INSANE rn. I ${w}. ${f}. &#x1F451;`,
+      (n,w,f) => `${n} | ${w} | ${f} | living my best storyline &#x2728;`,
+      (n,w,f) => `I didn't choose to ${w}. The universe chose for me. ${f}. &#x1F451;`,
+      (n,w,f) => `everybody's a side character until they ${w}. ${f}. welcome to my arc &#x2728;`,
+      (n,w,f) => `this is the ${w.toLowerCase()} chapter &#x2728; also ${f.toLowerCase()} &#x1F451;`,
+      (n,w,f) => `${n}. ${w}. ${f}. Main character energy only.`,
+    ],
+    linkedin: [
+      (n,w,f) => `This is ${n}'s era. I ${w}, and I'm just getting started. ${f}.`,
+      (n,w,f) => `${w}. ${f}. Some people have side quests. I'm on the main storyline. &#x2728;`,
+      (n,w,f) => `${n} | ${w}\n\n${f}.\n\nEvery chapter of my career has been building to this moment.`,
+      (n,w,f) => `I ${w} because that's what main characters do. ${f}. The best is ahead. &#x1F451;`,
+      (n,w,f) => `Welcome to the ${w.toLowerCase()} era.\n${f}.\nThis is just the beginning.`,
+      (n,w,f) => `${w}. ${f}. Not everyone gets to write their own story. I do.`,
+      (n,w,f) => `${n}. ${w}. ${f}. Living proof that if you believe the hype, you become it.`,
+      (n,w,f) => `My career arc: ${w}. My fun fact: ${f}. My energy: main character. Always. &#x2728;`,
+    ],
+  },
+  chill: {
+    tiktok: [
+      (n,w,f) => `${w}. ${f}. just vibin &#x1F33F;`,
+      (n,w,f) => `${n} &#x2022; ${w} &#x2022; low-key &#x2022; ${f}`,
+      (n,w,f) => `I ${w} sometimes. ${f}. that's about it &#x270C;&#xFE0F;`,
+      (n,w,f) => `no rush. just here to ${w}. ${f}. &#x1F33F;`,
+      (n,w,f) => `keepin it simple. ${w}. ${f}. &#x2615;`,
+      (n,w,f) => `${n}. I ${w}. ${f}. peace &#x270C;&#xFE0F;`,
+      (n,w,f) => `easy does it &#x1F33F; ${w} &#x2022; ${f}`,
+      (n,w,f) => `just a human who ${w.toLowerCase()}. also ${f.toLowerCase()}. &#x2615;`,
+    ],
+    instagram: [
+      (n,w,f) => `&#x1F33F; ${w}\n&#x2615; ${f}\nJust vibin. Always.`,
+      (n,w,f) => `${n}\n${w} &#x2022; ${f}\nNo rush, no stress &#x270C;&#xFE0F;`,
+      (n,w,f) => `keeping things simple:\n&#x2022; ${w}\n&#x2022; ${f}\n&#x2022; good vibes only &#x1F33F;`,
+      (n,w,f) => `I ${w}. ${f}.\nThat's the whole bio.\nPeace &#x270C;&#xFE0F;`,
+      (n,w,f) => `${n} &#x2014; ${w}\n${f}\nLife's too short to stress &#x2615;`,
+      (n,w,f) => `Low-key doing my thing &#x1F33F;\n${w} &#x2022; ${f}\nFollow if you want, no pressure`,
+      (n,w,f) => `${w}.\n${f}.\nNothing more, nothing less. &#x1F33F;`,
+      (n,w,f) => `just here. ${w}. ${f}. enjoying the ride &#x2615;`,
+    ],
+    twitter: [
+      (n,w,f) => `I ${w}. ${f}. just here for a good time &#x1F33F;`,
+      (n,w,f) => `${n} &#x2022; ${w} &#x2022; ${f} &#x2022; chill tweets only`,
+      (n,w,f) => `no hot takes. I ${w}. ${f}. peace &#x270C;&#xFE0F;`,
+      (n,w,f) => `${w}. ${f}. not that deep. &#x2615;`,
+      (n,w,f) => `just a chill person who ${w.toLowerCase()}. ${f}. &#x1F33F;`,
+      (n,w,f) => `${n}. ${w}. ${f}. vibes only.`,
+      (n,w,f) => `here for the good stuff. ${w}. ${f}.`,
+      (n,w,f) => `low-key ${w.toLowerCase()}. ${f}. that's the tweet &#x270C;&#xFE0F;`,
+    ],
+    linkedin: [
+      (n,w,f) => `I ${w}. ${f}. Keeping things simple and meaningful.`,
+      (n,w,f) => `${n} | ${w}\n\n${f}.\n\nHappy to connect. No rush, no pressure.`,
+      (n,w,f) => `${w}. ${f}. I believe good work speaks for itself.`,
+      (n,w,f) => `Simple approach: ${w}. Do it well. ${f}. Enjoy the process.`,
+      (n,w,f) => `${n}. I ${w}. ${f}. Always open to genuine connections.`,
+      (n,w,f) => `${w}. ${f}. Not trying to hustle 24/7. Just doing good work.`,
+      (n,w,f) => `I keep it simple: ${w}, stay curious, stay kind. ${f}.`,
+      (n,w,f) => `${n} here. I ${w} at a sustainable pace. ${f}. Let's chat sometime.`,
+    ],
+  },
+};
+
+/* ── GENERATE ── */
+function generate() {
+  const name = document.getElementById('nameInput').value.trim();
+  const what = document.getElementById('whatInput').value.trim();
+  const fact = document.getElementById('factInput').value.trim();
+
+  if (!state.platform || !state.vibe || !name || !what || !fact) {
+    alert("Fill in everything first — platform, vibe, and all 3 fields!");
+    return;
+  }
+
+  const limit = CHAR_LIMITS[state.platform];
+  const templates = TEMPLATES[state.vibe][state.platform];
+
+  // Shuffle and pick 5
+  const shuffled = [...templates].sort(() => Math.random() - 0.5);
+  const picked = shuffled.slice(0, 5);
+
+  const container = document.getElementById('bioCards');
+  container.innerHTML = '';
+
+  picked.forEach((fn, i) => {
+    const bioHTML = fn(name, what, fact);
+    // Create a temp element to get plain text for char counting
+    const temp = document.createElement('div');
+    temp.innerHTML = bioHTML;
+    const bioPlain = temp.textContent;
+    const len = bioPlain.length;
+
+    let countClass = '';
+    if (len > limit) countClass = 'over';
+    else if (len > limit * 0.85) countClass = 'warn';
+
+    const card = document.createElement('div');
+    card.className = 'bio-card';
+    card.innerHTML = `
+      <div class="bio-text">${bioHTML.replace(/\n/g, '<br>')}</div>
+      <div class="bio-footer">
+        <span class="char-count ${countClass}">${len}/${limit} chars</span>
+        <button class="btn-copy" onclick="copyBio(this, '${encodeURIComponent(bioPlain)}')">
+          &#x1F4CB; Copy
+        </button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  const results = document.getElementById('results');
+  results.classList.add('show');
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ── COPY ── */
+function copyBio(btn, encodedText) {
+  const text = decodeURIComponent(encodedText);
+  navigator.clipboard.writeText(text).then(() => {
+    btn.innerHTML = '&#x2705; Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = '&#x1F4CB; Copy';
+      btn.classList.remove('copied');
+    }, 1800);
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.innerHTML = '&#x2705; Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = '&#x1F4CB; Copy';
+      btn.classList.remove('copied');
+    }, 1800);
+  });
+}
+</script>
+
+</body>
+</html>

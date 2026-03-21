@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Tools — Ledger & Spark | Quizzes, Generators & Creator Tools</title>
+<meta name="description" content="22 free tools from Ledger & Spark. Creator tools, clout checkers, viral hooks, rate calculators, and more. All free, no login needed.">
+<meta property="og:title" content="Free Tools — Ledger & Spark">
+<meta property="og:description" content="22 free creator tools. Viral hooks, rate calculators, clout checkers, and more. All free, no login.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ledgerandspark.com/products.html">
+<meta property="og:image" content="/images/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Tools — Ledger & Spark">
+<meta name="twitter:description" content="16 free creator tools. Viral hooks, rate calculators, clout checkers, and more. All free, no login.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── PRODUCTS PAGE STYLES ── */
+.product-filters {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 0.5rem 1.2rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: inherit;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-glow);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.08);
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+}
+
+.product-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.product-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(59,130,246,0.3), rgba(96,165,250,0.3));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.product-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 0 30px rgba(59, 130, 246, 0.06);
+}
+
+.product-card:hover::after { opacity: 1; }
+
+.product-card-header {
+  padding: 2rem 2rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+.product-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.product-card-meta { flex: 1; }
+
+.product-card-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  padding: 0.2rem 0.7rem;
+  border-radius: 100px;
+  margin-bottom: 0.5rem;
+}
+
+.product-card-meta h3 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.product-card-body {
+  padding: 1.2rem 2rem;
+  flex-grow: 1;
+}
+
+.product-card-body p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.product-card-footer {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.product-card-price {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: var(--gradient-neon);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.product-card-price span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  -webkit-text-fill-color: var(--text-muted);
+}
+
+.product-card-footer .btn-primary {
+  padding: 0.6rem 1.5rem;
+  font-size: 0.85rem;
+}
+
+/* ── NEW BADGE ── */
+.badge-new {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: linear-gradient(135deg, #22C55E, #16a34a);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.7rem;
+  border-radius: 100px;
+  z-index: 2;
+}
+
+/* ── CTA BANNER ── */
+.cta-banner {
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.cta-inner {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-inner h2 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 1rem;
+}
+
+.cta-inner p {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.cta-inner .btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ── RESPONSIVE ── */
+@media (min-width: 769px) {
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1100px) {
+  .products-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .product-card-header { flex-direction: column; gap: 0.8rem; }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Ledger <span class="logo-ampersand">&</span> Spark</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="products.html" class="active">Products</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Blog</a>
+      <a href="products.html" class="nav-cta">Try Free Tools</a>
+    </div>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── PAGE HEADER ── -->
+<header class="page-header">
+  <div class="container">
+    <span class="section-label">All Free Tools</span>
+    <h1>Free Tools That Actually <span class="gradient-text">Help</span></h1>
+    <p>Creator tools, calculators, quizzes, and generators. Everything here is free. No login. No catch. We make money from sponsors, not from you.</p>
+  </div>
+</header>
+
+<!-- ── ALL PRODUCTS ── -->
+<section style="background:var(--bg-primary);">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:2rem;">
+      <h2 class="section-title">22 Free Tools</h2>
+      <p class="section-subtitle mx-auto">Open any tool and use it right now. No sign-up. No download. Under 30 seconds.</p>
+    </div>
+
+    <div class="product-filters reveal">
+      <button class="filter-btn active" data-filter="all">All Tools</button>
+      <button class="filter-btn" data-filter="utility">Utility</button>
+      <button class="filter-btn" data-filter="creator">Creator</button>
+      <button class="filter-btn" data-filter="quiz">Quizzes</button>
+      <button class="filter-btn" data-filter="food">Food & City</button>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+
+      <!-- NEW: Link-in-Bio Generator -->
+      <a class="product-card reveal" data-category="creator" href="products/link_in_bio/">
+        <div class="badge-new">NEW</div>
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x1F517;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Creator Tools</span>
+            <h3>Link-in-Bio Generator</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>Stop paying Linktree $24/mo. Pick a vibe, add your links, download a beautiful bio page you own forever. Free.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- NEW: Media Kit Generator -->
+      <a class="product-card reveal" data-category="creator" href="products/media_kit_generator/">
+        <div class="badge-new">NEW</div>
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x1F4CB;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Creator Tools</span>
+            <h3>Media Kit Generator</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>Need to pitch a brand? Enter your stats, get a professional media kit with rates in 30 seconds. Screenshot and send.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- NEW: Hashtag Generator -->
+      <a class="product-card reveal" data-category="creator" href="products/hashtag_generator/">
+        <div class="badge-new">NEW</div>
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x0023;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Creator Tools</span>
+            <h3>Hashtag Generator</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>Stop guessing hashtags. Pick your platform and niche, get 30 hashtags in 3 tiers — big reach, sweet spot, niche gold. Copy and paste.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- NEW: Highlight Reel -->
+      <a class="product-card reveal" data-category="utility" href="products/highlight_reel/">
+        <div class="badge-new">NEW</div>
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x1F3AC;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Utility</span>
+            <h3>Highlight Reel</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>Someone sent you a wall of text? Paste it, pick a vibe, get the point in 20 seconds. Fluff score included.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- NEW: Content Calendar Generator -->
+      <a class="product-card reveal" data-category="creator" href="products/content_calendar/">
+        <div class="badge-new">NEW</div>
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x1F4C5;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Creator Tools</span>
+            <h3>Content Calendar Generator</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>Pick your niche, platforms, and posting speed. Get a full week of content ideas with best times and formats. Done in 10 seconds.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- NEW: AI Prompt Generator -->
+      <a class="product-card reveal" data-category="creator" href="products/ai_prompt_generator/">
+        <div class="badge-new">NEW</div>
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x2728;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Creator Tools</span>
+            <h3>AI Prompt Generator</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>Pick what you need and your niche. Get 10 ready-to-paste prompts for ChatGPT or Claude. No more staring at a blank chat.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- NEW: Viral Hook Generator -->
+      <a class="product-card reveal" data-category="creator" href="products/viral_hook_generator/">
+        <div class="badge-new">NEW</div>
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x1F3A3;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Creator</span>
+            <h3>Viral Hook Generator</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>The first 2 seconds decide if your video blows up or dies. Get 5 scroll-stopping hooks for TikTok, Reels & Shorts. 200+ hooks across 12 niches.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- NEW: What's My Bag? -->
+      <a class="product-card reveal" data-category="creator" href="products/whats_my_bag/">
+        <div class="badge-new">NEW</div>
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x1F4B0;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Creator</span>
+            <h3>What's My Bag?</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>You're making content for free. Find out what brands should actually be paying you. Replaces those $29 rate spreadsheets.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- NEW: Clout Check -->
+      <a class="product-card reveal" data-category="creator" href="products/clout_check/">
+        <div class="badge-new">NEW</div>
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x1F4CA;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Creator</span>
+            <h3>Clout Check</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>Are you blowing up or flopping? Find out in 10 seconds. Fun labels, real math, and 3 tips to blow up faster.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- NEW: Would This Go Viral? (FYP Simulator) -->
+      <a class="product-card reveal" data-category="creator" href="products/fyp_simulator/">
+        <div class="badge-new">NEW</div>
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x1F52E;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Creator</span>
+            <h3>Would This Go Viral?</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>Tell us your next video idea and we'll predict if it's gonna hit or flop. 120 niche + content type combos. Screenshot-worthy results.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- NEW: Rate My Feed -->
+      <a class="product-card reveal" data-category="creator" href="products/rate_my_feed/">
+        <div class="badge-new">NEW</div>
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x1F4F1;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Creator</span>
+            <h3>Rate My Feed</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>Get a brutally honest report card for your feed. Grade, roast, and tips in 30 seconds. ngl it might hurt.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- Vibe Check Quiz -->
+      <a class="product-card reveal" data-category="quiz" href="products/vibe_check_quiz/">
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x2728;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Quiz</span>
+            <h3>Vibe Check Quiz</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>5 questions, 30 seconds, get your aesthetic vibe card. Cottagecore? Dark academia? Chaos gremlin? Find out and share it.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- Red Flag Green Flag -->
+      <a class="product-card reveal" data-category="quiz" href="products/red_flag_green_flag/">
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x1F6A9;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Quiz</span>
+            <h3>Red Flag / Green Flag</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>4 modes: dating, friendships, roommates, coworkers. 10 scenarios each. Get your Flag Report Card with your tolerance score.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- Caption This -->
+      <a class="product-card reveal" data-category="creator" href="products/caption_this/">
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x1F4F1;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Creator</span>
+            <h3>Caption This</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>Pick a platform and a vibe. Get 10 captions with 3 hashtag sets. Works for TikTok, Instagram, Twitter, and YouTube.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- Receipt Generator -->
+      <a class="product-card reveal" data-category="quiz" href="products/receipt_generator/">
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x1F9FE;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Generator</span>
+            <h3>Your Vibe Receipt</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>5 categories: personality, music, dating, foodie, social media. Get a receipt-style shareable card with chaos tax included.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- Bio Generator -->
+      <a class="product-card reveal" data-category="creator" href="products/bio_generator/">
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x270D;&#xFE0F;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Creator</span>
+            <h3>Bio Generator</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>Pick a platform and a vibe. Get instant social media bios you can copy-paste. Stop overthinking your bio.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- What Should I Post -->
+      <a class="product-card reveal" data-category="creator" href="products/what_should_i_post/">
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x1F3B0;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Creator</span>
+            <h3>What Should I Post</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>Tap the button, get a post idea matched to your platform. Like a slot machine for content ideas. Never stare at a blank screen again.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- Date Night Scorecard -->
+      <a class="product-card reveal" data-category="quiz" href="products/date_night_scorecard/">
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x2764;&#xFE0F;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Fun</span>
+            <h3>Date Night Scorecard</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>Rate your date night across different categories. Get a final score and a shareable card. Fun to compare with your partner.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- Fake Review Spotter -->
+      <a class="product-card reveal" data-category="utility" href="products/fake_review_spotter/">
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x1F50D;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Utility</span>
+            <h3>Fake Review Spotter</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>Educational checklist and Fake-O-Meter. Learn to spot fake reviews so you stop trusting 5-star ratings blindly.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- NYC Hidden Gems Map -->
+      <a class="product-card reveal" data-category="food" href="products/nyc_hidden_gems_map/">
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x1F5FD;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">City Guide</span>
+            <h3>NYC Hidden Gems Map</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>20 underrated spots across 8 NYC neighborhoods. Interactive map for finding places the tourists don't know about.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- Budget NYC Eats Guide -->
+      <a class="product-card reveal" data-category="food" href="products/budget_nyc_eats_guide/">
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x1F354;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">City Guide</span>
+            <h3>Budget NYC Eats Guide</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>60+ budget-friendly spots across 13 NYC neighborhoods. Good food that won't destroy your bank account.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+      <!-- Yelp Rating Truth -->
+      <a class="product-card reveal" data-category="food" href="products/yelp_rating_truth/">
+        <div class="product-card-header">
+          <div class="product-card-icon">&#x2B50;</div>
+          <div class="product-card-meta">
+            <span class="product-card-tag">Infographic</span>
+            <h3>Yelp Rating Truth</h3>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <p>Real stats about how accurate (or inaccurate) Yelp ratings actually are. Infographic with data you can share.</p>
+        </div>
+        <div class="product-card-footer">
+          <div class="product-card-price">FREE <span>forever</span></div>
+          <span class="btn-primary">Try It</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA BANNER ── -->
+<section class="cta-banner">
+  <div class="container">
+    <div class="cta-inner reveal">
+      <h2>Want Something We Haven't Built Yet?</h2>
+      <p>Tell us what you need and we'll build it. For free. We make what you ask for. No joke.</p>
+      <div class="btn-row">
+        <a href="mailto:ledgerandspark@gmail.com?subject=Tool%20Request" class="btn-primary">
+          Tell Us What You Need
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="mailto:ledgerandspark@gmail.com?subject=Tool%20Request" class="btn-secondary">Email Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.25rem;">Ledger <span class="logo-ampersand">&</span> Spark</div>
+        <p>Free tools for everyone. Built because you asked. We make money from sponsors, not from you.</p>
+        <div class="footer-social">
+          <a href="mailto:ledgerandspark@gmail.com" aria-label="Email">&#x2709;</a>
+          <a href="https://tiktok.com/@ledgerandspark" target="_blank" aria-label="TikTok">T</a>
+          <a href="https://instagram.com/ledgerandspark" target="_blank" aria-label="Instagram">I</a>
+          <a href="https://youtube.com/@ledgerandspark" target="_blank" aria-label="YouTube" title="YouTube">Y</a>
+          <a href="https://twitter.com/ledgerandspark" target="_blank" aria-label="Twitter/X" title="Twitter/X">X</a>
+          <a href="https://pinterest.com/ledgerandspark" target="_blank" aria-label="Pinterest" title="Pinterest">P</a>
+          <a href="https://linkedin.com/company/ledgerandspark" target="_blank" aria-label="LinkedIn" title="LinkedIn">L</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Popular Tools</h4>
+        <ul>
+          <li><a href="products/viral_hook_generator/">Viral Hook Generator</a></li>
+          <li><a href="products/whats_my_bag/">What's My Bag?</a></li>
+          <li><a href="products/clout_check/">Clout Check</a></li>
+          <li><a href="products/vibe_check_quiz/">Vibe Check Quiz</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:ledgerandspark@gmail.com">Email Us</a></li>
+          <li><a href="mailto:ledgerandspark@gmail.com?subject=Tool%20Request">Request a Tool</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Ledger & Spark. All rights reserved.</p>
+      <p>Free tools. No catch. Built because you asked.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── NAV SCROLL ──
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── MOBILE NAV ──
+const mobileToggle = document.getElementById('mobileToggle');
+const navLinks = document.getElementById('navLinks');
+mobileToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  mobileToggle.classList.toggle('active');
+});
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    mobileToggle.classList.remove('active');
+  });
+});
+
+// ── SCROLL REVEAL ──
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => revealObserver.observe(el));
+
+// ── PRODUCT FILTERS ──
+const filterBtns = document.querySelectorAll('.filter-btn');
+const productCards = document.querySelectorAll('.product-card');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    productCards.forEach(card => {
+      if (filter === 'all' || card.dataset.category === filter) {
+        card.style.display = '';
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        requestAnimationFrame(() => {
+          card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        });
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>

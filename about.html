@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Ledger & Spark | Free Tools Built Because You Asked</title>
+<meta name="description" content="Ledger & Spark builds free tools for everyone. Quizzes, generators, budget trackers, AI prompts, and more. Everything is free. No catch.">
+<meta property="og:title" content="About Ledger & Spark | Free Tools Built Because You Asked">
+<meta property="og:description" content="Ledger & Spark builds free tools for everyone. Quizzes, generators, budget trackers, AI prompts, and more. Everything is free. No catch.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ledgerandspark.com/about.html">
+<meta property="og:image" content="/images/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About Ledger & Spark | Free Tools Built Because You Asked">
+<meta name="twitter:description" content="Ledger & Spark builds free tools for everyone. Everything is free. No catch. Built because you asked.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── ABOUT PAGE STYLES ── */
+.about-hero {
+  padding: 10rem 0 5rem;
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(59, 130, 246, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+.about-hero::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 50%;
+  height: 80%;
+  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.about-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.about-hero-content h1 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1.04;
+  margin-bottom: 1.5rem;
+}
+
+.about-hero-content .lead {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  max-width: 500px;
+}
+
+.about-hero-visual { position: relative; }
+
+.identity-card {
+  background: var(--bg-card);
+  
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.identity-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-neon);
+}
+
+.identity-name {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 0.3rem;
+}
+
+.identity-role {
+  background: var(--gradient-neon);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.identity-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.identity-stat {
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  text-align: center;
+  transition: border-color 0.3s;
+}
+
+.identity-stat:hover { border-color: var(--border-accent); }
+
+.identity-stat h4 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  background: var(--gradient-neon);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.2rem;
+}
+
+.identity-stat p {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.identity-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.identity-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.35rem 0.9rem;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  transition: all 0.2s;
+}
+
+.identity-tag:hover {
+  border-color: var(--border-accent);
+  color: var(--accent);
+}
+
+/* ── STORY SECTION ── */
+.story-section { background: var(--bg-primary); }
+
+.story-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.story-content h2 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+
+.story-content p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+}
+
+.story-content p strong { color: var(--text-primary); }
+
+/* ── PHILOSOPHY ── */
+.philosophy-section {
+  background: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+}
+
+.philosophy-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: var(--gradient-neon);
+  opacity: 0.15;
+}
+
+.philosophy-header { text-align: center; margin-bottom: 3.5rem; }
+.philosophy-header .section-subtitle { margin: 0 auto; }
+
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+}
+
+.philosophy-card {
+  background: var(--bg-card);
+  
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.philosophy-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(59,130,246,0.3), rgba(96,165,250,0.3));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.philosophy-card:hover {
+  transform: translateY(-6px);
+}
+
+.philosophy-card:hover::after { opacity: 1; }
+
+.philosophy-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin: 0 auto 1.2rem;
+}
+
+.philosophy-card h3 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.philosophy-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ── STACK ── */
+.stack-section { background: var(--bg-primary); }
+
+.stack-header { text-align: center; margin-bottom: 3.5rem; }
+.stack-header .section-subtitle { margin: 0 auto; }
+
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+}
+
+.stack-item {
+  background: var(--bg-card);
+  
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.stack-item:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.06);
+}
+
+.stack-item h4 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.stack-item p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ── TIMELINE ── */
+.timeline-section {
+  background: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: var(--gradient-neon);
+  opacity: 0.15;
+}
+
+.timeline-header { text-align: center; margin-bottom: 3.5rem; }
+.timeline-header .section-subtitle { margin: 0 auto; }
+
+.timeline {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent), var(--accent-secondary), var(--accent-purple));
+  opacity: 0.3;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 60px;
+  margin-bottom: 2.5rem;
+}
+
+.timeline-item:last-child { margin-bottom: 0; }
+
+.timeline-dot {
+  position: absolute;
+  left: 12px;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  border: 3px solid var(--accent);
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+}
+
+.timeline-year {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.3rem;
+}
+
+.timeline-item h3 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.timeline-item p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ── CTA ── */
+.about-cta {
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.about-cta-inner {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.about-cta-inner h2 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 1rem;
+}
+
+.about-cta-inner p {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.about-cta-inner .btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ── RESPONSIVE ── */
+@media (min-width: 769px) {
+  .about-hero-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .story-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .philosophy-grid { grid-template-columns: repeat(3, 1fr); }
+  .stack-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 1024px) {
+  .philosophy-grid { max-width: 480px; margin: 0 auto; }
+}
+
+@media (max-width: 768px) {
+  .about-hero { padding: 8rem 0 3rem; }
+}
+
+@media (max-width: 480px) {
+  .stack-grid { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Ledger <span class="logo-ampersand">&</span> Spark</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="about.html" class="active">About</a>
+      <a href="blog.html">Blog</a>
+      <a href="products.html" class="nav-cta">Try Free Tools</a>
+    </div>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── ABOUT HERO ── -->
+<section class="about-hero">
+  <div class="container">
+    <div class="about-hero-grid">
+      <div class="about-hero-content">
+        <span class="section-label">About</span>
+        <h1>We Build Tools.<br>You Use Them <span class="gradient-text">Free.</span></h1>
+        <p class="lead">Ledger & Spark exists because the best tools shouldn't cost anything. We find the most popular paid digital products and build better versions that are 100% free. Budget trackers, AI prompts, resume builders, quizzes, generators, and more.</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="mailto:ledgerandspark@gmail.com?subject=Let's%20Connect" class="btn-primary">
+            Get in Touch
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="products.html" class="btn-secondary">Get Free Tools</a>
+        </div>
+      </div>
+      <div class="about-hero-visual reveal">
+        <div class="identity-card">
+          <div class="identity-name">Ledger & Spark</div>
+          <div class="identity-role">Free Creator Tools & Resources</div>
+          <div class="identity-stats">
+            <div class="identity-stat">
+              <h4>16</h4>
+              <p>Free Tools</p>
+            </div>
+            <div class="identity-stat">
+              <h4>100%</h4>
+              <p>Free Forever</p>
+            </div>
+            <div class="identity-stat">
+              <h4>$0</h4>
+              <p>Always</p>
+            </div>
+            <div class="identity-stat">
+              <h4>You Ask</h4>
+              <p>We Build</p>
+            </div>
+          </div>
+          <div class="identity-tags">
+            <span class="identity-tag">Creator Tools</span>
+            <span class="identity-tag">Content Tips</span>
+            <span class="identity-tag">What's My Bag</span>
+            <span class="identity-tag">Clout Check</span>
+            <span class="identity-tag">Viral Hooks</span>
+            <span class="identity-tag">Free Forever</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STORY ── -->
+<section class="story-section">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-content reveal">
+        <span class="section-label">Our Story</span>
+        <h2>How This All Started</h2>
+        <p>It started with frustration. Every useful creator tool cost $15, $29, $49 a month. Hook generators, caption packs, number-crunching dashboards, rate calculators. The good stuff was always behind a paywall.</p>
+        <p><strong>We thought that was wrong.</strong> So we started building free alternatives. Not watered-down demos. Real tools that work just as well (or better) than the paid versions.</p>
+        <p>The first tool was simple. But it worked. People started using it, sharing it, asking for more. That energy turned into Ledger & Spark.</p>
+      </div>
+      <div class="story-content reveal">
+        <h2>Why Everything Is Free</h2>
+        <p>Here's the real business model: we make money from sponsors, not from you. That's why everything is free. Think of it like TV — you watch for free, advertisers pay the network. Same thing.</p>
+        <p>No email gates. No paid upgrades. No premium tier. No "free trial" that expires. Every tool is free to use, forever. We want you to use them, share them, and grow your audience. The bigger our community, the more tools we build.</p>
+        <p><strong>The name says it all:</strong> Ledger is the structure — the data, the tracking, the strategy behind great content. Spark is the creativity — the hook, the idea, the moment that makes someone stop scrolling. You need both to win.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PHILOSOPHY ── -->
+<section class="philosophy-section">
+  <div class="container">
+    <div class="philosophy-header reveal">
+      <span class="section-label">Philosophy</span>
+      <h2 class="section-title">How I Build</h2>
+      <p class="section-subtitle">Three rules we follow for everything we build.</p>
+    </div>
+
+    <div class="philosophy-grid">
+      <div class="philosophy-card reveal">
+        <div class="philosophy-icon">&#x1F3AF;</div>
+        <h3>Creator First</h3>
+        <p>Every decision starts with "does this actually help creators?" If it doesn't save time, help your posts blow up, or make content easier, we don't build it.</p>
+      </div>
+      <div class="philosophy-card reveal reveal-delay-1">
+        <div class="philosophy-icon">&#x1F50D;</div>
+        <h3>No Hidden Catches</h3>
+        <p>No email gates, no paid upgrades, no "premium tier." Everything works in your browser. No downloads. No signup. Just open it and use it.</p>
+      </div>
+      <div class="philosophy-card reveal reveal-delay-2">
+        <div class="philosophy-icon">&#x1F6E1;</div>
+        <h3>Quality First</h3>
+        <p>Every tool works on the first try. No broken links, no confusing interfaces, no empty promises. If it's not useful in under 30 seconds, we don't ship it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TECH STACK ── -->
+<section class="stack-section">
+  <div class="container">
+    <div class="stack-header reveal">
+      <span class="section-label">Tech Stack</span>
+      <h2 class="section-title">How We Build</h2>
+      <p class="section-subtitle">The tools and platforms behind every free tool we make.</p>
+    </div>
+
+    <div class="stack-grid">
+      <div class="stack-item reveal">
+        <h4>HTML/CSS/JS</h4>
+        <p>Browser-based tools</p>
+      </div>
+      <div class="stack-item reveal reveal-delay-1">
+        <h4>Cloudflare</h4>
+        <p>Free hosting</p>
+      </div>
+      <div class="stack-item reveal reveal-delay-1">
+        <h4>Canva</h4>
+        <p>Visual design</p>
+      </div>
+      <div class="stack-item reveal reveal-delay-2">
+        <h4>TikTok</h4>
+        <p>Primary reach</p>
+      </div>
+      <div class="stack-item reveal reveal-delay-2">
+        <h4>Instagram</h4>
+        <p>Reels + carousels</p>
+      </div>
+      <div class="stack-item reveal reveal-delay-3">
+        <h4>YouTube</h4>
+        <p>Shorts + long-form</p>
+      </div>
+      <div class="stack-item reveal reveal-delay-3">
+        <h4>Twitter/X</h4>
+        <p>Threads + tweets</p>
+      </div>
+      <div class="stack-item reveal reveal-delay-4">
+        <h4>Kit</h4>
+        <p>Email newsletter</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TIMELINE ── -->
+<section class="timeline-section">
+  <div class="container">
+    <div class="timeline-header reveal">
+      <span class="section-label">Journey</span>
+      <h2 class="section-title">The Path Here</h2>
+      <p class="section-subtitle">How we got here.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Chapter 1</div>
+        <h3>The Frustration</h3>
+        <p>Realized every useful creator tool was behind a paywall. Hook packs, caption templates, stats dashboards. Useful stuff, but expensive.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Chapter 2</div>
+        <h3>The First Tool</h3>
+        <p>Built the first free tool as an experiment. People used it. Then shared it. Then asked for more. The energy was real.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Chapter 3</div>
+        <h3>The Model</h3>
+        <p>Figured out the business model: make everything free, grow the audience, make money through sponsors. Like TV. You watch free. Advertisers pay the network.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Chapter 4</div>
+        <h3>Ledger & Spark</h3>
+        <p>Launched the brand. Built the website. Started creating tools based on what people actually asked for. Community-driven from day one.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Now</div>
+        <h3>16 Tools and Growing</h3>
+        <p>16 free tools live. Hook generators, caption makers, clout checkers, FYP simulators, personality quizzes, and more. Still building. Still free. Still listening.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="about-cta">
+  <div class="container">
+    <div class="about-cta-inner reveal">
+      <h2>Everything Is Free.<br>Just Grab What You Need.</h2>
+      <p>Download any tool. Use it however you want. And if you need something we haven't built yet, just tell us.</p>
+      <div class="btn-row">
+        <a href="products.html" class="btn-primary">
+          Browse Products
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="mailto:ledgerandspark@gmail.com" class="btn-secondary">Email Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.25rem;">Ledger <span class="logo-ampersand">&</span> Spark</div>
+        <p>Free tools for everyone. Built because you asked. We make money from sponsors, not from you.</p>
+        <div class="footer-social">
+          <a href="mailto:ledgerandspark@gmail.com" aria-label="Email">&#x2709;</a>
+          <a href="https://tiktok.com/@ledgerandspark" target="_blank" aria-label="TikTok">T</a>
+          <a href="https://instagram.com/ledgerandspark" target="_blank" aria-label="Instagram">I</a>
+          <a href="https://youtube.com/@ledgerandspark" target="_blank" aria-label="YouTube" title="YouTube">Y</a>
+          <a href="https://twitter.com/ledgerandspark" target="_blank" aria-label="Twitter/X" title="Twitter/X">X</a>
+          <a href="https://pinterest.com/ledgerandspark" target="_blank" aria-label="Pinterest" title="Pinterest">P</a>
+          <a href="https://linkedin.com/company/ledgerandspark" target="_blank" aria-label="LinkedIn" title="LinkedIn">L</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Popular Tools</h4>
+        <ul>
+          <li><a href="products/viral_hook_generator/">Viral Hook Generator</a></li>
+          <li><a href="products/whats_my_bag/">What's My Bag?</a></li>
+          <li><a href="products/clout_check/">Clout Check</a></li>
+          <li><a href="products/vibe_check_quiz/">Vibe Check Quiz</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:ledgerandspark@gmail.com">Email Us</a></li>
+          <li><a href="mailto:ledgerandspark@gmail.com?subject=Tool%20Request">Request a Tool</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Ledger & Spark. All rights reserved.</p>
+      <p>Free tools. No catch. Built because you asked.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── NAV SCROLL ──
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── MOBILE NAV ──
+const mobileToggle = document.getElementById('mobileToggle');
+const navLinks = document.getElementById('navLinks');
+mobileToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  mobileToggle.classList.toggle('active');
+});
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    mobileToggle.classList.remove('active');
+  });
+});
+
+// ── SCROLL REVEAL ──
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>

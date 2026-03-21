@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Ledger & Spark | Creator Tips, Tools & Growth</title>
+<meta name="description" content="Free tips, guides, and strategies for content creators. Learn how to grow your audience, land brand deals, and create better content with free tools from Ledger & Spark.">
+<meta property="og:title" content="Blog — Ledger & Spark | Creator Tips, Tools & Growth">
+<meta property="og:description" content="Free tips, guides, and strategies for content creators. Grow your audience, land brand deals, and create better content.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ledgerandspark.com/blog.html">
+<meta property="og:image" content="/images/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blog — Ledger & Spark | Creator Tips, Tools & Growth">
+<meta name="twitter:description" content="Free tips, guides, and strategies for content creators. Grow your audience, land brand deals, and create better content.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── BLOG PAGE STYLES ── */
+.blog-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.blog-featured { margin-bottom: 3rem; }
+
+.blog-featured-card {
+  background: var(--bg-card);
+  
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all 0.4s ease;
+  display: grid;
+  grid-template-columns: 1fr;
+  position: relative;
+}
+
+.blog-featured-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(59,130,246,0.3), rgba(96,165,250,0.3));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.blog-featured-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 0 30px rgba(59, 130, 246, 0.06);
+}
+
+.blog-featured-card:hover::after { opacity: 1; }
+
+.blog-featured-image {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 50%, var(--bg-secondary) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+}
+
+.blog-featured-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(59, 130, 246, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.025) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.blog-featured-icon {
+  font-size: 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.blog-featured-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.blog-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  padding: 0.2rem 0.7rem;
+  border-radius: 100px;
+  margin-bottom: 0.8rem;
+  width: fit-content;
+}
+
+.blog-featured-content h2 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.8rem;
+  line-height: 1.2;
+}
+
+.blog-featured-content p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+}
+
+.blog-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.blog-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* ── POST CARDS ── */
+.blog-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.blog-post-card {
+  background: var(--bg-card);
+  
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.8rem;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-post-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--gradient-neon);
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: 0 3px 3px 0;
+}
+
+.blog-post-card:hover {
+  transform: translateY(-4px) translateX(4px);
+  border-color: rgba(59, 130, 246, 0.15);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+}
+
+.blog-post-card:hover::after { opacity: 1; }
+
+.blog-post-card h3 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+  transition: color 0.2s;
+}
+
+.blog-post-card:hover h3 { color: var(--accent); }
+
+.blog-post-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.read-more {
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: var(--gradient-neon);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: gap 0.2s;
+}
+
+.read-more svg { color: var(--accent); }
+
+.blog-post-card:hover .read-more { gap: 0.6rem; }
+
+/* ── SIDEBAR ── */
+.blog-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebar-card {
+  background: var(--bg-card);
+  
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.8rem;
+}
+
+.sidebar-card h3 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sidebar-topic {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.sidebar-topic:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-glow);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.08);
+}
+
+.sidebar-newsletter p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.sidebar-newsletter input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.85rem;
+  margin-bottom: 0.8rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.sidebar-newsletter input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+}
+
+.sidebar-newsletter .btn-primary {
+  width: 100%;
+  justify-content: center;
+  padding: 0.7rem;
+  font-size: 0.85rem;
+}
+
+.sidebar-about-mini p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.sidebar-about-mini a {
+  font-size: 0.82rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── COMING SOON OVERLAY ── */
+.coming-soon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-warm);
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  padding: 0.3rem 0.8rem;
+  border-radius: 100px;
+  margin-bottom: 0.5rem;
+}
+
+/* ── RESPONSIVE ── */
+@media (min-width: 769px) {
+  .blog-grid { grid-template-columns: 2fr 1fr; }
+  .blog-featured-card { grid-template-columns: 1fr 1fr; }
+  .blog-featured-image { min-height: 300px; }
+  .blog-featured-icon { font-size: 5rem; }
+  .blog-featured-content { padding: 2.5rem; }
+}
+
+@media (max-width: 768px) {
+  .blog-sidebar { order: -1; }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Ledger <span class="logo-ampersand">&</span> Spark</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="free-tools.html">Free Tools</a>
+      <a href="about.html">About</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="free-tools.html" class="nav-cta">Free Tools</a>
+    </div>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── PAGE HEADER ── -->
+<header class="page-header">
+  <div class="container">
+    <span class="section-label">Blog</span>
+    <h1>Creator Tips <span class="gradient-text">& Free Tools</span></h1>
+    <p>Guides on growing your audience, landing brand deals, writing viral hooks, and using free creator tools. No fluff. Just stuff that works.</p>
+  </div>
+</header>
+
+<!-- ── BLOG CONTENT ── -->
+<section style="background:var(--bg-primary);">
+  <div class="container">
+
+    <!-- Featured Post -->
+    <div class="blog-featured reveal">
+      <a href="blog/5-free-tools-every-content-creator-needs-2026.html" class="blog-featured-card" style="text-decoration:none;color:inherit;">
+        <div class="blog-featured-image">
+          <div class="blog-featured-icon">&#x1F6E0;</div>
+        </div>
+        <div class="blog-featured-content">
+          <span class="blog-tag">Creator Tools</span>
+          <h2>5 Free Tools Every Content Creator Needs in 2026</h2>
+          <p>Stop paying $100/month for creator tools. These 5 free alternatives do everything the paid versions do — hooks, captions, clout checking, what you're worth, and bios.</p>
+          <div class="blog-meta">
+            <span>Ledger &amp; Spark</span>
+            <span>&#x2022;</span>
+            <span>March 2026</span>
+            <span>&#x2022;</span>
+            <span>8 min read</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="blog-grid">
+      <!-- Posts Column -->
+      <div class="blog-posts">
+
+        <a href="blog/how-to-plan-a-week-of-content-in-10-minutes.html" class="blog-post-card reveal" style="text-decoration:none;color:inherit;">
+          <span class="blog-tag">Content Tips</span>
+          <h3>How to Plan a Week of Content in 10 Minutes</h3>
+          <p>Stop stressing about what to post. This free tool gives you a full week of ideas, times, and formats in 10 seconds.</p>
+          <div class="blog-meta" style="margin-bottom:1rem;">
+            <span>Ledger &amp; Spark</span>
+            <span>&#x2022;</span>
+            <span>6 min read</span>
+          </div>
+          <span class="read-more">Read Article <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+
+        <a href="blog/best-ai-prompts-for-content-creators-2026.html" class="blog-post-card reveal" style="text-decoration:none;color:inherit;">
+          <span class="blog-tag">AI Tools</span>
+          <h3>The Best AI Prompts for Content Creators in 2026</h3>
+          <p>Everyone's using ChatGPT wrong. Here's how to write prompts that actually give you good content ideas, captions, and scripts.</p>
+          <div class="blog-meta" style="margin-bottom:1rem;">
+            <span>Ledger &amp; Spark</span>
+            <span>&#x2022;</span>
+            <span>7 min read</span>
+          </div>
+          <span class="read-more">Read Article <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+
+        <a href="blog/how-to-calculate-your-tiktok-sponsorship-rate.html" class="blog-post-card reveal" style="text-decoration:none;color:inherit;">
+          <span class="blog-tag">Sponsorship</span>
+          <h3>How to Calculate Your TikTok Sponsorship Rate</h3>
+          <p>A brand just DM'd you. Do you know what to charge? This guide breaks down the exact formulas brands use internally, platform rates, how your numbers affect your price, and negotiation tips.</p>
+          <div class="blog-meta" style="margin-bottom:1rem;">
+            <span>Ledger &amp; Spark</span>
+            <span>&#x2022;</span>
+            <span>10 min read</span>
+          </div>
+          <span class="read-more">Read Article <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+
+        <a href="blog/viral-hooks-that-actually-work-200-examples.html" class="blog-post-card reveal" style="text-decoration:none;color:inherit;">
+          <span class="blog-tag">Content Tips</span>
+          <h3>Viral Hooks That Actually Work (200+ Examples)</h3>
+          <p>You have 2 seconds before someone scrolls past. These 7 hook formulas — with the psychology behind why they work — will change how you open every video and post.</p>
+          <div class="blog-meta" style="margin-bottom:1rem;">
+            <span>Ledger &amp; Spark</span>
+            <span>&#x2022;</span>
+            <span>9 min read</span>
+          </div>
+          <span class="read-more">Read Article <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+
+      </div>
+
+      <!-- Sidebar -->
+      <div class="blog-sidebar">
+
+        <div class="sidebar-card sidebar-about-mini">
+          <h3>About the Author</h3>
+          <p>Ledger &amp; Spark builds free tools, templates, and generators for creators, students, and young professionals. Everything's free — we make money from sponsors, not from you.</p>
+          <a href="about.html">Read full bio &rarr;</a>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Topics</h3>
+          <div class="sidebar-topics">
+            <span class="sidebar-topic">Creator Tools</span>
+            <span class="sidebar-topic">Sponsorship</span>
+            <span class="sidebar-topic">Viral Hooks</span>
+            <span class="sidebar-topic">Blowing Up</span>
+            <span class="sidebar-topic">Captions</span>
+            <span class="sidebar-topic">TikTok Growth</span>
+            <span class="sidebar-topic">Instagram</span>
+            <span class="sidebar-topic">Brand Deals</span>
+            <span class="sidebar-topic">AI Tools</span>
+            <span class="sidebar-topic">Content Planning</span>
+            <span class="sidebar-topic">Content Tips</span>
+          </div>
+        </div>
+
+        <div class="sidebar-card sidebar-newsletter">
+          <h3>Stay Updated</h3>
+          <p>Get notified when new articles and products drop. No spam. Only substance.</p>
+          <input type="email" placeholder="you@example.com">
+          <button class="btn-primary" onclick="window.location.href='mailto:ledgerandspark@gmail.com?subject=Newsletter%20Signup'">Subscribe</button>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Quick Links</h3>
+          <div style="display:flex;flex-direction:column;gap:0.6rem;">
+            <a href="products.html" style="font-size:0.88rem;color:var(--text-secondary);transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">Browse All Tools</a>
+            <a href="free-tools.html" style="font-size:0.88rem;color:var(--text-secondary);transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">Free Tools</a>
+            <a href="about.html" style="font-size:0.88rem;color:var(--text-secondary);transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">About Us</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.25rem;">Ledger <span class="logo-ampersand">&</span> Spark</div>
+        <p>Free tools for content creators, students, and young professionals. Everything's free — we make money from sponsors, not from you.</p>
+        <div class="footer-social">
+          <a href="mailto:ledgerandspark@gmail.com" aria-label="Email" title="Email">&#x2709;</a>
+          <a href="https://tiktok.com/@ledgerandspark" target="_blank" aria-label="TikTok" title="TikTok">T</a>
+          <a href="https://instagram.com/ledgerandspark" target="_blank" aria-label="Instagram" title="Instagram">I</a>
+          <a href="https://youtube.com/@ledgerandspark" target="_blank" aria-label="YouTube" title="YouTube">Y</a>
+          <a href="https://twitter.com/ledgerandspark" target="_blank" aria-label="Twitter/X" title="Twitter/X">X</a>
+          <a href="https://pinterest.com/ledgerandspark" target="_blank" aria-label="Pinterest" title="Pinterest">P</a>
+          <a href="https://linkedin.com/company/ledgerandspark" target="_blank" aria-label="LinkedIn" title="LinkedIn">L</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="free-tools.html">Free Tools</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="free-tools.html">Free Tools</a></li>
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="mailto:ledgerandspark@gmail.com">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:ledgerandspark@gmail.com">Email Us</a></li>
+          <li><a href="mailto:ledgerandspark@gmail.com?subject=Sponsorship%20Inquiry">Sponsorship Inquiries</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Ledger & Spark. All rights reserved.</p>
+      <p>Built with precision by Ledger &amp; Spark.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── NAV SCROLL ──
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── MOBILE NAV ──
+const mobileToggle = document.getElementById('mobileToggle');
+const navLinks = document.getElementById('navLinks');
+mobileToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  mobileToggle.classList.toggle('active');
+});
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    mobileToggle.classList.remove('active');
+  });
+});
+
+// ── SCROLL REVEAL ──
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>

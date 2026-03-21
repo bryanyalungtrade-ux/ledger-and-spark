@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Red Flag / Green Flag Generator | Ledger & Spark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FAFBFE;
+  --bg-alt: #F1F5F9;
+  --blue: #3B82F6;
+  --blue-light: #60A5FA;
+  --blue-pale: #DBEAFE;
+  --red: #EF4444;
+  --red-light: #FCA5A5;
+  --red-pale: #FEE2E2;
+  --green: #22C55E;
+  --green-light: #86EFAC;
+  --green-pale: #DCFCE7;
+  --text: #1E293B;
+  --text-mid: #475569;
+  --text-light: #94A3B8;
+  --white: #FFFFFF;
+  --shadow: 0 4px 24px rgba(59, 130, 246, 0.08);
+  --shadow-lg: 0 8px 40px rgba(59, 130, 246, 0.12);
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Header ── */
+.header {
+  text-align: center;
+  padding: 20px 16px 12px;
+  background: var(--white);
+  border-bottom: 1px solid var(--bg-alt);
+}
+.header .brand {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 0.5px;
+}
+.header .tagline {
+  font-size: 11px;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+/* ── Container ── */
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 16px 100px;
+}
+
+/* ── Screen transitions ── */
+.screen {
+  display: none;
+  animation: fadeUp 0.4s ease;
+}
+.screen.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Start Screen ── */
+.hero {
+  text-align: center;
+  padding: 40px 0 20px;
+}
+.hero-emoji {
+  font-size: 64px;
+  animation: bounce 2s ease infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.hero h1 {
+  font-size: 28px;
+  font-weight: 900;
+  margin: 16px 0 8px;
+  line-height: 1.15;
+}
+.hero h1 .red { color: var(--red); }
+.hero h1 .green { color: var(--green); }
+.hero p {
+  font-size: 15px;
+  color: var(--text-mid);
+  max-width: 300px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Mode Selector */
+.mode-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 28px;
+}
+.mode-card {
+  background: var(--white);
+  border: 2px solid var(--bg-alt);
+  border-radius: 16px;
+  padding: 20px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.mode-card:hover, .mode-card:active {
+  border-color: var(--blue-light);
+  background: var(--blue-pale);
+  transform: scale(1.02);
+}
+.mode-card .mode-emoji { font-size: 36px; display: block; margin-bottom: 8px; }
+.mode-card .mode-label { font-size: 15px; font-weight: 700; color: var(--text); }
+.mode-card .mode-sub { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+
+/* ── Progress Bar ── */
+.progress-wrap {
+  padding: 20px 0 8px;
+}
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.progress-info .step-count {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-mid);
+}
+.progress-info .mode-badge {
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--blue-pale);
+  color: var(--blue);
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+.progress-bar {
+  height: 6px;
+  background: var(--bg-alt);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--blue-light));
+  border-radius: 3px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+
+/* ── Scenario Card ── */
+.scenario-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 28px 20px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  margin-top: 16px;
+  animation: cardIn 0.35s ease;
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.scenario-text {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--text);
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.scenario-hint {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 16px;
+}
+
+/* Flag Buttons */
+.flag-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 20px;
+}
+.flag-btn {
+  border: none;
+  border-radius: 16px;
+  padding: 18px 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.flag-btn:active { transform: scale(0.95); }
+.flag-btn.red-btn {
+  background: var(--red-pale);
+  color: var(--red);
+  border: 2px solid transparent;
+}
+.flag-btn.red-btn:hover { border-color: var(--red-light); }
+.flag-btn.green-btn {
+  background: var(--green-pale);
+  color: var(--green);
+  border: 2px solid transparent;
+}
+.flag-btn.green-btn:hover { border-color: var(--green-light); }
+.flag-btn .flag-icon { font-size: 24px; }
+
+/* Flag wave animation */
+@keyframes flagWave {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-15deg) scale(1.3); }
+  50% { transform: rotate(10deg) scale(1.2); }
+  75% { transform: rotate(-5deg) scale(1.1); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+.flag-btn.tapped .flag-icon { animation: flagWave 0.5s ease; }
+
+/* ── Results Screen ── */
+.results-intro {
+  text-align: center;
+  padding: 30px 0 20px;
+}
+.results-intro .big-emoji {
+  font-size: 56px;
+  animation: bounce 2s ease infinite;
+}
+.results-intro h2 {
+  font-size: 24px;
+  font-weight: 900;
+  margin-top: 12px;
+}
+.results-intro p {
+  font-size: 14px;
+  color: var(--text-mid);
+  margin-top: 4px;
+}
+
+/* Report Card (the shareable image area) */
+.report-card {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 28px 20px 24px;
+  box-shadow: var(--shadow-lg);
+  margin-top: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.report-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--red), var(--blue), var(--green));
+}
+.report-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+.report-mode {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-light);
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Flag sections */
+.flag-section {
+  margin-bottom: 18px;
+}
+.flag-section-title {
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.flag-section-title.red-title { color: var(--red); }
+.flag-section-title.green-title { color: var(--green); }
+
+.flag-item {
+  font-size: 14px;
+  color: var(--text-mid);
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.flag-item.red-item { background: var(--red-pale); }
+.flag-item.green-item { background: var(--green-pale); }
+
+/* Tolerance Score */
+.tolerance-section {
+  text-align: center;
+  margin: 20px 0 16px;
+  padding: 16px;
+  background: var(--bg-alt);
+  border-radius: 16px;
+}
+.tolerance-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+.tolerance-score {
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1;
+}
+.tolerance-sub {
+  font-size: 13px;
+  color: var(--text-mid);
+  margin-top: 4px;
+}
+
+/* Meter bar */
+.meter-wrap {
+  margin-top: 12px;
+  height: 10px;
+  background: var(--white);
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+.meter-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 1s ease;
+}
+.meter-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 10px;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+/* Verdict */
+.verdict-box {
+  text-align: center;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--blue-pale), #F0F9FF);
+  border-radius: 16px;
+  margin-top: 16px;
+}
+.verdict-text {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--blue);
+  line-height: 1.4;
+}
+.verdict-sub {
+  font-size: 12px;
+  color: var(--text-mid);
+  margin-top: 4px;
+}
+
+/* Watermark */
+.watermark {
+  text-align: center;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--bg-alt);
+  font-size: 11px;
+  color: var(--text-light);
+  font-weight: 600;
+}
+.watermark span { color: var(--blue); }
+
+/* Action Buttons */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+.action-btn {
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+}
+.action-btn:active { transform: scale(0.97); }
+.action-btn.primary {
+  background: linear-gradient(135deg, var(--blue), var(--blue-light));
+  color: var(--white);
+}
+.action-btn.secondary {
+  background: var(--bg-alt);
+  color: var(--text-mid);
+}
+.action-btn.restart {
+  background: transparent;
+  color: var(--text-light);
+  font-size: 13px;
+  padding: 12px;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--text);
+  color: var(--white);
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 100;
+  transition: transform 0.3s ease;
+  white-space: nowrap;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* Footer / Trust */
+.trust-footer {
+  text-align: center;
+  padding: 24px 16px;
+  font-size: 11px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+.trust-footer a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+/* Canvas for download (hidden) */
+#shareCanvas { display: none; }
+
+/* Responsive */
+@media (min-width: 600px) {
+  .hero h1 { font-size: 32px; }
+  .scenario-text { font-size: 20px; }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<header class="header">
+  <div class="brand">LEDGER & SPARK</div>
+  <div class="tagline">Free tools. No catch. Built because you asked.</div>
+</header>
+
+<div class="container">
+
+  <!-- ═══════ START SCREEN ═══════ -->
+  <div id="startScreen" class="screen active">
+    <div class="hero">
+      <div class="hero-emoji">🚩</div>
+      <h1><span class="red">Red Flag</span> / <span class="green">Green Flag</span></h1>
+      <p>find out what you actually tolerate. this one's gonna expose you.</p>
+    </div>
+    <div class="mode-grid">
+      <div class="mode-card" onclick="startQuiz('dating')">
+        <span class="mode-emoji">💕</span>
+        <div class="mode-label">Dating</div>
+        <div class="mode-sub">the chaos zone</div>
+      </div>
+      <div class="mode-card" onclick="startQuiz('friendships')">
+        <span class="mode-emoji">👯</span>
+        <div class="mode-label">Friendships</div>
+        <div class="mode-sub">who's really real</div>
+      </div>
+      <div class="mode-card" onclick="startQuiz('roommates')">
+        <span class="mode-emoji">🏠</span>
+        <div class="mode-label">Roommates</div>
+        <div class="mode-sub">living together survival</div>
+      </div>
+      <div class="mode-card" onclick="startQuiz('coworkers')">
+        <span class="mode-emoji">💼</span>
+        <div class="mode-label">Coworkers</div>
+        <div class="mode-sub">the 9-5 drama</div>
+      </div>
+    </div>
+    <div class="trust-footer">
+      We make money from sponsors, not from you.<br>That's why everything is free.<br>
+      <a href="mailto:ledgerandspark@gmail.com">ledgerandspark@gmail.com</a>
+    </div>
+  </div>
+
+  <!-- ═══════ QUIZ SCREEN ═══════ -->
+  <div id="quizScreen" class="screen">
+    <div class="progress-wrap">
+      <div class="progress-info">
+        <span class="step-count" id="stepCount">1 / 10</span>
+        <span class="mode-badge" id="modeBadge">Dating</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+    <div class="scenario-card" id="scenarioCard">
+      <div class="scenario-text" id="scenarioText"></div>
+      <div class="scenario-hint">tap your gut feeling. no overthinking.</div>
+    </div>
+    <div class="flag-buttons">
+      <button class="flag-btn red-btn" id="redBtn" onclick="answer('red')">
+        <span class="flag-icon">🔴</span> Red Flag
+      </button>
+      <button class="flag-btn green-btn" id="greenBtn" onclick="answer('green')">
+        <span class="flag-icon">🟢</span> Green Flag
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════ RESULTS SCREEN ═══════ -->
+  <div id="resultsScreen" class="screen">
+    <div class="results-intro">
+      <div class="big-emoji">📋</div>
+      <h2>your flag report is in</h2>
+      <p>no lies detected (probably)</p>
+    </div>
+
+    <div class="report-card" id="reportCard">
+      <div class="report-title">Your Flag Report</div>
+      <div class="report-mode" id="reportMode">Dating Mode</div>
+
+      <div class="flag-section" id="redSection">
+        <div class="flag-section-title red-title">🔴 Your Red Flags</div>
+      </div>
+
+      <div class="flag-section" id="greenSection">
+        <div class="flag-section-title green-title">🟢 Your Green Flags</div>
+      </div>
+
+      <div class="tolerance-section">
+        <div class="tolerance-label">Tolerance Level</div>
+        <div class="tolerance-score" id="toleranceScore">--</div>
+        <div class="tolerance-sub" id="toleranceSub">how picky are you?</div>
+        <div class="meter-wrap">
+          <div class="meter-fill" id="meterFill"></div>
+        </div>
+        <div class="meter-labels">
+          <span>anything goes</span>
+          <span>very picky</span>
+        </div>
+      </div>
+
+      <div class="verdict-box">
+        <div class="verdict-text" id="verdictText"></div>
+        <div class="verdict-sub" id="verdictSub"></div>
+      </div>
+
+      <div class="watermark">flagcheck by <span>Ledger & Spark</span></div>
+    </div>
+
+    <div class="actions">
+      <button class="action-btn primary" onclick="downloadCard()">
+        📸 Download Report Card
+      </button>
+      <button class="action-btn secondary" onclick="shareCard()">
+        📤 Share With Friends
+      </button>
+      <button class="action-btn restart" onclick="restart()">
+        ↩ Start Over
+      </button>
+    </div>
+
+    <div class="trust-footer">
+      Free tools by Ledger & Spark.<br>
+      We make money from sponsors, not from you.<br>
+      <a href="mailto:ledgerandspark@gmail.com">ledgerandspark@gmail.com</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+<canvas id="shareCanvas"></canvas>
+
+<script>
+// ═══════════════════════════════════════
+// SCENARIO DATABASE
+// ═══════════════════════════════════════
+const scenarios = {
+  dating: [
+    { text: "They text back in 2 minutes every time", expectedFlag: "green", weight: 1 },
+    { text: "They follow their ex's finsta", expectedFlag: "red", weight: 2 },
+    { text: "They order for you at restaurants without asking", expectedFlag: "red", weight: 1 },
+    { text: "They don't tip well", expectedFlag: "red", weight: 2 },
+    { text: "They send good morning texts every day", expectedFlag: "green", weight: 1 },
+    { text: "They still have Tinder installed 'just for fun'", expectedFlag: "red", weight: 3 },
+    { text: "They remember your coffee order", expectedFlag: "green", weight: 2 },
+    { text: "They take forever to introduce you to friends", expectedFlag: "red", weight: 2 },
+    { text: "They plan actual dates, not just 'wanna hang?'", expectedFlag: "green", weight: 2 },
+    { text: "They leave you on read but post stories", expectedFlag: "red", weight: 3 },
+    { text: "They hype you up in front of their friends", expectedFlag: "green", weight: 2 },
+    { text: "They never post you on socials", expectedFlag: "red", weight: 1 },
+    { text: "They ask how your day was and actually listen", expectedFlag: "green", weight: 2 },
+    { text: "They get weird when you hang with your own friends", expectedFlag: "red", weight: 3 },
+    { text: "They surprise you with your fave snack", expectedFlag: "green", weight: 1 },
+    { text: "Their phone is always face down around you", expectedFlag: "red", weight: 2 },
+    { text: "They apologize when they're wrong without you asking", expectedFlag: "green", weight: 3 },
+    { text: "They compare you to their ex", expectedFlag: "red", weight: 3 },
+    { text: "They make plans for the future with you in them", expectedFlag: "green", weight: 2 },
+    { text: "They only text you after midnight", expectedFlag: "red", weight: 2 }
+  ],
+  friendships: [
+    { text: "They hype you up on every post", expectedFlag: "green", weight: 1 },
+    { text: "They only hit you up when they need something", expectedFlag: "red", weight: 3 },
+    { text: "They remember your important dates", expectedFlag: "green", weight: 2 },
+    { text: "They talk about you behind your back", expectedFlag: "red", weight: 3 },
+    { text: "They check in on you randomly just because", expectedFlag: "green", weight: 2 },
+    { text: "They get jealous when you make new friends", expectedFlag: "red", weight: 2 },
+    { text: "They show up when life gets hard", expectedFlag: "green", weight: 3 },
+    { text: "They screenshot your convos", expectedFlag: "red", weight: 3 },
+    { text: "They celebrate your wins like they're their own", expectedFlag: "green", weight: 2 },
+    { text: "They make everything a competition", expectedFlag: "red", weight: 2 },
+    { text: "They tell you the truth even when it's uncomfortable", expectedFlag: "green", weight: 2 },
+    { text: "They cancel plans last minute every single time", expectedFlag: "red", weight: 2 },
+    { text: "They defend you when you're not in the room", expectedFlag: "green", weight: 3 },
+    { text: "They only wanna hang when it's convenient for them", expectedFlag: "red", weight: 1 },
+    { text: "They send memes at 3am that are actually funny", expectedFlag: "green", weight: 1 },
+    { text: "They lowkey copy everything you do", expectedFlag: "red", weight: 1 },
+    { text: "They respect your boundaries without making it weird", expectedFlag: "green", weight: 3 },
+    { text: "They guilt trip you for saying no", expectedFlag: "red", weight: 3 },
+    { text: "They gas you up before a big moment", expectedFlag: "green", weight: 2 },
+    { text: "They spill your secrets to 'just one person'", expectedFlag: "red", weight: 3 }
+  ],
+  roommates: [
+    { text: "They wash their dishes right after using them", expectedFlag: "green", weight: 2 },
+    { text: "They eat your labeled food from the fridge", expectedFlag: "red", weight: 2 },
+    { text: "They text before having people over", expectedFlag: "green", weight: 2 },
+    { text: "They blast music at 2am on a Tuesday", expectedFlag: "red", weight: 3 },
+    { text: "They pay rent on time every month", expectedFlag: "green", weight: 3 },
+    { text: "They leave passive-aggressive sticky notes", expectedFlag: "red", weight: 2 },
+    { text: "They replace shared supplies before they run out", expectedFlag: "green", weight: 2 },
+    { text: "They 'borrow' your stuff without asking", expectedFlag: "red", weight: 2 },
+    { text: "They actually take out the trash on their turn", expectedFlag: "green", weight: 1 },
+    { text: "They leave hair in the shower drain", expectedFlag: "red", weight: 1 },
+    { text: "They ask if you need anything from the store", expectedFlag: "green", weight: 1 },
+    { text: "They have their partner over every single night", expectedFlag: "red", weight: 2 },
+    { text: "They keep common areas clean without being asked", expectedFlag: "green", weight: 2 },
+    { text: "They crank the heat/AC to extreme levels", expectedFlag: "red", weight: 1 },
+    { text: "They communicate about issues calmly", expectedFlag: "green", weight: 3 },
+    { text: "They throw parties without telling you", expectedFlag: "red", weight: 3 },
+    { text: "They respect quiet hours", expectedFlag: "green", weight: 2 },
+    { text: "They leave the front door unlocked constantly", expectedFlag: "red", weight: 3 },
+    { text: "They split shared costs fairly", expectedFlag: "green", weight: 2 },
+    { text: "They let random strangers crash on the couch", expectedFlag: "red", weight: 2 }
+  ],
+  coworkers: [
+    { text: "They give you credit when you helped on a project", expectedFlag: "green", weight: 3 },
+    { text: "They take credit for your ideas in meetings", expectedFlag: "red", weight: 3 },
+    { text: "They bring snacks for the team", expectedFlag: "green", weight: 1 },
+    { text: "They CC your boss on petty emails", expectedFlag: "red", weight: 2 },
+    { text: "They actually respond to Slack messages", expectedFlag: "green", weight: 1 },
+    { text: "They gossip about everyone to everyone", expectedFlag: "red", weight: 2 },
+    { text: "They cover for you when you need to leave early", expectedFlag: "green", weight: 2 },
+    { text: "They schedule meetings that should be emails", expectedFlag: "red", weight: 1 },
+    { text: "They mentor you without being asked", expectedFlag: "green", weight: 3 },
+    { text: "They throw you under the bus when things go wrong", expectedFlag: "red", weight: 3 },
+    { text: "They respect your time off and don't message weekends", expectedFlag: "green", weight: 2 },
+    { text: "They micromanage everything you do", expectedFlag: "red", weight: 2 },
+    { text: "They share opportunities and connections", expectedFlag: "green", weight: 2 },
+    { text: "They make passive-aggressive comments about your hours", expectedFlag: "red", weight: 2 },
+    { text: "They celebrate team wins, not just their own", expectedFlag: "green", weight: 2 },
+    { text: "They talk over you in every meeting", expectedFlag: "red", weight: 2 },
+    { text: "They give honest feedback privately, not publicly", expectedFlag: "green", weight: 3 },
+    { text: "They play favorites and make it obvious", expectedFlag: "red", weight: 2 },
+    { text: "They ask how you're actually doing", expectedFlag: "green", weight: 1 },
+    { text: "They take long lunches but complain when you do", expectedFlag: "red", weight: 2 }
+  ]
+};
+
+const modeLabels = {
+  dating: "Dating",
+  friendships: "Friendships",
+  roommates: "Roommates",
+  coworkers: "Coworkers"
+};
+
+const modeEmojis = {
+  dating: "💕",
+  friendships: "👯",
+  roommates: "🏠",
+  coworkers: "💼"
+};
+
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let currentMode = '';
+let currentScenarios = [];
+let currentIndex = 0;
+let answers = []; // { text, flag, expectedFlag, weight }
+
+// ═══════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ═══════════════════════════════════════
+// START QUIZ
+// ═══════════════════════════════════════
+function startQuiz(mode) {
+  currentMode = mode;
+  answers = [];
+  currentIndex = 0;
+
+  // Pick 10 random from pool of 20
+  const pool = [...scenarios[mode]];
+  currentScenarios = [];
+  while (currentScenarios.length < 10 && pool.length > 0) {
+    const idx = Math.floor(Math.random() * pool.length);
+    currentScenarios.push(pool.splice(idx, 1)[0]);
+  }
+
+  document.getElementById('modeBadge').textContent = modeEmojis[mode] + ' ' + modeLabels[mode];
+  showScreen('quizScreen');
+  renderScenario();
+}
+
+function renderScenario() {
+  const s = currentScenarios[currentIndex];
+  document.getElementById('stepCount').textContent = `${currentIndex + 1} / 10`;
+  document.getElementById('progressFill').style.width = `${(currentIndex / 10) * 100}%`;
+
+  // Re-animate card
+  const card = document.getElementById('scenarioCard');
+  card.style.animation = 'none';
+  card.offsetHeight; // force reflow
+  card.style.animation = 'cardIn 0.35s ease';
+
+  document.getElementById('scenarioText').textContent = `"${s.text}"`;
+
+  // Re-enable buttons
+  document.getElementById('redBtn').disabled = false;
+  document.getElementById('greenBtn').disabled = false;
+}
+
+// ═══════════════════════════════════════
+// ANSWER
+// ═══════════════════════════════════════
+function answer(flag) {
+  const s = currentScenarios[currentIndex];
+  answers.push({
+    text: s.text,
+    flag: flag,
+    expectedFlag: s.expectedFlag,
+    weight: s.weight
+  });
+
+  // Animate the tapped button
+  const btn = flag === 'red' ? document.getElementById('redBtn') : document.getElementById('greenBtn');
+  btn.classList.add('tapped');
+  btn.disabled = true;
+  document.getElementById(flag === 'red' ? 'greenBtn' : 'redBtn').disabled = true;
+
+  setTimeout(() => {
+    btn.classList.remove('tapped');
+    currentIndex++;
+    if (currentIndex >= 10) {
+      showResults();
+    } else {
+      renderScenario();
+    }
+  }, 400);
+}
+
+// ═══════════════════════════════════════
+// RESULTS
+// ═══════════════════════════════════════
+function showResults() {
+  const reds = answers.filter(a => a.flag === 'red');
+  const greens = answers.filter(a => a.flag === 'green');
+
+  // Sort by weight to pick "top" flags
+  const topReds = reds.sort((a, b) => b.weight - a.weight).slice(0, 3);
+  const topGreens = greens.sort((a, b) => b.weight - a.weight).slice(0, 3);
+
+  // Tolerance score: more red flags = pickier = higher score
+  const toleranceScore = Math.round((reds.length / 10) * 100);
+
+  // Render
+  document.getElementById('reportMode').textContent = `${modeEmojis[currentMode]} ${modeLabels[currentMode]} Mode`;
+
+  // Red section
+  const redSection = document.getElementById('redSection');
+  redSection.innerHTML = '<div class="flag-section-title red-title">🔴 Your Red Flags</div>';
+  if (topReds.length === 0) {
+    redSection.innerHTML += '<div class="flag-item red-item">no red flags?? you might be too trusting bestie</div>';
+  } else {
+    topReds.forEach(r => {
+      redSection.innerHTML += `<div class="flag-item red-item">"${r.text}"</div>`;
+    });
+  }
+
+  // Green section
+  const greenSection = document.getElementById('greenSection');
+  greenSection.innerHTML = '<div class="flag-section-title green-title">🟢 Your Green Flags</div>';
+  if (topGreens.length === 0) {
+    greenSection.innerHTML += '<div class="flag-item green-item">you flagged everything red. respectfully... who hurt you?</div>';
+  } else {
+    topGreens.forEach(g => {
+      greenSection.innerHTML += `<div class="flag-item green-item">"${g.text}"</div>`;
+    });
+  }
+
+  // Tolerance
+  document.getElementById('toleranceScore').textContent = toleranceScore;
+  const meterFill = document.getElementById('meterFill');
+  meterFill.style.width = '0%';
+  requestAnimationFrame(() => {
+    meterFill.style.width = toleranceScore + '%';
+  });
+
+  if (toleranceScore <= 30) {
+    meterFill.style.background = 'linear-gradient(90deg, #22C55E, #86EFAC)';
+    document.getElementById('toleranceSub').textContent = "you're pretty chill about things";
+  } else if (toleranceScore <= 60) {
+    meterFill.style.background = 'linear-gradient(90deg, #3B82F6, #60A5FA)';
+    document.getElementById('toleranceSub').textContent = "balanced. you know what matters.";
+  } else {
+    meterFill.style.background = 'linear-gradient(90deg, #EF4444, #FCA5A5)';
+    document.getElementById('toleranceSub').textContent = "you do NOT play around";
+  }
+
+  // Verdict
+  const verdict = getVerdict(toleranceScore, reds.length, greens.length);
+  document.getElementById('verdictText').textContent = verdict.main;
+  document.getElementById('verdictSub').textContent = verdict.sub;
+
+  showScreen('resultsScreen');
+  document.getElementById('progressFill').style.width = '100%';
+}
+
+function getVerdict(score, redCount, greenCount) {
+  if (score >= 80) {
+    return {
+      main: "bestie you have STANDARDS and you're not apologizing for them",
+      sub: "healthy queen/king energy detected"
+    };
+  }
+  if (score >= 60) {
+    return {
+      main: "you know what you want and you're not settling",
+      sub: "the bar is where it should be"
+    };
+  }
+  if (score >= 40) {
+    return {
+      main: "you've got a good balance going on",
+      sub: "you pick your battles wisely"
+    };
+  }
+  if (score >= 20) {
+    return {
+      main: "you're giving people a LOT of chances",
+      sub: "might wanna raise that bar a tiny bit"
+    };
+  }
+  return {
+    main: "babe... we need to talk about your standards",
+    sub: "the bar is in the ground and someone's still tripping over it"
+  };
+}
+
+// ═══════════════════════════════════════
+// SHARE / DOWNLOAD
+// ═══════════════════════════════════════
+function downloadCard() {
+  const card = document.getElementById('reportCard');
+  generateCardImage(card).then(dataUrl => {
+    if (!dataUrl) return;
+    const link = document.createElement('a');
+    link.download = `flag-report-${currentMode}.png`;
+    link.href = dataUrl;
+    link.click();
+    showToast('Report card saved! 📸');
+  });
+}
+
+function shareCard() {
+  const card = document.getElementById('reportCard');
+  generateCardImage(card).then(async dataUrl => {
+    if (!dataUrl) {
+      // Fallback: copy text
+      const text = buildShareText();
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('Results copied to clipboard!');
+      } catch {
+        showToast('Long-press to screenshot & share!');
+      }
+      return;
+    }
+    // Try native share
+    if (navigator.share && navigator.canShare) {
+      try {
+        const blob = await (await fetch(dataUrl)).blob();
+        const file = new File([blob], 'flag-report.png', { type: 'image/png' });
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: 'My Flag Report',
+            text: buildShareText(),
+            files: [file]
+          });
+          return;
+        }
+      } catch (e) {
+        // share cancelled, that's ok
+      }
+    }
+    // Fallback: download
+    const link = document.createElement('a');
+    link.download = `flag-report-${currentMode}.png`;
+    link.href = dataUrl;
+    link.click();
+    showToast('Report card saved!');
+  });
+}
+
+function buildShareText() {
+  const reds = answers.filter(a => a.flag === 'red').length;
+  const score = Math.round((reds / 10) * 100);
+  return `🚩 My Flag Report (${modeLabels[currentMode]} mode)\nTolerance Score: ${score}/100\n\nTake the quiz free: flagcheck by Ledger & Spark`;
+}
+
+async function generateCardImage(element) {
+  // Canvas-based card generation for sharing
+  const canvas = document.getElementById('shareCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = 1080;
+  const H = 1920;
+  const scale = 2;
+  canvas.width = W;
+  canvas.height = H;
+
+  // Background
+  ctx.fillStyle = '#FAFBFE';
+  ctx.fillRect(0, 0, W, H);
+
+  // Top gradient bar
+  const grad = ctx.createLinearGradient(0, 0, W, 0);
+  grad.addColorStop(0, '#EF4444');
+  grad.addColorStop(0.5, '#3B82F6');
+  grad.addColorStop(1, '#22C55E');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, 8);
+
+  // Card background
+  roundRect(ctx, 40, 80, W - 80, H - 160, 40);
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fill();
+  ctx.shadowColor = 'rgba(59,130,246,0.08)';
+  ctx.shadowBlur = 30;
+
+  // Title
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = '#1E293B';
+  ctx.font = 'bold 56px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Your Flag Report', W / 2, 200);
+
+  // Mode
+  ctx.fillStyle = '#94A3B8';
+  ctx.font = '600 32px Inter, sans-serif';
+  ctx.fillText(`${modeEmojis[currentMode]} ${modeLabels[currentMode]} Mode`, W / 2, 260);
+
+  let y = 340;
+
+  // Red flags
+  const reds = answers.filter(a => a.flag === 'red').sort((a, b) => b.weight - a.weight).slice(0, 3);
+  const greens = answers.filter(a => a.flag === 'green').sort((a, b) => b.weight - a.weight).slice(0, 3);
+
+  ctx.textAlign = 'left';
+  ctx.fillStyle = '#EF4444';
+  ctx.font = 'bold 30px Inter, sans-serif';
+  ctx.fillText('🔴  YOUR RED FLAGS', 100, y);
+  y += 20;
+
+  ctx.font = '400 28px Inter, sans-serif';
+  ctx.fillStyle = '#475569';
+  if (reds.length === 0) {
+    y += 50;
+    drawPill(ctx, 100, y - 30, W - 200, 50, '#FEE2E2');
+    ctx.fillStyle = '#475569';
+    ctx.fillText('no red flags?? you might be too trusting bestie', 120, y + 5);
+    y += 60;
+  } else {
+    reds.forEach(r => {
+      y += 50;
+      drawPill(ctx, 100, y - 30, W - 200, 50, '#FEE2E2');
+      ctx.fillStyle = '#475569';
+      const truncated = r.text.length > 42 ? r.text.slice(0, 42) + '...' : r.text;
+      ctx.fillText(`"${truncated}"`, 120, y + 5);
+    });
+    y += 30;
+  }
+
+  y += 40;
+  ctx.fillStyle = '#22C55E';
+  ctx.font = 'bold 30px Inter, sans-serif';
+  ctx.fillText('🟢  YOUR GREEN FLAGS', 100, y);
+  y += 20;
+
+  ctx.font = '400 28px Inter, sans-serif';
+  if (greens.length === 0) {
+    y += 50;
+    drawPill(ctx, 100, y - 30, W - 200, 50, '#DCFCE7');
+    ctx.fillStyle = '#475569';
+    ctx.fillText('you flagged everything red... who hurt you?', 120, y + 5);
+    y += 60;
+  } else {
+    greens.forEach(g => {
+      y += 50;
+      drawPill(ctx, 100, y - 30, W - 200, 50, '#DCFCE7');
+      ctx.fillStyle = '#475569';
+      const truncated = g.text.length > 42 ? g.text.slice(0, 42) + '...' : g.text;
+      ctx.fillText(`"${truncated}"`, 120, y + 5);
+    });
+    y += 30;
+  }
+
+  // Tolerance score
+  y += 60;
+  const toleranceScore = Math.round((answers.filter(a => a.flag === 'red').length / 10) * 100);
+
+  roundRect(ctx, 100, y, W - 200, 280, 30);
+  ctx.fillStyle = '#F1F5F9';
+  ctx.fill();
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#94A3B8';
+  ctx.font = 'bold 24px Inter, sans-serif';
+  ctx.fillText('TOLERANCE LEVEL', W / 2, y + 50);
+
+  ctx.fillStyle = '#1E293B';
+  ctx.font = 'bold 96px Inter, sans-serif';
+  ctx.fillText(toleranceScore.toString(), W / 2, y + 160);
+
+  ctx.fillStyle = '#475569';
+  ctx.font = '500 26px Inter, sans-serif';
+  const scoreLabel = toleranceScore >= 60 ? "you do NOT play around" : toleranceScore >= 30 ? "balanced. you know what matters." : "you're pretty chill about things";
+  ctx.fillText(scoreLabel, W / 2, y + 210);
+
+  // Meter bar
+  const meterY = y + 240;
+  roundRect(ctx, 160, meterY, W - 320, 16, 8);
+  ctx.fillStyle = '#E2E8F0';
+  ctx.fill();
+  const meterColor = toleranceScore >= 60 ? '#EF4444' : toleranceScore >= 30 ? '#3B82F6' : '#22C55E';
+  roundRect(ctx, 160, meterY, (W - 320) * (toleranceScore / 100), 16, 8);
+  ctx.fillStyle = meterColor;
+  ctx.fill();
+
+  // Verdict
+  y += 340;
+  const verdict = getVerdict(toleranceScore, reds.length, greens.length);
+  roundRect(ctx, 100, y, W - 200, 150, 30);
+  ctx.fillStyle = '#DBEAFE';
+  ctx.fill();
+
+  ctx.fillStyle = '#3B82F6';
+  ctx.font = 'bold 28px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  const verdictLines = wrapText(ctx, verdict.main, W - 260);
+  let vy = y + 55;
+  verdictLines.forEach(line => {
+    ctx.fillText(line, W / 2, vy);
+    vy += 36;
+  });
+
+  // Watermark
+  ctx.fillStyle = '#94A3B8';
+  ctx.font = '500 24px Inter, sans-serif';
+  ctx.fillText('flagcheck by Ledger & Spark', W / 2, H - 120);
+
+  try {
+    return canvas.toDataURL('image/png');
+  } catch {
+    return null;
+  }
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function drawPill(ctx, x, y, w, h, color) {
+  roundRect(ctx, x, y, w, h, h / 2);
+  ctx.fillStyle = color;
+  ctx.fill();
+}
+
+function wrapText(ctx, text, maxWidth) {
+  const words = text.split(' ');
+  const lines = [];
+  let line = '';
+  words.forEach(word => {
+    const test = line ? line + ' ' + word : word;
+    if (ctx.measureText(test).width > maxWidth && line) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = test;
+    }
+  });
+  if (line) lines.push(line);
+  return lines;
+}
+
+// ═══════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+function restart() {
+  currentMode = '';
+  currentScenarios = [];
+  currentIndex = 0;
+  answers = [];
+  showScreen('startScreen');
+}
+</script>
+</body>
+</html>

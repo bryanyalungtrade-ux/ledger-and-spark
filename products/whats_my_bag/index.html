@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's My Bag? — How Much Am I Worth? | Ledger & Spark</title>
+<meta name="description" content="You're making content for free. Let's see what you COULD be making. Find out what brands should pay you on TikTok, Instagram, YouTube & Twitter. 100% free.">
+<meta property="og:title" content="What's My Bag? — How Much Am I Worth? | Ledger & Spark">
+<meta property="og:description" content="Stop making content for free. Find out what brands should be paying YOU. Free.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FAFBFE;
+  --bg-alt: #F1F5F9;
+  --blue: #3B82F6;
+  --blue-light: #60A5FA;
+  --blue-pale: #DBEAFE;
+  --blue-ghost: #EFF6FF;
+  --text: #1E293B;
+  --text-mid: #475569;
+  --text-light: #94A3B8;
+  --white: #FFFFFF;
+  --green: #10B981;
+  --green-light: #D1FAE5;
+  --orange: #F59E0B;
+  --orange-light: #FEF3C7;
+  --red: #EF4444;
+  --red-light: #FEE2E2;
+  --purple: #8B5CF6;
+  --purple-light: #EDE9FE;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 50px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.header {
+  background: var(--white);
+  border-bottom: 1px solid #E2E8F0;
+  padding: 16px 20px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-brand { font-size: 18px; font-weight: 800; color: var(--text); letter-spacing: -0.3px; }
+.header-brand span { color: var(--blue); }
+.header-tagline { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+
+.hero {
+  text-align: center;
+  padding: 32px 20px 24px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.hero-badge {
+  display: inline-block;
+  background: var(--blue-ghost);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 12px;
+}
+.hero h1 {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.hero p { font-size: 15px; color: var(--text-mid); max-width: 420px; margin: 0 auto; }
+
+.container { max-width: 500px; margin: 0 auto; padding: 0 20px 40px; }
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #E2E8F0;
+}
+.card-label { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.pill-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid #E2E8F0;
+  background: var(--white);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.pill:hover { border-color: var(--blue-light); color: var(--blue); }
+.pill.active { background: var(--blue); color: var(--white); border-color: var(--blue); }
+
+.input-group { margin-bottom: 16px; }
+.input-label { font-size: 13px; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; display: block; }
+.input-field {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid #E2E8F0;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--white);
+  transition: border-color 0.2s;
+}
+.input-field:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+.input-hint { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+
+.slider-container { margin-top: 8px; }
+.slider-value { text-align: center; font-size: 28px; font-weight: 800; color: var(--blue); margin-bottom: 8px; }
+input[type="range"] { width: 100%; height: 6px; -webkit-appearance: none; appearance: none; background: var(--blue-pale); border-radius: 3px; outline: none; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--blue); cursor: pointer; box-shadow: var(--shadow-md); }
+input[type="range"]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: var(--blue); cursor: pointer; border: none; box-shadow: var(--shadow-md); }
+.slider-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-light); margin-top: 4px; }
+
+.calc-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  margin-top: 8px;
+}
+.calc-btn:hover { background: #2563EB; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+.results { display: none; margin-top: 20px; }
+
+.results-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--blue-pale);
+}
+.results-header { text-align: center; margin-bottom: 24px; }
+.results-header h2 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+.results-header p { font-size: 13px; color: var(--text-light); }
+
+.bag-amount { text-align: center; margin-bottom: 20px; }
+.bag-label { font-size: 13px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.bag-number { font-size: 42px; font-weight: 800; color: var(--blue); line-height: 1; }
+.bag-context { font-size: 14px; color: var(--text-mid); margin-top: 8px; }
+
+.rate-section { margin-bottom: 20px; }
+.rate-label { font-size: 12px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.rate-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--bg-alt); border-radius: 10px; margin-bottom: 6px; }
+.rate-type { font-size: 14px; font-weight: 500; color: var(--text-mid); }
+.rate-range { font-size: 15px; font-weight: 700; color: var(--text); }
+
+.comparison-bar { margin: 20px 0; padding: 16px; background: var(--bg-alt); border-radius: var(--radius); }
+.comparison-label { font-size: 12px; font-weight: 600; color: var(--text-mid); margin-bottom: 10px; text-align: center; }
+.bar-track { width: 100%; height: 10px; background: #E2E8F0; border-radius: 5px; position: relative; overflow: visible; }
+.bar-fill { height: 100%; border-radius: 5px; background: linear-gradient(90deg, var(--blue-light), var(--blue)); transition: width 0.6s ease; }
+.bar-marker { position: absolute; top: -8px; width: 4px; height: 26px; background: var(--orange); border-radius: 2px; transform: translateX(-50%); }
+.bar-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-light); margin-top: 6px; }
+
+.tips-section { margin-top: 24px; }
+.tips-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+.tip-item { display: flex; gap: 10px; margin-bottom: 10px; padding: 12px; background: var(--blue-ghost); border-radius: 10px; }
+.tip-icon { font-size: 18px; flex-shrink: 0; }
+.tip-text { font-size: 13px; color: var(--text-mid); line-height: 1.5; }
+
+.share-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--blue-ghost);
+  color: var(--blue);
+  border: 2px solid var(--blue);
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  margin-top: 16px;
+}
+.share-btn:hover { background: var(--blue-pale); }
+
+.disclaimer { font-size: 11px; color: var(--text-light); text-align: center; margin-top: 16px; line-height: 1.5; }
+
+.trust-line { text-align: center; padding: 24px 20px; font-size: 13px; color: var(--text-light); }
+.trust-line a { color: var(--blue); text-decoration: none; }
+
+.footer { text-align: center; padding: 20px; border-top: 1px solid #E2E8F0; font-size: 12px; color: var(--text-light); }
+.footer a { color: var(--blue); text-decoration: none; }
+
+@media (min-width: 640px) {
+  .hero h1 { font-size: 32px; }
+  .container { max-width: 560px; }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-brand">Ledger & <span>Spark</span></div>
+  <div class="header-tagline">Free tools. No catch. Built because you asked.</div>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">~~$29~~ FREE</div>
+  <h1>What's My Bag?</h1>
+  <p>You're making content for free. Let's see what you COULD be making.</p>
+</section>
+
+<div class="container">
+  <div class="card">
+    <div class="card-label">What platform are you on?</div>
+    <div class="pill-grid" id="platformGrid">
+      <button class="pill" data-value="tiktok">TikTok</button>
+      <button class="pill" data-value="instagram">Instagram</button>
+      <button class="pill" data-value="youtube">YouTube</button>
+      <button class="pill" data-value="twitter">Twitter / X</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">What's your thing?</div>
+    <div class="pill-grid" id="nicheGrid">
+      <button class="pill" data-value="beauty">Beauty</button>
+      <button class="pill" data-value="food">Food</button>
+      <button class="pill" data-value="comedy">Comedy</button>
+      <button class="pill" data-value="lifestyle">Lifestyle</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Your numbers</div>
+    <div class="input-group">
+      <label class="input-label">How many followers you got?</label>
+      <div class="slider-container">
+        <div class="slider-value" id="followerDisplay">10,000</div>
+        <input type="range" id="followerSlider" min="1000" max="5000000" value="10000" step="1000">
+        <div class="slider-labels"><span>1K</span><span>100K</span><span>1M</span><span>5M</span></div>
+      </div>
+    </div>
+    <div class="input-group">
+      <label class="input-label">How many likes do your posts usually get?</label>
+      <input type="number" class="input-field" id="avgLikes" placeholder="e.g. 500" min="0">
+    </div>
+    <div class="input-group">
+      <label class="input-label">How many comments?</label>
+      <input type="number" class="input-field" id="avgComments" placeholder="e.g. 25" min="0">
+    </div>
+    <div class="input-group">
+      <label class="input-label">How many views? (optional)</label>
+      <input type="number" class="input-field" id="avgViews" placeholder="e.g. 5000" min="0">
+      <div class="input-hint">Best for TikTok & YouTube</div>
+    </div>
+  </div>
+
+  <button class="calc-btn" id="calcBtn">Show Me The Bag</button>
+
+  <div class="results" id="results"></div>
+
+  <div class="trust-line">
+    Free. No catch. Built because you asked.<br>
+    <a href="mailto:ledgerandspark@gmail.com">ledgerandspark@gmail.com</a>
+  </div>
+</div>
+
+<footer class="footer">
+  &copy; 2026 Ledger & Spark. All tools are free.<br>
+  We make money from sponsors, not from you. That's why everything is free.<br>
+  <span style="font-size:10px;margin-top:4px;display:inline-block;">Not financial advice. These are estimates based on what creators actually get paid.</span>
+</footer>
+
+<script>
+let platform = null;
+let niche = null;
+
+function setupPills(gridId, callback) {
+  const grid = document.getElementById(gridId);
+  grid.addEventListener('click', (e) => {
+    if (!e.target.classList.contains('pill')) return;
+    grid.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    e.target.classList.add('active');
+    callback(e.target.dataset.value);
+  });
+}
+setupPills('platformGrid', (v) => { platform = v; });
+setupPills('nicheGrid', (v) => { niche = v; });
+
+const slider = document.getElementById('followerSlider');
+const display = document.getElementById('followerDisplay');
+
+function formatNumber(n) {
+  if (n >= 1000000) return (n / 1000000).toFixed(1).replace('.0', '') + 'M';
+  if (n >= 1000) return (n / 1000).toFixed(n >= 100000 ? 0 : 1).replace('.0', '') + 'K';
+  return n.toLocaleString();
+}
+slider.addEventListener('input', () => { display.textContent = formatNumber(parseInt(slider.value)); });
+
+const BASE_RATES = {
+  tiktok: { post: 15, story: 8, package: 45 },
+  instagram: { post: 12, story: 6, package: 35 },
+  youtube: { post: 22, story: 10, package: 65 },
+  twitter: { post: 8, story: 4, package: 22 }
+};
+
+const NICHE_MULTIPLIERS = {
+  beauty: 1.3, fitness: 1.2, food: 1.15, finance: 1.5, comedy: 0.9,
+  lifestyle: 1.1, gaming: 1.0, fashion: 1.35, tech: 1.4, education: 1.1, travel: 1.25, pets: 1.05
+};
+
+const ENGAGEMENT_BENCHMARKS = {
+  tiktok: { low: 2, average: 5, good: 8, viral: 15 },
+  instagram: { low: 0.5, average: 1.5, good: 3, viral: 6 },
+  youtube: { low: 1, average: 3, good: 5, viral: 10 },
+  twitter: { low: 0.2, average: 0.5, good: 1.5, viral: 3 }
+};
+
+function getFunContext(amount) {
+  const chipotle = Math.floor(amount / 12);
+  const rent = Math.floor(amount / 1500);
+  const coffees = Math.floor(amount / 7);
+  const contexts = [];
+  if (chipotle >= 1) contexts.push("That's " + chipotle + " Chipotle bowls \u{1F32F}");
+  if (rent >= 1) contexts.push("That's " + rent + " month" + (rent > 1 ? "s" : "") + " of rent covered \u{1F3E0}");
+  if (coffees >= 1 && amount < 200) contexts.push("That's " + coffees + " iced coffees \u2615");
+  if (amount >= 500) contexts.push("That's a nice vacation fund \u2708\uFE0F");
+  if (amount >= 2000) contexts.push("That's a whole car payment \u{1F697}");
+  if (amount >= 5000) contexts.push("That's quitting-your-job money \u{1F4B0}");
+  return contexts.length > 0 ? contexts[Math.floor(Math.random() * contexts.length)] : "Not bad at all \u{1F4B0}";
+}
+
+document.getElementById('calcBtn').addEventListener('click', () => {
+  if (!platform || !niche) { alert('Pick your platform and your thing first!'); return; }
+
+  const followers = parseInt(slider.value);
+  const likes = parseInt(document.getElementById('avgLikes').value) || 0;
+  const comments = parseInt(document.getElementById('avgComments').value) || 0;
+  const views = parseInt(document.getElementById('avgViews').value) || 0;
+
+  let engagementRate;
+  if (views > 0 && (platform === 'tiktok' || platform === 'youtube')) {
+    engagementRate = ((likes + comments) / views) * 100;
+  } else {
+    engagementRate = ((likes + comments) / followers) * 100;
+  }
+
+  let engagementMultiplier = 1.0;
+  const bench = ENGAGEMENT_BENCHMARKS[platform];
+  if (engagementRate >= bench.viral) engagementMultiplier = 1.8;
+  else if (engagementRate >= bench.good) engagementMultiplier = 1.4;
+  else if (engagementRate >= bench.average) engagementMultiplier = 1.0;
+  else if (engagementRate >= bench.low) engagementMultiplier = 0.7;
+  else engagementMultiplier = 0.5;
+
+  let tierMultiplier = 1.0;
+  if (followers >= 1000000) tierMultiplier = 1.3;
+  else if (followers >= 500000) tierMultiplier = 1.2;
+  else if (followers >= 100000) tierMultiplier = 1.1;
+  else if (followers >= 50000) tierMultiplier = 1.0;
+  else if (followers >= 10000) tierMultiplier = 0.9;
+  else tierMultiplier = 0.75;
+
+  const base = BASE_RATES[platform];
+  const nicheMult = NICHE_MULTIPLIERS[niche];
+  const units = followers / 1000;
+
+  const calcRate = (baseRate) => {
+    const mid = Math.round(baseRate * units * nicheMult * engagementMultiplier * tierMultiplier);
+    const low = Math.round(mid * 0.65);
+    const high = Math.round(mid * 1.5);
+    return { low: Math.max(low, 10), mid: Math.max(mid, 15), high: Math.max(high, 25) };
+  };
+
+  const postRate = calcRate(base.post);
+  const storyRate = calcRate(base.story);
+  const packageRate = calcRate(base.package);
+
+  const avgRate = base.post * units * 1.0 * 1.0;
+  const userRate = postRate.mid;
+  const comparisonPercent = Math.min(Math.round((userRate / (avgRate * 2)) * 100), 100);
+
+  const tips = generateTips(engagementRate, followers, platform, niche, engagementMultiplier);
+
+  let engagementLabel, engagementColor;
+  if (engagementRate >= bench.viral) { engagementLabel = 'literally famous'; engagementColor = 'var(--purple)'; }
+  else if (engagementRate >= bench.good) { engagementLabel = 'main character energy'; engagementColor = 'var(--orange)'; }
+  else if (engagementRate >= bench.average) { engagementLabel = 'doing okay'; engagementColor = 'var(--green)'; }
+  else { engagementLabel = 'needs work'; engagementColor = 'var(--red)'; }
+
+  const funContext = getFunContext(postRate.mid);
+
+  const resultsHTML = `
+    <div class="results-card" id="resultsCard">
+      <div class="results-header">
+        <h2>Here's Your Bag \u{1F4B0}</h2>
+        <p>${formatNumber(followers)} followers on ${platform.charAt(0).toUpperCase() + platform.slice(1)} | ${niche.charAt(0).toUpperCase() + niche.slice(1)}</p>
+        <p style="margin-top:6px;"><span style="color:${engagementColor};font-weight:700;">${engagementLabel}</span> — ${engagementRate.toFixed(1)}%</p>
+      </div>
+      <div class="bag-amount">
+        <div class="bag-label">Per sponsored post you could charge</div>
+        <div class="bag-number">$${postRate.low.toLocaleString()} — $${postRate.high.toLocaleString()}</div>
+        <div class="bag-context">${funContext}</div>
+      </div>
+      <div class="rate-section">
+        <div class="rate-label">Per TikTok / Instagram Post</div>
+        <div class="rate-row"><span class="rate-type">Low end</span><span class="rate-range">$${postRate.low.toLocaleString()}</span></div>
+        <div class="rate-row" style="background:var(--blue-ghost);border:1px solid var(--blue-pale);">
+          <span class="rate-type" style="font-weight:700;color:var(--text);">Sweet spot</span>
+          <span class="rate-range" style="color:var(--blue);font-size:18px;">$${postRate.mid.toLocaleString()}</span>
+        </div>
+        <div class="rate-row"><span class="rate-type">Premium</span><span class="rate-range">$${postRate.high.toLocaleString()}</span></div>
+      </div>
+      <div class="rate-section">
+        <div class="rate-label">Per Story / Reel</div>
+        <div class="rate-row"><span class="rate-type">Range</span><span class="rate-range">$${storyRate.low.toLocaleString()} — $${storyRate.high.toLocaleString()}</span></div>
+      </div>
+      <div class="rate-section">
+        <div class="rate-label">Full brand deal package (3 posts + stories)</div>
+        <div class="rate-row" style="background:var(--blue-ghost);border:1px solid var(--blue-pale);">
+          <span class="rate-type" style="font-weight:700;">Package deal</span>
+          <span class="rate-range" style="color:var(--blue);font-size:17px;">$${packageRate.low.toLocaleString()} — $${packageRate.high.toLocaleString()}</span>
+        </div>
+      </div>
+      <div class="comparison-bar">
+        <div class="comparison-label">How you stack up against other creators your size</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${comparisonPercent}%"></div>
+          <div class="bar-marker" style="left:50%" title="Average creator"></div>
+        </div>
+        <div class="bar-labels"><span>Below avg</span><span style="color:var(--orange);font-weight:600;">Average</span><span>Top tier</span></div>
+      </div>
+      <div class="tips-section">
+        <div class="tips-title">How to actually get brand deals</div>
+        ${tips.map(t => `<div class="tip-item"><div class="tip-icon">${t.icon}</div><div class="tip-text">${t.text}</div></div>`).join('')}
+      </div>
+      <button class="share-btn" onclick="shareResults()">Screenshot & Share Your Worth</button>
+      <div class="disclaimer">
+        These are estimates based on what creators actually get paid.
+        Real rates change depending on the brand, the deal, usage rights, and exclusivity.
+        Not financial advice — just a really good estimate.
+      </div>
+    </div>`;
+
+  const results = document.getElementById('results');
+  results.innerHTML = resultsHTML;
+  results.style.display = 'block';
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+function generateTips(er, followers, plat, nich, engMult) {
+  const tips = [];
+  if (engMult < 1.0) {
+    tips.push({ icon: '\u{1F4AC}', text: "Your posts aren't popping off yet. Reply to every comment for 2 weeks straight — it trains the algorithm to push your stuff and shows brands you've got an active community." });
+  }
+  if (followers < 10000) {
+    tips.push({ icon: '\u{1F4C8}', text: "Under 10K? Focus on getting to 10K-50K first. That's where brands start sliding into your DMs. Post consistently and hop on trending sounds/formats." });
+  } else if (followers < 50000) {
+    tips.push({ icon: '\u{1F91D}', text: "You're in the sweet spot — brands LOVE your size rn. Put together a quick highlight reel of your numbers and best posts. DM brands you already use and love." });
+  } else {
+    tips.push({ icon: '\u{1F3C6}', text: "At your size, always negotiate usage rights separately. If a brand wants to run your content as an ad, that's 50-100% extra on top of your rate. Don't leave money on the table." });
+  }
+  if (plat === 'tiktok' || plat === 'instagram') {
+    tips.push({ icon: '\u{1F3AC}', text: "Post your content on " + (plat === 'tiktok' ? 'Instagram Reels and YouTube Shorts' : 'TikTok and YouTube Shorts') + " too. More platforms = bigger package deals when brands reach out." });
+  }
+  if (nich === 'comedy' || nich === 'lifestyle') {
+    tips.push({ icon: '\u{1F3AF}', text: nich.charAt(0).toUpperCase() + nich.slice(1) + " is super broad — brands pay more for specific sub-niches. \"Comedy + parenting\" or \"lifestyle + sustainability\" gets you higher rates than just general content." });
+  }
+  if (engMult >= 1.4) {
+    tips.push({ icon: '\u{1F525}', text: "Your posts are doing better than average — use that! Show brands your numbers compared to the average. Better numbers = better results for them = more money for you." });
+  }
+  tips.push({ icon: '\u{1F4CB}', text: "Never accept a brand's first offer. Start 30% above what you actually want. And always get deliverables, revision limits, and timeline in writing before you create anything." });
+  return tips.slice(0, 4);
+}
+
+function shareResults() {
+  if (navigator.share) {
+    navigator.share({ title: "My Bag — Ledger & Spark", text: "Just found out what I should be charging brands! Check your worth too:", url: window.location.href }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      const btn = document.querySelector('.share-btn');
+      btn.textContent = 'Link Copied! Share it anywhere';
+      setTimeout(() => { btn.textContent = 'Screenshot & Share Your Worth'; }, 2500);
+    });
+  }
+}
+</script>
+</body>
+</html>

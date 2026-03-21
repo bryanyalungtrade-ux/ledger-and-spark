@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Would This Go Viral? | Ledger & Spark</title>
+<meta name="description" content="Find out if your next video idea would go viral or flop. Free FYP simulator for TikTok, Reels & Shorts creators.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #FAFBFE;
+  --bg-alt: #F1F5F9;
+  --blue: #3B82F6;
+  --blue-light: #60A5FA;
+  --blue-pale: #DBEAFE;
+  --blue-glow: rgba(59, 130, 246, 0.15);
+  --text: #1E293B;
+  --text-mid: #475569;
+  --text-light: #94A3B8;
+  --white: #FFFFFF;
+  --green: #22C55E;
+  --yellow: #EAB308;
+  --orange: #F97316;
+  --red: #EF4444;
+  --radius: 16px;
+  --radius-sm: 12px;
+}
+
+html { font-size: 16px; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* ── Header ── */
+.header {
+  text-align: center;
+  padding: 20px 20px 0;
+}
+.header .brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.header .tagline {
+  font-size: 0.7rem;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+.free-badge {
+  display: inline-block;
+  background: var(--blue-pale);
+  color: var(--blue);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 99px;
+  margin-top: 8px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.back-link {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  text-decoration: none;
+  z-index: 10;
+}
+.back-link:hover { color: var(--blue); }
+
+/* ── Screens ── */
+.screen {
+  flex: 1;
+  display: none;
+  flex-direction: column;
+  padding: 20px;
+  animation: fadeUp 0.35s ease;
+}
+.screen.active { display: flex; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Start Screen ── */
+.hero-emoji { font-size: 3.5rem; text-align: center; margin-bottom: 8px; }
+.hero-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  text-align: center;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.hero-sub {
+  text-align: center;
+  color: var(--text-mid);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+  line-height: 1.4;
+}
+
+/* ── Step indicators ── */
+.steps-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.step-dot {
+  flex: 1;
+  height: 4px;
+  border-radius: 99px;
+  background: var(--bg-alt);
+  transition: background 0.3s;
+}
+.step-dot.done { background: var(--blue); }
+.step-dot.current { background: var(--blue-light); }
+
+/* ── Step title ── */
+.step-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.step-sub {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+
+/* ── Option Grid ── */
+.option-grid {
+  display: grid;
+  gap: 10px;
+}
+.option-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.option-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+
+.option-btn {
+  background: var(--white);
+  border: 2px solid var(--bg-alt);
+  border-radius: var(--radius-sm);
+  padding: 14px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.option-btn:hover {
+  border-color: var(--blue-light);
+  background: var(--blue-pale);
+}
+.option-btn:active {
+  transform: scale(0.96);
+}
+.option-btn.selected {
+  border-color: var(--blue);
+  background: var(--blue-pale);
+  box-shadow: 0 0 0 3px var(--blue-glow);
+}
+.option-btn .emoji { font-size: 1.5rem; display: block; margin-bottom: 4px; }
+.option-btn .label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+/* ── CTA Button ── */
+.cta-btn {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--blue);
+  color: var(--white);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: auto;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.cta-btn:hover { background: #2563EB; }
+.cta-btn:active { transform: scale(0.98); }
+.cta-btn:disabled {
+  background: var(--bg-alt);
+  color: var(--text-light);
+  cursor: not-allowed;
+}
+
+/* ── Loading ── */
+.loading-screen {
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--bg-alt);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-mid);
+}
+.loading-sub {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+/* ── Result Card ── */
+.result-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.result-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+.result-card.tier-viral::before { background: var(--green); }
+.result-card.tier-blowup::before { background: var(--blue); }
+.result-card.tier-solid::before { background: var(--blue-light); }
+.result-card.tier-mid::before { background: var(--yellow); }
+.result-card.tier-flop::before { background: var(--orange); }
+.result-card.tier-delete::before { background: var(--red); }
+
+.result-combo {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.score-ring {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 12px;
+  position: relative;
+}
+.score-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.score-ring .bg-ring {
+  fill: none;
+  stroke: var(--bg-alt);
+  stroke-width: 8;
+}
+.score-ring .fg-ring {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 314;
+  stroke-dashoffset: 314;
+  transition: stroke-dashoffset 1.2s ease;
+}
+.score-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.2rem;
+  font-weight: 900;
+}
+
+.score-label {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+/* ── Reasons ── */
+.reasons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.reason {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--text-mid);
+}
+.reason .r-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  margin-top: 1px;
+}
+.reason .r-icon.good { background: #DCFCE7; color: var(--green); }
+.reason .r-icon.bad { background: #FEE2E2; color: var(--red); }
+.reason .r-icon.neutral { background: var(--blue-pale); color: var(--blue); }
+
+/* ── Pro Tip ── */
+.pro-tip {
+  background: var(--bg-alt);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 0;
+}
+.pro-tip .tip-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.pro-tip .tip-text {
+  font-size: 0.82rem;
+  color: var(--text-mid);
+  line-height: 1.4;
+}
+
+/* ── Share & Retry ── */
+.action-row {
+  display: flex;
+  gap: 10px;
+}
+.action-row .cta-btn { flex: 1; }
+.action-row .cta-btn.secondary {
+  background: var(--white);
+  color: var(--blue);
+  border: 2px solid var(--blue-pale);
+}
+.action-row .cta-btn.secondary:hover {
+  background: var(--blue-pale);
+}
+
+.share-toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--text);
+  color: var(--white);
+  padding: 10px 20px;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+  z-index: 100;
+}
+.share-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: auto;
+}
+.footer .trust {
+  font-size: 0.7rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+.footer .trust a {
+  color: var(--blue);
+  text-decoration: none;
+}
+.footer .disclaimer {
+  font-size: 0.6rem;
+  color: var(--text-light);
+  margin-top: 8px;
+  opacity: 0.7;
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+<div class="app">
+  <a href="../../index.html" class="back-link">&larr; Back</a>
+
+  <div class="header">
+    <div class="brand">Ledger &amp; Spark</div>
+    <div class="tagline">Free tools. No catch. Built because you asked.</div>
+    <div class="free-badge">100% Free</div>
+  </div>
+
+  <!-- ════ START SCREEN ════ -->
+  <div class="screen active" id="screen-start">
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+      <div class="hero-emoji">🔮</div>
+      <h1 class="hero-title">Would This Go Viral?</h1>
+      <p class="hero-sub">Tell us your next video idea and we'll predict if it's gonna hit or flop. Takes 15 seconds.</p>
+      <button class="cta-btn" onclick="startQuiz()">Let's Find Out</button>
+    </div>
+  </div>
+
+  <!-- ════ STEP 1: PLATFORM ════ -->
+  <div class="screen" id="screen-step1">
+    <div class="steps-bar">
+      <div class="step-dot current"></div>
+      <div class="step-dot"></div>
+      <div class="step-dot"></div>
+    </div>
+    <div class="step-title">Where are you posting?</div>
+    <div class="step-sub">Pick your platform</div>
+    <div class="option-grid cols-3" id="platform-grid">
+      <div class="option-btn" data-val="tiktok" onclick="pick(this,'platform')">
+        <span class="emoji">🎵</span>
+        <span class="label">TikTok</span>
+      </div>
+      <div class="option-btn" data-val="reels" onclick="pick(this,'platform')">
+        <span class="emoji">📸</span>
+        <span class="label">IG Reels</span>
+      </div>
+      <div class="option-btn" data-val="shorts" onclick="pick(this,'platform')">
+        <span class="emoji">▶️</span>
+        <span class="label">YT Shorts</span>
+      </div>
+    </div>
+    <button class="cta-btn" id="btn-step1" disabled onclick="goStep(2)">Next</button>
+  </div>
+
+  <!-- ════ STEP 2: NICHE ════ -->
+  <div class="screen" id="screen-step2">
+    <div class="steps-bar">
+      <div class="step-dot done"></div>
+      <div class="step-dot current"></div>
+      <div class="step-dot"></div>
+    </div>
+    <div class="step-title">What's your niche?</div>
+    <div class="step-sub">Pick the closest one</div>
+    <div class="option-grid cols-3" id="niche-grid">
+      <div class="option-btn" data-val="beauty" onclick="pick(this,'niche')">
+        <span class="emoji">💄</span><span class="label">Beauty</span>
+      </div>
+      <div class="option-btn" data-val="food" onclick="pick(this,'niche')">
+        <span class="emoji">🍕</span><span class="label">Food</span>
+      </div>
+      <div class="option-btn" data-val="comedy" onclick="pick(this,'niche')">
+        <span class="emoji">😂</span><span class="label">Comedy</span>
+      </div>
+    </div>
+    <button class="cta-btn" id="btn-step2" disabled onclick="goStep(3)">Next</button>
+  </div>
+
+  <!-- ════ STEP 3: CONTENT TYPE ════ -->
+  <div class="screen" id="screen-step3">
+    <div class="steps-bar">
+      <div class="step-dot done"></div>
+      <div class="step-dot done"></div>
+      <div class="step-dot current"></div>
+    </div>
+    <div class="step-title">What kind of video?</div>
+    <div class="step-sub">Pick the format</div>
+    <div class="option-grid cols-3" id="type-grid">
+      <div class="option-btn" data-val="grwm" onclick="pick(this,'contentType')">
+        <span class="emoji">💅</span><span class="label">GRWM</span>
+      </div>
+      <div class="option-btn" data-val="trend" onclick="pick(this,'contentType')">
+        <span class="emoji">🔥</span><span class="label">Trend / Sound</span>
+      </div>
+      <div class="option-btn" data-val="storytime" onclick="pick(this,'contentType')">
+        <span class="emoji">🗣️</span><span class="label">Storytime</span>
+      </div>
+    </div>
+    <button class="cta-btn" id="btn-step3" disabled onclick="predict()">Show My Prediction 🔮</button>
+  </div>
+
+  <!-- ════ LOADING ════ -->
+  <div class="screen loading-screen" id="screen-loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Scanning the algorithm...</div>
+    <div class="loading-sub" id="loading-msg">Checking FYP trends rn</div>
+  </div>
+
+  <!-- ════ RESULT ════ -->
+  <div class="screen" id="screen-result">
+    <div class="result-card" id="result-card">
+      <div class="result-combo" id="result-combo"></div>
+
+      <div class="score-ring">
+        <svg viewBox="0 0 120 120">
+          <circle class="bg-ring" cx="60" cy="60" r="50"/>
+          <circle class="fg-ring" id="score-arc" cx="60" cy="60" r="50"/>
+        </svg>
+        <div class="score-number" id="score-number">0</div>
+      </div>
+
+      <div class="score-label" id="score-label"></div>
+
+      <div class="reasons" id="reasons"></div>
+
+      <div class="pro-tip">
+        <div class="tip-label">Pro Tip</div>
+        <div class="tip-text" id="pro-tip-text"></div>
+      </div>
+    </div>
+
+    <div class="action-row">
+      <button class="cta-btn secondary" onclick="reset()">Try Again</button>
+      <button class="cta-btn" onclick="shareResult()">Share My Prediction</button>
+    </div>
+  </div>
+
+  <div class="share-toast" id="share-toast">Copied! Now go screenshot it too 📸</div>
+
+  <div class="footer">
+    <div class="trust">We make money from sponsors, not from you.<br>That's why everything is free. <a href="mailto:ledgerandspark@gmail.com">ledgerandspark@gmail.com</a></div>
+    <div class="disclaimer">For fun only. Not a guarantee of performance. Go make great content.</div>
+  </div>
+</div>
+
+<script>
+/* ── State ── */
+let state = { platform: null, niche: null, contentType: null };
+let result = null;
+
+/* ── Navigation ── */
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startQuiz() { show('screen-step1'); }
+
+function pick(el, key) {
+  const grid = el.parentElement;
+  grid.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  state[key] = el.dataset.val;
+  // Enable next button
+  if (key === 'platform') document.getElementById('btn-step1').disabled = false;
+  if (key === 'niche') document.getElementById('btn-step2').disabled = false;
+  if (key === 'contentType') document.getElementById('btn-step3').disabled = false;
+}
+
+function goStep(n) { show('screen-step' + n); }
+
+function reset() {
+  state = { platform: null, niche: null, contentType: null };
+  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  ['btn-step1','btn-step2','btn-step3'].forEach(id => document.getElementById(id).disabled = true);
+  show('screen-start');
+}
+
+/* ── Loading Messages ── */
+const loadMsgs = [
+  "Checking FYP trends rn",
+  "Asking the algorithm real quick",
+  "Analyzing what's popping",
+  "Running the vibes through our system",
+  "Almost done bestie"
+];
+
+/* ── Predict ── */
+function predict() {
+  show('screen-loading');
+  let msgIdx = 0;
+  const msgEl = document.getElementById('loading-msg');
+  const msgInterval = setInterval(() => {
+    msgIdx = (msgIdx + 1) % loadMsgs.length;
+    msgEl.textContent = loadMsgs[msgIdx];
+  }, 600);
+
+  setTimeout(() => {
+    clearInterval(msgInterval);
+    result = calculate(state.platform, state.niche, state.contentType);
+    renderResult();
+    show('screen-result');
+  }, 2200);
+}
+
+/* ══════════════════════════════════════════
+   SCORING ENGINE — niche x contentType lookup
+   ══════════════════════════════════════════ */
+
+const BASE_SCORES = {
+  // [niche][contentType] = base score
+  beauty:     { storytime:62, tutorial:58, grwm:42, dayinlife:50, pov:68, reaction:55, trend:72, unboxing:65, hottake:74, transformation:80 },
+  food:       { storytime:60, tutorial:72, grwm:35, dayinlife:55, pov:65, reaction:68, trend:70, unboxing:58, hottake:75, transformation:78 },
+  comedy:     { storytime:75, tutorial:40, grwm:38, dayinlife:52, pov:88, reaction:72, trend:82, unboxing:45, hottake:85, transformation:60 }
+};
+
+// Platform modifiers
+const PLATFORM_MOD = {
+  tiktok:  { storytime:5, tutorial:0, grwm:3, dayinlife:2, pov:8, reaction:5, trend:10, unboxing:0, hottake:5, transformation:3 },
+  reels:   { storytime:0, tutorial:3, grwm:8, dayinlife:5, pov:2, reaction:0, trend:5, unboxing:3, hottake:0, transformation:8 },
+  shorts:  { storytime:2, tutorial:8, grwm:0, dayinlife:0, pov:5, reaction:3, trend:2, unboxing:5, hottake:3, transformation:5 }
+};
+
+function calculate(platform, niche, contentType) {
+  let base = BASE_SCORES[niche][contentType];
+  let mod = PLATFORM_MOD[platform][contentType];
+  let randomness = Math.floor(Math.random() * 21) - 10; // -10 to +10
+  let score = Math.max(0, Math.min(100, base + mod + randomness));
+
+  let tier, label, color;
+  if (score >= 90) { tier = 'viral'; label = 'LITERALLY GOING VIRAL 🚀'; color = '#22C55E'; }
+  else if (score >= 70) { tier = 'blowup'; label = "This is gonna blow up 🔥"; color = '#3B82F6'; }
+  else if (score >= 50) { tier = 'solid'; label = "Solid. Could pop off 👀"; color = '#60A5FA'; }
+  else if (score >= 30) { tier = 'mid'; label = "Mid tbh 😐"; color = '#EAB308'; }
+  else if (score >= 10) { tier = 'flop'; label = "This might flop 💀"; color = '#F97316'; }
+  else { tier = 'delete'; label = "Delete this 🗑️"; color = '#EF4444'; }
+
+  const reasons = getReasons(platform, niche, contentType, score);
+  const tip = getTip(platform, niche, contentType, score);
+
+  return { score, tier, label, color, reasons, tip };
+}
+
+/* ── Reasons Database ── */
+function getReasons(platform, niche, contentType, score) {
+  const pool = [];
+
+  // Niche-specific reasons
+  const nicheReasons = {
+    beauty: {
+      good: [
+        "Beauty content gets saved a LOT — saves = algorithm fuel",
+        "Beauty creators get the most brand deals rn, so the niche is hot",
+        "Everyone's always looking for new product recs"
+      ],
+      bad: [
+        "Beauty is one of the most saturated niches on the app",
+        "You're competing with literally millions of beauty creators",
+        "People scroll past beauty content unless the hook is insane"
+      ]
+    },
+    food: {
+      good: [
+        "Food content makes people stop scrolling every single time",
+        "Recipe videos get saved more than almost any other type",
+        "Everyone eats — your audience is literally everyone"
+      ],
+      bad: [
+        "Food creators need actual cooking skills or it looks rough",
+        "Food content without good lighting flops hard",
+        "There's a new food trend every week so old content dies fast"
+      ]
+    },
+    comedy: {
+      good: [
+        "Comedy gets shared more than any other niche fr",
+        "Funny videos get rewatched which = more watch time = FYP push",
+        "Comedy comments are always wild which boosts the algorithm"
+      ],
+      bad: [
+        "If it's not funny it's getting roasted in the comments",
+        "Comedy is hit or miss — either viral or zero views",
+        "Humor is super subjective so reach can be random"
+      ]
+    }
+  };
+
+  // Content-type reasons
+  const typeReasons = {
+    storytime: {
+      good: ["Storytimes keep people watching til the end — watch time is everything", "Storytimes get 2x more comments because people wanna react"],
+      bad: ["Storytimes need a crazy hook or people swipe in 2 seconds", "Long storytimes lose people if the payoff isn't worth it"]
+    },
+    tutorial: {
+      good: ["Tutorials get saved more than any other format", "How-to content positions you as an expert which = trust = follows"],
+      bad: ["Tutorials need to be under 60 seconds or people bounce", "There are a million tutorials already — yours needs a unique angle"]
+    },
+    grwm: {
+      good: ["GRWMs feel personal and people love that parasocial energy", "GRWM is the perfect format for building a loyal audience"],
+      bad: ["GRWM is literally the most saturated format rn", "GRWMs only work if people actually want to watch YOU get ready"]
+    },
+    dayinlife: {
+      good: ["Day in my life videos satisfy curiosity which = watch time", "DITL content feels authentic and the algo loves authentic rn"],
+      bad: ["Day in my life only works if your life is actually interesting ngl", "DITL videos need good b-roll or they look amateur"]
+    },
+    pov: {
+      good: ["POV skits are super shareable — people tag friends constantly", "Good skits get rewatched which tells the algorithm to push it"],
+      bad: ["Bad acting in POVs gets roasted immediately", "POV format is oversaturated so your concept has to be original"]
+    },
+    reaction: {
+      good: ["Reactions/duets piggyback off other viral content = built-in audience", "Reacting to trending content gets pushed by the algorithm"],
+      bad: ["Reactions without adding value feel lazy and people call it out", "Duet/reaction content has a short shelf life"]
+    },
+    trend: {
+      good: ["Jumping on trends early = guaranteed FYP push", "Using trending sounds literally tells the algorithm to promote you"],
+      bad: ["If you're late to the trend it's giving trying too hard", "Trend content doesn't build a lasting audience by itself"]
+    },
+    unboxing: {
+      good: ["Unboxing videos trigger curiosity — people HAVE to watch til the end", "Unboxing content gets shared to friends who might buy"],
+      bad: ["Unboxing without personality is just showing stuff", "People skip unboxings if the product isn't interesting"]
+    },
+    hottake: {
+      good: ["Hot takes ALWAYS get comments — even hate comments count for the algo", "Controversial opinions get shared to stories with 'do you agree?'"],
+      bad: ["Hot takes can backfire and get you cancelled real quick", "Rage bait works short-term but kills trust long-term"]
+    },
+    transformation: {
+      good: ["Before & after is the ultimate scroll-stopper", "Transformation content gets saved AND shared = double algo boost"],
+      bad: ["Transformations need to be dramatic or nobody cares", "Fake transformations get called out instantly and tank your trust"]
+    }
+  };
+
+  // Build reason pool
+  const nr = nicheReasons[niche];
+  const tr = typeReasons[contentType];
+
+  if (score >= 60) {
+    pool.push({ text: nr.good[Math.floor(Math.random() * nr.good.length)], type: 'good' });
+    pool.push({ text: tr.good[Math.floor(Math.random() * tr.good.length)], type: 'good' });
+    pool.push({ text: nr.bad[Math.floor(Math.random() * nr.bad.length)], type: 'bad' });
+  } else if (score >= 40) {
+    pool.push({ text: nr.good[Math.floor(Math.random() * nr.good.length)], type: 'good' });
+    pool.push({ text: tr.bad[Math.floor(Math.random() * tr.bad.length)], type: 'bad' });
+    pool.push({ text: nr.bad[Math.floor(Math.random() * nr.bad.length)], type: 'neutral' });
+  } else {
+    pool.push({ text: nr.bad[Math.floor(Math.random() * nr.bad.length)], type: 'bad' });
+    pool.push({ text: tr.bad[Math.floor(Math.random() * tr.bad.length)], type: 'bad' });
+    pool.push({ text: nr.good[Math.floor(Math.random() * nr.good.length)], type: 'neutral' });
+  }
+
+  return pool;
+}
+
+/* ── Pro Tips Database ── */
+function getTip(platform, niche, contentType, score) {
+  const tips = {
+    tiktok: [
+      "Post between 6-9pm your audience's time zone for max FYP push",
+      "Use a trending sound — the algorithm literally tells you which ones are hot",
+      "Reply to your top comment with a video to double your reach",
+      "First 1-2 seconds matter more than anything. Hook them IMMEDIATELY",
+      "Post 2-3 times a day for a week and watch what the algo does",
+      "Add text on screen — most people watch with sound off"
+    ],
+    reels: [
+      "Instagram pushes Reels to the Explore page more than any other format rn",
+      "Use 3-5 hashtags max on Reels — Instagram confirmed this works better",
+      "Share your Reel to your Story for an extra push",
+      "Instagram favors Reels under 30 seconds for wider reach",
+      "Post a Reel then go engage with other posts for 15 min — it helps distribution",
+      "Use your own audio with captions — Reels with original sound get a boost"
+    ],
+    shorts: [
+      "YouTube Shorts can drive subs to your long-form — use it as a funnel",
+      "Shorts under 30 seconds get looped which increases watch time",
+      "Add a subscribe CTA at the end — Shorts viewers convert well",
+      "YouTube pushes Shorts from channels that also post long-form",
+      "The first frame is your thumbnail on Shorts — make it count",
+      "Post Shorts consistently for 30 days and YouTube starts pushing harder"
+    ]
+  };
+
+  const combotips = {
+    'beauty_grwm': "Niche down your GRWM — 'GRWM for a first date' beats 'GRWM' every time",
+    'comedy_pov': "The caption IS the hook for POV skits — make it impossible not to watch",
+    'comedy_hottake': "Start with 'unpopular opinion' and watch the comments explode",
+    'food_tutorial': "Show the final dish FIRST then show how to make it — curiosity hook"
+  };
+
+  const comboKey = niche + '_' + contentType;
+  if (combotips[comboKey] && Math.random() > 0.3) {
+    return combotips[comboKey];
+  }
+
+  const platformTips = tips[platform];
+  return platformTips[Math.floor(Math.random() * platformTips.length)];
+}
+
+/* ── Render Result ── */
+function renderResult() {
+  const card = document.getElementById('result-card');
+  card.className = 'result-card tier-' + result.tier;
+
+  // Combo label
+  const platformNames = { tiktok: 'TikTok', reels: 'IG Reels', shorts: 'YT Shorts' };
+  const nicheNames = { beauty:'Beauty', food:'Food', comedy:'Comedy' };
+  const typeNames = { storytime:'Storytime', tutorial:'Tutorial', grwm:'GRWM', dayinlife:'Day in My Life', pov:'POV / Skit', reaction:'Reaction', trend:'Trend', unboxing:'Unboxing', hottake:'Hot Take', transformation:'Before & After' };
+
+  document.getElementById('result-combo').textContent =
+    platformNames[state.platform] + ' · ' + nicheNames[state.niche] + ' · ' + typeNames[state.contentType];
+
+  // Score animation
+  const scoreNum = document.getElementById('score-number');
+  const arc = document.getElementById('score-arc');
+  arc.style.stroke = result.color;
+  scoreNum.style.color = result.color;
+
+  // Animate score number
+  let current = 0;
+  const duration = 1000;
+  const start = performance.now();
+  function animateScore(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    current = Math.round(eased * result.score);
+    scoreNum.textContent = current;
+    // Animate arc
+    const offset = 314 - (314 * eased * result.score / 100);
+    arc.style.strokeDashoffset = offset;
+    if (progress < 1) requestAnimationFrame(animateScore);
+  }
+  requestAnimationFrame(animateScore);
+
+  // Label
+  document.getElementById('score-label').textContent = result.label;
+  document.getElementById('score-label').style.color = result.color;
+
+  // Reasons
+  const reasonsEl = document.getElementById('reasons');
+  reasonsEl.innerHTML = '';
+  result.reasons.forEach(r => {
+    const div = document.createElement('div');
+    div.className = 'reason';
+    const iconClass = r.type === 'good' ? 'good' : r.type === 'bad' ? 'bad' : 'neutral';
+    const iconSymbol = r.type === 'good' ? '↑' : r.type === 'bad' ? '↓' : '→';
+    div.innerHTML = `<div class="r-icon ${iconClass}">${iconSymbol}</div><div>${r.text}</div>`;
+    reasonsEl.appendChild(div);
+  });
+
+  // Pro tip
+  document.getElementById('pro-tip-text').textContent = result.tip;
+}
+
+/* ── Share ── */
+function shareResult() {
+  const platformNames = { tiktok: 'TikTok', reels: 'IG Reels', shorts: 'YT Shorts' };
+  const nicheNames = { beauty:'Beauty', food:'Food', comedy:'Comedy' };
+  const typeNames = { storytime:'Storytime', tutorial:'Tutorial', grwm:'GRWM', dayinlife:'Day in My Life', pov:'POV / Skit', reaction:'Reaction', trend:'Trend', unboxing:'Unboxing', hottake:'Hot Take', transformation:'Before & After' };
+
+  const text = `🔮 Would This Go Viral?\n\n` +
+    `${platformNames[state.platform]} · ${nicheNames[state.niche]} · ${typeNames[state.contentType]}\n\n` +
+    `Score: ${result.score}/100\n${result.label}\n\n` +
+    `💡 ${result.tip}\n\n` +
+    `Try it free → ledgerandspark.com`;
+
+  if (navigator.share) {
+    navigator.share({ title: 'My Viral Prediction', text: text }).catch(() => copyFallback(text));
+  } else {
+    copyFallback(text);
+  }
+}
+
+function copyFallback(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    const toast = document.getElementById('share-toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }).catch(() => {
+    // Last resort
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const toast = document.getElementById('share-toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  });
+}
+</script>
+</body>
+</html>

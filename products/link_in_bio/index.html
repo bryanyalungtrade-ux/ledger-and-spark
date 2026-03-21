@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Link-in-Bio Generator — Free Bio Page Builder | Ledger & Spark</title>
+<meta name="description" content="Build a beautiful link-in-bio page in 30 seconds. Pick a vibe, add your links, download a standalone HTML page. 100% free, no sign-up.">
+<meta property="og:title" content="Link-in-Bio Generator — Free Bio Page Builder | Ledger & Spark">
+<meta property="og:description" content="Build a stunning link-in-bio page in 30 seconds. Pick a vibe, add your links, download it. Free forever.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FAFBFE;
+  --bg-alt: #F1F5F9;
+  --blue: #3B82F6;
+  --blue-light: #60A5FA;
+  --blue-pale: #DBEAFE;
+  --blue-ghost: #EFF6FF;
+  --text: #1E293B;
+  --text-mid: #475569;
+  --text-light: #94A3B8;
+  --white: #FFFFFF;
+  --green: #10B981;
+  --green-light: #D1FAE5;
+  --orange: #F59E0B;
+  --orange-light: #FEF3C7;
+  --red: #EF4444;
+  --red-light: #FEE2E2;
+  --purple: #8B5CF6;
+  --purple-light: #EDE9FE;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 50px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.header {
+  background: var(--white);
+  border-bottom: 1px solid #E2E8F0;
+  padding: 16px 20px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-brand { font-size: 18px; font-weight: 800; color: var(--text); letter-spacing: -0.3px; }
+.header-brand span { color: var(--blue); }
+.header-tagline { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+
+.hero {
+  text-align: center;
+  padding: 32px 20px 24px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.hero-badge {
+  display: inline-block;
+  background: var(--blue-ghost);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 12px;
+}
+.hero h1 {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.hero p { font-size: 15px; color: var(--text-mid); max-width: 420px; margin: 0 auto; }
+
+.container { max-width: 500px; margin: 0 auto; padding: 0 20px 40px; }
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #E2E8F0;
+}
+.card-label { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.pill-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid #E2E8F0;
+  background: var(--white);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.pill:hover { border-color: var(--blue-light); color: var(--blue); }
+.pill.active { background: var(--blue); color: var(--white); border-color: var(--blue); }
+
+.color-pill {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 2px solid #E2E8F0;
+  background: var(--white);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.color-pill:hover { transform: translateY(-1px); }
+.color-pill.active { border-width: 2.5px; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.input-group { margin-bottom: 16px; }
+.input-label { font-size: 13px; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; display: block; }
+.input-field {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid #E2E8F0;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--white);
+  transition: border-color 0.2s;
+}
+.input-field:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+.input-field.small { max-width: 120px; text-align: center; font-size: 24px; padding: 10px 14px; }
+.input-hint { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+
+.link-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: center;
+}
+.link-row .input-field { margin-bottom: 0; }
+.link-label-input { flex: 1; min-width: 0; }
+.link-url-input { flex: 1.6; min-width: 0; }
+.remove-link-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid #E2E8F0;
+  background: var(--white);
+  color: var(--text-light);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.remove-link-btn:hover { border-color: var(--red); color: var(--red); background: var(--red-light); }
+
+.add-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1.5px dashed var(--blue-light);
+  background: var(--blue-ghost);
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  margin-top: 4px;
+}
+.add-link-btn:hover { background: var(--blue-pale); }
+.add-link-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.calc-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  margin-top: 8px;
+}
+.calc-btn:hover { background: #2563EB; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+.results { display: none; margin-top: 20px; }
+
+.results-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--blue-pale);
+}
+.results-header { text-align: center; margin-bottom: 24px; }
+.results-header h2 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+.results-header p { font-size: 13px; color: var(--text-light); }
+
+/* Phone preview frame */
+.phone-frame {
+  max-width: 375px;
+  margin: 0 auto 24px;
+  border-radius: 32px;
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0,0,0,0.05);
+  overflow: hidden;
+  position: relative;
+  background: #000;
+}
+.phone-notch {
+  width: 120px;
+  height: 24px;
+  background: #000;
+  border-radius: 0 0 16px 16px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.phone-screen {
+  min-height: 520px;
+  overflow-y: auto;
+  max-height: 640px;
+}
+.phone-screen::-webkit-scrollbar { width: 0; }
+.phone-home-bar {
+  width: 100px;
+  height: 4px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 2px;
+  margin: 8px auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Action buttons row */
+.action-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+.action-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  text-align: center;
+}
+.action-btn.primary {
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+}
+.action-btn.primary:hover { background: #2563EB; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.action-btn.secondary {
+  background: var(--blue-ghost);
+  color: var(--blue);
+  border: 2px solid var(--blue);
+}
+.action-btn.secondary:hover { background: var(--blue-pale); }
+.action-btn.outline {
+  background: var(--white);
+  color: var(--text-mid);
+  border: 1.5px solid #E2E8F0;
+}
+.action-btn.outline:hover { border-color: var(--blue-light); color: var(--blue); }
+
+.disclaimer { font-size: 11px; color: var(--text-light); text-align: center; margin-top: 16px; line-height: 1.5; }
+
+.trust-line { text-align: center; padding: 24px 20px; font-size: 13px; color: var(--text-light); }
+.trust-line a { color: var(--blue); text-decoration: none; }
+
+.footer { text-align: center; padding: 20px; border-top: 1px solid #E2E8F0; font-size: 12px; color: var(--text-light); }
+.footer a { color: var(--blue); text-decoration: none; }
+
+/* Live preview styles rendered inside phone */
+.preview-bio {
+  padding: 40px 24px 32px;
+  text-align: center;
+  min-height: 480px;
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+}
+.preview-bio .pv-emoji { font-size: 56px; margin-bottom: 12px; display: block; }
+.preview-bio .pv-name { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+.preview-bio .pv-bio { font-size: 14px; margin-bottom: 24px; opacity: 0.75; }
+.preview-bio .pv-link {
+  display: block;
+  padding: 14px 20px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  transition: transform 0.15s, box-shadow 0.15s;
+  word-break: break-word;
+}
+.preview-bio .pv-link:hover { transform: translateY(-2px); }
+
+/* Vibe: Clean */
+.vibe-clean { background: #FFFFFF; color: #1E293B; }
+.vibe-clean .pv-name { color: #1E293B; }
+.vibe-clean .pv-bio { color: #64748B; }
+.vibe-clean .pv-link {
+  background: transparent;
+  border: 1.5px solid currentColor;
+  border-radius: 10px;
+  color: currentColor;
+}
+
+/* Vibe: Neon */
+.vibe-neon { background: #0F172A; color: #F1F5F9; }
+.vibe-neon .pv-name { color: #F8FAFC; }
+.vibe-neon .pv-bio { color: #94A3B8; }
+.vibe-neon .pv-link {
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid currentColor;
+  border-radius: 10px;
+  color: currentColor;
+  box-shadow: 0 0 12px currentColor, inset 0 0 12px rgba(255,255,255,0.03);
+}
+
+/* Vibe: Pastel */
+.vibe-pastel .pv-link {
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* Vibe: Bold */
+.vibe-bold .pv-name { text-transform: uppercase; letter-spacing: 1px; }
+.vibe-bold .pv-link {
+  border-radius: 4px;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--text);
+  color: var(--white);
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 999;
+  transition: transform 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+@media (min-width: 640px) {
+  .hero h1 { font-size: 32px; }
+  .container { max-width: 560px; }
+  .action-btns { flex-direction: row; }
+  .action-btn { flex: 1; }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-brand">Ledger & <span>Spark</span></div>
+  <div class="header-tagline">Free tools. No catch. Built because you asked.</div>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">~~$24/mo~~ FREE</div>
+  <h1>Link-in-Bio Generator</h1>
+  <p>Build a gorgeous bio page in 30 seconds. Pick a vibe, drop your links, done.</p>
+</section>
+
+<div class="container">
+
+  <!-- Step 1: Pick your vibe -->
+  <div class="card">
+    <div class="card-label">Pick your vibe</div>
+    <div class="pill-grid" id="vibeGrid">
+      <button class="pill" data-value="clean">Clean</button>
+      <button class="pill" data-value="neon">Neon</button>
+      <button class="pill" data-value="pastel">Pastel</button>
+      <button class="pill" data-value="bold">Bold</button>
+    </div>
+  </div>
+
+  <!-- Step 2: Your info -->
+  <div class="card">
+    <div class="card-label">Your info</div>
+    <div class="input-group">
+      <label class="input-label">Display name</label>
+      <input type="text" class="input-field" id="displayName" placeholder="your name or brand" maxlength="40">
+    </div>
+    <div class="input-group">
+      <label class="input-label">One-line bio</label>
+      <input type="text" class="input-field" id="bioText" placeholder="content creator | NYC" maxlength="80">
+      <div class="input-hint">Keep it short — 80 chars max</div>
+    </div>
+    <div class="input-group">
+      <label class="input-label">Profile emoji</label>
+      <input type="text" class="input-field small" id="profileEmoji" placeholder="&#128293;" maxlength="4">
+      <div class="input-hint">Paste any emoji you want</div>
+    </div>
+    <div class="input-group" style="margin-bottom:0;">
+      <label class="input-label">Your links</label>
+      <div id="linksContainer">
+        <div class="link-row" data-index="0">
+          <input type="text" class="input-field link-label-input" placeholder="Label (e.g. TikTok)" maxlength="30">
+          <input type="url" class="input-field link-url-input" placeholder="https://...">
+        </div>
+        <div class="link-row" data-index="1">
+          <input type="text" class="input-field link-label-input" placeholder="Label (e.g. YouTube)" maxlength="30">
+          <input type="url" class="input-field link-url-input" placeholder="https://...">
+        </div>
+        <div class="link-row" data-index="2">
+          <input type="text" class="input-field link-label-input" placeholder="Label (e.g. Shop)" maxlength="30">
+          <input type="url" class="input-field link-url-input" placeholder="https://...">
+        </div>
+      </div>
+      <button class="add-link-btn" id="addLinkBtn" type="button">+ Add another link</button>
+      <div class="input-hint">Up to 5 links total</div>
+    </div>
+  </div>
+
+  <!-- Step 3: Pick your color -->
+  <div class="card">
+    <div class="card-label">Pick your color</div>
+    <div class="pill-grid" id="colorGrid">
+      <button class="color-pill" data-value="#3B82F6" data-name="Blue"><span class="color-dot" style="background:#3B82F6;"></span>Blue</button>
+      <button class="color-pill" data-value="#EC4899" data-name="Pink"><span class="color-dot" style="background:#EC4899;"></span>Pink</button>
+      <button class="color-pill" data-value="#10B981" data-name="Green"><span class="color-dot" style="background:#10B981;"></span>Green</button>
+      <button class="color-pill" data-value="#8B5CF6" data-name="Purple"><span class="color-dot" style="background:#8B5CF6;"></span>Purple</button>
+    </div>
+  </div>
+
+  <!-- Generate button -->
+  <button class="calc-btn" id="generateBtn">Generate My Page</button>
+
+  <!-- Results -->
+  <div class="results" id="results"></div>
+
+  <div class="trust-line">
+    Free. No catch. Built because you asked.<br>
+    <a href="mailto:ledgerandspark@gmail.com">ledgerandspark@gmail.com</a>
+  </div>
+</div>
+
+<footer class="footer">
+  &copy; 2026 Ledger & Spark. All tools are free.<br>
+  We make money from sponsors, not from you. That's why everything is free.
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ─── State ─── */
+let selectedVibe = null;
+let selectedColor = null;
+let linkCount = 3;
+
+/* ─── Pill setup ─── */
+function setupPills(gridId, callback) {
+  const grid = document.getElementById(gridId);
+  grid.addEventListener('click', (e) => {
+    const pill = e.target.closest('.pill') || e.target.closest('.color-pill');
+    if (!pill) return;
+    grid.querySelectorAll('.pill, .color-pill').forEach(p => {
+      p.classList.remove('active');
+      p.style.borderColor = '';
+      p.style.background = '';
+      p.style.color = '';
+    });
+    pill.classList.add('active');
+    if (pill.classList.contains('color-pill')) {
+      const c = pill.dataset.value;
+      pill.style.borderColor = c;
+      pill.style.background = c + '18';
+      pill.style.color = c;
+    }
+    callback(pill.dataset.value);
+  });
+}
+setupPills('vibeGrid', (v) => { selectedVibe = v; });
+setupPills('colorGrid', (v) => { selectedColor = v; });
+
+/* ─── Add / Remove links ─── */
+const linksContainer = document.getElementById('linksContainer');
+const addLinkBtn = document.getElementById('addLinkBtn');
+
+function updateAddBtn() {
+  const rows = linksContainer.querySelectorAll('.link-row');
+  addLinkBtn.disabled = rows.length >= 5;
+}
+
+addLinkBtn.addEventListener('click', () => {
+  const rows = linksContainer.querySelectorAll('.link-row');
+  if (rows.length >= 5) return;
+  const idx = rows.length;
+  const div = document.createElement('div');
+  div.className = 'link-row';
+  div.dataset.index = idx;
+  div.innerHTML = `
+    <input type="text" class="input-field link-label-input" placeholder="Label" maxlength="30">
+    <input type="url" class="input-field link-url-input" placeholder="https://...">
+    <button type="button" class="remove-link-btn" title="Remove">&times;</button>
+  `;
+  div.querySelector('.remove-link-btn').addEventListener('click', () => {
+    div.remove();
+    updateAddBtn();
+  });
+  linksContainer.appendChild(div);
+  updateAddBtn();
+  div.querySelector('.link-label-input').focus();
+});
+
+/* ─── Toast ─── */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+/* ─── Escape HTML ─── */
+function esc(str) {
+  const d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML;
+}
+
+/* ─── Collect links from form ─── */
+function getLinks() {
+  const rows = linksContainer.querySelectorAll('.link-row');
+  const links = [];
+  rows.forEach(row => {
+    const label = row.querySelector('.link-label-input').value.trim();
+    const url = row.querySelector('.link-url-input').value.trim();
+    if (label && url) links.push({ label, url });
+  });
+  return links;
+}
+
+/* ─── Build preview HTML (in-page) ─── */
+function buildPreviewHTML(vibe, color, name, bio, emoji, links) {
+  let vibeClass = 'vibe-' + vibe;
+  let bgColor, textColor, linkStyle;
+
+  // Compute vibe-specific colors
+  switch (vibe) {
+    case 'clean':
+      bgColor = '#FFFFFF';
+      textColor = '#1E293B';
+      break;
+    case 'neon':
+      bgColor = '#0F172A';
+      textColor = '#F1F5F9';
+      break;
+    case 'pastel':
+      bgColor = color + '12';
+      textColor = '#1E293B';
+      break;
+    case 'bold':
+      bgColor = '#FFFFFF';
+      textColor = '#1E293B';
+      break;
+    default:
+      bgColor = '#FFFFFF';
+      textColor = '#1E293B';
+  }
+
+  let linksHTML = '';
+  links.forEach(l => {
+    linksHTML += `<a class="pv-link" href="${esc(l.url)}" target="_blank" rel="noopener" style="${getLinkStyle(vibe, color)}">${esc(l.label)}</a>`;
+  });
+
+  return `
+    <div class="preview-bio ${vibeClass}" style="background:${bgColor};color:${textColor};">
+      <span class="pv-emoji">${esc(emoji)}</span>
+      <div class="pv-name" style="color:${vibe === 'neon' ? '#F8FAFC' : textColor};">${esc(name)}</div>
+      <div class="pv-bio">${esc(bio)}</div>
+      ${linksHTML}
+    </div>
+  `;
+}
+
+function getLinkStyle(vibe, color) {
+  switch (vibe) {
+    case 'clean':
+      return `background:transparent; border:1.5px solid ${color}; border-radius:10px; color:${color};`;
+    case 'neon':
+      return `background:rgba(255,255,255,0.05); border:1.5px solid ${color}; border-radius:10px; color:${color}; box-shadow:0 0 12px ${color};`;
+    case 'pastel':
+      return `background:${color}22; border:none; border-radius:50px; color:${color}; box-shadow:0 2px 8px rgba(0,0,0,0.06);`;
+    case 'bold':
+      return `background:${color}; border:none; border-radius:4px; color:#FFFFFF; text-transform:uppercase; letter-spacing:0.5px; font-weight:800;`;
+    default:
+      return '';
+  }
+}
+
+/* ─── Build standalone HTML file ─── */
+function buildStandaloneHTML(vibe, color, name, bio, emoji, links) {
+  let bgColor, textColor, bioColor, nameStyle, linkCSS, bodyExtra;
+
+  switch (vibe) {
+    case 'clean':
+      bgColor = '#FFFFFF';
+      textColor = '#1E293B';
+      bioColor = '#64748B';
+      nameStyle = '';
+      linkCSS = `background:transparent; border:1.5px solid ${color}; border-radius:10px; color:${color};`;
+      bodyExtra = '';
+      break;
+    case 'neon':
+      bgColor = '#0F172A';
+      textColor = '#F8FAFC';
+      bioColor = '#94A3B8';
+      nameStyle = '';
+      linkCSS = `background:rgba(255,255,255,0.05); border:1.5px solid ${color}; border-radius:10px; color:${color}; box-shadow:0 0 12px ${color}, inset 0 0 12px rgba(255,255,255,0.03);`;
+      bodyExtra = '';
+      break;
+    case 'pastel':
+      bgColor = color + '12';
+      textColor = '#1E293B';
+      bioColor = '#64748B';
+      nameStyle = '';
+      linkCSS = `background:${color}22; border:none; border-radius:50px; color:${color}; box-shadow:0 2px 8px rgba(0,0,0,0.06);`;
+      bodyExtra = '';
+      break;
+    case 'bold':
+      bgColor = '#FFFFFF';
+      textColor = '#1E293B';
+      bioColor = '#64748B';
+      nameStyle = 'text-transform:uppercase; letter-spacing:1px;';
+      linkCSS = `background:${color}; border:none; border-radius:4px; color:#FFFFFF; text-transform:uppercase; letter-spacing:0.5px; font-weight:800;`;
+      bodyExtra = '';
+      break;
+  }
+
+  let linksMarkup = '';
+  links.forEach(l => {
+    linksMarkup += `      <a class="link" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>\n`;
+  });
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${esc(name)} — Links</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: ${bgColor};
+  color: ${textColor};
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+}
+.container {
+  max-width: 420px;
+  width: 100%;
+  padding: 60px 24px 40px;
+  text-align: center;
+}
+.emoji { font-size: 64px; margin-bottom: 16px; display: block; }
+.name { font-size: 24px; font-weight: 800; margin-bottom: 6px; ${nameStyle} }
+.bio { font-size: 15px; color: ${bioColor}; margin-bottom: 32px; opacity: 0.85; }
+.link {
+  display: block;
+  padding: 16px 24px;
+  margin-bottom: 12px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: transform 0.15s, box-shadow 0.15s;
+  ${linkCSS}
+}
+.link:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+.footer-text { margin-top: 40px; font-size: 11px; color: ${vibe === 'neon' ? '#475569' : '#94A3B8'}; }
+.footer-text a { color: ${color}; text-decoration: none; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <span class="emoji">${esc(emoji)}</span>
+    <div class="name">${esc(name)}</div>
+    <div class="bio">${esc(bio)}</div>
+${linksMarkup}
+    <div class="footer-text">Made with <a href="https://ledgerandspark.com" target="_blank">Ledger & Spark</a></div>
+  </div>
+</body>
+</html>`;
+}
+
+/* ─── Generate ─── */
+document.getElementById('generateBtn').addEventListener('click', () => {
+  if (!selectedVibe) { alert('Pick a vibe first!'); return; }
+  if (!selectedColor) { alert('Pick a color!'); return; }
+
+  const name = document.getElementById('displayName').value.trim() || 'Your Name';
+  const bio = document.getElementById('bioText').value.trim() || '';
+  const emoji = document.getElementById('profileEmoji').value.trim() || '\u{1F517}';
+  const links = getLinks();
+
+  if (links.length === 0) { alert('Add at least one link with a label and URL!'); return; }
+
+  const previewHTML = buildPreviewHTML(selectedVibe, selectedColor, name, bio, emoji, links);
+  const standaloneHTML = buildStandaloneHTML(selectedVibe, selectedColor, name, bio, emoji, links);
+
+  // Store for actions
+  window._generatedHTML = standaloneHTML;
+
+  const resultsHTML = `
+    <div class="results-card">
+      <div class="results-header">
+        <h2>Your bio page is ready</h2>
+        <p>${esc(selectedVibe.charAt(0).toUpperCase() + selectedVibe.slice(1))} vibe &middot; ${links.length} link${links.length > 1 ? 's' : ''}</p>
+      </div>
+
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          ${previewHTML}
+        </div>
+        <div class="phone-home-bar"></div>
+      </div>
+
+      <div class="action-btns">
+        <button class="action-btn primary" onclick="copyHTML()">Copy HTML</button>
+        <button class="action-btn secondary" onclick="downloadHTML()">Download .html</button>
+        <button class="action-btn outline" onclick="shareLink()">Share Link</button>
+      </div>
+
+      <div class="disclaimer">
+        Your page is a standalone HTML file — it works offline, no hosting needed.<br>
+        Drop it on Netlify, GitHub Pages, or just open it in a browser.
+      </div>
+    </div>
+  `;
+
+  const results = document.getElementById('results');
+  results.innerHTML = resultsHTML;
+  results.style.display = 'block';
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+/* ─── Action: Copy HTML ─── */
+function copyHTML() {
+  if (!window._generatedHTML) return;
+  navigator.clipboard.writeText(window._generatedHTML).then(() => {
+    showToast('HTML copied to clipboard!');
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = window._generatedHTML;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('HTML copied to clipboard!');
+  });
+}
+
+/* ─── Action: Download HTML ─── */
+function downloadHTML() {
+  if (!window._generatedHTML) return;
+  const name = document.getElementById('displayName').value.trim() || 'my-bio';
+  const safeName = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '');
+  const blob = new Blob([window._generatedHTML], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = safeName + '-links.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('Downloading your page!');
+}
+
+/* ─── Action: Share ─── */
+function shareLink() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'Link-in-Bio Generator — Ledger & Spark',
+      text: 'Just built a free link-in-bio page in 30 seconds! Try it:',
+      url: window.location.href
+    }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      showToast('Link copied! Share it anywhere');
+    });
+  }
+}
+</script>
+</body>
+</html>

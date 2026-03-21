@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caption This — Free Caption Generator | Ledger & Spark</title>
+<meta name="description" content="Stop staring at the blank caption box. Generate 10 fire captions + hashtag sets for TikTok, Instagram, Twitter & YouTube in one tap. 100% free.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FAFBFE;
+  --bg-alt: #F1F5F9;
+  --blue: #3B82F6;
+  --blue-light: #60A5FA;
+  --blue-pale: #DBEAFE;
+  --blue-ghost: #EFF6FF;
+  --text: #1E293B;
+  --text-mid: #475569;
+  --text-light: #94A3B8;
+  --white: #FFFFFF;
+  --green: #10B981;
+  --green-light: #D1FAE5;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 50px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--white);
+  border-bottom: 1px solid #E2E8F0;
+  padding: 16px 20px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-brand {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+.header-brand span { color: var(--blue); }
+.header-tagline {
+  font-size: 11px;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  padding: 32px 20px 24px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.hero-badge {
+  display: inline-block;
+  background: var(--blue-ghost);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 12px;
+}
+.hero h1 {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+.hero h1 .gradient {
+  background: linear-gradient(135deg, var(--blue), var(--blue-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero p {
+  font-size: 15px;
+  color: var(--text-mid);
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* ── MAIN ── */
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 16px 80px;
+}
+
+/* ── STEP SECTIONS ── */
+.step-section {
+  margin-bottom: 20px;
+}
+.step-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-mid);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.step-num {
+  background: var(--blue);
+  color: var(--white);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ── PLATFORM SELECTOR ── */
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.platform-btn {
+  background: var(--white);
+  border: 2px solid #E2E8F0;
+  border-radius: var(--radius);
+  padding: 14px 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.platform-btn:hover {
+  border-color: var(--blue-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+.platform-btn.active {
+  border-color: var(--blue);
+  background: var(--blue-ghost);
+  box-shadow: 0 0 0 3px var(--blue-pale);
+}
+.platform-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+.platform-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-mid);
+}
+.platform-btn.active .platform-name { color: var(--blue); }
+
+/* ── VIBE SELECTOR ── */
+.vibe-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.vibe-pill {
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  border: 2px solid #E2E8F0;
+  background: var(--white);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.vibe-pill:hover {
+  border-color: var(--blue-light);
+  transform: translateY(-1px);
+}
+.vibe-pill.active {
+  color: var(--white);
+  border-color: transparent;
+  box-shadow: var(--shadow-sm);
+}
+.vibe-pill[data-vibe="funny"].active { background: #F59E0B; }
+.vibe-pill[data-vibe="motivational"].active { background: #10B981; }
+.vibe-pill[data-vibe="thirst_trap"].active { background: #EF4444; }
+.vibe-pill[data-vibe="casual"].active { background: var(--blue); }
+.vibe-pill[data-vibe="professional"].active { background: #6366F1; }
+.vibe-pill[data-vibe="sassy"].active { background: #EC4899; }
+
+/* ── TEXT INPUT ── */
+.topic-input-wrap {
+  position: relative;
+}
+.topic-input {
+  width: 100%;
+  padding: 16px 18px;
+  border: 2px solid #E2E8F0;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  background: var(--white);
+  transition: border-color 0.2s;
+  color: var(--text);
+}
+.topic-input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-pale);
+}
+.topic-input::placeholder { color: var(--text-light); }
+.char-count {
+  position: absolute;
+  right: 14px;
+  bottom: -20px;
+  font-size: 11px;
+  color: var(--text-light);
+}
+
+/* ── GENERATE BUTTON ── */
+.generate-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--blue), var(--blue-light));
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 28px;
+  letter-spacing: -0.2px;
+}
+.generate-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(59,130,246,0.35);
+}
+.generate-btn:active { transform: translateY(0); }
+.generate-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── RESULTS ── */
+.results-area {
+  margin-top: 28px;
+  display: none;
+}
+.results-area.visible { display: block; }
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.results-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+.regen-btn {
+  padding: 8px 16px;
+  background: var(--white);
+  border: 2px solid #E2E8F0;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s;
+  color: var(--text-mid);
+}
+.regen-btn:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+.regen-icon {
+  display: inline-block;
+  transition: transform 0.3s;
+}
+.regen-btn:hover .regen-icon { transform: rotate(180deg); }
+
+/* ── CAPTION CARDS ── */
+.caption-card {
+  background: var(--white);
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 10px;
+  position: relative;
+  transition: box-shadow 0.2s;
+  animation: cardIn 0.3s ease both;
+}
+.caption-card:hover { box-shadow: var(--shadow-sm); }
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.caption-card:nth-child(1) { animation-delay: 0ms; }
+.caption-card:nth-child(2) { animation-delay: 40ms; }
+.caption-card:nth-child(3) { animation-delay: 80ms; }
+.caption-card:nth-child(4) { animation-delay: 120ms; }
+.caption-card:nth-child(5) { animation-delay: 160ms; }
+.caption-card:nth-child(6) { animation-delay: 200ms; }
+.caption-card:nth-child(7) { animation-delay: 240ms; }
+.caption-card:nth-child(8) { animation-delay: 280ms; }
+.caption-card:nth-child(9) { animation-delay: 320ms; }
+.caption-card:nth-child(10) { animation-delay: 360ms; }
+
+.caption-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 4px;
+}
+.caption-text {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--bg-alt);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-mid);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s;
+}
+.copy-btn:hover { background: var(--blue-pale); color: var(--blue); }
+.copy-btn.copied {
+  background: var(--green-light);
+  color: var(--green);
+}
+
+/* ── HASHTAG SECTION ── */
+.hashtag-section {
+  margin-top: 28px;
+}
+.hashtag-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.hashtag-block {
+  background: var(--white);
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius);
+  margin-bottom: 10px;
+  overflow: hidden;
+  animation: cardIn 0.3s ease both;
+}
+.hashtag-block:nth-child(2) { animation-delay: 60ms; }
+.hashtag-block:nth-child(3) { animation-delay: 120ms; }
+
+.hashtag-header {
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+.hashtag-header:hover { background: var(--bg-alt); }
+.hashtag-label {
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hashtag-count {
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--blue-pale);
+  color: var(--blue);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+.hashtag-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hashtag-chevron {
+  font-size: 14px;
+  color: var(--text-light);
+  transition: transform 0.2s;
+}
+.hashtag-block.open .hashtag-chevron { transform: rotate(180deg); }
+.hashtag-body {
+  padding: 0 16px 14px;
+  display: none;
+}
+.hashtag-block.open .hashtag-body { display: block; }
+.hashtag-tags {
+  font-size: 14px;
+  color: var(--blue);
+  line-height: 1.8;
+  word-break: break-all;
+}
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  padding: 40px 20px 32px;
+  border-top: 1px solid #E2E8F0;
+  margin-top: 40px;
+}
+.footer-brand {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.footer-brand span { color: var(--blue); }
+.footer-note {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 8px;
+}
+.footer-trust {
+  font-size: 12px;
+  color: var(--text-light);
+  background: var(--blue-ghost);
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+}
+.footer-link {
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 12px;
+}
+.footer-link:hover { color: var(--blue); }
+
+/* ── SCROLL TO TOP ── */
+.scroll-top {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  z-index: 90;
+  align-items: center;
+  justify-content: center;
+}
+.scroll-top.visible { display: flex; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 480px) {
+  .hero h1 { font-size: 26px; }
+  .hero p { font-size: 14px; }
+  .platform-grid { gap: 8px; }
+  .platform-btn { padding: 12px 6px; }
+  .platform-icon { font-size: 20px; width: 28px; height: 28px; }
+  .platform-name { font-size: 10px; }
+  .vibe-pill { padding: 8px 14px; font-size: 12px; }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-brand">Ledger <span>&</span> Spark</div>
+  <div class="header-tagline">Free tools. No catch. Built because you asked.</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">100% FREE FOREVER</div>
+  <h1>Stop staring at the<br><span class="gradient">blank caption box.</span></h1>
+  <p>Pick your platform, pick your vibe, type your topic. Get 10 captions + hashtags in one tap.</p>
+</section>
+
+<!-- MAIN GENERATOR -->
+<main class="container">
+
+  <!-- STEP 1: PLATFORM -->
+  <div class="step-section">
+    <div class="step-label"><span class="step-num">1</span> Pick your platform</div>
+    <div class="platform-grid">
+      <button class="platform-btn" data-platform="tiktok" onclick="selectPlatform(this)">
+        <div class="platform-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.8.1V9.01a6.27 6.27 0 00-.8-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.71a8.17 8.17 0 004.76 1.52V6.84a4.84 4.84 0 01-1-.15z" fill="#1E293B"/></svg>
+        </div>
+        <span class="platform-name">TikTok</span>
+      </button>
+      <button class="platform-btn" data-platform="instagram" onclick="selectPlatform(this)">
+        <div class="platform-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#1E293B" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke="#1E293B" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="#1E293B"/></svg>
+        </div>
+        <span class="platform-name">Instagram</span>
+      </button>
+      <button class="platform-btn" data-platform="twitter" onclick="selectPlatform(this)">
+        <div class="platform-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#1E293B"/></svg>
+        </div>
+        <span class="platform-name">Twitter/X</span>
+      </button>
+      <button class="platform-btn" data-platform="youtube" onclick="selectPlatform(this)">
+        <div class="platform-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#1E293B"/></svg>
+        </div>
+        <span class="platform-name">YouTube</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 2: VIBE -->
+  <div class="step-section">
+    <div class="step-label"><span class="step-num">2</span> Pick your vibe</div>
+    <div class="vibe-grid">
+      <button class="vibe-pill" data-vibe="funny" onclick="selectVibe(this)">&#128514; Funny</button>
+      <button class="vibe-pill" data-vibe="thirst_trap" onclick="selectVibe(this)">&#128293; Thirst Trap</button>
+      <button class="vibe-pill" data-vibe="casual" onclick="selectVibe(this)">&#9996;&#65039; Casual</button>
+      <button class="vibe-pill" data-vibe="sassy" onclick="selectVibe(this)">&#128133; Sassy</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: TOPIC -->
+  <div class="step-section">
+    <div class="step-label"><span class="step-num">3</span> Describe your post</div>
+    <div class="topic-input-wrap">
+      <input type="text" class="topic-input" id="topicInput" placeholder="e.g. morning coffee at a cute cafe" maxlength="80" oninput="updateCharCount()">
+      <div class="char-count"><span id="charNum">0</span>/80</div>
+    </div>
+  </div>
+
+  <!-- GENERATE -->
+  <button class="generate-btn" id="generateBtn" onclick="generate()" disabled>&#9889; Generate Captions</button>
+
+  <!-- RESULTS -->
+  <div class="results-area" id="resultsArea">
+    <div class="results-header">
+      <div class="results-title">Your Captions</div>
+      <button class="regen-btn" onclick="generate()">
+        <span class="regen-icon">&#8635;</span> Regenerate
+      </button>
+    </div>
+    <div id="captionsList"></div>
+
+    <!-- HASHTAGS -->
+    <div class="hashtag-section">
+      <div class="hashtag-title">Hashtag Sets</div>
+      <div id="hashtagsList"></div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-brand">Ledger <span>&</span> Spark</div>
+  <div class="footer-note">We make money from sponsors, not from you. That's why everything is free.</div>
+  <div class="footer-trust">&#128274; No sign-up. No data stored. No catch.</div>
+  <div style="margin-top: 12px;">
+    <a href="mailto:ledgerandspark@gmail.com" class="footer-link">ledgerandspark@gmail.com</a>
+  </div>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+
+<script>
+/* ================================================================
+   CAPTION THIS — Template Engine
+   Ledger & Spark | 100% client-side, zero APIs, zero tracking
+   ================================================================ */
+
+// ── STATE ──
+let state = { platform: null, vibe: null, topic: '' };
+
+// ── SELECTORS ──
+function selectPlatform(el) {
+  document.querySelectorAll('.platform-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  state.platform = el.dataset.platform;
+  checkReady();
+}
+
+function selectVibe(el) {
+  document.querySelectorAll('.vibe-pill').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  state.vibe = el.dataset.vibe;
+  checkReady();
+}
+
+function updateCharCount() {
+  const val = document.getElementById('topicInput').value;
+  document.getElementById('charNum').textContent = val.length;
+  state.topic = val.trim();
+  checkReady();
+}
+
+function checkReady() {
+  document.getElementById('generateBtn').disabled = !(state.platform && state.vibe && state.topic.length >= 2);
+}
+
+// ── COPY ──
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '&#10003; Copied';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 1500);
+  });
+}
+
+// ── HASHTAG TOGGLE ──
+function toggleHashtag(el) {
+  el.closest('.hashtag-block').classList.toggle('open');
+}
+
+// ── SCROLL TOP ──
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+});
+
+/* ================================================================
+   TEMPLATE BANK — 200+ templates across 6 vibes x 4 platforms
+   {T} = user topic (capitalized)
+   {t} = user topic (lowercase)
+   {Tc} = topic with first letter cap
+   ================================================================ */
+
+const TEMPLATES = {
+
+// ═══════════════════════════════════════
+// FUNNY
+// ═══════════════════════════════════════
+funny: {
+  universal: [
+    "me: I should be productive\nalso me: *{t}* for 3 hours straight \ud83d\ude2d",
+    "no one:\nabsolutely no one:\nme at 2am: let me just {t} real quick \ud83d\ude02",
+    "POV: you told yourself you'd stop {t} but here we are again \ud83e\udd21",
+    "tell me you love {t} without telling me you love {t} \ud83d\ude4a",
+    "the way I gaslit myself into thinking {t} was a good idea \ud83d\ude05",
+    "that girl who {t}s and pretends it's a personality trait \ud83d\udc85",
+    "my bank account watching me {t}: \ud83d\udc41\ufe0f\ud83d\udc44\ud83d\udc41\ufe0f",
+    "I don't have a problem with {t}. I have a PASSION. there's a difference. \ud83e\uddd0",
+    "\"what's your hobby?\"\nme: *gestures vaguely at {t}* \ud83d\ude2d",
+    "day 847 of {t} like it's my full-time job \ud83d\ude02",
+    "the urge to {t} is strong and I am weak \ud83d\ude2b",
+    "normalize {t} at inappropriate times \ud83d\ude0c",
+    "my therapist: and how does {t} make you feel?\nme: alive \ud83e\udd79",
+    "bestie said I can't keep {t} forever. bestie is no longer bestie. \ud83d\ude44",
+    "\"you can't just {t} every day\"\nwatch me. \ud83d\ude0e",
+    "when {t} hits different at midnight \ud83c\udf19\ud83d\ude02",
+    "I'm not addicted to {t}. I can stop whenever I want. I just don't want to. \ud83e\udd37",
+    "it's giving... {t} obsession and I'm not even sorry \ud83d\ude02",
+    "fun fact: {t} is actually a love language. mine specifically. \u2764\ufe0f\ud83e\udd23",
+    "mom: you need a hobby\nme: *shows her {t}*\nmom: a DIFFERENT hobby \ud83d\ude29",
+    "if {t} is wrong I don't wanna be right \ud83d\ude07",
+    "hot take: {t} is the answer to 90% of life's problems \ud83d\ude02",
+    "relationship status: in a committed relationship with {t} \ud83d\udc95",
+    "my toxic trait is thinking I can {t} in 5 minutes \ud83d\ude02",
+    "society: go outside\nme: but {t} \ud83e\udd7a",
+    "I am simply a girl who {t}s. and that is enough. \ud83d\ude0c\ud83d\ude02",
+    "wait for it... *{t}* \ud83d\ude31\ud83d\ude02",
+    "did I NEED to {t}? no. did I want to? also no. did I do it anyway? yes. \ud83e\udd21",
+    "broke: normal plans\nwoke: {t} \ud83d\ude02",
+    "me pretending I'm not about to {t} for the 47th time today \ud83d\ude43",
+    "pov: you just discovered {t} and now it's your entire personality \ud83d\ude02",
+    "if {t} was a sport I'd be an Olympic gold medalist \ud83e\udd47\ud83d\ude02",
+    "the vibes are: {t} and absolutely nothing else \ud83d\ude0c\ud83e\udd23",
+    "*does {t} once*\nme: this is my calling \ud83d\ude02",
+    "they said {t} couldn't be a lifestyle. I took that personally. \ud83d\ude24\ud83d\ude02"
+  ],
+  tiktok: [
+    "\ud83d\udd0a sound on for the {t} content you didn't know you needed \ud83d\ude02",
+    "this is your sign to try {t}. don't ask questions just do it \ud83e\udd23",
+    "stitch this if {t} ruined your life (in the best way) \ud83d\ude02"
+  ],
+  instagram: [
+    "caption this: me + {t} = this photo \ud83d\ude02\u2935\ufe0f",
+    "slide 1: the expectation\nslide 2: the reality of {t} \ud83d\ude29\ud83e\udd23",
+    "dump of me just {t} because that's all I do apparently \ud83d\ude02\ud83d\udcf8"
+  ],
+  twitter: [
+    "{t} should be a constitutional right \ud83d\ude02",
+    "normalize talking about {t} with the same energy as the weather",
+    "in this economy? {t} is my only joy \ud83d\ude02"
+  ],
+  youtube: [
+    "I tried {t} for 24 hours and this happened... \ud83d\ude02",
+    "reacting to the WORST {t} takes on the internet \ud83d\ude31\ud83e\udd23",
+    "I challenged my friend to {t} and it went terribly \ud83d\ude02"
+  ]
+},
+
+// ═══════════════════════════════════════
+// MOTIVATIONAL
+// ═══════════════════════════════════════
+motivational: {
+  universal: [
+    "they laughed when I started {t}. they're not laughing anymore. \ud83d\udd25",
+    "a year from now you'll wish you started {t} today \ud83d\udcaa",
+    "the only thing standing between you and {t} is the story you keep telling yourself \ud83d\udca1",
+    "you don't need permission to {t}. you just need to start. \ud83d\ude80",
+    "small steps. {Tc} every single day. that's the formula. \ud83d\udcaf",
+    "POV: you chose {t} over comfort and it changed everything \ud83c\udf1f",
+    "the version of you who masters {t} is already waiting. go meet them. \ud83d\udc51",
+    "it's not about being the best at {t}. it's about being better than yesterday. \ud83c\udfaf",
+    "plot twist: {t} was the thing that turned it all around \ud83d\udcab",
+    "your future self is thanking you for {t} right now \ud83d\ude4f",
+    "discipline is doing {t} when you don't feel like it. that's the cheat code. \ud83d\udd11",
+    "I didn't come this far with {t} to only come this far \ud83d\udcaa\ud83d\udd25",
+    "comfort zone is nice but nothing grows there. {Tc} is where the magic happens. \ud83c\udf31",
+    "the grind doesn't care about your mood. {Tc} every day. \u26a1",
+    "everyone wants the results of {t}. few want the process. be the few. \ud83d\ude0e",
+    "you're one decision away from a completely different life. {Tc}. today. \ud83d\udca5",
+    "watch me turn {t} into something nobody expected \ud83d\ude0f\ud83d\udd25",
+    "no shortcuts. no hacks. just {t} and consistency. \ud83c\udfaf",
+    "they said {t} was a waste of time. I said watch me. \ud83d\udc40\ud83d\udcaa",
+    "reminder: you don't owe anyone an explanation for why you're {t}. just go. \ud83d\ude80",
+    "the comeback is always stronger. {Tc} is my proof. \ud83d\udc51",
+    "build in silence. let {t} make the noise. \ud83e\udd2b\ud83d\udd25",
+    "2024 energy: less talking, more {t} \u2728",
+    "scared? good. {Tc} anyway. that's where the growth is. \ud83c\udf1f",
+    "day 1 or one day? I chose day 1 of {t}. \ud83d\udcaa",
+    "they'll understand when they see the results of {t}. until then, keep going. \ud83d\ude0e",
+    "the best time to start {t} was yesterday. the second best time is now. \u23f0",
+    "be so good at {t} they can't ignore you \ud83d\udca5",
+    "it's not motivation. it's {t} and discipline. \ud83e\uddca",
+    "fall in love with {t}. fall in love with the process. the results will follow. \u2764\ufe0f\ud83d\udcaa",
+    "you vs. you. {Tc} is the battlefield. win today. \ud83c\udfc6",
+    "if it doesn't challenge you, it doesn't change you. {Tc} challenges me daily. \ud83d\udcaa",
+    "progress > perfection. keep {t}. keep going. \ud83d\ude80",
+    "your only competition is who you were yesterday. {Tc} makes you better. \ud83c\udf1f",
+    "dream big. start small. {Tc}. \u2728"
+  ],
+  tiktok: [
+    "\ud83d\udd0a this sound + {t} = unstoppable energy \ud83d\ude80 save this for when you need it",
+    "replying to a follower: YES you can start {t} with zero experience. here's proof \ud83d\udcaa",
+    "the {t} glow up is real and it starts TODAY \u2728"
+  ],
+  instagram: [
+    "the journey of {t} in one photo dump \ud83d\udcf8\ud83d\udcaa swipe to see it all",
+    "posting this so I can look back when {t} pays off \ud83d\ude4f\ud83c\udf1f",
+    "this is what {t} looks like when nobody's watching \ud83d\udcaa\ud83d\udcf7"
+  ],
+  twitter: [
+    "hot take: {t} is the most underrated skill you can develop right now",
+    "thread: everything I learned from 30 days of {t} \ud83e\uddf5\ud83d\udc47",
+    "the people who are {t} right now will be untouchable in 12 months"
+  ],
+  youtube: [
+    "How {t} changed my life in 30 days (not clickbait) \ud83d\udcaa",
+    "{Tc}: the habit that separates winners from everyone else \ud83c\udfc6",
+    "I did {t} every single day for a month. here's what happened \ud83d\udca5"
+  ]
+},
+
+// ═══════════════════════════════════════
+// THIRST TRAP
+// ═══════════════════════════════════════
+thirst_trap: {
+  universal: [
+    "the way {t} looks on me tho \ud83d\udc40\ud83d\udd25",
+    "{t} but make it dangerous \ud83d\ude08",
+    "soft launch: me + {t} \ud83c\udf19\u2728",
+    "you could never handle me and {t} \ud83d\udc85\ud83d\udd25",
+    "the vibe is: {t} and looking good doing it \ud83d\ude0f\ud83d\udcab",
+    "if {t} was a person, I'd be them \ud83d\udc51\ud83d\udd25",
+    "me being way too attractive while {t} \ud83d\ude48\ud83d\udd25",
+    "you're welcome for this {t} content \ud83d\ude0c\ud83d\udc8b",
+    "catch me {t} like it's my job. oh wait. it IS giving. \ud83d\ude0f",
+    "*{t}s cutely* \ud83e\udd70",
+    "this is your reminder that I look good and {t} \ud83d\udc85\u2728",
+    "not me looking this fine while {t} \ud83e\udd2d\ud83d\udd25",
+    "POV: you walked in on me {t} \ud83d\udc40",
+    "{t} season and I'm the main character \ud83c\udf1f\ud83d\udd25",
+    "casual {t} but make it hot \ud83d\ude36\u200d\ud83c\udf2b\ufe0f\ud83d\udd25",
+    "just {t} things but with main character energy \ud83d\udc51",
+    "I don't always {t} but when I do, I look like this \ud83d\ude0f",
+    "they're not ready for this {t} era \ud83d\udd25\ud83d\ude0e",
+    "currently accepting compliments about my {t} \ud83d\udc8c",
+    "the audacity of me {t} and looking this good \ud83e\udd2d\ud83d\udd25",
+    "manifesting: {t} + me + this energy forever \u2728\ud83d\udd25",
+    "it's the {t} for me \ud83d\udc40\ud83d\udd25",
+    "tell me I'm pretty. also tell me about {t}. \ud83d\ude07\ud83d\udd25",
+    "soft hours: thinking about {t} \ud83c\udf19\u2728",
+    "CEO of {t} and looking unbothered \ud83d\udc51\ud83d\ude0f",
+    "I was gonna caption this something deep but... {t} \ud83d\udd25",
+    "warning: this {t} content may cause feelings \ud83d\ude08\u2764\ufe0f",
+    "drop a \ud83d\udd25 if you support me {t} \ud83d\ude0c",
+    "POV: you fell for someone who {t}s \ud83e\udd70",
+    "bestie I am SERVING with this {t} look \ud83d\udc85\ud83d\udcab",
+    "confidence level: {t} with no explanation \ud83d\ude0e\ud83d\udd25",
+    "the way I did {t} and made it look effortless \ud83e\udd2d",
+    "currently in my {t} era and thriving \ud83c\udf1f\ud83d\udd25",
+    "this one's for the people who said I couldn't pull off {t} \ud83d\udc4b\ud83d\udd25",
+    "giving exactly what needed to be gave: {t} \ud83d\ude0f\u2728"
+  ],
+  tiktok: [
+    "wait for the {t} reveal \ud83d\udc40\ud83d\udd25 #fyp #foryou",
+    "get ready with me for {t} (it's giving MAIN CHARACTER) \ud83d\ude0f",
+    "transition: regular me \u2192 {t} me \ud83d\udd25\u2728"
+  ],
+  instagram: [
+    "photo dump but make it {t} \ud83d\ude0f\ud83d\udcf8\ud83d\udd25",
+    "posting and going offline. {t} speaks for itself \ud83d\udc8b",
+    "this carousel is just me being fine while {t}. you're welcome \ud83d\ude08\ud83d\udcf8"
+  ],
+  twitter: [
+    "thinking about how I look when I {t} \ud83d\udd25",
+    "if you can't handle me at my {t}, you don't deserve me at my best \ud83d\ude0f",
+    "daily reminder that {t} looks really good on me \ud83d\udc51"
+  ],
+  youtube: [
+    "Get ready with me: {t} edition \ud83d\ude0f\ud83d\udd25 (this one's different)",
+    "VLOG: a day in my life but I'm serving while {t} \ud83d\udc51",
+    "the {t} glow up nobody asked for but everyone needed \u2728"
+  ]
+},
+
+// ═══════════════════════════════════════
+// CASUAL
+// ═══════════════════════════════════════
+casual: {
+  universal: [
+    "just {t} things \u2728",
+    "today's vibe: {t} and nothing else \ud83d\ude0c",
+    "me, my coffee, and {t}. perfect day. \u2615",
+    "honestly? {t} is all I needed today \ud83d\ude0a",
+    "no thoughts just {t} \ud83e\uddd8",
+    "currently: {t}. status: happy. \u263a\ufe0f",
+    "it's a {t} kinda day \ud83c\udf1f",
+    "vibes: {t} + good music + zero plans \ud83c\udfb6",
+    "doing the thing where I {t} and forget about everything else \ud83d\ude05",
+    "this is fine. I'm fine. just {t}. \ud83d\ude42",
+    "life update: still {t}. still happy about it. \u2764\ufe0f",
+    "chapter 1: I decided to {t}. chapter 2: best decision ever. \ud83d\udcda",
+    "sunday energy but it's {t} on a [insert day] \ud83d\ude0c",
+    "took the scenic route to {t} today \ud83d\ude0a",
+    "friendly reminder to go {t}. you deserve it. \ud83e\udd0d",
+    "little things > everything. especially {t}. \u2728",
+    "adding {t} to my list of things that make me happy \ud83d\udcdd",
+    "current mood: {t} with a side of peace \ud83c\udf3f",
+    "catch me outside {t}. that's it. that's the post. \ud83d\ude0c",
+    "note to self: {t} more often \ud83d\udccc",
+    "can confirm: {t} is good for the soul \ud83e\udd0d",
+    "somewhere between {t} and a nap \ud83d\ude34\ud83d\ude0a",
+    "keeping it simple: {t} + good vibes \u2728",
+    "life lately = lots of {t} \ud83d\ude0a",
+    "in my {t} era and I'm not taking questions \ud83d\ude0c",
+    "appreciate the small things. like {t}. \ud83c\udf3c",
+    "that feeling when {t} just hits right \ud83e\udd0c",
+    "here's me just casually {t} like a normal person \ud83d\ude04",
+    "the plan was to do nothing. {t} happened anyway. \ud83e\udd37\ud83d\ude0a",
+    "happiness is: {t}. that's the whole list. \ud83d\ude0a\u2728",
+    "not everything has to be deep. sometimes it's just {t}. \ud83e\udd0d",
+    "if you need me I'll be {t} until further notice \ud83d\udce8",
+    "did I plan to {t}? no. am I glad I did? absolutely. \ud83d\ude0a",
+    "mental health check: {t} \u2714\ufe0f happy \u2714\ufe0f vibing \u2714\ufe0f",
+    "golden hour + {t} = the content writes itself \ud83c\udf05"
+  ],
+  tiktok: [
+    "pov: you're just {t} and the algorithm found you \ud83d\ude0a\u2728",
+    "a chill day of {t} \ud83c\udf1f no drama just vibes",
+    "day in my life but it's literally just {t} \ud83d\ude0c"
+  ],
+  instagram: [
+    "photo dump: {t} edition \ud83d\udcf8\ud83d\ude0a no filter needed",
+    "{t} moments I'm keeping forever \ud83e\udd0d\ud83d\udcf7",
+    "posting this {t} pic because it made me smile \ud83d\ude0a\u2764\ufe0f"
+  ],
+  twitter: [
+    "today I {t} and it was exactly what I needed",
+    "{t} appreciation tweet \ud83e\udd0d",
+    "underrated joy: {t}. that's it. that's the tweet."
+  ],
+  youtube: [
+    "A cozy day of {t} (aesthetic vlog) \ud83c\udf1f",
+    "Come {t} with me | chill day in my life \ud83d\ude0a",
+    "the PERFECT {t} routine (no stress version) \u2615"
+  ]
+},
+
+// ═══════════════════════════════════════
+// PROFESSIONAL
+// ═══════════════════════════════════════
+professional: {
+  universal: [
+    "Here's what I learned from {t} that changed my perspective \ud83d\udca1",
+    "The difference between good and great? {Tc}. Consistently. \ud83c\udfaf",
+    "3 things I wish I knew before starting {t} \ud83d\udcdd",
+    "If you're not {t}, you're leaving opportunity on the table \ud83d\udcbc",
+    "{Tc} isn't just a trend. It's a skill worth investing in. \ud83d\udcc8",
+    "Hot take: {t} is the most underrated competitive advantage right now \ud83d\udd25",
+    "The payoff of {t}? Immeasurable. Here's why. \ud83d\udcca",
+    "I spent 6 months {t} and here's what nobody tells you \ud83e\uddf5",
+    "Stop overcomplicating {t}. Here's the simple framework. \u2b07\ufe0f",
+    "{Tc}: the one thing that separates beginners from experts \ud83c\udfc6",
+    "Your network is watching. Make {t} count. \ud83d\udcaa",
+    "Lesson learned: {t} isn't about perfection. It's about progress. \ud83d\udcc8",
+    "The best time to start {t} was last year. The next best time is today. \u23f0",
+    "Unpopular opinion: {t} matters more than most people think \ud83d\udca1",
+    "What separates top performers? They {t} when nobody's watching. \ud83d\udc40",
+    "5 minutes of {t} daily > 5 hours once a month. Consistency wins. \ud83d\udcaf",
+    "I used to ignore {t}. Biggest mistake of my career. Here's why. \u2b07\ufe0f",
+    "The framework for mastering {t}: Learn. Apply. Iterate. Repeat. \ud83d\udd04",
+    "Excited to share my latest insights on {t} \ud83d\ude80",
+    "Grateful for every lesson {t} has taught me along the way \ud83d\ude4f",
+    "{Tc} changed the way I approach my work. Here's how. \ud83d\udcaa",
+    "If you're serious about growth, {t} should be on your radar \ud83c\udfaf",
+    "Building in public: my {t} journey so far \ud83d\udea7\ud83d\udcc8",
+    "The data is clear: {t} drives results. Here's the proof. \ud83d\udcca",
+    "One habit that 10x'd my results: consistent {t} \ud83d\udca5",
+    "What I'd tell my younger self about {t}: start now, figure it out later \ud83d\udca1",
+    "The market is shifting. {Tc} is how you stay ahead. \ud83d\ude80",
+    "Real talk: {t} isn't glamorous. But the results are. \ud83d\udcbc",
+    "3 mistakes everyone makes with {t} (and how to avoid them) \u26a0\ufe0f",
+    "I analyzed 100+ examples of {t}. Here are the patterns. \ud83e\udde0",
+    "Your guide to {t} — from someone who's been in the trenches \ud83d\udee0\ufe0f",
+    "{Tc} is not optional anymore. It's table stakes. \ud83c\udfc6",
+    "Sharing this because {t} helped me level up and it could help you too \ud83d\udcaa",
+    "The compound effect of {t}: small daily actions, massive results \ud83d\udcc8",
+    "Don't sleep on {t}. The opportunity window is NOW. \u23f3"
+  ],
+  tiktok: [
+    "replying to a follower: here's my take on {t} (save this) \ud83d\udcbe\ud83d\udca1",
+    "business tip: {t} is the cheat code nobody talks about \ud83d\udcbc",
+    "3 {t} tips in 30 seconds (you need all of these) \u23f1\ufe0f"
+  ],
+  instagram: [
+    "swipe for the 5-step framework to master {t} \u2192\ud83d\udcca",
+    "save this post if you're serious about {t} \ud83d\udcbe\ud83d\udca1",
+    "the complete guide to {t} — all in one carousel \ud83d\udcf8\ud83d\udcbc"
+  ],
+  twitter: [
+    "thread: everything I know about {t} after years of experience \ud83e\uddf5\ud83d\udc47",
+    "{t} hack that saved me 10+ hours a week:",
+    "the people quietly {t} right now are going to dominate in 12 months"
+  ],
+  youtube: [
+    "The Complete Guide to {Tc} (Everything You Need to Know) \ud83d\udcda",
+    "I studied {t} for 100 hours. Here are my biggest takeaways. \ud83d\udcdd",
+    "{Tc} Masterclass: From Beginner to Advanced \ud83c\udfc6"
+  ]
+},
+
+// ═══════════════════════════════════════
+// SASSY
+// ═══════════════════════════════════════
+sassy: {
+  universal: [
+    "I don't need your opinion on my {t}. I didn't ask. \ud83d\udc85",
+    "the way I {t} better than everyone and still stay humble \ud83d\ude07\ud83d\ude0f",
+    "me: *{t}s flawlessly*\nhaters: \ud83e\udee3\nme: \ud83d\ude0e",
+    "they can copy the {t} but they can't copy the vibe \ud83d\udc85\u2728",
+    "imagine NOT {t}. couldn't be me. \ud83d\ude0f",
+    "call me when your {t} game is as strong as mine \ud83d\udcf1\ud83d\udc85",
+    "unbothered. moisturized. {t}. in my lane. thriving. \ud83e\udd0d",
+    "sorry I can't hear your negativity over the sound of me {t} \ud83d\udd0a\ud83d\udc85",
+    "the difference between me and you? I actually {t}. \ud83d\ude0f",
+    "imagine thinking you could {t} better than me \ud83d\ude02\ud83d\udc85",
+    "main character doing main character things: {t} \ud83d\udc51",
+    "not everyone can handle {t}. clearly. \ud83d\udc85\ud83e\udd2d",
+    "giving: {t}\nreceiving: compliments\nas I should. \ud83d\udc85",
+    "I woke up and chose {t}. and violence. mostly {t} tho. \ud83d\ude08\ud83d\udc85",
+    "some of y'all need to try {t} and it shows \ud83e\udd2d\ud83d\udc85",
+    "the audacity of me {t} this well without even trying \ud83d\ude0e",
+    "rent free in your head while I'm out here {t} \ud83d\udc85\u2728",
+    "she {t}s and she doesn't explain herself. period. \ud83d\udc51",
+    "the bar for {t} was on the floor and I STILL cleared it \ud83d\udc85\ud83d\ude0f",
+    "crying? no. {t}? yes. feeling cute? absolutely. \ud83d\ude0c\ud83d\udc85",
+    "it's not confidence. it's just {t} and being right. \ud83d\ude07",
+    "broke: caring what they think\nbespoke: {t} and unbothered \ud83d\udc85\u2728",
+    "I'm not bossy. I'm the boss of {t}. there's a difference. \ud83d\udc51",
+    "say what you want about me but my {t} is immaculate \ud83d\ude0f\ud83d\udc85",
+    "be the {t} energy you wish to see in the world \ud83d\ude07\ud83d\ude0f",
+    "they tried to put me in a box. I was too busy {t}. \ud83d\udce6\ud83d\udc85",
+    "me checking in on the people who doubted my {t}: \ud83d\udc41\ufe0f\ud83d\udc41\ufe0f \ud83d\udc85",
+    "if {t} was easy, everyone would do it. but they can't. because they're not me. \ud83d\ude0f",
+    "the way I just {t}d circles around everyone... effortlessly \ud83d\udc85\u2728",
+    "do I {t}? yes. do I do it better than you? also yes. \ud83d\ude0e\ud83d\udc85",
+    "my only hobby is {t} and looking cute while doing it \ud83d\udc85\u2728",
+    "currently accepting apologies from people who said I couldn't {t} \ud83d\udce8\ud83d\ude0f",
+    "I don't chase. I {t}. and they come to me. \ud83d\udc51\ud83d\udc85",
+    "ate, left no crumbs, {t}d flawlessly. typical tuesday. \ud83d\ude0f",
+    "I could teach a masterclass in {t} but I'm too busy being iconic \ud83d\udc85"
+  ],
+  tiktok: [
+    "POV: you thought you could {t} better than me \ud83d\ude0f\ud83d\udc85 #delusional",
+    "get ready to be JEALOUS of my {t} \ud83d\ude0e drop a \ud83d\udc85 if you agree",
+    "unhinged {t} content because I can and will \ud83d\ude08\ud83d\udc85"
+  ],
+  instagram: [
+    "posting this {t} content because I look too good not to \ud83d\ude0f\ud83d\udcf8\ud83d\udc85",
+    "reminder: I'm THAT girl who {t}s. save this carousel for proof \ud83d\udc51",
+    "the {t} energy in these photos is unmatched and I'm not sorry \ud83d\udc85\ud83d\udcf8"
+  ],
+  twitter: [
+    "hot girl behavior: {t} and not explaining yourself \ud83d\udc85",
+    "I {t} and I don't apologize for it. next question.",
+    "my {t} is giving what it's supposed to give \ud83d\udc85 and that's on period"
+  ],
+  youtube: [
+    "Reacting to people who TRIED to copy my {t} (they failed) \ud83d\ude0f\ud83d\udc85",
+    "Watch me {t} better than literally everyone | unbothered edition \ud83d\udc51",
+    "{Tc} but make it ICONIC (you're welcome for this content) \ud83d\udc85"
+  ]
+}
+};
+
+/* ================================================================
+   HASHTAG BANK — organized by platform + vibe
+   ================================================================ */
+
+const HASHTAG_BANK = {
+  tiktok: {
+    base: ['#fyp', '#foryou', '#foryoupage', '#viral', '#trending', '#tiktok', '#xyzbca', '#blowthisup', '#vibes', '#relatable', '#funny', '#comedy', '#tiktokviral', '#trend', '#explore', '#fypシ', '#content', '#creator', '#tiktokcreator', '#followme', '#like', '#share', '#duet', '#stitch', '#greenscreen', '#pov', '#storytime', '#dayinmylife', '#aesthetic', '#satisfying'],
+    funny: ['#funnyvideos', '#humor', '#memes', '#lol', '#dead', '#comedy', '#joke', '#noway', '#sendhelp', '#icant', '#meme', '#funnytiktok', '#laughing', '#hilarious', '#trynottolaugh'],
+    motivational: ['#motivation', '#grindset', '#success', '#mindset', '#goals', '#hustle', '#discipline', '#growth', '#selfimprovement', '#levelup', '#motivational', '#inspire', '#nevergiveup', '#hardwork', '#determination'],
+    thirst_trap: ['#thirsttrap', '#attractive', '#hot', '#glow', '#vibes', '#confident', '#selfie', '#main_character', '#thatgirl', '#glowup', '#hotgirl', '#fineasf', '#serve', '#bodyody', '#slay'],
+    casual: ['#chill', '#vibes', '#aesthetic', '#cozy', '#mood', '#dayinmylife', '#lifestyle', '#peaceful', '#relaxing', '#simple', '#happyplace', '#goodvibes', '#sundayvibes', '#easygoing', '#justvibing'],
+    professional: ['#business', '#entrepreneur', '#career', '#tips', '#advice', '#learn', '#growth', '#mindset', '#success', '#strategy', '#leadership', '#productivity', '#networking', '#professionaldevelopment', '#careeradvice'],
+    sassy: ['#sassy', '#unbothered', '#queen', '#periodt', '#thatgirl', '#girlboss', '#savage', '#noapologies', '#bossbabe', '#iconic', '#main_character', '#slaying', '#confidentqueen', '#baddie', '#attitude']
+  },
+  instagram: {
+    base: ['#instagram', '#instagood', '#photooftheday', '#photography', '#love', '#beautiful', '#picoftheday', '#follow', '#like4like', '#instadaily', '#style', '#reels', '#explore', '#instalike', '#photo', '#happy', '#life', '#likeforlikes', '#followforfollowback', '#art', '#nature', '#smile', '#travel', '#fashion', '#beauty', '#inspiration', '#lifestyle', '#model', '#instamood', '#reelsinstagram'],
+    funny: ['#funnymemes', '#memesdaily', '#humor', '#laughing', '#lol', '#comedyreels', '#funnyreels', '#memeoftheday', '#jokes', '#haha', '#funnypost', '#laughoutloud', '#sarcasm', '#instafunny', '#relatable'],
+    motivational: ['#motivationmonday', '#motivationalquotes', '#successmindset', '#inspire', '#grind', '#goals', '#nevergiveup', '#hustle', '#ambition', '#inspirational', '#mindsetshift', '#dailymotivation', '#keepgoing', '#motivationdaily', '#successquotes'],
+    thirst_trap: ['#selfie', '#ootd', '#glam', '#hot', '#glow', '#confident', '#mirror', '#vibes', '#thirsttrap', '#fineasf', '#bodypositive', '#glowup', '#slay', '#serve', '#lookoftheday'],
+    casual: ['#dailylife', '#aesthetic', '#mood', '#chill', '#cozy', '#peaceofmind', '#simplelife', '#happyplace', '#goodvibesonly', '#weekendvibes', '#easygoing', '#simplepleasures', '#lifeisgood', '#hygge', '#chillin'],
+    professional: ['#linkedintips', '#careergrowth', '#networking', '#businesstips', '#entrepreneur', '#professionaldevelopment', '#personalbranding', '#leadership', '#businessowner', '#startup', '#worklife', '#careercoach', '#sidehustle', '#smallbusiness', '#growthmindset'],
+    sassy: ['#queenvibes', '#sassyquotes', '#unbothered', '#period', '#baddie', '#bosslady', '#confidentwoman', '#noapologies', '#queenbehavior', '#main_character_energy', '#iconic', '#slaying', '#fiercewomen', '#girlpower', '#knowyourworth']
+  },
+  twitter: {
+    base: ['#trending', '#viral', '#mood', '#vibes', '#relatable', '#thread', '#hottake', '#opinion', '#thoughts', '#real', '#facts', '#truth', '#tweet', '#twitterverse', '#discuss', '#conversation', '#community', '#follow', '#retweet', '#blowingup', '#content', '#creator', '#digital', '#online', '#socialmedia', '#culture', '#internet', '#gen_z', '#millennial', '#explore'],
+    funny: ['#funny', '#humor', '#lol', '#dead', '#meme', '#comedy', '#joke', '#sarcasm', '#satire', '#twitterfunny', '#icant', '#sendhelp', '#relatabletweets', '#funnytweets', '#noway'],
+    motivational: ['#motivation', '#success', '#grind', '#mindset', '#growth', '#levelup', '#goals', '#hustle', '#discipline', '#focus', '#keepgoing', '#winnersmindset', '#selfgrowth', '#dailyinspiration', '#positiveenergy'],
+    thirst_trap: ['#selfie', '#hot', '#attractive', '#confident', '#glow', '#vibes', '#serve', '#slay', '#fineasf', '#thirsttrap', '#lookgood', '#glowup', '#main_character', '#hotperson', '#blessed'],
+    casual: ['#chill', '#vibes', '#mood', '#peaceful', '#happy', '#simple', '#dayinmylife', '#goodvibes', '#relaxing', '#easygoing', '#justvibing', '#sundaymood', '#contentment', '#lifeisgood', '#simplepleasures'],
+    professional: ['#business', '#career', '#tips', '#strategy', '#leadership', '#entrepreneur', '#startup', '#growth', '#innovation', '#tech', '#profdev', '#worklife', '#networking', '#industry', '#careertips'],
+    sassy: ['#sassy', '#unbothered', '#queen', '#period', '#savage', '#noapologies', '#iconic', '#bossbehavior', '#confidentaf', '#thatgirl', '#attitude', '#slaying', '#knowyourworth', '#baddie', '#periodt']
+  },
+  youtube: {
+    base: ['#youtube', '#youtuber', '#video', '#subscribe', '#youtubechannel', '#vlog', '#content', '#creator', '#viral', '#trending', '#newyoutuber', '#youtubevideos', '#youtubecreator', '#shorts', '#youtubeshorts', '#watch', '#entertainment', '#fun', '#lifestyle', '#daily', '#growth', '#community', '#follow', '#like', '#comment', '#share', '#newvideo', '#upload', '#contentcreation', '#videography'],
+    funny: ['#funnyvideo', '#comedy', '#humor', '#lol', '#memes', '#laughing', '#funny', '#skit', '#prank', '#reaction', '#funnymoments', '#hilarious', '#trynottolaugh', '#comedyvideo', '#funnyclips'],
+    motivational: ['#motivation', '#success', '#mindset', '#grind', '#hustle', '#selfimprovement', '#goals', '#levelup', '#inspire', '#discipline', '#personalDevelopment', '#growth', '#positivity', '#nevergiveup', '#achievemore'],
+    thirst_trap: ['#grwm', '#getreadywithme', '#glow', '#selfcare', '#style', '#fashion', '#ootd', '#glowup', '#skincare', '#aesthetic', '#serve', '#confidence', '#hot', '#attractive', '#lookbook'],
+    casual: ['#vlog', '#dayinmylife', '#aesthetic', '#chill', '#cozy', '#routine', '#lifestyle', '#peaceful', '#relaxing', '#asmr', '#calming', '#slowliving', '#daily', '#morningroutine', '#eveningroutine'],
+    professional: ['#tutorial', '#howto', '#tips', '#guide', '#business', '#career', '#education', '#learn', '#strategy', '#masterclass', '#expertise', '#professionaltips', '#careeradvice', '#businessgrowth', '#skillbuilding'],
+    sassy: ['#sassy', '#queen', '#reaction', '#roast', '#unbothered', '#girlboss', '#iconic', '#savage', '#attitude', '#bosslady', '#periodt', '#confidentcreator', '#main_character', '#noapologies', '#slayqueen']
+  }
+};
+
+/* ================================================================
+   GENERATION ENGINE
+   ================================================================ */
+
+function fillTemplate(template, topic) {
+  const tLower = topic.toLowerCase();
+  const tCap = topic.charAt(0).toUpperCase() + topic.slice(1).toLowerCase();
+  return template
+    .replace(/\{T\}/g, topic.toUpperCase())
+    .replace(/\{Tc\}/g, tCap)
+    .replace(/\{t\}/g, tLower);
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function pickRandom(arr, n) {
+  return shuffle(arr).slice(0, n);
+}
+
+function generateCaptions(platform, vibe, topic) {
+  const vibeData = TEMPLATES[vibe];
+  if (!vibeData) return [];
+
+  // Combine universal + platform-specific
+  const universal = vibeData.universal || [];
+  const platSpecific = vibeData[platform] || [];
+  const pool = [...universal, ...platSpecific];
+
+  // Pick 10, prioritize at least 1-2 platform-specific
+  const platPicks = pickRandom(platSpecific, Math.min(2, platSpecific.length));
+  const remaining = pool.filter(t => !platPicks.includes(t));
+  const restPicks = pickRandom(remaining, 10 - platPicks.length);
+  const selected = shuffle([...platPicks, ...restPicks]);
+
+  return selected.map(t => fillTemplate(t, topic));
+}
+
+function generateHashtags(platform, vibe, topic) {
+  const platData = HASHTAG_BANK[platform];
+  if (!platData) return { small: [], medium: [], large: [] };
+
+  const base = platData.base || [];
+  const vibeSpecific = platData[vibe] || [];
+
+  // Create topic hashtags
+  const topicWords = topic.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(w => w.length > 2);
+  const topicTags = topicWords.map(w => '#' + w);
+  const topicCombo = topicWords.length >= 2 ? ['#' + topicWords.join('')] : [];
+
+  const allTags = [...new Set([...topicTags, ...topicCombo, ...vibeSpecific, ...base])];
+
+  return {
+    small: pickRandom(allTags, 5),
+    medium: pickRandom(allTags, 15),
+    large: pickRandom(allTags, 30)
+  };
+}
+
+/* ================================================================
+   RENDER
+   ================================================================ */
+
+function generate() {
+  const { platform, vibe, topic } = state;
+  if (!platform || !vibe || !topic) return;
+
+  const captions = generateCaptions(platform, vibe, topic);
+  const hashtags = generateHashtags(platform, vibe, topic);
+
+  // Render captions
+  const captionsList = document.getElementById('captionsList');
+  captionsList.innerHTML = captions.map((cap, i) => `
+    <div class="caption-card" style="animation-delay: ${i * 40}ms">
+      <div class="caption-num">#${i + 1}</div>
+      <div class="caption-text">${escapeHtml(cap)}</div>
+      <button class="copy-btn" onclick="copyText(\`${escapeForJS(cap)}\`, this)">&#128203; Copy</button>
+    </div>
+  `).join('');
+
+  // Render hashtags
+  const sizes = [
+    { key: 'small', label: 'Quick Set', count: 5, emoji: '&#9889;' },
+    { key: 'medium', label: 'Standard Set', count: 15, emoji: '&#128200;' },
+    { key: 'large', label: 'Full Send', count: 30, emoji: '&#128640;' }
+  ];
+
+  const hashtagsList = document.getElementById('hashtagsList');
+  hashtagsList.innerHTML = sizes.map((s, i) => {
+    const tags = hashtags[s.key].join(' ');
+    return `
+    <div class="hashtag-block ${i === 0 ? 'open' : ''}" style="animation-delay: ${i * 60}ms">
+      <div class="hashtag-header" onclick="toggleHashtag(this)">
+        <div class="hashtag-label">${s.emoji} ${s.label} <span class="hashtag-count">${s.count} tags</span></div>
+        <div class="hashtag-actions">
+          <button class="copy-btn" onclick="event.stopPropagation(); copyText(\`${escapeForJS(tags)}\`, this)">&#128203; Copy</button>
+          <span class="hashtag-chevron">&#9660;</span>
+        </div>
+      </div>
+      <div class="hashtag-body">
+        <div class="hashtag-tags">${escapeHtml(tags)}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Show results
+  document.getElementById('resultsArea').classList.add('visible');
+
+  // Scroll to results
+  setTimeout(() => {
+    document.getElementById('resultsArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+}
+
+function escapeForJS(str) {
+  return str.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$');
+}
+</script>
+</body>
+</html>

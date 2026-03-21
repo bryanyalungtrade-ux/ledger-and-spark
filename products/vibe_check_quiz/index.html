@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Vibe Check ✨ | Ledger & Spark</title>
+<meta name="description" content="Find your aesthetic vibe in 30 seconds. Free quiz, shareable card. No catch.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #FAFBFE;
+  --bg-alt: #F1F5F9;
+  --blue: #3B82F6;
+  --blue-light: #60A5FA;
+  --blue-pale: #DBEAFE;
+  --blue-glow: rgba(59, 130, 246, 0.15);
+  --text: #1E293B;
+  --text-mid: #475569;
+  --text-light: #94A3B8;
+  --white: #FFFFFF;
+  --radius: 16px;
+  --radius-sm: 12px;
+}
+
+html { font-size: 16px; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Layout ── */
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* ── Header ── */
+.header {
+  text-align: center;
+  padding: 20px 20px 0;
+}
+.header .brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ── Screens ── */
+.screen {
+  flex: 1;
+  display: none;
+  flex-direction: column;
+  padding: 20px;
+  animation: fadeUp 0.4s ease;
+}
+.screen.active { display: flex; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Start Screen ── */
+.start-screen {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 24px;
+}
+.start-emoji { font-size: 4rem; animation: bounce 2s infinite; }
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.start-screen h1 {
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--text);
+}
+.start-screen h1 span { color: var(--blue); }
+.start-screen p {
+  font-size: 1.05rem;
+  color: var(--text-mid);
+  line-height: 1.5;
+  max-width: 320px;
+}
+.start-btn {
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  padding: 16px 48px;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.35);
+}
+.start-btn:hover { transform: scale(1.04); box-shadow: 0 6px 28px rgba(59, 130, 246, 0.45); }
+.start-btn:active { transform: scale(0.97); }
+
+/* ── Progress ── */
+.progress-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 0 8px;
+}
+.progress-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--blue-pale);
+  transition: all 0.3s;
+}
+.progress-dot.done { background: var(--blue); transform: scale(1.1); }
+.progress-dot.current { background: var(--blue-light); transform: scale(1.25); box-shadow: 0 0 12px var(--blue-glow); }
+.progress-line {
+  flex: 1; height: 3px;
+  background: var(--blue-pale);
+  border-radius: 99px;
+  position: relative;
+  overflow: hidden;
+}
+.progress-line .fill {
+  position: absolute; left: 0; top: 0; height: 100%;
+  background: var(--blue);
+  border-radius: 99px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.progress-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-light);
+  min-width: 32px;
+  text-align: right;
+}
+
+/* ── Question ── */
+.question-screen { gap: 16px; }
+.question-num {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.question-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+.option {
+  background: var(--white);
+  border: 2px solid #E2E8F0;
+  border-radius: var(--radius);
+  padding: 20px 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.option:hover { border-color: var(--blue-light); background: var(--blue-pale); }
+.option:active { transform: scale(0.96); }
+.option.selected {
+  border-color: var(--blue);
+  background: var(--blue-pale);
+  box-shadow: 0 0 0 3px var(--blue-glow);
+}
+.option .emoji { font-size: 2rem; line-height: 1; }
+.option .label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+/* ── Result Screen ── */
+.result-screen {
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 40px;
+}
+.result-screen h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  text-align: center;
+}
+.result-screen h2 span { color: var(--blue); }
+
+/* ── Vibe Card ── */
+.card-wrapper {
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 9 / 16;
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04);
+}
+
+.vibe-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 36px 28px 24px;
+  overflow: hidden;
+}
+
+/* Card backgrounds by vibe */
+.vibe-card.cottagecore {
+  background: linear-gradient(160deg, #FFF7ED 0%, #FEF3C7 30%, #ECFCCB 60%, #F0FDF4 100%);
+}
+.vibe-card.dark-academia {
+  background: linear-gradient(160deg, #1C1917 0%, #292524 40%, #44403C 70%, #57534E 100%);
+  color: #FAFAF9;
+}
+.vibe-card.clean-girl {
+  background: linear-gradient(160deg, #FAFBFE 0%, #F1F5F9 30%, #E0F2FE 60%, #F0F9FF 100%);
+}
+.vibe-card.y2k {
+  background: linear-gradient(160deg, #FDF2F8 0%, #FCE7F3 25%, #E9D5FF 50%, #DBEAFE 75%, #CFFAFE 100%);
+}
+.vibe-card.chaos-gremlin {
+  background: linear-gradient(160deg, #FEF9C3 0%, #FDE68A 30%, #FCA5A5 60%, #C4B5FD 100%);
+}
+.vibe-card.main-character {
+  background: linear-gradient(160deg, #FFF1F2 0%, #FFE4E6 30%, #FECDD3 60%, #FDA4AF 100%);
+}
+
+/* Card blob decorations */
+.card-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.3;
+  pointer-events: none;
+}
+.card-blob-1 { width: 200px; height: 200px; top: -40px; right: -40px; }
+.card-blob-2 { width: 160px; height: 160px; bottom: 60px; left: -50px; }
+
+.card-top {
+  text-align: center;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.card-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.6;
+}
+.card-vibe-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-top: 2px;
+}
+
+.card-spirit {
+  font-size: 4.5rem;
+  z-index: 1;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.08));
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.card-middle {
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.card-palette {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.palette-swatch {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.7);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card-bars {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.bar-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  width: 90px;
+  text-align: right;
+  opacity: 0.7;
+  text-transform: capitalize;
+}
+.bar-track {
+  flex: 1;
+  height: 10px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.dark-academia .bar-track { background: rgba(255,255,255,0.1); }
+.bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0;
+}
+.bar-pct {
+  font-size: 0.7rem;
+  font-weight: 700;
+  width: 36px;
+  opacity: 0.8;
+}
+
+.card-tagline {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  font-style: italic;
+  opacity: 0.75;
+  z-index: 1;
+  padding: 0 8px;
+  line-height: 1.4;
+}
+
+.card-bottom {
+  z-index: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.card-watermark {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  opacity: 0.35;
+}
+.card-url {
+  font-size: 0.55rem;
+  opacity: 0.25;
+  letter-spacing: 0.5px;
+}
+
+/* ── Action Buttons ── */
+.actions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 360px;
+}
+.action-btn {
+  flex: 1;
+  padding: 14px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+}
+.action-btn:active { transform: scale(0.96); }
+.btn-download {
+  background: var(--blue);
+  color: var(--white);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+}
+.btn-download:hover { box-shadow: 0 6px 24px rgba(59, 130, 246, 0.4); }
+.btn-retake {
+  background: var(--white);
+  color: var(--text);
+  border: 2px solid #E2E8F0 !important;
+}
+.btn-retake:hover { border-color: var(--blue-light) !important; }
+
+/* ── Share Toast ── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%; transform: translateX(-50%) translateY(80px);
+  background: var(--text);
+  color: var(--white);
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.3s;
+  z-index: 100;
+  white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.footer p {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+.footer .trust { font-weight: 600; color: var(--text-mid); }
+
+/* ── Confetti Canvas ── */
+#confetti-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 99;
+}
+
+/* ── Sparkle overlay on card reveal ── */
+.sparkle-burst {
+  position: absolute;
+  width: 100%; height: 100%;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.sparkle {
+  position: absolute;
+  width: 6px; height: 6px;
+  background: white;
+  border-radius: 50%;
+  animation: sparkleAnim 1s ease-out forwards;
+  opacity: 0;
+}
+@keyframes sparkleAnim {
+  0% { opacity: 1; transform: scale(0); }
+  50% { opacity: 1; transform: scale(1.5); }
+  100% { opacity: 0; transform: scale(0); }
+}
+
+/* ── Responsive ── */
+@media (max-width: 380px) {
+  .question-text { font-size: 1.3rem; }
+  .option { padding: 16px 10px; }
+  .option .emoji { font-size: 1.6rem; }
+  .card-vibe-name { font-size: 1.5rem; }
+  .card-spirit { font-size: 3.5rem; }
+}
+
+/* ── Hidden utility ── */
+.hidden { display: none !important; }
+
+/* ── Smooth page transition ── */
+.fade-out {
+  animation: fadeOut 0.25s ease forwards;
+}
+@keyframes fadeOut {
+  to { opacity: 0; transform: translateY(-10px); }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<div class="app">
+  <header class="header">
+    <div class="brand">Ledger & Spark</div>
+  </header>
+
+  <!-- ━━ Start Screen ━━ -->
+  <div id="screen-start" class="screen start-screen active">
+    <div class="start-emoji">✨</div>
+    <h1>bestie, let's find <span>your vibe</span></h1>
+    <p>5 quick taps. no typing. you get a gorgeous shareable vibe card at the end.</p>
+    <button class="start-btn" onclick="startQuiz()">let's goooo</button>
+  </div>
+
+  <!-- ━━ Question Screen ━━ -->
+  <div id="screen-quiz" class="screen question-screen">
+    <div class="progress-bar">
+      <div class="progress-dot" id="dot-0"></div>
+      <div class="progress-dot" id="dot-1"></div>
+      <div class="progress-dot" id="dot-2"></div>
+      <div class="progress-dot" id="dot-3"></div>
+      <div class="progress-dot" id="dot-4"></div>
+      <div class="progress-line"><div class="fill" id="progress-fill"></div></div>
+      <div class="progress-label" id="progress-label">1/5</div>
+    </div>
+    <div class="question-num" id="q-num">Question 1</div>
+    <div class="question-text" id="q-text"></div>
+    <div class="options" id="q-options"></div>
+  </div>
+
+  <!-- ━━ Result Screen ━━ -->
+  <div id="screen-result" class="screen result-screen">
+    <h2>okay this is literally <span>so you</span> ✨</h2>
+    <div class="card-wrapper" id="card-wrapper">
+      <div class="vibe-card" id="vibe-card">
+        <div class="card-blob card-blob-1" id="blob1"></div>
+        <div class="card-blob card-blob-2" id="blob2"></div>
+        <div class="card-top">
+          <div class="card-label">your vibe is</div>
+          <div class="card-vibe-name" id="card-vibe-name"></div>
+        </div>
+        <div class="card-spirit" id="card-spirit"></div>
+        <div class="card-middle">
+          <div class="card-palette" id="card-palette"></div>
+          <div class="card-bars" id="card-bars"></div>
+        </div>
+        <div class="card-tagline" id="card-tagline"></div>
+        <div class="card-bottom">
+          <div class="card-watermark">vibecheck by Ledger & Spark</div>
+          <div class="card-url">ledgerandspark.com</div>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="action-btn btn-download" onclick="downloadCard()">📥 Save Card</button>
+      <button class="action-btn btn-retake" onclick="retakeQuiz()">🔄 Retake</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p class="trust">We make money from sponsors, not from you.</p>
+    <p>Free tools. No catch. Built because you asked.</p>
+  </footer>
+</div>
+
+<canvas id="confetti-canvas"></canvas>
+<div class="toast" id="toast"></div>
+
+<script>
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  QUIZ DATA
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+const questions = [
+  {
+    num: 1,
+    text: "pick a friday night:",
+    options: [
+      { emoji: "🎬", label: "cozy movie night", vibes: { cottagecore: 3, cleanGirl: 1 } },
+      { emoji: "🌃", label: "rooftop bar", vibes: { mainCharacter: 3, cleanGirl: 1 } },
+      { emoji: "🚗", label: "spontaneous road trip", vibes: { chaosGremlin: 2, y2k: 2 } },
+      { emoji: "🎮", label: "gaming sesh", vibes: { darkAcademia: 1, chaosGremlin: 2, y2k: 1 } }
+    ]
+  },
+  {
+    num: 2,
+    text: "your phone wallpaper is:",
+    options: [
+      { emoji: "🌅", label: "sunset beach", vibes: { cottagecore: 2, mainCharacter: 2 } },
+      { emoji: "🏙️", label: "city skyline", vibes: { cleanGirl: 2, darkAcademia: 2 } },
+      { emoji: "🎨", label: "anime art", vibes: { y2k: 3, chaosGremlin: 1 } },
+      { emoji: "💭", label: "minimalist quote", vibes: { cleanGirl: 3, darkAcademia: 1 } }
+    ]
+  },
+  {
+    num: 3,
+    text: "dream vacation:",
+    options: [
+      { emoji: "🌴", label: "bali villa", vibes: { cleanGirl: 2, mainCharacter: 2 } },
+      { emoji: "🗼", label: "tokyo streets", vibes: { y2k: 3, chaosGremlin: 1 } },
+      { emoji: "🏕️", label: "cabin in the woods", vibes: { cottagecore: 3, darkAcademia: 1 } },
+      { emoji: "🚂", label: "european train", vibes: { darkAcademia: 3, mainCharacter: 1 } }
+    ]
+  },
+  {
+    num: 4,
+    text: "your go-to outfit:",
+    options: [
+      { emoji: "🧸", label: "oversized hoodie", vibes: { cottagecore: 2, chaosGremlin: 2 } },
+      { emoji: "🖤", label: "all black everything", vibes: { darkAcademia: 3, mainCharacter: 1 } },
+      { emoji: "👗", label: "vintage thrift", vibes: { y2k: 2, cottagecore: 1, darkAcademia: 1 } },
+      { emoji: "🏃", label: "athleisure", vibes: { cleanGirl: 3, mainCharacter: 1 } }
+    ]
+  },
+  {
+    num: 5,
+    text: "pick a drink:",
+    options: [
+      { emoji: "🍵", label: "matcha latte", vibes: { cleanGirl: 3, cottagecore: 1 } },
+      { emoji: "🍸", label: "espresso martini", vibes: { mainCharacter: 3, darkAcademia: 1 } },
+      { emoji: "🧋", label: "boba tea", vibes: { y2k: 3, chaosGremlin: 1 } },
+      { emoji: "💧", label: "plain water", vibes: { chaosGremlin: 2, cleanGirl: 1, cottagecore: 1 } }
+    ]
+  }
+];
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  VIBE PROFILES
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+const vibeProfiles = {
+  cottagecore: {
+    name: "Cottagecore",
+    cardClass: "cottagecore",
+    spirit: "🌿",
+    palette: ["#A3BE8C", "#EBCB8B", "#D08770", "#BF616A"],
+    blobColors: ["#A3BE8C", "#EBCB8B"],
+    taglines: [
+      "you literally ARE a pinterest board",
+      "your energy is warm bread and fairy lights",
+      "you probably have a playlist called 'soft mornings'",
+      "nature is healing and so are you bestie"
+    ]
+  },
+  darkAcademia: {
+    name: "Dark Academia",
+    cardClass: "dark-academia",
+    spirit: "📚",
+    palette: ["#57534E", "#92400E", "#78716C", "#D6D3D1"],
+    blobColors: ["#78716C", "#57534E"],
+    taglines: [
+      "you've definitely romanticized studying at 2am",
+      "your vibe is old books and cold coffee",
+      "you'd thrive in a library that has a fireplace",
+      "secretly writing poetry in your notes app"
+    ]
+  },
+  cleanGirl: {
+    name: "Clean Girl",
+    cardClass: "clean-girl",
+    spirit: "🤍",
+    palette: ["#3B82F6", "#E0F2FE", "#F1F5F9", "#CBD5E1"],
+    blobColors: ["#93C5FD", "#BAE6FD"],
+    taglines: [
+      "minimalism isn't a trend, it's your personality",
+      "your aura is literally freshly washed linen",
+      "you own exactly 3 perfect things and that's enough",
+      "calm, collected, and probably moisturized"
+    ]
+  },
+  y2k: {
+    name: "Y2K Baby",
+    cardClass: "y2k",
+    spirit: "💿",
+    palette: ["#EC4899", "#A855F7", "#3B82F6", "#06B6D4"],
+    blobColors: ["#F0ABFC", "#93C5FD"],
+    taglines: [
+      "you were born in the wrong decade (or the right one)",
+      "glitter is a neutral color in your world",
+      "your camera roll is 90% aesthetic screenshots",
+      "main pop girl energy, always"
+    ]
+  },
+  chaosGremlin: {
+    name: "Chaos Gremlin",
+    cardClass: "chaos-gremlin",
+    spirit: "⚡",
+    palette: ["#FBBF24", "#F87171", "#A78BFA", "#34D399"],
+    blobColors: ["#FDE68A", "#C4B5FD"],
+    taglines: [
+      "your energy cannot be contained by a single vibe",
+      "you're the friend group's wild card and you know it",
+      "chaotic good is still good, bestie",
+      "you make random look intentional"
+    ]
+  },
+  mainCharacter: {
+    name: "Main Character",
+    cardClass: "main-character",
+    spirit: "👑",
+    palette: ["#FB7185", "#FDA4AF", "#FECDD3", "#FFF1F2"],
+    blobColors: ["#FECDD3", "#FBCFE8"],
+    taglines: [
+      "the wind literally blows your hair in slow-mo",
+      "you walk with a soundtrack only you can hear",
+      "every photo of you looks like a movie poster",
+      "someone's definitely writing fanfic about your life"
+    ]
+  }
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  STATE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+let currentQ = 0;
+let scores = { cottagecore: 0, darkAcademia: 0, cleanGirl: 0, y2k: 0, chaosGremlin: 0, mainCharacter: 0 };
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  NAVIGATION
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startQuiz() {
+  currentQ = 0;
+  scores = { cottagecore: 0, darkAcademia: 0, cleanGirl: 0, y2k: 0, chaosGremlin: 0, mainCharacter: 0 };
+  showScreen('screen-quiz');
+  renderQuestion();
+}
+
+function retakeQuiz() {
+  showScreen('screen-start');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  QUESTION RENDERING
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  document.getElementById('q-num').textContent = `Question ${q.num}`;
+  document.getElementById('q-text').textContent = q.text;
+  document.getElementById('progress-label').textContent = `${currentQ + 1}/5`;
+  document.getElementById('progress-fill').style.width = `${(currentQ / 5) * 100}%`;
+
+  // Update dots
+  for (let i = 0; i < 5; i++) {
+    const dot = document.getElementById(`dot-${i}`);
+    dot.className = 'progress-dot';
+    if (i < currentQ) dot.classList.add('done');
+    else if (i === currentQ) dot.classList.add('current');
+  }
+
+  const optionsEl = document.getElementById('q-options');
+  optionsEl.innerHTML = '';
+  q.options.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    div.className = 'option';
+    div.innerHTML = `<span class="emoji">${opt.emoji}</span><span class="label">${opt.label}</span>`;
+    div.addEventListener('click', () => selectOption(idx));
+    optionsEl.appendChild(div);
+  });
+
+  // Re-trigger fade-in animation
+  const screen = document.getElementById('screen-quiz');
+  screen.style.animation = 'none';
+  screen.offsetHeight; // reflow
+  screen.style.animation = '';
+}
+
+function selectOption(idx) {
+  // Visual feedback
+  document.querySelectorAll('.option').forEach((o, i) => {
+    o.classList.toggle('selected', i === idx);
+  });
+
+  const chosen = questions[currentQ].options[idx];
+
+  // Add vibe scores
+  for (const [vibe, pts] of Object.entries(chosen.vibes)) {
+    scores[vibe] = (scores[vibe] || 0) + pts;
+  }
+
+  // Advance after short delay for visual feedback
+  setTimeout(() => {
+    currentQ++;
+    if (currentQ < 5) {
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  }, 350);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  RESULT GENERATION
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function showResult() {
+  // Calculate percentages
+  const total = Object.values(scores).reduce((a, b) => a + b, 0) || 1;
+  const pcts = {};
+  for (const [k, v] of Object.entries(scores)) {
+    pcts[k] = Math.round((v / total) * 100);
+  }
+
+  // Sort by score
+  const sorted = Object.entries(pcts).sort((a, b) => b[1] - a[1]);
+
+  // Ensure percentages add to 100
+  const sumPct = sorted.reduce((a, b) => a + b[1], 0);
+  if (sumPct !== 100) sorted[0][1] += (100 - sumPct);
+
+  const topVibe = sorted[0][0];
+  const profile = vibeProfiles[topVibe];
+
+  // Set card class
+  const card = document.getElementById('vibe-card');
+  card.className = 'vibe-card ' + profile.cardClass;
+
+  // Fill card
+  document.getElementById('card-vibe-name').textContent = profile.name;
+  document.getElementById('card-spirit').textContent = profile.spirit;
+  document.getElementById('card-tagline').textContent = `"${profile.taglines[Math.floor(Math.random() * profile.taglines.length)]}"`;
+
+  // Blobs
+  document.getElementById('blob1').style.background = profile.blobColors[0];
+  document.getElementById('blob2').style.background = profile.blobColors[1];
+
+  // Palette
+  const paletteEl = document.getElementById('card-palette');
+  paletteEl.innerHTML = '';
+  profile.palette.forEach(color => {
+    const swatch = document.createElement('div');
+    swatch.className = 'palette-swatch';
+    swatch.style.background = color;
+    paletteEl.appendChild(swatch);
+  });
+
+  // Bars - show top 3
+  const barsEl = document.getElementById('card-bars');
+  barsEl.innerHTML = '';
+  const vibeNames = {
+    cottagecore: 'cottagecore',
+    darkAcademia: 'dark academia',
+    cleanGirl: 'clean girl',
+    y2k: 'y2k',
+    chaosGremlin: 'chaos gremlin',
+    mainCharacter: 'main character'
+  };
+  const barColors = {
+    cottagecore: '#A3BE8C',
+    darkAcademia: '#78716C',
+    cleanGirl: '#3B82F6',
+    y2k: '#A855F7',
+    chaosGremlin: '#FBBF24',
+    mainCharacter: '#FB7185'
+  };
+
+  sorted.slice(0, 3).forEach(([vibe, pct]) => {
+    if (pct === 0) return;
+    const row = document.createElement('div');
+    row.className = 'bar-row';
+    row.innerHTML = `
+      <span class="bar-label">${vibeNames[vibe]}</span>
+      <div class="bar-track"><div class="bar-fill" data-width="${pct}" style="background:${barColors[vibe]}"></div></div>
+      <span class="bar-pct">${pct}%</span>
+    `;
+    barsEl.appendChild(row);
+  });
+
+  // Show result screen
+  showScreen('screen-result');
+
+  // Animate bars in
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      document.querySelectorAll('.bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+    }, 200);
+  });
+
+  // Confetti!
+  launchConfetti();
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  CONFETTI
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function launchConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const pieces = [];
+  const colors = ['#3B82F6', '#60A5FA', '#FB7185', '#FBBF24', '#A855F7', '#34D399', '#EC4899'];
+
+  for (let i = 0; i < 120; i++) {
+    pieces.push({
+      x: Math.random() * canvas.width,
+      y: -20 - Math.random() * 200,
+      w: 6 + Math.random() * 6,
+      h: 4 + Math.random() * 4,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      vy: 2 + Math.random() * 4,
+      vx: (Math.random() - 0.5) * 3,
+      rot: Math.random() * 360,
+      rotSpeed: (Math.random() - 0.5) * 8,
+      opacity: 1
+    });
+  }
+
+  let frame = 0;
+  const maxFrames = 180;
+
+  function animate() {
+    if (frame > maxFrames) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    pieces.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.05;
+      p.rot += p.rotSpeed;
+      if (frame > maxFrames - 40) p.opacity = Math.max(0, p.opacity - 0.025);
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate((p.rot * Math.PI) / 180);
+      ctx.globalAlpha = p.opacity;
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    });
+
+    frame++;
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  DOWNLOAD / SHARE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function downloadCard() {
+  const card = document.getElementById('card-wrapper');
+  // Use html2canvas-like approach via inline canvas drawing
+  // Since no external deps, we'll draw the card to canvas manually
+  renderCardToCanvas().then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'my-vibe-check.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    showToast('card saved! go share your vibe ✨');
+  }).catch(() => {
+    // Fallback: suggest screenshot
+    showToast('tap and hold the card to screenshot it!');
+  });
+}
+
+function renderCardToCanvas() {
+  return new Promise((resolve, reject) => {
+    const cardEl = document.getElementById('vibe-card');
+    const wrapper = document.getElementById('card-wrapper');
+    const w = 1080;
+    const h = 1920;
+    const canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    const scale = w / wrapper.offsetWidth;
+
+    // Get computed style of the card
+    const cs = getComputedStyle(cardEl);
+
+    // Draw background gradient by sampling card class
+    const vibeClass = cardEl.classList[1];
+    const gradients = {
+      'cottagecore': [
+        [0, '#FFF7ED'], [0.3, '#FEF3C7'], [0.6, '#ECFCCB'], [1, '#F0FDF4']
+      ],
+      'dark-academia': [
+        [0, '#1C1917'], [0.4, '#292524'], [0.7, '#44403C'], [1, '#57534E']
+      ],
+      'clean-girl': [
+        [0, '#FAFBFE'], [0.3, '#F1F5F9'], [0.6, '#E0F2FE'], [1, '#F0F9FF']
+      ],
+      'y2k': [
+        [0, '#FDF2F8'], [0.25, '#FCE7F3'], [0.5, '#E9D5FF'], [0.75, '#DBEAFE'], [1, '#CFFAFE']
+      ],
+      'chaos-gremlin': [
+        [0, '#FEF9C3'], [0.3, '#FDE68A'], [0.6, '#FCA5A5'], [1, '#C4B5FD']
+      ],
+      'main-character': [
+        [0, '#FFF1F2'], [0.3, '#FFE4E6'], [0.6, '#FECDD3'], [1, '#FDA4AF']
+      ]
+    };
+
+    // Draw gradient BG
+    const grad = ctx.createLinearGradient(0, 0, w * 0.6, h);
+    (gradients[vibeClass] || gradients['clean-girl']).forEach(([stop, color]) => {
+      grad.addColorStop(stop, color);
+    });
+    ctx.fillStyle = grad;
+    roundRect(ctx, 0, 0, w, h, 0);
+    ctx.fill();
+
+    // Get data from the card
+    const vibeName = document.getElementById('card-vibe-name').textContent;
+    const spirit = document.getElementById('card-spirit').textContent;
+    const tagline = document.getElementById('card-tagline').textContent;
+    const swatches = document.querySelectorAll('.palette-swatch');
+    const bars = document.querySelectorAll('.bar-row');
+
+    const isDark = vibeClass === 'dark-academia';
+    const textColor = isDark ? '#FAFAF9' : '#1E293B';
+    const subTextColor = isDark ? 'rgba(250,250,249,0.6)' : 'rgba(30,41,59,0.6)';
+    const dimColor = isDark ? 'rgba(250,250,249,0.35)' : 'rgba(30,41,59,0.35)';
+    const barTrackColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)';
+
+    let y = 120;
+
+    // "your vibe is" label
+    ctx.font = '700 28px Inter, sans-serif';
+    ctx.fillStyle = subTextColor;
+    ctx.textAlign = 'center';
+    ctx.letterSpacing = '4px';
+    ctx.fillText('YOUR VIBE IS', w / 2, y);
+    y += 60;
+
+    // Vibe name
+    ctx.font = '700 72px "Space Grotesk", Inter, sans-serif';
+    ctx.fillStyle = textColor;
+    ctx.fillText(vibeName, w / 2, y);
+    y += 140;
+
+    // Spirit emoji
+    ctx.font = '180px serif';
+    ctx.fillText(spirit, w / 2, y + 60);
+    y += 250;
+
+    // Palette swatches
+    const swatchSize = 80;
+    const swatchGap = 20;
+    const paletteColors = [];
+    swatches.forEach(s => paletteColors.push(s.style.background || s.style.backgroundColor));
+    const totalPalW = paletteColors.length * swatchSize + (paletteColors.length - 1) * swatchGap;
+    let px = (w - totalPalW) / 2;
+    paletteColors.forEach(color => {
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(px + swatchSize / 2, y, swatchSize / 2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.7)';
+      ctx.lineWidth = 6;
+      ctx.stroke();
+      px += swatchSize + swatchGap;
+    });
+    y += 70;
+
+    // Bars
+    bars.forEach(row => {
+      const label = row.querySelector('.bar-label').textContent;
+      const pct = row.querySelector('.bar-pct').textContent;
+      const fill = row.querySelector('.bar-fill');
+      const fillColor = fill.style.background || fill.style.backgroundColor;
+      const pctVal = parseInt(fill.dataset.width) || 0;
+
+      y += 50;
+
+      // Label
+      ctx.font = '600 26px Inter, sans-serif';
+      ctx.fillStyle = subTextColor;
+      ctx.textAlign = 'right';
+      ctx.fillText(label, 300, y + 6);
+
+      // Track
+      const trackX = 320;
+      const trackW = 560;
+      const trackH = 26;
+      ctx.fillStyle = barTrackColor;
+      roundRect(ctx, trackX, y - 8, trackW, trackH, 13);
+      ctx.fill();
+
+      // Fill
+      ctx.fillStyle = fillColor;
+      roundRect(ctx, trackX, y - 8, trackW * (pctVal / 100), trackH, 13);
+      ctx.fill();
+
+      // Percentage
+      ctx.font = '700 28px Inter, sans-serif';
+      ctx.fillStyle = textColor;
+      ctx.textAlign = 'left';
+      ctx.fillText(pct, trackX + trackW + 20, y + 6);
+    });
+
+    y += 100;
+
+    // Tagline
+    ctx.font = 'italic 600 34px Inter, sans-serif';
+    ctx.fillStyle = subTextColor;
+    ctx.textAlign = 'center';
+    wrapText(ctx, tagline, w / 2, y, w - 120, 44);
+
+    // Watermark at bottom
+    ctx.font = '700 24px Inter, sans-serif';
+    ctx.fillStyle = dimColor;
+    ctx.textAlign = 'center';
+    ctx.fillText('VIBECHECK BY LEDGER & SPARK', w / 2, h - 80);
+
+    ctx.font = '400 20px Inter, sans-serif';
+    ctx.fillStyle = dimColor;
+    ctx.fillText('ledgerandspark.com', w / 2, h - 48);
+
+    resolve(canvas);
+  });
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.arcTo(x + w, y, x + w, y + r, r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+  ctx.lineTo(x + r, y + h);
+  ctx.arcTo(x, y + h, x, y + h - r, r);
+  ctx.lineTo(x, y + r);
+  ctx.arcTo(x, y, x + r, y, r);
+  ctx.closePath();
+}
+
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+  const words = text.split(' ');
+  let line = '';
+  let testLine, metrics;
+  for (let i = 0; i < words.length; i++) {
+    testLine = line + words[i] + ' ';
+    metrics = ctx.measureText(testLine);
+    if (metrics.width > maxWidth && i > 0) {
+      ctx.fillText(line.trim(), x, y);
+      line = words[i] + ' ';
+      y += lineHeight;
+    } else {
+      line = testLine;
+    }
+  }
+  ctx.fillText(line.trim(), x, y);
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  SHARE API (mobile)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+async function shareCard() {
+  try {
+    const canvas = await renderCardToCanvas();
+    canvas.toBlob(async (blob) => {
+      if (navigator.share && navigator.canShare) {
+        const file = new File([blob], 'my-vibe-check.png', { type: 'image/png' });
+        const shareData = { files: [file], title: 'My Vibe Check', text: 'just found my vibe ✨ take the quiz!' };
+        if (navigator.canShare(shareData)) {
+          await navigator.share(shareData);
+          return;
+        }
+      }
+      // Fallback to download
+      downloadCard();
+    }, 'image/png');
+  } catch {
+    downloadCard();
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  INIT
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// Prevent iOS rubber-banding issues
+document.body.addEventListener('touchmove', function(e) {}, { passive: true });
+</script>
+</body>
+</html>

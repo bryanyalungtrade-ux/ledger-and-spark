@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Calculate Your TikTok Sponsorship Rate — Ledger & Spark</title>
+<meta name="description" content="A brand just DM'd you. Do you know what to charge? This guide breaks down the exact formulas brands use internally, platform rates, and negotiation tips.">
+<meta property="og:title" content="How to Calculate Your TikTok Sponsorship Rate — Ledger & Spark">
+<meta property="og:description" content="A brand just DM'd you. Do you know what to charge? Learn the exact formulas brands use internally.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ledgerandspark.com/blog/how-to-calculate-your-tiktok-sponsorship-rate.html">
+<meta property="og:image" content="/images/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Calculate Your TikTok Sponsorship Rate — Ledger & Spark">
+<meta name="twitter:description" content="A brand just DM'd you. Do you know what to charge? Learn the exact formulas brands use internally.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+/* ── ARTICLE STYLES ── */
+.article-wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.2rem 4rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  transition: gap 0.2s;
+}
+
+.back-link:hover { gap: 0.7rem; }
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.article-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.article-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  padding: 0.2rem 0.7rem;
+  border-radius: 100px;
+  margin-bottom: 1rem;
+}
+
+.article-wrapper h1 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.article-wrapper h2 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.article-wrapper h3 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+  color: var(--text-primary);
+}
+
+.article-wrapper p {
+  font-size: 1.02rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+}
+
+.article-wrapper ul, .article-wrapper ol {
+  margin: 1rem 0 1.5rem 1.5rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.article-wrapper li {
+  margin-bottom: 0.5rem;
+  font-size: 1.02rem;
+}
+
+.article-wrapper strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.article-wrapper hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 2.5rem 0;
+}
+
+.article-wrapper em {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.article-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.article-table th {
+  background: var(--bg-secondary);
+  font-weight: 700;
+  text-align: left;
+  padding: 0.8rem 1rem;
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.article-table td {
+  padding: 0.7rem 1rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.article-table tr:hover td {
+  background: var(--bg-card-hover);
+}
+
+.article-cta {
+  background: var(--bg-card);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  margin: 3rem 0 2rem;
+}
+
+.article-cta h3 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  margin-top: 0;
+}
+
+.article-cta p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.2rem;
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Ledger <span class="logo-ampersand">&</span> Spark</a>
+    <div class="nav-links" id="navLinks">
+      <a href="../index.html">Home</a>
+      <a href="../products.html">Products</a>
+      <a href="../free-tools.html">Free Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../blog.html" class="active">Blog</a>
+      <a href="../free-tools.html" class="nav-cta">Free Tools</a>
+    </div>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── ARTICLE ── -->
+<section style="background:var(--bg-primary);padding-top:8rem;">
+  <div class="article-wrapper">
+
+    <a href="../blog.html" class="back-link">&larr; Back to Blog</a>
+
+    <span class="article-tag">Sponsorship</span>
+    <h1 class="reveal">How to Calculate Your TikTok Sponsorship Rate</h1>
+
+    <div class="article-meta reveal">
+      <span>Ledger &amp; Spark</span>
+      <span>&#x2022;</span>
+      <span>March 2026</span>
+      <span>&#x2022;</span>
+      <span>10 min read</span>
+    </div>
+
+    <hr>
+
+    <p class="reveal">A brand just slid into your DMs. They want a collab. They're asking for your rate.</p>
+
+    <p class="reveal">You have no idea what to say.</p>
+
+    <p class="reveal">Sound familiar? You're not alone. A 2025 survey found that 70% of smaller creators charge below their market rate. That's real money being left on the table every single day.</p>
+
+    <p class="reveal">This guide breaks down exactly how sponsorship rates work, the formulas brands use internally, and how to make sure you never undercharge again.</p>
+
+    <hr>
+
+    <h2 class="reveal">Why Sponsorship Rates Matter</h2>
+
+    <p class="reveal">Your rate isn't just a number. It sets the tone for every brand relationship you'll ever have.</p>
+
+    <p class="reveal"><strong>If you undercharge:</strong></p>
+    <ul class="reveal">
+      <li>Brands see you as "cheap" and treat your content accordingly</li>
+      <li>You burn out creating sponsored content that doesn't pay the bills</li>
+      <li>You attract low-quality brands with tiny budgets</li>
+    </ul>
+
+    <p class="reveal"><strong>If you overcharge:</strong></p>
+    <ul class="reveal">
+      <li>Brands ghost you</li>
+      <li>You lose deals to competitors who priced right</li>
+    </ul>
+
+    <p class="reveal">The sweet spot? Knowing the actual market rate for your size, platform, and niche.</p>
+
+    <hr>
+
+    <h2 class="reveal">The Base Rate Formula</h2>
+
+    <p class="reveal">Brands start with a simple baseline:</p>
+
+    <p class="reveal"><strong>Base rate = [Followers / 1,000] x [Platform CPM]</strong></p>
+
+    <p class="reveal">CPM (Cost Per Mille) varies by platform:</p>
+
+    <table class="article-table reveal">
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>CPM Range</th>
+          <th>Why</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>TikTok</td>
+          <td>$12-$20 per 1K followers</td>
+          <td>Highest organic reach, youngest audience</td>
+        </tr>
+        <tr>
+          <td>Instagram Reel</td>
+          <td>$10-$15 per 1K followers</td>
+          <td>Strong for brand aesthetic, Stories add value</td>
+        </tr>
+        <tr>
+          <td>Instagram Post</td>
+          <td>$10 per 1K followers</td>
+          <td>Static, lower reach than Reels</td>
+        </tr>
+        <tr>
+          <td>YouTube Video</td>
+          <td>$20-$50 per 1K subscribers</td>
+          <td>Evergreen content, highest lifetime value</td>
+        </tr>
+        <tr>
+          <td>YouTube Shorts</td>
+          <td>$5-$15 per 1K subscribers</td>
+          <td>Short lifespan but growing</td>
+        </tr>
+        <tr>
+          <td>Twitter/X Post</td>
+          <td>$2-$5 per 1K followers</td>
+          <td>Shortest content lifespan</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="reveal"><strong>Example:</strong> 25,000 TikTok followers at $15 CPM = $375 base rate per video.</p>
+
+    <p class="reveal">But the base rate is just the starting point.</p>
+
+    <hr>
+
+    <h2 class="reveal">How Your Numbers Multiply Your Rate</h2>
+
+    <p class="reveal">This is where most creators leave money on the table.</p>
+
+    <p class="reveal">Your follower count is the FLOOR. How your posts are doing is the CEILING.</p>
+
+    <p class="reveal">A creator with 25K followers and 7% interaction rate is worth way more than someone with 25K followers and 1%. Brands know this.</p>
+
+    <p class="reveal"><strong>How to figure out your multiplier:</strong></p>
+
+    <table class="article-table reveal">
+      <thead>
+        <tr>
+          <th>How Your Posts Are Doing</th>
+          <th>Multiplier</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Below 2%</td><td>0.8x (below average)</td></tr>
+        <tr><td>2-4%</td><td>1.0x (average)</td></tr>
+        <tr><td>4-6%</td><td>1.2x (above average)</td></tr>
+        <tr><td>6-8%</td><td>1.4x (strong)</td></tr>
+        <tr><td>8%+</td><td>1.6x+ (exceptional)</td></tr>
+      </tbody>
+    </table>
+
+    <p class="reveal"><strong>Updated example:</strong> 25K followers, $15 CPM, 5% interaction rate (1.2x multiplier)<br>
+    $375 x 1.2 = <strong>$450 per TikTok video</strong></p>
+
+    <p class="reveal">Don't know your numbers? Use our free Clout Check tool. Takes 10 seconds.</p>
+
+    <hr>
+
+    <h2 class="reveal">The Niche Premium</h2>
+
+    <p class="reveal">Not all niches are created equal. Brands in some categories have bigger budgets.</p>
+
+    <p class="reveal"><strong>Higher-paying niches (add 10-25% premium):</strong></p>
+    <ul class="reveal">
+      <li>Finance &amp; investing</li>
+      <li>Technology &amp; SaaS</li>
+      <li>Beauty &amp; skincare</li>
+      <li>Fitness &amp; wellness</li>
+      <li>Business &amp; entrepreneurship</li>
+    </ul>
+
+    <p class="reveal"><strong>Average-paying niches (base rate):</strong></p>
+    <ul class="reveal">
+      <li>Fashion &amp; lifestyle</li>
+      <li>Food &amp; cooking</li>
+      <li>Travel</li>
+      <li>Education</li>
+    </ul>
+
+    <p class="reveal"><strong>Lower-paying niches (may need to discount 10-15%):</strong></p>
+    <ul class="reveal">
+      <li>Comedy &amp; entertainment</li>
+      <li>General lifestyle</li>
+      <li>Memes &amp; viral content</li>
+    </ul>
+
+    <p class="reveal"><strong>Final example:</strong> 25K TikTok followers, 5% interaction rate, beauty niche<br>
+    $375 (base) x 1.2 (interaction) x 1.15 (niche) = <strong>$517 per TikTok video</strong></p>
+
+    <p class="reveal">Your realistic range: $450-$600 per video.</p>
+
+    <hr>
+
+    <h2 class="reveal">How to Actually Negotiate</h2>
+
+    <p class="reveal">Knowing your rate is step one. Using it is step two.</p>
+
+    <h3 class="reveal">Rule 1: Let Them Anchor First</h3>
+    <p class="reveal">When a brand asks "What's your rate?" — try to deflect first: "I'd love to learn more about the campaign. What's the budget you're working with?"</p>
+    <p class="reveal">If they give you a number first, you know their ceiling.</p>
+
+    <h3 class="reveal">Rule 2: If You Quote First, Quote Your Mid-Range</h3>
+    <p class="reveal">Don't start with your lowest number. Quote the middle of your range and leave room to negotiate.</p>
+
+    <h3 class="reveal">Rule 3: Offer Packages</h3>
+    <p class="reveal">One TikTok: $500<br>
+    Three TikToks over 30 days: $1,300 (small discount, way more total revenue)</p>
+    <p class="reveal">Brands love packages. You make more money. Win-win.</p>
+
+    <h3 class="reveal">Rule 4: Know Your Non-Negotiables</h3>
+    <ul class="reveal">
+      <li>Usage rights (can they reuse your content in ads? That costs extra, usually 2-3x)</li>
+      <li>Exclusivity (can't promote competitors? That costs extra)</li>
+      <li>Timeline (rush jobs cost more)</li>
+      <li>Revisions (set a limit, usually 1-2 rounds)</li>
+    </ul>
+
+    <h3 class="reveal">Rule 5: Get Everything in Writing</h3>
+    <p class="reveal">Deliverables, timeline, payment terms, usage rights. No handshake deals. This is business.</p>
+
+    <hr>
+
+    <h2 class="reveal">Red Flags From Brands</h2>
+
+    <p class="reveal">Watch out for these:</p>
+    <ul class="reveal">
+      <li>"We'll pay you in exposure" — Run.</li>
+      <li>"We have a $50 budget for a full video" — Counter with your real rate or walk.</li>
+      <li>"We need the video tomorrow" — Rush fee.</li>
+      <li>"We want full usage rights forever" — That's a separate (large) fee.</li>
+      <li>They won't sign a contract — Not a serious brand.</li>
+    </ul>
+
+    <hr>
+
+    <h2 class="reveal">The Free Shortcut</h2>
+
+    <p class="reveal">Don't want to do all this math every time? We built a free Sponsorship Rate Calculator.</p>
+
+    <p class="reveal">Enter your followers, your numbers, and platform. Get your low, mid, and premium rate instantly.</p>
+
+    <p class="reveal">It's browser-based, no download, no signup. Screenshot your rate and save it for every brand conversation.</p>
+
+    <hr>
+
+    <h2 class="reveal">Key Takeaways</h2>
+
+    <ol class="reveal">
+      <li>Your base rate starts with followers divided by 1,000 times platform CPM</li>
+      <li>How your posts are doing is the multiplier that separates you from the pack</li>
+      <li>Your niche determines your premium</li>
+      <li>Always negotiate — brands expect it</li>
+      <li>Packages make everyone more money</li>
+      <li>Get everything in writing</li>
+    </ol>
+
+    <p class="reveal">Know your worth. Don't leave money on the table.</p>
+
+    <hr>
+
+    <p><em>Ledger &amp; Spark — Free tools. No catch. Built because you asked.</em></p>
+
+    <div class="article-cta reveal">
+      <h3>Calculate your rate in 10 seconds</h3>
+      <p>Free Sponsorship Rate Calculator. No signup. No catch.</p>
+      <a href="../free-tools.html" class="btn-primary">Try It Free</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.25rem;">Ledger <span class="logo-ampersand">&</span> Spark</div>
+        <p>Free tools for content creators, students, and young professionals. Everything's free — we make money from sponsors, not from you.</p>
+        <div class="footer-social">
+          <a href="mailto:ledgerandspark@gmail.com" aria-label="Email" title="Email">&#x2709;</a>
+          <a href="https://tiktok.com/@ledgerandspark" target="_blank" aria-label="TikTok" title="TikTok">T</a>
+          <a href="https://instagram.com/ledgerandspark" target="_blank" aria-label="Instagram" title="Instagram">I</a>
+          <a href="https://youtube.com/@ledgerandspark" target="_blank" aria-label="YouTube" title="YouTube">Y</a>
+          <a href="https://twitter.com/ledgerandspark" target="_blank" aria-label="Twitter/X" title="Twitter/X">X</a>
+          <a href="https://pinterest.com/ledgerandspark" target="_blank" aria-label="Pinterest" title="Pinterest">P</a>
+          <a href="https://linkedin.com/company/ledgerandspark" target="_blank" aria-label="LinkedIn" title="LinkedIn">L</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../products.html">Products</a></li>
+          <li><a href="../free-tools.html">Free Tools</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../blog.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="../free-tools.html">Free Tools</a></li>
+          <li><a href="../products.html">All Products</a></li>
+          <li><a href="mailto:ledgerandspark@gmail.com">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:ledgerandspark@gmail.com">Email Us</a></li>
+          <li><a href="mailto:ledgerandspark@gmail.com?subject=Sponsorship%20Inquiry">Sponsorship Inquiries</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Ledger & Spark. All rights reserved.</p>
+      <p>Built with precision by Ledger &amp; Spark.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── NAV SCROLL ──
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── MOBILE NAV ──
+const mobileToggle = document.getElementById('mobileToggle');
+const navLinks = document.getElementById('navLinks');
+mobileToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  mobileToggle.classList.toggle('active');
+});
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    mobileToggle.classList.remove('active');
+  });
+});
+
+// ── SCROLL REVEAL ──
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>

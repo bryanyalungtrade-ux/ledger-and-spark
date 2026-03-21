@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Date Night Scorecard — Ledger & Spark</title>
+<meta name="description" content="Rate your restaurant date night with this fun, free scorecard. Vibe check, food rating, value, service & more. Share your Date Night Report Card!">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FAFBFE;
+  --bg-card: #F1F5F9;
+  --blue: #3B82F6;
+  --blue-light: #60A5FA;
+  --blue-glow: #93C5FD;
+  --blue-pale: #DBEAFE;
+  --text: #1E293B;
+  --text-muted: #64748B;
+  --white: #FFFFFF;
+  --star-empty: #CBD5E1;
+  --star-fill: #FBBF24;
+  --green: #10B981;
+  --red: #EF4444;
+  --orange: #F59E0B;
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ─── HEADER ─── */
+.header {
+  text-align: center;
+  padding: 32px 20px 20px;
+  background: linear-gradient(180deg, var(--blue-pale) 0%, var(--bg) 100%);
+}
+.header .brand {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+.header h1 {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text);
+}
+.header h1 span { color: var(--blue); }
+.header .subtitle {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+/* ─── CONTAINER ─── */
+.container {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 0 16px 100px;
+}
+
+/* ─── RESTAURANT INPUT ─── */
+.restaurant-input {
+  margin: 20px 0;
+}
+.restaurant-input label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.restaurant-input input,
+.restaurant-input input[type="date"] {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--blue-pale);
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  color: var(--text);
+  background: var(--white);
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 10px;
+}
+.restaurant-input input:focus {
+  border-color: var(--blue);
+}
+.restaurant-input input::placeholder {
+  color: var(--star-empty);
+}
+
+/* ─── CATEGORY CARDS ─── */
+.category-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 4px rgba(59, 130, 246, 0.08);
+  border: 1px solid var(--blue-pale);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.category-card.rated {
+  border-color: var(--blue-light);
+  box-shadow: 0 2px 12px rgba(59, 130, 246, 0.12);
+}
+.category-card .cat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.category-card .cat-emoji {
+  font-size: 26px;
+  line-height: 1;
+}
+.category-card .cat-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+}
+.category-card .cat-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  font-style: italic;
+}
+.category-card .cat-label {
+  font-size: 12px;
+  color: var(--blue);
+  font-weight: 600;
+  margin-top: 8px;
+  min-height: 18px;
+  transition: opacity 0.2s;
+}
+
+/* ─── STARS ─── */
+.stars {
+  display: flex;
+  gap: 8px;
+}
+.stars .star {
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  transition: transform 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.stars .star:active { transform: scale(1.25); }
+.stars .star svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--star-empty);
+  transition: fill 0.15s;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.06));
+}
+.stars .star.active svg { fill: var(--star-fill); }
+.stars .star.hover svg { fill: #FCD34D; }
+
+/* ─── WOULD RETURN ─── */
+.return-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.return-btn {
+  flex: 1;
+  min-width: 100px;
+  padding: 12px 8px;
+  border: 2px solid var(--blue-pale);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.return-btn:hover { border-color: var(--blue-light); }
+.return-btn.selected {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--blue);
+}
+.return-btn .btn-emoji {
+  display: block;
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+/* ─── NOTES ─── */
+.notes-area {
+  margin: 14px 0;
+}
+.notes-area label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.notes-area textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--blue-pale);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  color: var(--text);
+  background: var(--white);
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+.notes-area textarea:focus { border-color: var(--blue); }
+.notes-area textarea::placeholder { color: var(--star-empty); }
+
+/* ─── SUBMIT BUTTON ─── */
+.submit-wrap { margin-top: 24px; }
+.submit-btn {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+  color: var(--white);
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+  letter-spacing: 0.3px;
+}
+.submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+.submit-btn:active { transform: scale(0.98); }
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ─── PROGRESS BAR ─── */
+.progress-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--white);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--blue-pale);
+  max-width: 440px;
+  margin: 0 auto;
+}
+.progress-bar-bg {
+  height: 6px;
+  background: var(--blue-pale);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue) 0%, var(--blue-light) 100%);
+  border-radius: 3px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0%;
+}
+.progress-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* ─── RESULT CARD ─── */
+.result-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+.result-overlay.visible {
+  display: flex;
+}
+
+.result-card {
+  background: var(--white);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 380px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  animation: cardPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cardPop {
+  0% { transform: scale(0.7) translateY(40px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.result-card-inner {
+  padding: 28px 24px;
+}
+.result-brand {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--blue);
+  text-align: center;
+  margin-bottom: 4px;
+}
+.result-title {
+  font-size: 22px;
+  font-weight: 800;
+  text-align: center;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.result-restaurant {
+  font-size: 16px;
+  text-align: center;
+  color: var(--blue);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.result-date-line {
+  font-size: 12px;
+  text-align: center;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.result-big-score {
+  text-align: center;
+  margin: 16px 0;
+}
+.result-big-score .score-num {
+  font-size: 64px;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.result-big-score .score-max {
+  font-size: 22px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.result-big-score .score-label {
+  display: block;
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-top: 2px;
+}
+.result-big-score .score-stars {
+  font-size: 26px;
+  margin-top: 4px;
+  letter-spacing: 2px;
+}
+
+.result-breakdown {
+  margin: 20px 0 16px;
+}
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--bg-card);
+}
+.result-row:last-child { border-bottom: none; }
+.result-row .rr-label {
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 500;
+}
+.result-row .rr-stars {
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+.result-row .rr-return {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.result-verdict {
+  text-align: center;
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  margin: 12px 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+.result-verdict.great { background: #ECFDF5; color: #059669; }
+.result-verdict.good { background: #DBEAFE; color: #2563EB; }
+.result-verdict.mid { background: #FEF3C7; color: #D97706; }
+.result-verdict.bad { background: #FEF2F2; color: #DC2626; }
+
+.result-notes-section {
+  margin-top: 12px;
+  padding: 12px;
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+}
+.result-notes-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.result-notes-text {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.result-footer {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 14px;
+  background: var(--bg-card);
+  border-top: 1px solid var(--blue-pale);
+}
+.result-footer a {
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* result actions */
+.result-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+.result-action-btn {
+  flex: 1;
+  padding: 12px 8px;
+  border: 2px solid var(--blue-pale);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.result-action-btn:hover {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--blue);
+}
+.result-action-btn.primary {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--blue);
+}
+.result-action-btn.primary:hover {
+  background: #2563EB;
+}
+
+/* ─── CONFETTI ─── */
+.confetti-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 200;
+  overflow: hidden;
+}
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  opacity: 0;
+  animation: confettiFall linear forwards;
+}
+@keyframes confettiFall {
+  0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+  100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+}
+
+/* ─── FOOTER ─── */
+.page-footer {
+  text-align: center;
+  padding: 24px 16px 32px;
+  max-width: 440px;
+  margin: 0 auto;
+}
+.page-footer .trust-line {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-style: italic;
+}
+.page-footer .footer-links {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.page-footer a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+/* ─── TOAST ─── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--text);
+  color: var(--white);
+  padding: 12px 24px;
+  border-radius: 40px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 300;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 400px) {
+  .header h1 { font-size: 24px; }
+  .stars .star { width: 38px; height: 38px; }
+  .result-card-inner { padding: 22px 18px; }
+  .result-big-score .score-num { font-size: 52px; }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<div class="header">
+  <div class="brand">Ledger & Spark</div>
+  <h1>Date Night <span>Scorecard</span> 💫</h1>
+  <p class="subtitle">rate your date night, bestie</p>
+</div>
+
+<!-- ─── PROGRESS ─── -->
+<div class="progress-wrap">
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressFill"></div>
+  </div>
+  <div class="progress-text" id="progressText">0 of 6 rated</div>
+</div>
+
+<!-- ─── FORM ─── -->
+<div class="container">
+
+  <!-- Restaurant name + date -->
+  <div class="restaurant-input">
+    <label>Where'd you go?</label>
+    <input type="text" id="restaurantName" placeholder="Restaurant name..." maxlength="60">
+    <label>When was the date?</label>
+    <input type="date" id="dateNight" value="">
+  </div>
+
+  <!-- Category 1: Vibe Check -->
+  <div class="category-card" id="card-vibe">
+    <div class="cat-header">
+      <span class="cat-emoji">✨</span>
+      <span class="cat-title">Vibe Check</span>
+    </div>
+    <p class="cat-desc">did it give main character energy or school cafeteria?</p>
+    <div class="stars" data-category="vibe">
+      <div class="star" data-value="1"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="2"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="3"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="4"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="5"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+    </div>
+    <div class="cat-label" data-label="vibe"></div>
+  </div>
+
+  <!-- Category 2: Food Rating -->
+  <div class="category-card" id="card-food">
+    <div class="cat-header">
+      <span class="cat-emoji">🍽️</span>
+      <span class="cat-title">Food Rating</span>
+    </div>
+    <p class="cat-desc">would you post this on your story?</p>
+    <div class="stars" data-category="food">
+      <div class="star" data-value="1"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="2"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="3"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="4"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="5"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+    </div>
+    <div class="cat-label" data-label="food"></div>
+  </div>
+
+  <!-- Category 3: Value -->
+  <div class="category-card" id="card-value">
+    <div class="cat-header">
+      <span class="cat-emoji">💸</span>
+      <span class="cat-title">Value for Money</span>
+    </div>
+    <p class="cat-desc">wallet crying or wallet vibing?</p>
+    <div class="stars" data-category="value">
+      <div class="star" data-value="1"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="2"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="3"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="4"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="5"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+    </div>
+    <div class="cat-label" data-label="value"></div>
+  </div>
+
+  <!-- Category 4: Service -->
+  <div class="category-card" id="card-service">
+    <div class="cat-header">
+      <span class="cat-emoji">🤵</span>
+      <span class="cat-title">Service</span>
+    </div>
+    <p class="cat-desc">waiter remembered your name or forgot your existence?</p>
+    <div class="stars" data-category="service">
+      <div class="star" data-value="1"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="2"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="3"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="4"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="5"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+    </div>
+    <div class="cat-label" data-label="service"></div>
+  </div>
+
+  <!-- Category 5: Date Worthiness -->
+  <div class="category-card" id="card-date">
+    <div class="cat-header">
+      <span class="cat-emoji">💘</span>
+      <span class="cat-title">Date Worthiness</span>
+    </div>
+    <p class="cat-desc">second date material or never again?</p>
+    <div class="stars" data-category="date">
+      <div class="star" data-value="1"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="2"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="3"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="4"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="star" data-value="5"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+    </div>
+    <div class="cat-label" data-label="date"></div>
+  </div>
+
+  <!-- Category 6: Would Return -->
+  <div class="category-card" id="card-return">
+    <div class="cat-header">
+      <span class="cat-emoji">🔄</span>
+      <span class="cat-title">Would You Return?</span>
+    </div>
+    <p class="cat-desc">be honest with yourself rn</p>
+    <div class="return-options">
+      <button class="return-btn" data-return="yes" onclick="selectReturn('yes')">
+        <span class="btn-emoji">🥰</span>
+        Yes
+      </button>
+      <button class="return-btn" data-return="maybe" onclick="selectReturn('maybe')">
+        <span class="btn-emoji">🤷</span>
+        Maybe
+      </button>
+      <button class="return-btn" data-return="no" onclick="selectReturn('no')">
+        <span class="btn-emoji">🚫</span>
+        Nope
+      </button>
+    </div>
+  </div>
+
+  <!-- Notes -->
+  <div class="notes-area">
+    <label>Hot takes & notes (optional)</label>
+    <textarea id="notesInput" placeholder="the pasta was giving... the dessert was NOT giving..." maxlength="280"></textarea>
+  </div>
+
+  <!-- Submit -->
+  <div class="submit-wrap">
+    <button class="submit-btn" id="submitBtn" onclick="generateReport()" disabled>
+      Get Your Report Card ✨
+    </button>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<div class="page-footer">
+  <p class="trust-line">We make money from sponsors, not from you. That's why everything is free.</p>
+  <p class="footer-links">
+    <strong>Ledger & Spark</strong> &middot;
+    <a href="mailto:ledgerandspark@gmail.com">Contact us</a><br>
+    Rate smarter. More honest reviews at <a href="https://bitebackreviews.com" target="_blank">bitebackreviews.com</a>
+  </p>
+</div>
+
+<!-- ─── RESULT OVERLAY ─── -->
+<div class="result-overlay" id="resultOverlay" onclick="closeResultOutside(event)">
+  <div class="result-card" id="resultCard">
+    <div class="result-card-inner" id="resultCardInner">
+      <div class="result-brand">LEDGER & SPARK</div>
+      <div class="result-title">Date Night Report Card</div>
+      <div class="result-restaurant" id="resultRestaurant"></div>
+      <div class="result-date-line" id="resultDate"></div>
+
+      <div class="result-big-score">
+        <span class="score-num" id="resultScoreNum"></span>
+        <span class="score-max">/25</span>
+        <span class="score-label" id="resultScoreLabel"></span>
+        <div class="score-stars" id="resultScoreStars"></div>
+      </div>
+
+      <div class="result-breakdown" id="resultBreakdown"></div>
+
+      <div class="result-verdict" id="resultVerdict"></div>
+
+      <div id="resultNotesWrap"></div>
+
+      <div class="result-actions">
+        <button class="result-action-btn" onclick="screenshotResult()">📸 Screenshot</button>
+        <button class="result-action-btn" onclick="copyResult()">📋 Copy</button>
+        <button class="result-action-btn primary" onclick="resetForm()">🔄 New Rating</button>
+      </div>
+    </div>
+    <div class="result-footer">
+      Free tool by <a href="#">Ledger & Spark</a> &middot; Rate smarter. 💫
+    </div>
+  </div>
+</div>
+
+<!-- ─── CONFETTI CONTAINER ─── -->
+<div class="confetti-container" id="confettiContainer"></div>
+
+<!-- ─── TOAST ─── -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── STATE ───
+const ratings = { vibe: 0, food: 0, value: 0, service: 0, date: 0 };
+let returnChoice = '';
+const totalCategories = 6; // 5 star categories + 1 return
+
+const starLabels = {
+  vibe: ['', 'school cafeteria vibes 😬', 'meh, seen better 🤷', 'pretty cute tbh 💅', 'immaculate vibes 🕯️', 'MAIN CHARACTER ENERGY 🌟'],
+  food: ['', "wouldn't even post it 😭", 'it was okay I guess 🍽️', 'would definitely post this 📸', 'chef understood the assignment 👨‍🍳', 'LIFE-CHANGING FLAVOR 🤤'],
+  value: ['', 'wallet is CRYING 💀', 'a little steep ngl 😅', 'fair enough tbh 🤝', 'great deal actually 💰', 'WALLET IS THRIVING 🤑'],
+  service: ['', 'forgot we existed 👻', 'eh, basic service 😐', 'solid, no complaints ✓', 'super attentive 🫡', 'FIVE STAR SERVICE 🏆'],
+  date: ['', 'never again fr 🚪', 'only if nothing else 🤔', 'decent date spot 💫', 'definitely coming back 💕', 'PERFECT DATE SPOT 💘']
+};
+
+// ─── SET TODAY'S DATE ───
+document.getElementById('dateNight').valueAsDate = new Date();
+
+// ─── STAR CLICK HANDLERS ───
+document.querySelectorAll('.stars').forEach(starsEl => {
+  const category = starsEl.dataset.category;
+  const stars = starsEl.querySelectorAll('.star');
+
+  stars.forEach(star => {
+    star.addEventListener('click', () => {
+      const val = parseInt(star.dataset.value);
+      ratings[category] = val;
+
+      // update visual
+      stars.forEach(s => {
+        s.classList.toggle('active', parseInt(s.dataset.value) <= val);
+      });
+
+      // update label
+      const labelEl = document.querySelector(`[data-label="${category}"]`);
+      labelEl.textContent = starLabels[category][val];
+
+      // mark card as rated
+      starsEl.closest('.category-card').classList.add('rated');
+
+      // haptic feedback on mobile
+      if (navigator.vibrate) navigator.vibrate(20);
+
+      updateProgress();
+    });
+
+    // hover effects (desktop)
+    star.addEventListener('mouseenter', () => {
+      const val = parseInt(star.dataset.value);
+      stars.forEach(s => {
+        if (parseInt(s.dataset.value) <= val && !s.classList.contains('active')) {
+          s.classList.add('hover');
+        }
+      });
+    });
+    star.addEventListener('mouseleave', () => {
+      stars.forEach(s => s.classList.remove('hover'));
+    });
+  });
+});
+
+// ─── RETURN CHOICE ───
+function selectReturn(choice) {
+  returnChoice = choice;
+  document.querySelectorAll('.return-btn').forEach(btn => {
+    btn.classList.toggle('selected', btn.dataset.return === choice);
+  });
+  document.getElementById('card-return').classList.add('rated');
+  if (navigator.vibrate) navigator.vibrate(20);
+  updateProgress();
+}
+
+// ─── PROGRESS ───
+function updateProgress() {
+  let rated = 0;
+  Object.values(ratings).forEach(v => { if (v > 0) rated++; });
+  if (returnChoice) rated++;
+
+  const pct = Math.round((rated / totalCategories) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = rated + ' of ' + totalCategories + ' rated';
+
+  // enable submit when all rated
+  document.getElementById('submitBtn').disabled = (rated < totalCategories);
+}
+
+// ─── GENERATE REPORT ───
+function generateReport() {
+  const name = document.getElementById('restaurantName').value.trim() || 'Mystery Restaurant';
+  const dateVal = document.getElementById('dateNight').value;
+  const notes = document.getElementById('notesInput').value.trim();
+
+  const totalScore = ratings.vibe + ratings.food + ratings.value + ratings.service + ratings.date;
+  const avgScore = totalScore / 5;
+
+  // populate result card
+  document.getElementById('resultRestaurant').textContent = name;
+
+  if (dateVal) {
+    const d = new Date(dateVal + 'T12:00:00');
+    document.getElementById('resultDate').textContent = d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  } else {
+    document.getElementById('resultDate').textContent = '';
+  }
+
+  document.getElementById('resultScoreNum').textContent = totalScore;
+
+  // star display for overall
+  const fullStars = Math.floor(avgScore);
+  const halfStar = (avgScore % 1) >= 0.5;
+  let starStr = '';
+  for (let i = 0; i < fullStars; i++) starStr += '⭐';
+  if (halfStar) starStr += '✨';
+  document.getElementById('resultScoreStars').textContent = starStr;
+
+  // score label
+  let scoreLabel = '';
+  if (totalScore >= 22) scoreLabel = 'ABSOLUTE SLAY';
+  else if (totalScore >= 18) scoreLabel = 'Chef\'s Kiss';
+  else if (totalScore >= 13) scoreLabel = 'Mid but Fine';
+  else if (totalScore >= 8) scoreLabel = 'Below Average';
+  else scoreLabel = 'Big Yikes';
+  document.getElementById('resultScoreLabel').textContent = scoreLabel;
+
+  // breakdown
+  const categories = [
+    { label: '✨ Vibe Check', stars: ratings.vibe },
+    { label: '🍽️ Food', stars: ratings.food },
+    { label: '💸 Value', stars: ratings.value },
+    { label: '🤵 Service', stars: ratings.service },
+    { label: '💘 Date Worthiness', stars: ratings.date }
+  ];
+
+  let breakdownHTML = '';
+  categories.forEach(cat => {
+    let s = '';
+    for (let i = 0; i < 5; i++) s += i < cat.stars ? '⭐' : '☆';
+    breakdownHTML += `<div class="result-row"><span class="rr-label">${cat.label}</span><span class="rr-stars">${s}</span></div>`;
+  });
+
+  const returnMap = { yes: '🥰 Yes!', maybe: '🤷 Maybe', no: '🚫 Nope' };
+  const returnColors = { yes: 'color:#059669', maybe: 'color:#D97706', no: 'color:#DC2626' };
+  breakdownHTML += `<div class="result-row"><span class="rr-label">🔄 Would Return?</span><span class="rr-return" style="${returnColors[returnChoice]}">${returnMap[returnChoice]}</span></div>`;
+  document.getElementById('resultBreakdown').innerHTML = breakdownHTML;
+
+  // verdict
+  const verdictEl = document.getElementById('resultVerdict');
+  let verdictClass = '', verdictText = '';
+  if (totalScore >= 22) {
+    verdictClass = 'great';
+    verdictText = '🏆 Top tier date night. You found a gem.';
+  } else if (totalScore >= 18) {
+    verdictClass = 'good';
+    verdictText = '💙 Solid pick. Worth going back.';
+  } else if (totalScore >= 13) {
+    verdictClass = 'mid';
+    verdictText = '🤷 It was fine. Not life-changing tho.';
+  } else {
+    verdictClass = 'bad';
+    verdictText = '💀 Save your money next time bestie.';
+  }
+  verdictEl.className = 'result-verdict ' + verdictClass;
+  verdictEl.textContent = verdictText;
+
+  // notes
+  const notesWrap = document.getElementById('resultNotesWrap');
+  if (notes) {
+    notesWrap.innerHTML = `<div class="result-notes-section"><div class="result-notes-title">Hot Takes</div><div class="result-notes-text">${escapeHTML(notes)}</div></div>`;
+  } else {
+    notesWrap.innerHTML = '';
+  }
+
+  // show overlay
+  document.getElementById('resultOverlay').classList.add('visible');
+  document.body.style.overflow = 'hidden';
+
+  // confetti
+  launchConfetti();
+}
+
+// ─── CONFETTI ───
+function launchConfetti() {
+  const container = document.getElementById('confettiContainer');
+  container.innerHTML = '';
+  const colors = ['#3B82F6', '#60A5FA', '#FBBF24', '#F472B6', '#34D399', '#A78BFA', '#FB923C'];
+  const shapes = ['square', 'circle'];
+
+  for (let i = 0; i < 60; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const shape = shapes[Math.floor(Math.random() * shapes.length)];
+    const size = 6 + Math.random() * 8;
+    const left = Math.random() * 100;
+    const delay = Math.random() * 0.8;
+    const duration = 1.5 + Math.random() * 2;
+
+    piece.style.cssText = `
+      left: ${left}%;
+      width: ${size}px;
+      height: ${size}px;
+      background: ${color};
+      border-radius: ${shape === 'circle' ? '50%' : '2px'};
+      animation-delay: ${delay}s;
+      animation-duration: ${duration}s;
+    `;
+    container.appendChild(piece);
+  }
+
+  // clear after animation
+  setTimeout(() => { container.innerHTML = ''; }, 4000);
+}
+
+// ─── CLOSE RESULT ───
+function closeResultOutside(e) {
+  if (e.target === document.getElementById('resultOverlay')) {
+    document.getElementById('resultOverlay').classList.remove('visible');
+    document.body.style.overflow = '';
+  }
+}
+
+// ─── SCREENSHOT ───
+function screenshotResult() {
+  showToast('Long-press or screenshot your screen to save! 📸');
+}
+
+// ─── COPY RESULT ───
+function copyResult() {
+  const name = document.getElementById('restaurantName').value.trim() || 'Mystery Restaurant';
+  const totalScore = ratings.vibe + ratings.food + ratings.value + ratings.service + ratings.date;
+  const returnMap = { yes: 'Yes!', maybe: 'Maybe', no: 'Nope' };
+
+  const text = `🍽️ DATE NIGHT REPORT CARD
+📍 ${name}
+
+✨ Vibe: ${'⭐'.repeat(ratings.vibe)}${'☆'.repeat(5 - ratings.vibe)}
+🍽️ Food: ${'⭐'.repeat(ratings.food)}${'☆'.repeat(5 - ratings.food)}
+💸 Value: ${'⭐'.repeat(ratings.value)}${'☆'.repeat(5 - ratings.value)}
+🤵 Service: ${'⭐'.repeat(ratings.service)}${'☆'.repeat(5 - ratings.service)}
+💘 Date Worthy: ${'⭐'.repeat(ratings.date)}${'☆'.repeat(5 - ratings.date)}
+🔄 Return? ${returnMap[returnChoice]}
+
+OVERALL: ${totalScore}/25
+
+Free tool by Ledger & Spark 💫`;
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('Copied! Paste it anywhere 📋');
+    }).catch(() => {
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showToast('Copied! Paste it anywhere 📋');
+  } catch (e) {
+    showToast('Couldn\'t copy — try a screenshot instead');
+  }
+  document.body.removeChild(ta);
+}
+
+// ─── RESET ───
+function resetForm() {
+  // close overlay
+  document.getElementById('resultOverlay').classList.remove('visible');
+  document.body.style.overflow = '';
+
+  // reset state
+  Object.keys(ratings).forEach(k => ratings[k] = 0);
+  returnChoice = '';
+
+  // reset stars
+  document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('[data-label]').forEach(l => l.textContent = '');
+  document.querySelectorAll('.category-card').forEach(c => c.classList.remove('rated'));
+  document.querySelectorAll('.return-btn').forEach(b => b.classList.remove('selected'));
+
+  // reset inputs
+  document.getElementById('restaurantName').value = '';
+  document.getElementById('notesInput').value = '';
+  document.getElementById('dateNight').valueAsDate = new Date();
+
+  // reset progress
+  updateProgress();
+
+  // scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── TOAST ───
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ─── ESCAPE HTML ───
+function escapeHTML(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+</script>
+</body>
+</html>

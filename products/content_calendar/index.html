@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Calendar Generator — Free 7-Day Posting Plan | Ledger & Spark</title>
+<meta name="description" content="Generate a free 7-day content calendar for TikTok, Instagram, YouTube & Twitter. 300+ post ideas across 10 niches. No signup, works offline.">
+<meta property="og:title" content="Content Calendar Generator — Ledger & Spark">
+<meta property="og:description" content="Pick your niche, platforms, and frequency. Get a full week of post ideas in seconds. Free.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FAFBFE;
+  --bg-alt: #F1F5F9;
+  --blue: #3B82F6;
+  --blue-light: #60A5FA;
+  --blue-pale: #DBEAFE;
+  --blue-ghost: #EFF6FF;
+  --text: #1E293B;
+  --text-mid: #475569;
+  --text-light: #94A3B8;
+  --white: #FFFFFF;
+  --green: #10B981;
+  --green-light: #D1FAE5;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 50px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* HEADER */
+.header {
+  background: var(--white);
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-brand {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.header-brand span { color: var(--blue); }
+.header-back {
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--text-light);
+  transition: color .2s;
+}
+.header-back:hover { color: var(--blue); text-decoration: none; }
+
+/* MAIN */
+.main {
+  flex: 1;
+  max-width: 520px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+.hero { text-align: center; margin-bottom: 28px; }
+.hero h1 { font-size: 1.75rem; font-weight: 900; line-height: 1.2; margin-bottom: 6px; }
+.hero h1 .blue { color: var(--blue); }
+.hero p { color: var(--text-light); font-size: .95rem; font-weight: 500; }
+
+/* STEP SECTIONS */
+.step { margin-bottom: 20px; }
+.step-label {
+  font-weight: 700;
+  font-size: .85rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.step-num {
+  background: var(--blue);
+  color: var(--white);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .75rem;
+  font-weight: 700;
+}
+
+/* BUTTON GRIDS */
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.btn-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.niche-btn, .platform-btn, .freq-btn {
+  background: var(--white);
+  border: 2px solid #e2e8f0;
+  border-radius: var(--radius);
+  padding: 12px 10px;
+  font-family: inherit;
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: all .15s;
+  text-align: center;
+  line-height: 1.3;
+}
+.niche-btn:hover, .platform-btn:hover, .freq-btn:hover {
+  border-color: var(--blue-light);
+  background: var(--blue-ghost);
+}
+.niche-btn.active, .platform-btn.active, .freq-btn.active {
+  border-color: var(--blue);
+  background: var(--blue-pale);
+  color: var(--blue);
+}
+.niche-btn .emoji, .platform-btn .emoji {
+  display: block;
+  font-size: 1.3rem;
+  margin-bottom: 2px;
+}
+.platform-btn .emoji { font-size: 1.1rem; }
+
+.freq-label { font-size: .75rem; color: var(--text-mid); font-weight: 400; display: block; margin-top: 2px; }
+
+/* GENERATE BUTTON */
+.gen-wrap { text-align: center; margin: 28px 0 20px; }
+.gen-btn {
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 16px 36px;
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+  box-shadow: 0 4px 14px rgba(59,130,246,0.3);
+}
+.gen-btn:hover:not(:disabled) {
+  background: #2563EB;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(59,130,246,0.35);
+}
+.gen-btn:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+.gen-hint {
+  font-size: .8rem;
+  color: var(--text-light);
+  margin-top: 8px;
+}
+
+/* RESULTS */
+.results { display: none; margin-top: 8px; }
+.results.visible { display: block; animation: fadeUp .4s ease; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cal-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.cal-header {
+  background: linear-gradient(135deg, var(--blue), var(--blue-light));
+  color: var(--white);
+  padding: 18px 20px;
+  text-align: center;
+}
+.cal-header h2 { font-size: 1.2rem; font-weight: 800; margin-bottom: 2px; }
+.cal-header p { font-size: .82rem; opacity: .85; font-weight: 500; }
+
+.cal-day {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.cal-day:last-child { border-bottom: none; }
+.cal-day.rest {
+  padding: 10px 16px;
+  color: var(--text-light);
+  font-size: .85rem;
+  font-style: italic;
+  background: var(--bg-alt);
+}
+
+.day-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.day-name {
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--text);
+}
+.day-platform {
+  font-size: .75rem;
+  font-weight: 600;
+  background: var(--blue-pale);
+  color: var(--blue);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+}
+.day-idea {
+  font-size: .9rem;
+  color: var(--text);
+  font-weight: 500;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.day-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.day-tag {
+  font-size: .72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-alt);
+  color: var(--text-mid);
+}
+.day-tag.type-video { background: #FEF3C7; color: #92400E; }
+.day-tag.type-photo { background: #D1FAE5; color: #065F46; }
+.day-tag.type-text { background: #E0E7FF; color: #3730A3; }
+.day-tag.type-carousel { background: #FCE7F3; color: #9D174D; }
+
+/* ACTION BUTTONS */
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.act-btn {
+  flex: 1;
+  min-width: 100px;
+  background: var(--white);
+  border: 2px solid #e2e8f0;
+  border-radius: var(--radius);
+  padding: 12px 10px;
+  font-family: inherit;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: all .15s;
+  text-align: center;
+}
+.act-btn:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: var(--blue-ghost);
+}
+.act-btn.primary {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: var(--white);
+}
+.act-btn.primary:hover {
+  background: #2563EB;
+}
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--text);
+  color: var(--white);
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font-size: .85rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: all .3s ease;
+  z-index: 200;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 24px 16px 32px;
+  color: var(--text-light);
+  font-size: .8rem;
+  line-height: 1.6;
+}
+.footer .brand { font-weight: 700; color: var(--text-mid); }
+
+/* MOBILE */
+@media (max-width: 400px) {
+  .hero h1 { font-size: 1.5rem; }
+  .btn-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .btn-grid-3 { grid-template-columns: 1fr; }
+  .niche-btn, .platform-btn, .freq-btn { padding: 10px 8px; font-size: .82rem; }
+  .cal-day { padding: 12px 14px; }
+  .actions { flex-direction: column; }
+  .act-btn { min-width: unset; }
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <a href="../../website/index.html" class="header-back">&#8592; Back to all tools</a>
+  <div class="header-brand">Ledger <span>&</span> Spark</div>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="hero">
+    <h1>Content Calendar <span class="blue">Generator</span></h1>
+    <p>your whole week of posts — planned in 10 seconds</p>
+  </div>
+
+  <!-- STEP 1: NICHE -->
+  <div class="step">
+    <div class="step-label"><span class="step-num">1</span> Pick your niche</div>
+    <div class="btn-grid" id="nicheGrid">
+      <button class="niche-btn" data-niche="foodie"><span class="emoji">🍔</span>Foodie</button>
+      <button class="niche-btn" data-niche="fitness"><span class="emoji">💪</span>Fitness</button>
+      <button class="niche-btn" data-niche="fashion"><span class="emoji">👗</span>Fashion</button>
+      <button class="niche-btn" data-niche="gaming"><span class="emoji">🎮</span>Gaming</button>
+      <button class="niche-btn" data-niche="student"><span class="emoji">📚</span>Student Life</button>
+      <button class="niche-btn" data-niche="sidehustle"><span class="emoji">💰</span>Side Hustle</button>
+      <button class="niche-btn" data-niche="travel"><span class="emoji">✈️</span>Travel</button>
+      <button class="niche-btn" data-niche="pets"><span class="emoji">🐾</span>Pet Parent</button>
+      <button class="niche-btn" data-niche="beauty"><span class="emoji">💄</span>Beauty</button>
+      <button class="niche-btn" data-niche="general"><span class="emoji">✨</span>General</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: PLATFORMS -->
+  <div class="step">
+    <div class="step-label"><span class="step-num">2</span> Pick your platforms</div>
+    <div class="btn-grid" id="platformGrid">
+      <button class="platform-btn" data-platform="tiktok"><span class="emoji">🎵</span>TikTok</button>
+      <button class="platform-btn" data-platform="instagram"><span class="emoji">📸</span>Instagram</button>
+      <button class="platform-btn" data-platform="youtube"><span class="emoji">▶️</span>YouTube</button>
+      <button class="platform-btn" data-platform="twitter"><span class="emoji">🐦</span>Twitter/X</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: FREQUENCY -->
+  <div class="step">
+    <div class="step-label"><span class="step-num">3</span> How often do you post?</div>
+    <div class="btn-grid btn-grid-3" id="freqGrid">
+      <button class="freq-btn" data-freq="3">Chill<span class="freq-label">3x / week</span></button>
+      <button class="freq-btn" data-freq="5">Consistent<span class="freq-label">5x / week</span></button>
+      <button class="freq-btn" data-freq="7">Beast Mode<span class="freq-label">daily</span></button>
+    </div>
+  </div>
+
+  <!-- GENERATE -->
+  <div class="gen-wrap">
+    <button class="gen-btn" id="genBtn" disabled>Generate My Calendar 📅</button>
+    <div class="gen-hint" id="genHint">pick a niche, platforms & frequency first</div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results" id="results">
+    <div class="cal-card" id="calCard">
+      <div class="cal-header">
+        <h2>Your Content Calendar</h2>
+        <p id="calSubtitle"></p>
+      </div>
+      <div id="calBody"></div>
+    </div>
+    <div class="actions">
+      <button class="act-btn primary" id="copyBtn">📋 Copy Calendar</button>
+      <button class="act-btn" id="shuffleBtn">🔀 Shuffle</button>
+      <button class="act-btn" id="resetBtn">↩️ Start Over</button>
+    </div>
+  </div>
+</main>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  Free forever. We make money from sponsors, not from you.<br>
+  <span class="brand">✨ Ledger & Spark</span>
+</footer>
+
+<script>
+/* ========================================
+   CONTENT IDEAS DATABASE — 300+ IDEAS
+   ======================================== */
+const IDEAS = {
+foodie: [
+  "Film a 'what I eat in a day' with your top 3 meals",
+  "Rate a viral TikTok recipe — honest review",
+  "Show your grocery haul under $30",
+  "Do a blind taste test with friends",
+  "Cook a meal using only dollar store ingredients",
+  "Try the most popular dish at 3 different restaurants",
+  "Recreate a celebrity chef's recipe at home",
+  "Find the best tacos in your city under $3",
+  "Rate gas station food like a Michelin critic",
+  "Show what $10 gets you at different fast food spots",
+  "Turn cheap ramen into a restaurant-quality bowl",
+  "Eat only foods that start with one letter for a day",
+  "Ask a stranger to pick your entire meal",
+  "Foods from your childhood that still hit different",
+  "The most underrated dish at every chain restaurant",
+  "Make a 3-course meal using only a microwave",
+  "Foods you've been eating wrong your whole life",
+  "Rate every item on a secret menu",
+  "Cook a meal from a country you've never tried before",
+  "Blindfold taste test: name brand vs store brand",
+  "What I eat on a lazy Sunday — full day of meals",
+  "Grocery store hack: best items under $5",
+  "Try making a viral recipe with zero cooking skills",
+  "Rate your followers' favorite fast food orders",
+  "Kitchen gadgets that are actually worth the money",
+  "Meal prep for the whole week in under an hour",
+  "Guess the restaurant by the fries alone",
+  "Foods that look disgusting but taste amazing",
+  "Make breakfast for dinner — 3 easy combos",
+  "Rate holiday foods from 1-10 — the honest tier list",
+  "Try street food from 5 different cultures",
+  "What $20 feeds you in different neighborhoods",
+],
+fitness: [
+  "Film your morning routine workout",
+  "Show 3 exercises you can do with no equipment",
+  "React to a viral fitness trend — does it actually work?",
+  "My realistic gym day vs the aesthetic TikTok version",
+  "5 exercises you can do while watching Netflix",
+  "Try a celebrity's workout routine for a day",
+  "Rate gym equipment from most to least overrated",
+  "What 100 calories looks like for 10 different foods",
+  "Exercises that look easy but absolutely destroy you",
+  "Full body workout using only a backpack and books",
+  "Gym red flags vs green flags",
+  "How to start working out when you have zero motivation",
+  "Partner workout that's actually fun",
+  "Foods that look healthy but are secretly terrible",
+  "Stretches you should do if you sit all day",
+  "My honest gym transformation — no filters, no pump",
+  "What personal trainers actually eat vs what they post",
+  "The best free workout app — honest review",
+  "Workout snacks tier list",
+  "How I fixed my posture in 30 days",
+  "3 ab exercises that actually work (not crunches)",
+  "Running tips for people who hate running",
+  "My gym bag essentials — everything you need",
+  "Warm-up routine that prevents injuries",
+  "Best exercises for when you only have 15 minutes",
+  "Protein-packed meals that don't taste like cardboard",
+  "Debunking fitness myths you still believe",
+  "Track my steps for a week — the results are wild",
+  "Home workout that hits every muscle group",
+  "Gym etiquette rules nobody told you about",
+  "The easiest way to drink more water every day",
+  "Rate my followers' workout routines",
+],
+fashion: [
+  "Style one item 3 completely different ways",
+  "Thrift haul — show your best finds under $20",
+  "Rate outfits from your followers' DMs",
+  "Outfit check: full look for under $50",
+  "Thrift flip: turn a $3 find into something fire",
+  "What your go-to color says about your personality",
+  "How to dress better without buying anything new",
+  "Recreate a celebrity outfit from the thrift store",
+  "5 wardrobe basics that actually last",
+  "My most worn vs least worn items — closet audit",
+  "Outfit ideas for when you feel like you have nothing to wear",
+  "Fashion trends that need to stop in 2026",
+  "Build a capsule wardrobe with 15 pieces",
+  "Style the same white tee 5 different ways",
+  "Affordable dupes for expensive designer pieces",
+  "What NOT to wear on a first date — from real people",
+  "Rate strangers' outfits on the street (with permission)",
+  "Dress for your body type — quick tips that work",
+  "My closet tour — the good, the bad, the regrets",
+  "Seasonal color analysis for beginners",
+  "Best online thrift stores nobody knows about",
+  "Pack a carry-on for a week trip — what I bring",
+  "Outfits that look expensive but cost under $40",
+  "How to take better outfit photos with just your phone",
+  "Style guide for your zodiac sign",
+  "3 outfits for 3 different vibes: casual, date, interview",
+  "What $100 gets you at different stores",
+  "Jewelry hack: how to stack accessories like a pro",
+  "My biggest fashion regret purchase",
+  "Rate trending styles: would I wear it or skip it?",
+  "How to style oversized clothes without looking sloppy",
+  "Wardrobe staples every season needs",
+],
+gaming: [
+  "Rate the top 5 free games right now",
+  "My gaming setup tour — budget edition",
+  "Play a game blindfolded and see how far you get",
+  "Unpopular gaming opinions that will start a war",
+  "Explain a game badly and let followers guess",
+  "Speedrun a game you've never played before",
+  "Gaming snacks tier list",
+  "Show your screen time then your game hours",
+  "If real life had video game logic",
+  "Try to beat a game using the worst strategy possible",
+  "Games that were way ahead of their time",
+  "POV: explaining your game to someone who doesn't play",
+  "Best couch co-op games for a chill night",
+  "My most embarrassing gaming moment — storytime",
+  "Things only gamers understand",
+  "Hidden details in games you definitely missed",
+  "Rate my followers' gaming setups",
+  "Games I can't stop replaying and why",
+  "The most frustrating level in any game ever",
+  "Comparing the same game on different consoles",
+  "Gaming hot takes: overrated vs underrated games",
+  "My top 5 games of all time — ranked",
+  "Best games to play when you're bored",
+  "Gaming controller tier list",
+  "Show your game library and let followers pick what I play",
+  "React to my old gameplay clips — so bad",
+  "Free games that are better than paid ones",
+  "The best game soundtracks of all time",
+  "Games that made me rage quit on camera",
+  "Challenge: finish this game without dying once",
+  "My gaming evolution: first game vs current game",
+  "Rate indie games nobody's heard of",
+],
+student: [
+  "Study with me — real-time 25-minute focus session",
+  "Things professors say that make zero sense",
+  "My note-taking system explained in 60 seconds",
+  "What's in my backpack: student essentials",
+  "How to survive an 8am class — honest tips",
+  "Free apps every student needs",
+  "POV: cramming the night before an exam",
+  "Cheapest meals you can make in a dorm room",
+  "Group project survival guide — the honest version",
+  "Rate my professor's slides: good, bad, unreadable",
+  "Study hacks that actually work (backed by science)",
+  "My realistic college morning vs the aesthetic ones",
+  "How I organize my digital life as a student — for free",
+  "Things I wish I knew before starting college",
+  "Best study spots that aren't the library",
+  "My exam day routine that keeps me calm",
+  "How to take notes that actually help you study later",
+  "Student budget breakdown: where my money really goes",
+  "Rate campus food from 1-10",
+  "Best free websites for students nobody talks about",
+  "How to pick classes that don't ruin your life",
+  "Study playlist that actually helps you focus",
+  "My planner system — keeps me from forgetting everything",
+  "How to email your professor without sounding weird",
+  "Finals week survival kit — what you actually need",
+  "Things that are normal in college but weird anywhere else",
+  "Best study snacks ranked",
+  "How to stay awake in a boring lecture",
+  "My desk setup for studying at home",
+  "Rate students' study setups from their DMs",
+  "College life hacks I learned way too late",
+  "How to make friends in college when you're shy",
+],
+sidehustle: [
+  "Side hustles that actually pay — not the fake ones",
+  "How I made my first $100 online — step by step",
+  "Free tools that replaced expensive ones for my business",
+  "Day in the life with 3 income streams",
+  "The worst side hustle advice on the internet",
+  "Things that cost $0 but make you look professional",
+  "I tried 5 'make money online' methods — what worked",
+  "How to price your work when you're just starting",
+  "Red flags in 'work from home' job listings",
+  "Build a portfolio website in 30 minutes for free",
+  "What $1,000/month actually looks like from a side hustle",
+  "Skills you can learn for free that people pay for",
+  "My monthly income breakdown — transparent",
+  "How to get your first client with zero experience",
+  "Passive income myths vs reality",
+  "Best free tools for freelancers in 2026",
+  "How to write a bio that gets you hired",
+  "Side hustle mistakes I made so you don't have to",
+  "How to manage your time with a job AND a side hustle",
+  "Apps that actually help you save money",
+  "How I turned a hobby into a side income",
+  "Invoice template walkthrough — get paid properly",
+  "Best platforms to sell digital products for free",
+  "How to negotiate your rate without being awkward",
+  "What I'd do differently if I started over today",
+  "Create a simple logo for your brand — no design skills needed",
+  "How to find freelance jobs without competing with 500 people",
+  "Tax basics for side hustlers — explained simply",
+  "My honest review of 5 freelance platforms",
+  "How to build an email list from zero",
+  "Content that sells vs content that just gets likes",
+  "How to deal with difficult clients — storytime",
+],
+travel: [
+  "How to travel on a real budget — actual tips",
+  "Things you should NEVER do in this country",
+  "Packing hack: everything fits in a carry-on",
+  "Most overrated tourist spots and where to go instead",
+  "Cheapest countries to visit right now",
+  "What I wish I packed vs what I actually needed",
+  "Airport hacks most people don't know",
+  "My favorite free things to do in this city",
+  "Travel scams I almost fell for",
+  "How to find cheap flights every single time",
+  "Solo travel tips that keep you safe",
+  "Rate my hotel room: expectation vs reality",
+  "Learn 10 useful phrases in this language in 60 seconds",
+  "The best street food I've ever had",
+  "Travel mistakes I keep making",
+  "My carry-on essentials — things I never travel without",
+  "Hidden gems in popular tourist cities",
+  "How to eat well while traveling on a budget",
+  "Best travel apps that actually work offline",
+  "Day trip ideas near your city that you've never tried",
+  "How to make friends while traveling solo",
+  "Rate airline food from different carriers",
+  "My travel bucket list — places I'm going next",
+  "What $50 gets you in different countries",
+  "Hostel vs hotel vs Airbnb — honest comparison",
+  "Travel outfit formula: look good, stay comfy",
+  "Culture shocks that caught me off guard",
+  "How to deal with jet lag — what actually works",
+  "My worst travel experience — storytime",
+  "How to take travel photos that don't look like everyone else's",
+  "Best road trip snacks ranked",
+  "Weekend trip packing — only a backpack",
+],
+pets: [
+  "Things my pet does that'd be weird if a human did them",
+  "My pet's daily routine narrated like a nature documentary",
+  "Pet products I bought that were a total waste",
+  "My pet vs the thing they're scared of",
+  "What owning a pet is actually like — honest version",
+  "Test if your pet actually knows their name",
+  "DIY pet toys from things you already have",
+  "Pet food taste test — I try their treats",
+  "Signs your pet is spoiled and you don't care",
+  "Adopt don't shop: my rescue pet's glow-up",
+  "Things first-time pet owners need to know",
+  "My pet's reaction to the latest trend",
+  "Pet owner hacks that save time and money",
+  "Conversations with my pet — voiceover edition",
+  "The most dramatic thing my pet has ever done",
+  "Rate my pet's outfits from 1-10",
+  "What my pet's different barks/meows actually mean",
+  "Morning routine but from my pet's perspective",
+  "Pet-friendly places in my city you need to visit",
+  "My pet meets a new animal for the first time",
+  "Best budget pet supplies that actually last",
+  "Guess what my pet is thinking — caption this",
+  "Pet bath time — the full dramatic experience",
+  "Things my pet destroyed and how I reacted",
+  "A day in the life of my pet — start to finish",
+  "Pet sleeping positions and what they supposedly mean",
+  "How much my pet costs per month — real numbers",
+  "Training tricks I taught my pet in one week",
+  "Pet parent red flags vs green flags",
+  "Comparing my pet's food to mine — who eats better?",
+  "Things I do for my pet that I wouldn't do for anyone else",
+  "My pet's favorite toy vs the expensive one I bought",
+],
+beauty: [
+  "Get ready with me using only drugstore products",
+  "Makeup dupes that work just as well as expensive ones",
+  "My skincare routine that actually cleared my skin",
+  "Beauty products that are overhyped — honest review",
+  "5-minute makeup for when you're running late",
+  "Skincare ingredients explained like you're 5",
+  "Beauty hacks from grandma that actually work",
+  "I followed a random follower's makeup routine",
+  "Products I used up completely — would I rebuy?",
+  "How to look expensive on a budget — beauty edition",
+  "Trying the weirdest beauty trends so you don't have to",
+  "My nighttime skincare routine — under 5 minutes",
+  "Makeup looks using only one brand",
+  "Sunscreen myths that are ruining your skin",
+  "Clean beauty vs regular: does it actually matter?",
+  "Rate drugstore makeup from 1-10",
+  "My holy grail products I'll never stop using",
+  "Skincare mistakes you're probably making right now",
+  "Full face of makeup under $25 — can it look good?",
+  "Hair care routine for your hair type — simplified",
+  "Beauty tools that changed my routine forever",
+  "Makeup for beginners — the only 5 products you need",
+  "Fragrance dupes that smell identical to expensive ones",
+  "Lip combo ideas that go with everything",
+  "Trying my followers' skincare routines",
+  "Beauty products I regret buying",
+  "How to do your eyebrows at home — easy tutorial",
+  "Self-care night routine — full pamper session",
+  "Best beauty products under $10",
+  "Nail art ideas you can actually do yourself",
+  "Rating celebrity beauty brands — honest takes",
+  "Makeup removal methods ranked — what's the gentlest?",
+],
+general: [
+  "Things that are free but feel illegal",
+  "Rate my screen time and roast me",
+  "Unwritten rules everyone should follow",
+  "Things that are a 10/10 but nobody talks about",
+  "My most controversial opinions — fight me in comments",
+  "Signs you're becoming an adult and you hate it",
+  "Make your phone homescreen aesthetic in 5 minutes",
+  "Day in my life but I say yes to everything",
+  "The best free stuff on the internet nobody knows about",
+  "Red flags vs green flags in friendships",
+  "Things I Googled this week — no judgment",
+  "What $20 gets you in different countries",
+  "Habits that changed my life — cost $0",
+  "POV: your WiFi goes out and you don't know what to do",
+  "Would you rather — absurd edition",
+  "Apps on my phone I use every single day",
+  "Things that instantly make your day better",
+  "My honest screen time report — this is embarrassing",
+  "Rate random products from my house 1-10",
+  "Life hacks I learned from the internet that actually work",
+  "Things that make zero sense but we all accept",
+  "Birthday month challenge — what's yours?",
+  "How I stay organized with free apps only",
+  "Reacting to my old photos — what was I thinking",
+  "Things adults never warned us about",
+  "My morning routine vs my night routine — the contrast",
+  "Free things to do this weekend that are actually fun",
+  "Rate my room setup — be honest",
+  "Unpopular opinions about everyday things",
+  "Small things that unreasonably annoy me",
+  "Things I bought that I use literally every day",
+  "Challenge: do something new every day for a week",
+]
+};
+
+/* ========================================
+   CONTENT TYPES PER PLATFORM
+   ======================================== */
+const CONTENT_TYPES = {
+  tiktok: [
+    { type: "Reel", format: "Video", tag: "type-video" },
+    { type: "Story", format: "Video", tag: "type-video" },
+    { type: "Duet", format: "Video", tag: "type-video" },
+    { type: "Stitch", format: "Video", tag: "type-video" },
+    { type: "Short", format: "Video", tag: "type-video" },
+  ],
+  instagram: [
+    { type: "Reel", format: "Video", tag: "type-video" },
+    { type: "Carousel", format: "Carousel", tag: "type-carousel" },
+    { type: "Story", format: "Photo", tag: "type-photo" },
+    { type: "Photo Post", format: "Photo", tag: "type-photo" },
+    { type: "Reel", format: "Video", tag: "type-video" },
+  ],
+  youtube: [
+    { type: "Short", format: "Video", tag: "type-video" },
+    { type: "Video", format: "Video", tag: "type-video" },
+    { type: "Short", format: "Video", tag: "type-video" },
+    { type: "Community Post", format: "Text", tag: "type-text" },
+    { type: "Short", format: "Video", tag: "type-video" },
+  ],
+  twitter: [
+    { type: "Tweet", format: "Text", tag: "type-text" },
+    { type: "Thread", format: "Text", tag: "type-text" },
+    { type: "Tweet + Photo", format: "Photo", tag: "type-photo" },
+    { type: "Poll", format: "Text", tag: "type-text" },
+    { type: "Thread", format: "Text", tag: "type-text" },
+  ]
+};
+
+/* ========================================
+   BEST POSTING TIMES
+   ======================================== */
+const BEST_TIMES = {
+  tiktok:    ["7:00 PM","5:00 PM","12:00 PM","5:00 PM","7:00 PM","11:00 AM","4:00 PM"],
+  instagram: ["6:00 PM","5:00 PM","7:00 PM","6:00 PM","5:00 PM","10:00 AM","5:00 PM"],
+  youtube:   ["3:00 PM","4:00 PM","2:00 PM","3:00 PM","5:00 PM","10:00 AM","12:00 PM"],
+  twitter:   ["9:00 AM","10:00 AM","12:00 PM","9:00 AM","10:00 AM","11:00 AM","8:00 PM"]
+};
+
+const DAYS = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+
+/* ========================================
+   APP STATE
+   ======================================== */
+let selectedNiche = null;
+let selectedPlatforms = [];
+let selectedFreq = null;
+let currentCalendar = null;
+
+const genBtn = document.getElementById('genBtn');
+const genHint = document.getElementById('genHint');
+const results = document.getElementById('results');
+const calBody = document.getElementById('calBody');
+const calSubtitle = document.getElementById('calSubtitle');
+const toast = document.getElementById('toast');
+
+/* ========================================
+   NICHE SELECTION (single select)
+   ======================================== */
+document.getElementById('nicheGrid').addEventListener('click', e => {
+  const btn = e.target.closest('.niche-btn');
+  if (!btn) return;
+  document.querySelectorAll('.niche-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedNiche = btn.dataset.niche;
+  checkReady();
+});
+
+/* ========================================
+   PLATFORM SELECTION (multi-select)
+   ======================================== */
+document.getElementById('platformGrid').addEventListener('click', e => {
+  const btn = e.target.closest('.platform-btn');
+  if (!btn) return;
+  btn.classList.toggle('active');
+  const p = btn.dataset.platform;
+  if (selectedPlatforms.includes(p)) {
+    selectedPlatforms = selectedPlatforms.filter(x => x !== p);
+  } else {
+    selectedPlatforms.push(p);
+  }
+  checkReady();
+});
+
+/* ========================================
+   FREQUENCY SELECTION (single select)
+   ======================================== */
+document.getElementById('freqGrid').addEventListener('click', e => {
+  const btn = e.target.closest('.freq-btn');
+  if (!btn) return;
+  document.querySelectorAll('.freq-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedFreq = parseInt(btn.dataset.freq);
+  checkReady();
+});
+
+function checkReady() {
+  const ready = selectedNiche && selectedPlatforms.length > 0 && selectedFreq;
+  genBtn.disabled = !ready;
+  if (ready) {
+    genHint.textContent = "let's go! tap generate 👇";
+  } else {
+    const missing = [];
+    if (!selectedNiche) missing.push('niche');
+    if (!selectedPlatforms.length) missing.push('platform(s)');
+    if (!selectedFreq) missing.push('frequency');
+    genHint.textContent = `pick ${missing.join(', ')} first`;
+  }
+}
+
+/* ========================================
+   GENERATE CALENDAR
+   ======================================== */
+genBtn.addEventListener('click', generateCalendar);
+document.getElementById('shuffleBtn').addEventListener('click', generateCalendar);
+
+function generateCalendar() {
+  const pool = [...IDEAS[selectedNiche]];
+  // Determine which days have posts
+  let activeDays;
+  if (selectedFreq === 3) activeDays = [0, 2, 4]; // Mon, Wed, Fri
+  else if (selectedFreq === 5) activeDays = [0, 1, 2, 3, 4]; // Mon-Fri
+  else activeDays = [0, 1, 2, 3, 4, 5, 6]; // Every day
+
+  // Shuffle pool
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+
+  // Build calendar entries
+  const calendar = [];
+  let ideaIdx = 0;
+
+  for (let d = 0; d < 7; d++) {
+    if (!activeDays.includes(d)) {
+      calendar.push({ day: DAYS[d], rest: true });
+      continue;
+    }
+    // Round-robin through selected platforms
+    const platIdx = activeDays.indexOf(d) % selectedPlatforms.length;
+    const platform = selectedPlatforms[platIdx];
+    const idea = pool[ideaIdx % pool.length];
+    ideaIdx++;
+
+    // Pick a content type for this platform
+    const types = CONTENT_TYPES[platform];
+    const ct = types[Math.floor(Math.random() * types.length)];
+
+    calendar.push({
+      day: DAYS[d],
+      rest: false,
+      platform,
+      idea,
+      contentType: ct.type,
+      format: ct.format,
+      formatTag: ct.tag,
+      time: BEST_TIMES[platform][d]
+    });
+  }
+
+  currentCalendar = calendar;
+
+  // Render
+  const nicheLabel = document.querySelector(`.niche-btn[data-niche="${selectedNiche}"]`).textContent.trim();
+  const freqLabels = { 3: '3x/week', 5: '5x/week', 7: 'daily' };
+  calSubtitle.textContent = `${nicheLabel} • ${selectedPlatforms.map(p => platformName(p)).join(' + ')} • ${freqLabels[selectedFreq]}`;
+
+  calBody.innerHTML = calendar.map(entry => {
+    if (entry.rest) {
+      return `<div class="cal-day rest">📌 ${entry.day} — rest day, recharge!</div>`;
+    }
+    return `
+      <div class="cal-day">
+        <div class="day-top">
+          <span class="day-name">${entry.day}</span>
+          <span class="day-platform">${platformName(entry.platform)}</span>
+        </div>
+        <div class="day-idea">${entry.idea}</div>
+        <div class="day-meta">
+          <span class="day-tag">${entry.contentType}</span>
+          <span class="day-tag ${entry.formatTag}">${entry.format}</span>
+          <span class="day-tag">⏰ ${entry.time}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  results.classList.add('visible');
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function platformName(key) {
+  const map = { tiktok: 'TikTok', instagram: 'Instagram', youtube: 'YouTube', twitter: 'Twitter/X' };
+  return map[key] || key;
+}
+
+/* ========================================
+   COPY CALENDAR
+   ======================================== */
+document.getElementById('copyBtn').addEventListener('click', () => {
+  if (!currentCalendar) return;
+  const lines = ['📅 MY CONTENT CALENDAR\n'];
+  currentCalendar.forEach(e => {
+    if (e.rest) {
+      lines.push(`${e.day}: Rest day 🛌`);
+    } else {
+      lines.push(`${e.day} (${platformName(e.platform)}):`);
+      lines.push(`  📝 ${e.idea}`);
+      lines.push(`  🎬 ${e.contentType} (${e.format})`);
+      lines.push(`  ⏰ Best time: ${e.time}`);
+      lines.push('');
+    }
+  });
+  lines.push('\nMade with Ledger & Spark — free tools for creators ✨');
+  navigator.clipboard.writeText(lines.join('\n')).then(() => {
+    showToast('Copied to clipboard! 📋');
+  }).catch(() => {
+    showToast('Couldn\'t copy — try again');
+  });
+});
+
+/* ========================================
+   RESET
+   ======================================== */
+document.getElementById('resetBtn').addEventListener('click', () => {
+  selectedNiche = null;
+  selectedPlatforms = [];
+  selectedFreq = null;
+  currentCalendar = null;
+  document.querySelectorAll('.niche-btn, .platform-btn, .freq-btn').forEach(b => b.classList.remove('active'));
+  results.classList.remove('visible');
+  genBtn.disabled = true;
+  genHint.textContent = 'pick a niche, platforms & frequency first';
+  document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' });
+});
+
+/* ========================================
+   TOAST
+   ======================================== */
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2200);
+}
+</script>
+</body>
+</html>

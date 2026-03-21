@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Your Vibe Receipt — Ledger & Spark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;-webkit-tap-highlight-color:transparent}
+body{font-family:'Inter',sans-serif;background:#FAFBFE;color:#1e293b;min-height:100dvh;display:flex;flex-direction:column;align-items:center;overflow-x:hidden}
+
+/* ── Utility ── */
+.container{width:100%;max-width:480px;padding:16px;margin:0 auto}
+
+/* ── Header ── */
+.header{text-align:center;padding:32px 16px 8px}
+.header .logo{font-size:1.1rem;font-weight:700;color:#3B82F6;letter-spacing:.5px}
+.header h1{font-size:1.75rem;font-weight:800;line-height:1.2;margin:8px 0 4px}
+.header .tagline{font-size:.95rem;color:#64748b;margin-bottom:4px}
+
+/* ── Category cards ── */
+.categories{display:grid;gap:12px;padding:8px 0 24px}
+.cat-card{background:#fff;border:2px solid #e2e8f0;border-radius:16px;padding:18px 16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none}
+.cat-card:active,.cat-card:hover{border-color:#3B82F6;background:#f0f7ff;transform:scale(.98)}
+.cat-emoji{font-size:2rem;flex-shrink:0}
+.cat-info h3{font-size:1rem;font-weight:700}
+.cat-info p{font-size:.8rem;color:#64748b;margin-top:2px}
+
+/* ── Question screen ── */
+.q-screen{display:none;flex-direction:column;min-height:80dvh}
+.q-progress{display:flex;gap:6px;margin-bottom:20px}
+.q-dot{flex:1;height:5px;border-radius:99px;background:#e2e8f0;transition:background .3s}
+.q-dot.done{background:#3B82F6}
+.q-dot.active{background:#60A5FA}
+.q-num{font-size:.8rem;color:#94a3b8;margin-bottom:4px}
+.q-title{font-size:1.25rem;font-weight:700;margin-bottom:16px;line-height:1.3}
+.q-options{display:grid;gap:10px}
+.q-opt{background:#fff;border:2px solid #e2e8f0;border-radius:14px;padding:16px;font-size:1rem;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .15s;-webkit-user-select:none;user-select:none;font-family:'Inter',sans-serif;color:#1e293b;text-align:left}
+.q-opt:active,.q-opt:hover{border-color:#3B82F6;background:#f0f7ff}
+.q-opt.selected{border-color:#3B82F6;background:#dbeafe}
+.q-opt .emoji{font-size:1.4rem;flex-shrink:0}
+
+.back-btn{background:none;border:none;font-size:.9rem;color:#64748b;cursor:pointer;padding:8px 0;margin-top:auto;font-family:'Inter',sans-serif}
+
+/* ── Receipt screen ── */
+.receipt-screen{display:none;flex-direction:column;align-items:center;padding:16px 0 32px}
+
+/* Receipt card (this is what gets rendered to canvas) */
+.receipt-wrap{position:relative;width:340px;max-width:92vw}
+
+.receipt{
+  background:#fffef7;
+  padding:28px 22px 20px;
+  font-family:'Courier Prime',monospace;
+  color:#1e293b;
+  position:relative;
+  box-shadow:0 2px 24px rgba(0,0,0,.08);
+}
+
+/* Tear edges */
+.tear-top,.tear-bottom{
+  width:100%;height:12px;
+  position:relative;
+  overflow:hidden;
+}
+.tear-top{
+  background:linear-gradient(135deg,#FAFBFE 33.33%,transparent 33.33%) -6px 0,
+             linear-gradient(225deg,#FAFBFE 33.33%,transparent 33.33%) -6px 0;
+  background-size:12px 12px;
+  background-color:#fffef7;
+}
+.tear-bottom{
+  background:linear-gradient(315deg,#FAFBFE 33.33%,transparent 33.33%) -6px 0,
+             linear-gradient(45deg,#FAFBFE 33.33%,transparent 33.33%) -6px 0;
+  background-size:12px 12px;
+  background-color:#fffef7;
+}
+
+.receipt .store-name{text-align:center;font-size:1.4rem;font-weight:700;letter-spacing:2px;margin-bottom:2px}
+.receipt .store-sub{text-align:center;font-size:.75rem;margin-bottom:4px;color:#64748b}
+.receipt .store-cat{text-align:center;font-size:.85rem;font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px}
+
+.receipt .dash{border-top:2px dashed #ccc;margin:10px 0}
+
+.receipt .meta{font-size:.7rem;color:#64748b;display:flex;justify-content:space-between}
+
+.receipt .items{margin:8px 0}
+.receipt .item{display:flex;justify-content:space-between;align-items:flex-start;font-size:.78rem;margin:6px 0;line-height:1.3}
+.receipt .item .label{flex:1;text-transform:uppercase;letter-spacing:.5px}
+.receipt .item .dots{flex:1;border-bottom:1px dotted #ccc;margin:0 4px;min-width:16px;align-self:flex-end;margin-bottom:3px}
+.receipt .item .val{text-align:right;font-weight:700;flex-shrink:0;max-width:45%}
+
+.receipt .totals{margin:4px 0}
+.receipt .total-row{display:flex;justify-content:space-between;font-size:.8rem;margin:3px 0}
+.receipt .total-row.grand{font-size:1rem;font-weight:700;margin-top:6px}
+
+.receipt .barcode{text-align:center;margin:14px 0 6px}
+.receipt .barcode svg{width:180px;height:36px}
+
+.receipt .brand-footer{text-align:center;font-size:.65rem;color:#94a3b8;margin-top:6px;font-family:'Inter',sans-serif}
+.receipt .brand-footer a{color:#3B82F6;text-decoration:none}
+
+.receipt .tagline-footer{text-align:center;font-size:.7rem;margin-top:10px;font-style:italic;color:#94a3b8}
+
+/* Action buttons */
+.actions{display:flex;gap:12px;margin-top:20px;width:340px;max-width:92vw}
+.btn{flex:1;padding:14px;border-radius:14px;border:none;font-family:'Inter',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-primary{background:#3B82F6;color:#fff}
+.btn-primary:active{background:#2563eb;transform:scale(.97)}
+.btn-secondary{background:#fff;color:#3B82F6;border:2px solid #3B82F6}
+.btn-secondary:active{background:#f0f7ff;transform:scale(.97)}
+
+/* Trust footer */
+.trust{text-align:center;font-size:.75rem;color:#94a3b8;padding:24px 16px 16px;max-width:360px;line-height:1.5}
+.trust a{color:#3B82F6;text-decoration:none}
+
+/* ── Canvas (hidden, used for export) ── */
+#exportCanvas{display:none}
+
+/* ── Screen management ── */
+.screen{display:none}
+.screen.active{display:flex;flex-direction:column}
+
+/* ── Animations ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.animate-in{animation:fadeUp .3s ease-out}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<!-- ════════ SCREEN 1: CATEGORY PICKER ════════ -->
+<div id="homeScreen" class="screen active container">
+  <div class="header animate-in">
+    <div class="logo">LEDGER & SPARK</div>
+    <h1>Your Vibe Receipt</h1>
+    <p class="tagline">get your receipt. no returns. no refunds. just vibes.</p>
+  </div>
+
+  <div class="categories animate-in" id="categoryList">
+    <div class="cat-card" data-cat="personality">
+      <span class="cat-emoji">🪞</span>
+      <div class="cat-info"><h3>Your Personality Receipt</h3><p>5 questions. zero lies.</p></div>
+    </div>
+    <div class="cat-card" data-cat="music">
+      <span class="cat-emoji">🎧</span>
+      <div class="cat-info"><h3>Your Music Taste Receipt</h3><p>your spotify wrapped wishes.</p></div>
+    </div>
+    <div class="cat-card" data-cat="dating">
+      <span class="cat-emoji">💘</span>
+      <div class="cat-info"><h3>Your Dating Receipt</h3><p>bestie your standards are showing.</p></div>
+    </div>
+    <div class="cat-card" data-cat="foodie">
+      <span class="cat-emoji">🍕</span>
+      <div class="cat-info"><h3>Your Foodie Receipt</h3><p>you are what you eat fr.</p></div>
+    </div>
+    <div class="cat-card" data-cat="social">
+      <span class="cat-emoji">📱</span>
+      <div class="cat-info"><h3>Your Social Media Receipt</h3><p>screen time doesn't lie.</p></div>
+    </div>
+  </div>
+
+  <div class="trust">
+    We make money from sponsors, not from you. That's why everything is free.<br>
+    <a href="https://ledgerandspark.com">Ledger & Spark</a>
+  </div>
+</div>
+
+<!-- ════════ SCREEN 2: QUESTIONS ════════ -->
+<div id="questionScreen" class="screen container">
+  <div class="q-progress" id="qProgress"></div>
+  <div class="q-num" id="qNum"></div>
+  <div class="q-title" id="qTitle"></div>
+  <div class="q-options" id="qOptions"></div>
+  <button class="back-btn" id="backBtn">← go back</button>
+</div>
+
+<!-- ════════ SCREEN 3: RECEIPT ════════ -->
+<div id="receiptScreen" class="screen container" style="align-items:center">
+  <h2 style="font-size:1.2rem;margin-bottom:4px;text-align:center" class="animate-in">this receipt doesn't lie 🧾</h2>
+  <p style="font-size:.85rem;color:#64748b;margin-bottom:16px;text-align:center" class="animate-in">tap download. post it. tag us.</p>
+
+  <div class="receipt-wrap animate-in" id="receiptWrap">
+    <div class="tear-top"></div>
+    <div class="receipt" id="receiptCard">
+      <!-- filled by JS -->
+    </div>
+    <div class="tear-bottom"></div>
+  </div>
+
+  <div class="actions animate-in">
+    <button class="btn btn-primary" id="downloadBtn">📥 Download</button>
+    <button class="btn btn-secondary" id="restartBtn">🔄 New Receipt</button>
+  </div>
+
+  <div class="trust">
+    We make money from sponsors, not from you. That's why everything is free.<br>
+    <a href="https://ledgerandspark.com">Ledger & Spark</a>
+  </div>
+</div>
+
+<canvas id="exportCanvas" style="display:none;position:absolute;left:-9999px"></canvas>
+
+<script>
+/* ═══════════════════════════════════════
+   VIBE RECEIPT — Ledger & Spark
+   All logic self-contained, no APIs
+   ═══════════════════════════════════════ */
+
+const DATA = {
+  personality: {
+    title: "PERSONALITY",
+    intro: "Your Personality Receipt",
+    questions: [
+      { q: "your friday night? 🎉", opts: [
+        {emoji:"🎉",text:"Going out",score:8},
+        {emoji:"🏠",text:"Staying in",score:5},
+        {emoji:"📱",text:"Doom scrolling",score:3},
+        {emoji:"🎮",text:"Gaming",score:6}
+      ]},
+      { q: "your red flag? 😅", opts: [
+        {emoji:"😅",text:"Double texting",score:4},
+        {emoji:"🕐",text:"Always late",score:6},
+        {emoji:"📸",text:"Too many selfies",score:5},
+        {emoji:"🎵",text:"Sharing every song",score:3}
+      ]},
+      { q: "your superpower? 💪", opts: [
+        {emoji:"🧠",text:"Overthinking",score:7},
+        {emoji:"😴",text:"Sleeping anywhere",score:5},
+        {emoji:"🍕",text:"Eating without gaining",score:9},
+        {emoji:"💬",text:"Talking to anyone",score:6}
+      ]},
+      { q: "your emotional support? ❤️", opts: [
+        {emoji:"☕",text:"Coffee",score:6},
+        {emoji:"🐶",text:"Dog",score:8},
+        {emoji:"🎵",text:"Music",score:7},
+        {emoji:"📺",text:"Comfort show",score:5}
+      ]},
+      { q: "your vibe in one word? ✨", opts: [
+        {emoji:"✨",text:"Chaos",score:9},
+        {emoji:"🌿",text:"Chill",score:5},
+        {emoji:"🔥",text:"Iconic",score:8},
+        {emoji:"💀",text:"Unhinged",score:10}
+      ]}
+    ],
+    labels: ["FRIDAY NIGHT","RED FLAG","SUPERPOWER","EMOTIONAL SUPPORT","VIBE"]
+  },
+  music: {
+    title: "MUSIC TASTE",
+    intro: "Your Music Taste Receipt",
+    questions: [
+      { q: "top genre? 🎶", opts: [
+        {emoji:"🎤",text:"Pop",score:6},
+        {emoji:"🎸",text:"Rock / Indie",score:7},
+        {emoji:"🎹",text:"R&B / Soul",score:8},
+        {emoji:"🎧",text:"Hip-Hop",score:7}
+      ]},
+      { q: "guilty pleasure? 🙈", opts: [
+        {emoji:"💃",text:"Early 2000s pop",score:7},
+        {emoji:"🤠",text:"Country",score:6},
+        {emoji:"🎄",text:"Christmas music year-round",score:9},
+        {emoji:"🎮",text:"Video game soundtracks",score:8}
+      ]},
+      { q: "concert behavior? 🎤", opts: [
+        {emoji:"🎤",text:"Front row screaming",score:9},
+        {emoji:"📱",text:"Recording everything",score:4},
+        {emoji:"🍺",text:"Vibing in the back",score:6},
+        {emoji:"😭",text:"Crying",score:8}
+      ]},
+      { q: "road trip DJ? 🚗", opts: [
+        {emoji:"🎵",text:"Themed playlists only",score:7},
+        {emoji:"🔀",text:"Shuffle chaos",score:8},
+        {emoji:"🎙️",text:"Podcasts actually",score:5},
+        {emoji:"🔇",text:"Silence",score:3}
+      ]},
+      { q: "music hot take? 🔥", opts: [
+        {emoji:"🔥",text:"Lyrics > beat",score:7},
+        {emoji:"🥁",text:"Beat > lyrics",score:6},
+        {emoji:"🎶",text:"Vibe > both",score:8},
+        {emoji:"📻",text:"Radio is fine actually",score:4}
+      ]}
+    ],
+    labels: ["TOP GENRE","GUILTY PLEASURE","CONCERT BEHAVIOR","ROAD TRIP DJ","HOT TAKE"]
+  },
+  dating: {
+    title: "DATING",
+    intro: "Your Dating Receipt",
+    questions: [
+      { q: "green flag that melts you? 💚", opts: [
+        {emoji:"💬",text:"Good communicator",score:8},
+        {emoji:"🍳",text:"Can cook",score:7},
+        {emoji:"😂",text:"Makes you laugh",score:9},
+        {emoji:"📖",text:"Reads books",score:6}
+      ]},
+      { q: "instant dealbreaker? 🚫", opts: [
+        {emoji:"🚫",text:"Bad tipper",score:8},
+        {emoji:"📱",text:"Phone during dinner",score:7},
+        {emoji:"🙄",text:"No ambition",score:6},
+        {emoji:"🐱",text:"Doesn't like pets",score:9}
+      ]},
+      { q: "first date energy? 💫", opts: [
+        {emoji:"☕",text:"Coffee shop",score:5},
+        {emoji:"🎳",text:"Activity date",score:7},
+        {emoji:"🍽️",text:"Fancy dinner",score:8},
+        {emoji:"🛋️",text:"Netflix honestly",score:6}
+      ]},
+      { q: "love language? 💕", opts: [
+        {emoji:"⏰",text:"Quality time",score:7},
+        {emoji:"💬",text:"Words",score:7},
+        {emoji:"🤗",text:"Touch",score:8},
+        {emoji:"🔧",text:"Acts of service",score:9}
+      ]},
+      { q: "relationship status vibe? 💅", opts: [
+        {emoji:"💕",text:"Hopeless romantic",score:8},
+        {emoji:"😎",text:"Too cool to care",score:5},
+        {emoji:"🤷",text:"Situationship era",score:7},
+        {emoji:"💅",text:"Self-love season",score:9}
+      ]}
+    ],
+    labels: ["GREEN FLAG","DEALBREAKER","FIRST DATE","LOVE LANGUAGE","STATUS VIBE"]
+  },
+  foodie: {
+    title: "FOODIE",
+    intro: "Your Foodie Receipt",
+    questions: [
+      { q: "go-to cuisine? 🍴", opts: [
+        {emoji:"🍕",text:"Italian",score:7},
+        {emoji:"🍣",text:"Japanese",score:8},
+        {emoji:"🌮",text:"Mexican",score:7},
+        {emoji:"🍔",text:"American comfort",score:6}
+      ]},
+      { q: "spice tolerance? 🌶️", opts: [
+        {emoji:"🥛",text:"Milk please",score:3},
+        {emoji:"🌶️",text:"Medium",score:5},
+        {emoji:"🔥",text:"Hot",score:7},
+        {emoji:"☠️",text:"Pain is flavor",score:10}
+      ]},
+      { q: "food hot take? 🤔", opts: [
+        {emoji:"🍍",text:"Pineapple on pizza is good",score:8},
+        {emoji:"🥑",text:"Avocado is overrated",score:7},
+        {emoji:"🍳",text:"Breakfast for dinner",score:6},
+        {emoji:"🧁",text:"Dessert first",score:9}
+      ]},
+      { q: "cooking skill? 👨‍🍳", opts: [
+        {emoji:"🔥",text:"Could open a restaurant",score:9},
+        {emoji:"🍳",text:"Decent",score:6},
+        {emoji:"📦",text:"Microwave expert",score:4},
+        {emoji:"📱",text:"UberEats pro",score:3}
+      ]},
+      { q: "last meal choice? 🍽️", opts: [
+        {emoji:"🍕",text:"Pizza",score:6},
+        {emoji:"🍝",text:"Pasta",score:7},
+        {emoji:"🍣",text:"Sushi",score:8},
+        {emoji:"🌮",text:"Tacos",score:7}
+      ]}
+    ],
+    labels: ["GO-TO CUISINE","SPICE TOLERANCE","HOT TAKE","COOKING SKILL","LAST MEAL"]
+  },
+  social: {
+    title: "SOCIAL MEDIA",
+    intro: "Your Social Media Receipt",
+    questions: [
+      { q: "most used app? 📱", opts: [
+        {emoji:"📱",text:"TikTok",score:8},
+        {emoji:"📸",text:"Instagram",score:7},
+        {emoji:"🐦",text:"Twitter/X",score:6},
+        {emoji:"💬",text:"Reddit",score:7}
+      ]},
+      { q: "screen time verdict? ⏰", opts: [
+        {emoji:"😇",text:"Under 2 hours",score:3},
+        {emoji:"😅",text:"3-5 hours",score:5},
+        {emoji:"😬",text:"6-8 hours",score:7},
+        {emoji:"💀",text:"Don't ask",score:10}
+      ]},
+      { q: "content you make? 🎬", opts: [
+        {emoji:"📹",text:"Videos",score:8},
+        {emoji:"📸",text:"Photos",score:6},
+        {emoji:"💬",text:"Text posts",score:5},
+        {emoji:"👻",text:"Lurker energy",score:4}
+      ]},
+      { q: "notification style? 🔔", opts: [
+        {emoji:"🔔",text:"All on",score:3},
+        {emoji:"🔕",text:"All off",score:8},
+        {emoji:"🎯",text:"Selective",score:6},
+        {emoji:"📵",text:"DND always",score:9}
+      ]},
+      { q: "profile aesthetic? 🎨", opts: [
+        {emoji:"🎨",text:"Hand-picked feed",score:8},
+        {emoji:"🤷",text:"Post whatever",score:5},
+        {emoji:"🗑️",text:"Photo dump",score:6},
+        {emoji:"🔒",text:"Private",score:7}
+      ]}
+    ],
+    labels: ["MOST USED APP","SCREEN TIME","CONTENT TYPE","NOTIFICATIONS","AESTHETIC"]
+  }
+};
+
+/* ── State ── */
+let currentCat = null;
+let currentQ = 0;
+let answers = [];
+
+/* ── DOM refs ── */
+const homeScreen = document.getElementById('homeScreen');
+const questionScreen = document.getElementById('questionScreen');
+const receiptScreen = document.getElementById('receiptScreen');
+const qProgress = document.getElementById('qProgress');
+const qNum = document.getElementById('qNum');
+const qTitle = document.getElementById('qTitle');
+const qOptions = document.getElementById('qOptions');
+const backBtn = document.getElementById('backBtn');
+const receiptCard = document.getElementById('receiptCard');
+const downloadBtn = document.getElementById('downloadBtn');
+const restartBtn = document.getElementById('restartBtn');
+
+/* ── Navigation ── */
+function showScreen(screen) {
+  [homeScreen, questionScreen, receiptScreen].forEach(s => s.classList.remove('active'));
+  screen.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+/* ── Category selection ── */
+document.getElementById('categoryList').addEventListener('click', e => {
+  const card = e.target.closest('.cat-card');
+  if (!card) return;
+  currentCat = card.dataset.cat;
+  currentQ = 0;
+  answers = [];
+  showScreen(questionScreen);
+  renderQuestion();
+});
+
+/* ── Render question ── */
+function renderQuestion() {
+  const cat = DATA[currentCat];
+  const total = cat.questions.length;
+  const q = cat.questions[currentQ];
+
+  // Progress dots
+  qProgress.innerHTML = '';
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'q-dot' + (i < currentQ ? ' done' : '') + (i === currentQ ? ' active' : '');
+    qProgress.appendChild(dot);
+  }
+
+  qNum.textContent = `${currentQ + 1} of ${total}`;
+  qTitle.textContent = q.q;
+
+  qOptions.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'q-opt';
+    btn.innerHTML = `<span class="emoji">${opt.emoji}</span> ${opt.text}`;
+    btn.addEventListener('click', () => selectAnswer(i));
+    qOptions.appendChild(btn);
+  });
+
+  // Animate in
+  qTitle.classList.remove('animate-in');
+  qOptions.classList.remove('animate-in');
+  void qTitle.offsetWidth;
+  qTitle.classList.add('animate-in');
+  qOptions.classList.add('animate-in');
+
+  backBtn.textContent = currentQ === 0 ? '← categories' : '← go back';
+}
+
+/* ── Answer selection ── */
+function selectAnswer(idx) {
+  const cat = DATA[currentCat];
+  const q = cat.questions[currentQ];
+  answers[currentQ] = { text: q.opts[idx].text, score: q.opts[idx].score, emoji: q.opts[idx].emoji };
+
+  if (currentQ < cat.questions.length - 1) {
+    currentQ++;
+    renderQuestion();
+  } else {
+    buildReceipt();
+    showScreen(receiptScreen);
+  }
+}
+
+/* ── Back button ── */
+backBtn.addEventListener('click', () => {
+  if (currentQ === 0) {
+    showScreen(homeScreen);
+  } else {
+    currentQ--;
+    renderQuestion();
+  }
+});
+
+/* ── Build receipt ── */
+function buildReceipt() {
+  const cat = DATA[currentCat];
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
+  const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+  const receiptNo = String(Math.floor(1000 + Math.random() * 9000));
+  const subtotal = answers.reduce((s, a) => s + a.score, 0);
+  const chaosTax = +(Math.random() * 2 + 0.5).toFixed(2);
+  const total = (subtotal + chaosTax).toFixed(2);
+
+  // Build line items
+  let itemsHTML = '';
+  answers.forEach((a, i) => {
+    itemsHTML += `
+      <div class="item">
+        <span class="label">${cat.labels[i]}</span>
+        <span class="dots"></span>
+        <span class="val">${a.text}</span>
+      </div>`;
+  });
+
+  // Generate barcode SVG
+  const barcodeSVG = generateBarcode();
+
+  receiptCard.innerHTML = `
+    <div class="store-name">THE VIBE STORE</div>
+    <div class="store-sub">est. 2026 — no refunds on truth</div>
+    <div class="store-cat">— ${cat.title} —</div>
+    <div class="dash"></div>
+    <div class="meta">
+      <span>RCPT #${receiptNo}</span>
+      <span>${dateStr} ${timeStr}</span>
+    </div>
+    <div class="dash"></div>
+    <div class="items">${itemsHTML}</div>
+    <div class="dash"></div>
+    <div class="totals">
+      <div class="total-row"><span>SUBTOTAL</span><span>${subtotal}.00</span></div>
+      <div class="total-row"><span>CHAOS TAX</span><span>${chaosTax}</span></div>
+      <div class="dash"></div>
+      <div class="total-row grand"><span>VIBE TOTAL</span><span>$${total}</span></div>
+    </div>
+    <div class="dash"></div>
+    <div class="barcode">${barcodeSVG}</div>
+    <div class="tagline-footer">"this receipt doesn't lie"</div>
+    <div class="brand-footer">made with 🤍 by <a href="https://ledgerandspark.com">Ledger & Spark</a></div>
+  `;
+}
+
+/* ── Barcode generator ── */
+function generateBarcode() {
+  let bars = '';
+  let x = 0;
+  for (let i = 0; i < 60; i++) {
+    const w = Math.random() > 0.5 ? 2 : 1;
+    if (Math.random() > 0.35) {
+      bars += `<rect x="${x}" y="0" width="${w}" height="36" fill="#1e293b"/>`;
+    }
+    x += w + 1;
+  }
+  return `<svg viewBox="0 0 ${x} 36" xmlns="http://www.w3.org/2000/svg">${bars}</svg>`;
+}
+
+/* ── Download as PNG ── */
+downloadBtn.addEventListener('click', () => {
+  const wrap = document.getElementById('receiptWrap');
+  const scale = 3; // high-res
+  const canvas = document.getElementById('exportCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // Measure the receipt wrap
+  const rect = wrap.getBoundingClientRect();
+  canvas.width = rect.width * scale;
+  canvas.height = rect.height * scale;
+  ctx.scale(scale, scale);
+
+  // Draw background
+  ctx.fillStyle = '#fffef7';
+  ctx.fillRect(0, 0, rect.width, rect.height);
+
+  // Use html2canvas-like approach: render to foreign object SVG
+  const data = new XMLSerializer().serializeToString(wrap);
+  const svgStr = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="${rect.width}" height="${rect.height}">
+      <foreignObject width="100%" height="100%">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          ${getStyledClone(wrap)}
+        </div>
+      </foreignObject>
+    </svg>`;
+
+  const img = new Image();
+  const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+
+  img.onload = () => {
+    ctx.drawImage(img, 0, 0, rect.width, rect.height);
+    URL.revokeObjectURL(url);
+
+    // Download
+    const link = document.createElement('a');
+    link.download = `vibe-receipt-${currentCat}-${Date.now()}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  };
+
+  img.onerror = () => {
+    // Fallback: manual canvas rendering
+    URL.revokeObjectURL(url);
+    renderReceiptToCanvas(canvas, ctx, scale, rect);
+  };
+
+  img.src = url;
+});
+
+/* ── Fallback canvas renderer ── */
+function renderReceiptToCanvas(canvas, ctx, scale, rect) {
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.scale(scale, scale);
+  const cat = DATA[currentCat];
+  const w = rect.width;
+  const pad = 28;
+
+  // Background
+  ctx.fillStyle = '#fffef7';
+  ctx.fillRect(0, 0, w, rect.height);
+
+  // Tear edge top
+  drawTearEdge(ctx, w, 0, true);
+
+  let y = 24;
+
+  // Store name
+  ctx.fillStyle = '#1e293b';
+  ctx.font = 'bold 20px "Courier Prime", monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('THE VIBE STORE', w/2, y += 20);
+  ctx.font = '11px "Courier Prime", monospace';
+  ctx.fillStyle = '#64748b';
+  ctx.fillText('est. 2026 — no refunds on truth', w/2, y += 16);
+  ctx.font = 'bold 13px "Courier Prime", monospace';
+  ctx.fillStyle = '#1e293b';
+  ctx.fillText(`— ${cat.title} —`, w/2, y += 18);
+
+  // Dash
+  y += 8;
+  drawDash(ctx, pad, w - pad, y);
+  y += 12;
+
+  // Meta
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
+  const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+  const receiptNo = String(Math.floor(1000 + Math.random() * 9000));
+  ctx.font = '10px "Courier Prime", monospace';
+  ctx.fillStyle = '#64748b';
+  ctx.textAlign = 'left';
+  ctx.fillText(`RCPT #${receiptNo}`, pad, y);
+  ctx.textAlign = 'right';
+  ctx.fillText(`${dateStr} ${timeStr}`, w - pad, y);
+  y += 6;
+
+  drawDash(ctx, pad, w - pad, y);
+  y += 14;
+
+  // Items
+  ctx.textAlign = 'left';
+  const subtotal = answers.reduce((s, a) => s + a.score, 0);
+  answers.forEach((a, i) => {
+    ctx.font = '11px "Courier Prime", monospace';
+    ctx.fillStyle = '#1e293b';
+    ctx.textAlign = 'left';
+    ctx.fillText(cat.labels[i], pad, y);
+    ctx.textAlign = 'right';
+    ctx.font = 'bold 11px "Courier Prime", monospace';
+    ctx.fillText(a.text, w - pad, y);
+    y += 18;
+  });
+
+  y += 2;
+  drawDash(ctx, pad, w - pad, y);
+  y += 14;
+
+  // Totals
+  const chaosTax = +(Math.random() * 2 + 0.5).toFixed(2);
+  const total = (subtotal + chaosTax).toFixed(2);
+
+  ctx.font = '11px "Courier Prime", monospace';
+  ctx.fillStyle = '#1e293b';
+  ctx.textAlign = 'left';
+  ctx.fillText('SUBTOTAL', pad, y);
+  ctx.textAlign = 'right';
+  ctx.fillText(`${subtotal}.00`, w - pad, y);
+  y += 16;
+  ctx.textAlign = 'left';
+  ctx.fillText('CHAOS TAX', pad, y);
+  ctx.textAlign = 'right';
+  ctx.fillText(`${chaosTax}`, w - pad, y);
+  y += 8;
+  drawDash(ctx, pad, w - pad, y);
+  y += 14;
+  ctx.font = 'bold 14px "Courier Prime", monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText('VIBE TOTAL', pad, y);
+  ctx.textAlign = 'right';
+  ctx.fillText(`$${total}`, w - pad, y);
+  y += 10;
+  drawDash(ctx, pad, w - pad, y);
+  y += 18;
+
+  // Barcode
+  drawBarcode(ctx, w/2 - 90, y, 180, 32);
+  y += 42;
+
+  // Tagline
+  ctx.font = 'italic 10px "Courier Prime", monospace';
+  ctx.fillStyle = '#94a3b8';
+  ctx.textAlign = 'center';
+  ctx.fillText('"this receipt doesn\'t lie"', w/2, y);
+  y += 16;
+
+  // Brand
+  ctx.font = '9px Inter, sans-serif';
+  ctx.fillStyle = '#94a3b8';
+  ctx.fillText('made with love by Ledger & Spark', w/2, y);
+
+  // Download
+  const link = document.createElement('a');
+  link.download = `vibe-receipt-${currentCat}-${Date.now()}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+function drawDash(ctx, x1, x2, y) {
+  ctx.setLineDash([4, 4]);
+  ctx.strokeStyle = '#ccc';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(x1, y);
+  ctx.lineTo(x2, y);
+  ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+function drawTearEdge(ctx, w, y, top) {
+  const size = 6;
+  ctx.fillStyle = '#FAFBFE';
+  for (let x = 0; x < w; x += size * 2) {
+    ctx.beginPath();
+    if (top) {
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + size, y + size);
+      ctx.lineTo(x + size * 2, y);
+    } else {
+      ctx.moveTo(x, y + size);
+      ctx.lineTo(x + size, y);
+      ctx.lineTo(x + size * 2, y + size);
+    }
+    ctx.fill();
+  }
+}
+
+function drawBarcode(ctx, x, y, w, h) {
+  let bx = x;
+  for (let i = 0; i < 60; i++) {
+    const bw = Math.random() > 0.5 ? 2.5 : 1.2;
+    if (Math.random() > 0.35) {
+      ctx.fillStyle = '#1e293b';
+      ctx.fillRect(bx, y, bw, h);
+    }
+    bx += bw + 1.2;
+    if (bx > x + w) break;
+  }
+}
+
+/* ── Helper: get styled HTML string for SVG foreignObject ── */
+function getStyledClone(el) {
+  const clone = el.cloneNode(true);
+  // Inline all computed styles
+  const allEls = [clone, ...clone.querySelectorAll('*')];
+  const origEls = [el, ...el.querySelectorAll('*')];
+  allEls.forEach((cloneEl, i) => {
+    if (i < origEls.length) {
+      const computed = window.getComputedStyle(origEls[i]);
+      let style = '';
+      for (let j = 0; j < computed.length; j++) {
+        const prop = computed[j];
+        style += `${prop}:${computed.getPropertyValue(prop)};`;
+      }
+      cloneEl.setAttribute('style', style);
+    }
+  });
+  return clone.outerHTML;
+}
+
+/* ── Restart ── */
+restartBtn.addEventListener('click', () => {
+  currentCat = null;
+  currentQ = 0;
+  answers = [];
+  showScreen(homeScreen);
+});
+</script>
+</body>
+</html>
