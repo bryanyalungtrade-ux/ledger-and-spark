@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Build a Link-in-Bio Page Without Paying for Linktree — Ledger & Spark</title>
+<meta name="description" content="Stop paying $24/month for Linktree Pro. Build a free link-in-bio page in under 2 minutes with zero coding. Free linktree alternative for creators.">
+<meta name="keywords" content="free link in bio, linktree alternative, free bio page, link in bio generator, free linktree, creator tools">
+<meta property="og:title" content="How to Build a Link-in-Bio Page Without Paying for Linktree — Ledger & Spark">
+<meta property="og:description" content="Stop paying $24/month for Linktree Pro. Build a free link-in-bio page in under 2 minutes with zero coding.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://bryanyalungtrade-ux.github.io/ledger-and-spark/blog/free-link-in-bio-page-no-linktree.html">
+<meta property="og:image" content="/images/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Build a Link-in-Bio Page Without Paying for Linktree — Ledger & Spark">
+<meta name="twitter:description" content="Stop paying $24/month for Linktree Pro. Build a free link-in-bio page in under 2 minutes with zero coding.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+/* ── ARTICLE STYLES ── */
+.article-wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.2rem 4rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  transition: gap 0.2s;
+}
+
+.back-link:hover { gap: 0.7rem; }
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.article-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.article-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  padding: 0.2rem 0.7rem;
+  border-radius: 100px;
+  margin-bottom: 1rem;
+}
+
+.article-wrapper h1 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.article-wrapper h2 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.article-wrapper p {
+  font-size: 1.02rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+}
+
+.article-wrapper ul, .article-wrapper ol {
+  margin: 1rem 0 1.5rem 1.5rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.article-wrapper li {
+  margin-bottom: 0.5rem;
+  font-size: 1.02rem;
+}
+
+.article-wrapper strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.article-wrapper hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 2.5rem 0;
+}
+
+.article-wrapper em {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.article-cta {
+  background: var(--bg-card);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  margin: 3rem 0 2rem;
+}
+
+.article-cta h3 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.article-cta p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.2rem;
+}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWXP5XWY6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWXP5XWY6P');
+</script>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Ledger <span class="logo-ampersand">&</span> Spark</a>
+    <div class="nav-links" id="navLinks">
+      <a href="../index.html">Home</a>
+      <a href="../products.html">Products</a>
+      <a href="../free-tools.html">Free Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../blog.html" class="active">Blog</a>
+      <a href="../free-tools.html" class="nav-cta">Free Tools</a>
+    </div>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── ARTICLE ── -->
+<section style="background:var(--bg-primary);padding-top:8rem;">
+  <div class="article-wrapper">
+
+    <a href="../blog.html" class="back-link">&larr; Back to Blog</a>
+
+    <span class="article-tag">Creator Tools</span>
+    <h1 class="reveal">How to Build a Link-in-Bio Page Without Paying for Linktree</h1>
+
+    <div class="article-meta reveal">
+      <span>Ledger &amp; Spark</span>
+      <span>&#x2022;</span>
+      <span>March 2026</span>
+      <span>&#x2022;</span>
+      <span>7 min read</span>
+    </div>
+
+    <hr>
+
+    <p class="reveal">Real talk: Linktree charges up to $24/month for features you can get for free. That's $288 a year. For a page with some links on it.</p>
+
+    <p class="reveal">We're not hating on Linktree. They built something cool. But paying a monthly subscription for what is basically a list of buttons? In 2026? Nah.</p>
+
+    <p class="reveal">Let's build you a link-in-bio page that looks just as good (honestly, better), works on every device, and costs you exactly $0. Forever.</p>
+
+    <hr>
+
+    <h2 class="reveal">Why You Even Need a Link-in-Bio Page</h2>
+
+    <p class="reveal">If you're on TikTok, Instagram, YouTube, or Twitter, you get <strong>one link</strong> in your bio. One. That's it.</p>
+
+    <p class="reveal">But you probably have way more than one thing to share:</p>
+
+    <ul class="reveal">
+      <li>Your latest video or post</li>
+      <li>Your merch shop</li>
+      <li>A collab or brand deal</li>
+      <li>Your other social accounts</li>
+      <li>A freebie or download</li>
+      <li>Your email or contact info</li>
+    </ul>
+
+    <p class="reveal">A link-in-bio page solves that. It's one URL that leads to all your important links. When someone taps that link in your bio, they see everything in one clean page.</p>
+
+    <hr>
+
+    <h2 class="reveal">What Linktree Charges (and What You Actually Get)</h2>
+
+    <p class="reveal">Let's break down Linktree's pricing real quick:</p>
+
+    <ul class="reveal">
+      <li><strong>Free tier:</strong> Basic page, limited customization, Linktree branding everywhere</li>
+      <li><strong>Starter ($5/mo):</strong> Remove branding, basic analytics</li>
+      <li><strong>Pro ($9/mo):</strong> Custom themes, email collection, scheduling</li>
+      <li><strong>Premium ($24/mo):</strong> Priority support, advanced analytics, custom CSS</li>
+    </ul>
+
+    <p class="reveal">So to get a page that actually looks like <em>yours</em> and not like a Linktree ad, you're paying $5-$24 every single month.</p>
+
+    <p class="reveal">Here's the thing: <strong>you don't need any of that.</strong></p>
+
+    <hr>
+
+    <h2 class="reveal">The Free Alternative (Takes 2 Minutes)</h2>
+
+    <p class="reveal">We built a <a href="../../products/link_in_bio/index.html" style="color:var(--accent);font-weight:600;">free Link-in-Bio Generator</a> that does everything the paid tiers do. No signup. No email gate. No "upgrade to unlock." Just open it and build your page.</p>
+
+    <p class="reveal">Here's exactly how it works:</p>
+
+    <h2 class="reveal">Step 1: Add Your Info</h2>
+
+    <p class="reveal">Open the generator and type in your name (or your brand name) and a short bio line. Something like "beauty tips + honest reviews" or "helping you cook better for less." Keep it short. This shows up at the top of your page.</p>
+
+    <h2 class="reveal">Step 2: Add Your Links</h2>
+
+    <p class="reveal">Click "Add Link" and drop in your URLs. Each link gets a title and a URL. Add as many as you want. The most common ones creators add:</p>
+
+    <ul class="reveal">
+      <li>Latest YouTube video</li>
+      <li>TikTok profile</li>
+      <li>Instagram</li>
+      <li>Merch or shop link</li>
+      <li>Email signup or freebie</li>
+      <li>Collab inquiry form</li>
+      <li>Podcast or Spotify</li>
+    </ul>
+
+    <p class="reveal"><strong>Pro tip:</strong> Put your most important link first. That's what gets clicked the most. If you just dropped a new video, that goes on top.</p>
+
+    <h2 class="reveal">Step 3: Pick a Style</h2>
+
+    <p class="reveal">Choose from clean, pre-built themes that actually look good on mobile. No graphic design degree required. The themes are designed to load fast, look sharp on any phone, and match the vibe of most creator brands.</p>
+
+    <p class="reveal">Unlike Linktree's free tier, you're not stuck with their logo plastered on your page. Your page looks like <em>your</em> page.</p>
+
+    <h2 class="reveal">Step 4: Export and Use It</h2>
+
+    <p class="reveal">Hit the export button. You get a clean HTML file that you can host anywhere for free. Drop it on GitHub Pages, Netlify, or any free hosting. Copy the URL and paste it into your TikTok, Instagram, Twitter, or YouTube bio.</p>
+
+    <p class="reveal">That's it. You now have a link-in-bio page that would cost $24/month on Linktree, and you paid nothing.</p>
+
+    <hr>
+
+    <h2 class="reveal">Free vs. Paid: What You're Actually Getting</h2>
+
+    <p class="reveal">Let's compare what you get with our free tool versus Linktree's paid plans:</p>
+
+    <ul class="reveal">
+      <li><strong>Unlimited links:</strong> Free (Linktree free tier limits customization)</li>
+      <li><strong>Custom themes:</strong> Free (Linktree charges $9/mo for this)</li>
+      <li><strong>No platform branding:</strong> Free (Linktree charges $5/mo to remove theirs)</li>
+      <li><strong>Mobile-optimized:</strong> Free (Linktree has this, but you're still paying)</li>
+      <li><strong>No monthly fee:</strong> $0 forever (vs. $60-$288/year on Linktree)</li>
+    </ul>
+
+    <p class="reveal">The only thing Linktree gives you that we don't? Built-in analytics. But honestly, if you host your page on GitHub Pages, you can add free analytics with Google Analytics in about 30 seconds.</p>
+
+    <hr>
+
+    <h2 class="reveal">5 Tips to Make Your Bio Page Actually Convert</h2>
+
+    <p class="reveal">Having a link-in-bio page is step one. Making it <em>work</em> is step two. Here's how to make people actually click your links:</p>
+
+    <ol class="reveal">
+      <li><strong>Keep it to 5-7 links max.</strong> More than that and people get choice paralysis. They click nothing instead of something.</li>
+      <li><strong>Use action words in link titles.</strong> Don't say "YouTube." Say "Watch my latest video." Don't say "Shop." Say "Grab my merch (limited drop)."</li>
+      <li><strong>Put time-sensitive stuff first.</strong> New video? Giveaway? Limited collab? Top of the page. Always.</li>
+      <li><strong>Update it regularly.</strong> A bio page from 3 months ago with dead links kills trust instantly. Swap links when you drop new content.</li>
+      <li><strong>Match your vibe.</strong> If your content is funny and chaotic, your bio page shouldn't look like a corporate website. Pick a theme that feels like you.</li>
+    </ol>
+
+    <hr>
+
+    <h2 class="reveal">Why We Made This Free</h2>
+
+    <p class="reveal">We make money from sponsors, not from you. That's why everything is free.</p>
+
+    <p class="reveal">We think charging creators $24/month for a page of links is wild. Especially when you're just starting out and every dollar matters. So we built a free version that does the same thing.</p>
+
+    <p class="reveal">No email gate. No "premium tier." No upgrade popups. Just a tool that works.</p>
+
+    <hr>
+
+    <h2 class="reveal">Go Build Your Page</h2>
+
+    <p class="reveal">It takes about 2 minutes. Open the <a href="../../products/link_in_bio/index.html" style="color:var(--accent);font-weight:600;">Link-in-Bio Generator</a>, add your links, pick a style, and export. Done.</p>
+
+    <p class="reveal">Then paste that URL in your bio and stop giving Linktree $24/month for something that should've been free from the start.</p>
+
+    <hr>
+
+    <p><em>Ledger &amp; Spark — Free tools. No catch. Built because you asked.</em></p>
+
+    <div class="article-cta reveal">
+      <h3>Build your free link-in-bio page now</h3>
+      <p>No signup. No email. No cost. Just open it and go.</p>
+      <a href="../../products/link_in_bio/index.html" class="btn-primary">Open Link-in-Bio Generator</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.25rem;">Ledger <span class="logo-ampersand">&</span> Spark</div>
+        <p>Free tools for content creators, students, and young professionals. Everything's free — we make money from sponsors, not from you.</p>
+        <div class="footer-social">
+          <a href="mailto:ledgerandspark@outlook.com" aria-label="Email" title="Email">&#x2709;</a>
+          <a href="https://tiktok.com/@ledgerandspark" target="_blank" aria-label="TikTok" title="TikTok">T</a>
+          <a href="https://instagram.com/ledgerandspark" target="_blank" aria-label="Instagram" title="Instagram">I</a>
+          <a href="https://youtube.com/@ledgerandspark" target="_blank" aria-label="YouTube" title="YouTube">Y</a>
+          <a href="https://twitter.com/ledgerandspark" target="_blank" aria-label="Twitter/X" title="Twitter/X">X</a>
+          <a href="https://pinterest.com/ledgerandspark" target="_blank" aria-label="Pinterest" title="Pinterest">P</a>
+          <a href="https://linkedin.com/company/ledgerandspark" target="_blank" aria-label="LinkedIn" title="LinkedIn">L</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../products.html">Products</a></li>
+          <li><a href="../free-tools.html">Free Tools</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../blog.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="../free-tools.html">Free Tools</a></li>
+          <li><a href="../products.html">All Products</a></li>
+          <li><a href="mailto:ledgerandspark@outlook.com">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:ledgerandspark@outlook.com">Email Us</a></li>
+          <li><a href="mailto:ledgerandspark@outlook.com?subject=Sponsorship%20Inquiry">Sponsorship Inquiries</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Ledger & Spark. All rights reserved.</p>
+      <p>Built with precision by Ledger &amp; Spark.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── NAV SCROLL ──
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── MOBILE NAV ──
+const mobileToggle = document.getElementById('mobileToggle');
+const navLinks = document.getElementById('navLinks');
+mobileToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  mobileToggle.classList.toggle('active');
+});
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    mobileToggle.classList.remove('active');
+  });
+});
+
+// ── SCROLL REVEAL ──
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>
